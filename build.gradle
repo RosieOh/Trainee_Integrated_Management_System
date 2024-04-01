@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.1.6'
+    id 'org.springframework.boot' version '3.2.4'
     id 'io.spring.dependency-management' version '1.1.4'
 }
 
@@ -21,10 +21,8 @@ repositories {
     mavenCentral()
 }
 
-
 dependencies {
     implementation 'org.apache.tomcat.embed:tomcat-embed-jasper' // 추가
-    implementation group: 'org.glassfish.web', name: 'jakarta.servlet.jsp.jstl', version: '2.0.0'
     implementation 'org.springframework.boot:spring-boot-starter-tomcat'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -33,10 +31,20 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-mail'
     implementation 'org.projectlombok:lombok:1.18.28'
     implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+    // 아래 aws는 승인 나면 활용 예정
+//    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 
-    // JSP 사용 시 필수 요소 들
-    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper' // 추가
-    implementation group: 'org.glassfish.web', name: 'jakarta.servlet.jsp.jstl', version: '2.0.0'
+    implementation 'io.micrometer:micrometer-registry-prometheus'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'io.micrometer:micrometer-core'
+
+    //jwt
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+    implementation 'com.google.code.gson:gson'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
+    implementation 'org.commonmark:commonmark:0.21.0'
+
     // implementation 'commons-io:commons-io'
     implementation 'com.querydsl:querydsl-apt'
     implementation 'com.querydsl:querydsl-core'
@@ -66,7 +74,6 @@ dependencies {
 tasks.named('bootBuildImage') {
     builder = 'paketobuildpacks/builder-jammy-base:latest'
 }
-
 tasks.named('test') {
     useJUnitPlatform()
 }
