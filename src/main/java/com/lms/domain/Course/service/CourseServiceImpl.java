@@ -3,6 +3,8 @@ package com.lms.domain.Course.service;
 import com.lms.domain.Course.dto.CourseDTO;
 import com.lms.domain.Course.entity.Course;
 import com.lms.domain.Course.repository.CourseRepository;
+import com.lms.domain.member.dto.MemberDTO;
+import com.lms.domain.member.entity.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
@@ -27,6 +29,13 @@ public class CourseServiceImpl implements CourseService {
                         course -> modelMapper.map(course,CourseDTO.class))
                 .collect(Collectors.toList());
         return courseDTOList;
+    }
+
+    @Override
+    public CourseDTO course_One(Integer no) {
+        Optional<Course> course = courseRepository.findById(no);
+        CourseDTO courseDTO = modelMapper.map(course, CourseDTO.class);
+        return courseDTO;
     }
 
     @Override

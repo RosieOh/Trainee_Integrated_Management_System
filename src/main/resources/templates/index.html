@@ -30,6 +30,8 @@
               <th>name</th>
               <th>gender</th>
               <th>phone</th>
+              <th>cno</th>
+              <th>cno</th>
             </tr>
           </thead>
           <tbody>
@@ -38,6 +40,7 @@
               <td th:text="${member.name}"></td>
               <td th:text="${member.gender}"></td>
               <td th:text="${member.phone}"></td>
+<!--              <td th:text="${member.courseDTO.getNo()}"></td>-->
             </tr>
           </tbody>
         </table>
@@ -64,6 +67,29 @@
           </tbody>
         </table>
       </div>
+
+<!--      <div>-->
+<!--        <h2>voList</h2>-->
+<!--        <table>-->
+<!--          <thead>-->
+<!--          <tr>-->
+<!--            <th>과정</th>-->
+<!--            <th>기수</th>-->
+<!--            <th>대표강사</th>-->
+<!--            <th>담당 매니저</th>-->
+<!--          </tr>-->
+<!--          </thead>-->
+<!--          <tbody>-->
+<!--          <tr th:each="vo, about :${voList}">-->
+<!--            <td th:text="${vo.getManager()}"></td>-->
+<!--            <td th:text="${vo.flag}"></td>-->
+<!--            <td th:text="${vo.instructor}"></td>-->
+<!--            <td th:text="${vo.manager}"></td>-->
+<!--          </tr>-->
+<!--          </tbody>-->
+<!--        </table>-->
+<!--      </div>-->
+
     </div>
   </body>
 </html>
