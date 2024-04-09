@@ -15,7 +15,7 @@ public class Course extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long no;     // 기본키
+    private Integer no;     // 기본키
 
     @Enumerated(EnumType.STRING)
     private Subject subject;        //과정
