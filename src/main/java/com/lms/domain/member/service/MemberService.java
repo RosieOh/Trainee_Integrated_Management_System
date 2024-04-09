@@ -1,6 +1,6 @@
 package com.lms.domain.member.service;
 
-import com.lms.domain.member.dto.MemberJoinDTO;
+import com.lms.domain.member.dto.MemberDTO;
 import com.lms.domain.member.entity.Member;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -8,19 +8,18 @@ import java.util.List;
 
 public interface MemberService {
 
-    public List<MemberJoinDTO> memberList();
-
+    public List<MemberDTO> memberList();
     public PasswordEncoder passwordEncoder();
-    public MemberJoinDTO getEmail(String email);
-    public void memberInsert(MemberJoinDTO memberJoinDTO);
+    public MemberDTO getEmail(String email);
+    public void memberInsert(MemberDTO memberDTO);
     public Member LoginEmail(String email);
-    public void memberUpdate(MemberJoinDTO memberJoinDTO);
-    public void stateUpdate(MemberJoinDTO memberJoinDTO);
-    public void roleUpdate(MemberJoinDTO memberJoinDTO);
+    public void memberUpdate(MemberDTO memberDTO);
+    public void stateUpdate(MemberDTO memberDTO);
+    public void roleUpdate(MemberDTO memberDTO);
     public void memberDelete(Long id);
     public int loginPro(String email);
     public boolean idCheck(String email);
-    public void memberChangePw(MemberJoinDTO memberJoinDTO);
+    public void memberChangePw(MemberDTO memberDTO);
 
     // 고정 아이디 생성
     void createAdminMember();

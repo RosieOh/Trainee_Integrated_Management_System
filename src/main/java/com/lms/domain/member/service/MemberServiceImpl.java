@@ -1,6 +1,6 @@
 package com.lms.domain.member.service;
 
-import com.lms.domain.member.dto.MemberJoinDTO;
+import com.lms.domain.member.dto.MemberDTO;
 import com.lms.domain.member.entity.Member;
 import com.lms.domain.member.repository.MemberRepository;
 import com.lms.global.cosntant.Role;
@@ -8,7 +8,6 @@ import com.lms.global.cosntant.Status;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +25,7 @@ public class MemberServiceImpl implements MemberService{
 
     private final MemberRepository memberRepository;
 
-    private final BCryptPasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void createAdminMember() {
@@ -39,7 +38,7 @@ public class MemberServiceImpl implements MemberService{
                     .email("admin@chunjaeIT.co.kr")
                     .role(Role.ADMIN)
                     .status(Status.ACTIVE)
-                    .tel("02-3282-8589")
+                    .phone("02-3282-8589")
                     .build();
 
             memberRepository.save(admin);
@@ -61,29 +60,29 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public List<MemberJoinDTO> memberList() {
+    public List<MemberDTO> memberList() {
         List<Member> memberList = memberRepository.findAll();
-        List<MemberJoinDTO> memberJoinDTOList = memberList.stream().map(
-                member -> modelMapper.map(member,MemberJoinDTO.class))
+        List<MemberDTO> memberDTOList = memberList.stream().map(
+                member -> modelMapper.map(member,MemberDTO.class))
                 .collect(Collectors.toList());
-        return memberJoinDTOList;
+        return memberDTOList;
     }
 
     @Override
-    public MemberJoinDTO getEmail(String email) {
+    public MemberDTO getEmail(String email) {
         Member member = memberRepository.getEmail(email);
-        MemberJoinDTO memberJoinDTO = modelMapper.map(member, MemberJoinDTO.class);
-        return memberJoinDTO;
+        MemberDTO memberDTO = modelMapper.map(member, MemberDTO.class);
+        return memberDTO;
     }
 
 
     @Override
-    public void memberInsert(MemberJoinDTO memberJoinDTO) {
-        String password = passwordEncoder.encode(memberJoinDTO.getPw());
-        memberJoinDTO.setPw(password);
-        memberJoinDTO.setRole(Role.STUDENT);
-        memberJoinDTO.setStatus(Status.ACTIVE);
-        Member member = modelMapper.map(memberJoinDTO, Member.class);
+    public void memberInsert(MemberDTO memberDTO) {
+        String password = passwordEncoder.encode(memberDTO.getPw());
+        memberDTO.setPw(password);
+        memberDTO.setRole(Role.STUDENT);
+        memberDTO.setStatus(Status.ACTIVE);
+        Member member = modelMapper.map(memberDTO, Member.class);
         memberRepository.save(member);
     }
 
@@ -94,26 +93,26 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public void memberUpdate(MemberJoinDTO memberJoinDTO) {
-        Optional<Member> member = memberRepository.getMember(memberJoinDTO.getEmail());
+    public void memberUpdate(MemberDTO memberDTO) {
+        Optional<Member> member = memberRepository.getMember(memberDTO.getEmail());
         Member member1 = member.orElseThrow();
-        member1.change(memberJoinDTO);
+        member1.change(memberDTO);
         memberRepository.save(member1);
     }
 
     @Override
-    public void stateUpdate(MemberJoinDTO memberJoinDTO) {
-        Optional<Member> member = memberRepository.getMember(memberJoinDTO.getEmail());
+    public void stateUpdate(MemberDTO memberDTO) {
+        Optional<Member> member = memberRepository.getMember(memberDTO.getEmail());
         Member member1 = member.orElseThrow();
-        member1.stateUpdate(memberJoinDTO);
+        member1.stateUpdate(memberDTO);
         memberRepository.save(member1);
     }
 
     @Override
-    public void roleUpdate(MemberJoinDTO memberJoinDTO) {
-        Optional<Member> member = memberRepository.getMember(memberJoinDTO.getEmail());
+    public void roleUpdate(MemberDTO memberDTO) {
+        Optional<Member> member = memberRepository.getMember(memberDTO.getEmail());
         Member member1 = member.orElseThrow();
-        member1.roleUpdate(memberJoinDTO);
+        member1.roleUpdate(memberDTO);
         memberRepository.save(member1);
     }
 
@@ -154,10 +153,10 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public void memberChangePw(MemberJoinDTO memberJoinDTO) {
-        String password = passwordEncoder.encode(memberJoinDTO.getPw());
-        memberJoinDTO.setPw(password);
-        Member member = modelMapper.map(memberJoinDTO, Member.class);
+    public void memberChangePw(MemberDTO memberDTO) {
+        String password = passwordEncoder.encode(memberDTO.getPw());
+        memberDTO.setPw(password);
+        Member member = modelMapper.map(memberDTO, Member.class);
         memberRepository.save(member);
     }
 

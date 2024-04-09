@@ -3,6 +3,6 @@ package com.lms.global.cosntant;
 import lombok.Getter;
 
 @Getter
-public enum Course {
-    FULLSTACK, BIGDATA, PM
+public enum Subject {
+    BIGDATA, FULLSTACK, PM
 }

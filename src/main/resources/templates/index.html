@@ -1,0 +1,69 @@
+<!doctype html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+            content="minimum-scale=1.0, width=device-width, maximum-scale=1, ser-scalable=no"
+            name="viewport"
+    />
+    <title>천재IT교육센터</title>
+    <style>
+      tr, th, td {
+        border: 1px solid black;
+        height: 30px;
+        width: 200px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main" >
+      <h2>Index Start</h2>
+      <div>
+        <h2>Member</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>name</th>
+              <th>gender</th>
+              <th>phone</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="member, about :${memberList}">
+              <td th:text="${member.email}"></td>
+              <td th:text="${member.name}"></td>
+              <td th:text="${member.gender}"></td>
+              <td th:text="${member.phone}"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <h2>Course</h2>
+        <table>
+          <thead>
+          <tr>
+            <th>과정</th>
+            <th>기수</th>
+            <th>대표강사</th>
+            <th>담당 매니저</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="course, about :${courseList}">
+            <td th:text="${course.subject}"></td>
+            <td th:text="${course.flag}"></td>
+            <td th:text="${course.instructor}"></td>
+            <td th:text="${course.manager}"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

@@ -26,8 +26,8 @@ import java.util.List;
 public class AuthProvider implements AuthenticationProvider {
 
     private final MemberService memberService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
+
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {

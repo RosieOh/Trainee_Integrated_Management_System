@@ -45,7 +45,7 @@
 - style: Code formatting, missing semicolons, cases where no code change is involved
 - refactor: Code refactoring
 - test: Test code, adding refactoring tests
-  -hore: Build task updates, package manager updates
+- chore: Build task updates, package manager updates
 
 ## 💡 PR/Commit Emoji Convetion
 
