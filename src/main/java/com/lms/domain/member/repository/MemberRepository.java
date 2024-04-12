@@ -40,7 +40,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query("select m from Member m where m.email = :email")
     Optional<Member> getMember(@Param("email") String email);
 
-    @Query("select l from Member l where l.no = :no")
-    List<MemberVO> voList(Integer no);
+
+    @Query("select l from Member l where l.course.no = :cno")
+    List<Member> voList2(Integer cno);
 
 }

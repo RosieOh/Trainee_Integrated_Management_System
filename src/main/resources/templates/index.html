@@ -68,28 +68,36 @@
         </table>
       </div>
 
-<!--      <div>-->
-<!--        <h2>voList</h2>-->
-<!--        <table>-->
-<!--          <thead>-->
-<!--          <tr>-->
-<!--            <th>과정</th>-->
-<!--            <th>기수</th>-->
-<!--            <th>대표강사</th>-->
-<!--            <th>담당 매니저</th>-->
-<!--          </tr>-->
-<!--          </thead>-->
-<!--          <tbody>-->
-<!--          <tr th:each="vo, about :${voList}">-->
-<!--            <td th:text="${vo.getManager()}"></td>-->
-<!--            <td th:text="${vo.flag}"></td>-->
-<!--            <td th:text="${vo.instructor}"></td>-->
-<!--            <td th:text="${vo.manager}"></td>-->
-<!--          </tr>-->
-<!--          </tbody>-->
-<!--        </table>-->
-<!--      </div>-->
+      <div>
+        <h2>MemberVO</h2>
+        <table>
+          <thead>
+          <tr>
+            <th>이름</th>
+            <th>이름2</th>
+            <th>이메일</th>
+            <th>이메일2</th>
+            <th>Course</th>
+            <th>member.course.subject</th>
+            <th>member.course.flag</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="member, about :${memberVOList}">
+            <td th:text="${member.name}"></td>
+            <td th:text="${member.getName()}"></td>
+            <td th:text="${member.email}"></td>
+            <td th:text="${member.getEmail()}"></td>
+            <td th:text="${member.course}"></td>
+            <td th:text="${member.course.subject}"></td>
+            <td th:text="${member.course.flag}"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
 
+      <a th:href="@{/course}">강의추가</a>
+      <a th:href="@{/join}">회원가입</a>
     </div>
   </body>
 </html>

@@ -1,6 +1,7 @@
 package com.lms.domain.member.service;
 
 import com.lms.domain.member.dto.MemberDTO;
+import com.lms.domain.member.dto.MemberVO;
 import com.lms.domain.member.entity.Member;
 import com.lms.domain.member.repository.MemberRepository;
 import com.lms.global.cosntant.Role;
@@ -160,4 +161,10 @@ public class MemberServiceImpl implements MemberService{
         memberRepository.save(member);
     }
 
+
+    @Override
+    public List<Member> memberVOList2(Integer cno) {
+        List<Member> memberList = memberRepository.voList2(cno);
+        return memberList;
+    }
 }

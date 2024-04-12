@@ -1,0 +1,37 @@
+<!doctype html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+            content="minimum-scale=1.0, width=device-width, maximum-scale=1, ser-scalable=no"
+            name="viewport"
+    />
+    <title>회원가입</title>
+    <style>
+      tr, th, td {
+        border: 1px solid black;
+        height: 30px;
+        width: 200px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main" >
+      <h2>회원가입</h2>
+      <form action="@{/join}" method="post">
+        <input type="email" name="email"/>
+        <input type="text" name="name"/>
+          <th:block th:each="course: ${courseDTOList}">
+          <select name="course" >
+            <option th:value="${course.subject}" th:text="${course.subject}"></option>
+          </select>
+          </th:block>
+
+        <button type="submit">등록</button>
+      </form>
+    </div>
+  </body>
+</html>

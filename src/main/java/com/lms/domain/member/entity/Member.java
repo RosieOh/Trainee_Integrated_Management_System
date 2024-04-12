@@ -5,7 +5,6 @@ import com.lms.domain.member.dto.MemberDTO;
 import com.lms.global.cosntant.BaseEntity;
 import com.lms.global.cosntant.Role;
 import com.lms.global.cosntant.Status;
-import com.lms.global.cosntant.Subject;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -26,12 +25,6 @@ public class Member extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long no;     // 기본키
-
-    private String oauth2Id;
-
-    private String provider;
-
-    private String providerId;
 
     @Column(unique = true, nullable = false)
     private String email;           // 유저가 사용하는 이메일
@@ -54,30 +47,6 @@ public class Member extends BaseEntity {
     @Column(nullable = true)
     private String address;         //주소
 
-    @Column(nullable = true)
-    private String univ;            //대학교
-
-    @Column(nullable = true)
-    private String major;           //학과
-
-    @Column(nullable = true)
-    private String job_program;     //국취참여여부
-
-    @Column(nullable = true)
-    private String fund;            //지원센터
-
-    @Column(nullable = true)
-    private String cert;            //수료증번호
-
-    @Column(nullable = true)
-    private String picture;         //프로필 사진
-
-    @Column(nullable = true)
-    private String complete;        //수료여부
-
-    @Enumerated(EnumType.STRING)
-    private Subject subject;        //과정
-
     @Enumerated(EnumType.STRING)
     private Status status;          //회원 활동상태
 
@@ -90,7 +59,7 @@ public class Member extends BaseEntity {
 
     @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @JoinColumn(name = "cno", referencedColumnName = "no")
-    private Course course;      // 강좌 번호
+    private Course course;      // 강의 분류
 
 
     @ElementCollection(fetch = FetchType.EAGER)
@@ -119,4 +88,10 @@ public class Member extends BaseEntity {
         this.provider = provider;
         this.providerId = providerId;
     }
+
+    private String oauth2Id;
+
+    private String provider;
+
+    private String providerId;
 }

@@ -1,6 +1,7 @@
 package com.lms.domain.member.service;
 
 import com.lms.domain.member.dto.MemberDTO;
+import com.lms.domain.member.dto.MemberVO;
 import com.lms.domain.member.entity.Member;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -20,6 +21,7 @@ public interface MemberService {
     public int loginPro(String email);
     public boolean idCheck(String email);
     public void memberChangePw(MemberDTO memberDTO);
+    public List<Member> memberVOList2(Integer cno);
 
     // 고정 아이디 생성
     void createAdminMember();
