@@ -21,14 +21,19 @@
   <body>
     <div class="main" >
       <h2>회원가입</h2>
-      <form action="@{/join}" method="post">
-        <input type="email" name="email"/>
+      <form th:action="@{/joinPro}" method="post">
+        <input type="text" name="email"/>
+        <input type="text" name="pw"/>
         <input type="text" name="name"/>
-          <th:block th:each="course: ${courseDTOList}">
-          <select name="course" >
-            <option th:value="${course.subject}" th:text="${course.subject}"></option>
+        <input type="text" name="gender"/>
+        <input type="text" name="birth"/>
+        <input type="text" name="phone"/>
+        <input type="text" name="address"/>
+          <select name="cno" >
+            <th:block th:each="course: ${courseDTOList}">
+            <option th:value="${course.getNo()}" th:text="${course.subject} + ' '+ ${course.flag} +'기'"></option>
+            </th:block>
           </select>
-          </th:block>
 
         <button type="submit">등록</button>
       </form>

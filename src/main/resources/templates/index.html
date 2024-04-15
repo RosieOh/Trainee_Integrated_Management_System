@@ -9,6 +9,7 @@
             name="viewport"
     />
     <title>천재IT교육센터</title>
+    <th:block th:replace="~{include/head :: head}"></th:block>
     <style>
       tr, th, td {
         border: 1px solid black;
@@ -21,6 +22,12 @@
   <body>
     <div class="main" >
       <h2>Index Start</h2>
+
+      <a th:href="@{/course}">강의추가</a>
+      <a th:href="@{/join}">작동 회원가입</a>
+      <a th:href="@{/memJoin}">회원가입</a>
+      <a th:href="@{/login}">로그인</a>
+
       <div>
         <h2>Member</h2>
         <table>
@@ -40,7 +47,7 @@
               <td th:text="${member.name}"></td>
               <td th:text="${member.gender}"></td>
               <td th:text="${member.phone}"></td>
-<!--              <td th:text="${member.courseDTO.getNo()}"></td>-->
+              <td th:text="${member.course}"></td>
             </tr>
           </tbody>
         </table>
@@ -88,7 +95,7 @@
             <td th:text="${member.getName()}"></td>
             <td th:text="${member.email}"></td>
             <td th:text="${member.getEmail()}"></td>
-            <td th:text="${member.course}"></td>
+            <td th:text="${member.getCourse()}"></td>
             <td th:text="${member.course.subject}"></td>
             <td th:text="${member.course.flag}"></td>
           </tr>
@@ -96,8 +103,7 @@
         </table>
       </div>
 
-      <a th:href="@{/course}">강의추가</a>
-      <a th:href="@{/join}">회원가입</a>
+
     </div>
   </body>
 </html>

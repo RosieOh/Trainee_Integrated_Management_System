@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <body>
+    <th:block th:fragment="header">
+        <nav id="navbar" class="navbar">
+        <div class="container_side">
+          <div class="navbar_box">
+              <a th:href="@{/}" class="nav_logo"><img class="nav_img" th:src="@{/picture/common2/chunjaelogo.svg}" alt="천재교육 logo"></a>
+          <div class="navbar-menu " id="navigation">
+            <ul class="nav-wrap">
+              <li class="nav-content">
+                <a class="nav_link " th:href="@{/}">홈</a>
+              </li>
+              <li class="nav-content">
+                <a class="nav_link " th:href="@{/data}"
+                >AI·데이터 과정</a
+                >
+              </li>
+              <li class="nav-content">
+                <a class="nav_link " th:href="@{/java}"
+                >풀스택 과정</a
+                >
+              </li>
+              <li class="nav-content">
+                <a class="nav_link " th:href="@{/pm}"
+                >PM 과정</a
+                >
+              </li>
+              <th:block sec:authorize="isAnonymous()">
+                <li class="nav-content">
+                  <a th:href="@{/member/login}" class="nav_link ">로그인</a>
+                </li>
+              </th:block>
+              <th:block sec:authorize="isAuthenticated()">
+                <li class="nav-content">
+                  <a class="nav_link " th:href="@{/logout}">로그아웃</a>
+                </li>
+              </th:block>
+                <th:block sec:authorize="hasAnyAuthority('ADMIN', 'MANAGER')">
+                <li class="nav-content nav-dropdown" >
+                    <a class="nav_link" href="#">관리자용
+                        <div id="nav-dropdown">▼</div>
+                    </a>
+                    <ul class="nav-dropdown_wrap" id="nav-dropdown_wrap">
+                        <li class="nav-content">
+                          <a class="nav_link " th:href="@{/adminSubject/list}">
+                            과정신청 관리
+                          </a>
+                        </li>
+                        <li class="nav-content">
+                          <a class="nav_link " th:href="@{/apply/list}">
+                            사전알림 관리
+                          </a>
+                        </li>
+                        <li class="nav-content">
+                          <a class="nav_link " th:href="@{/modifyBoard/list}">
+                            수정요청
+                          </a>
+                        </li>
+                      <li class="nav-content">
+                        <a class="nav_link " th:href="@{/logout}">
+                          로그아웃
+                        </a>
+                      </li>
+                    </ul>
+                </li>
+                </th:block>
+            </ul>
+          </div>
+
+          <script>
+            // navibar burger
+            $(document).ready(function () {
+              var sw = true
+              $("#burger_btn").click(function () {
+                if(sw == true) {
+                  $(".burger").css("display", "block");
+                  sw = false
+                } else {
+                  $(".burger").css("display", "none");
+                  sw = true
+                }
+              });
+            });
+          </script>
+<!--            <button type="button" class="burger_btn" id="burger_btn"><i class="fas fa-bars" style="color: #767bff;"></i></button>-->
+            <button type="button" class="burger_btn" id="burger_btn"><i class="fas fa-bars" style="color: #767bff;"></i></button>
+          </div>
+
+          <div class="burger">
+            <ul class="bugger_wrap">
+              <li>
+                <a class="bugger_link" th:href="@{/}">홈</a>
+              </li>
+              <li>
+                <a class="bugger_link " th:href="@{/data}">AI·데이터 과정</a>
+              </li>
+              <li>
+                <a class="bugger_link " th:href="@{/java}">풀스택 과정</a>
+              </li>
+              <li>
+                <a class="bugger_link " th:href="@{/pm}">PM 과정</a>
+              </li>
+<!--              <li>-->
+<!--                <a class="bugger_link " href="#">천재IT Blog</a>-->
+<!--              </li>-->
+              <th:block sec:authorize="isAnonymous()">
+                <li>
+                  <a class="bugger_link " th:href="@{/member/login}">로그인</a>
+                </li>
+              </th:block>
+              <th:block sec:authorize="isAuthenticated()">
+                <li>
+                  <a class="bugger_link " th:href="@{/logout}">로그아웃</a>
+                </li>
+              </th:block>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      </th:block>
+  </body>
+</html>

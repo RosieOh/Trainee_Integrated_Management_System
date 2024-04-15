@@ -163,8 +163,16 @@ public class MemberServiceImpl implements MemberService{
 
 
     @Override
-    public List<Member> memberVOList2(Integer cno) {
+    public List<MemberDTO> memberVOList2(Integer cno) {
         List<Member> memberList = memberRepository.voList2(cno);
+        List<MemberDTO> memberDTOList = memberList.stream().map(
+                        member -> modelMapper.map(member,MemberDTO.class))
+                .collect(Collectors.toList());
+        return memberDTOList;
+    }
+
+    public List<Member> memberVOList1() {
+        List<Member> memberList = memberRepository.findAll();
         return memberList;
     }
 }

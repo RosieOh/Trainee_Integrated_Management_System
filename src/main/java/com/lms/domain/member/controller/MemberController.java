@@ -68,10 +68,10 @@ public class MemberController {
         }
     }
 
-    @GetMapping("join")
-    public String joinForm(Model model) {
-        return "member/join";
-    }
+//    @GetMapping("join")
+//    public String joinForm(Model model) {
+//        return "member/join";
+//    }
 //
 //    @PostMapping("joinPro")
 //    public String join(Model model, MemberJoinDTO memberJoinDTO) {
