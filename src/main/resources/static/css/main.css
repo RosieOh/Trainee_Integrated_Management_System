@@ -162,14 +162,47 @@
 
 
 /* 로그인 */
-
+.login_loca {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
 .login_box {
+    box-shadow: 0 0 14px -7px black;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    width: 20%;
+    border-radius: 15px;
+    padding: 2em;
+}
+.login_box h1 {
+    font-size: 256%;
+}
+.login_box form {
+    width: 90%;
+}
+
+.login_box label {
+    font-size: 1.25em;
+    margin-bottom: 0.25em;
+    font-weight: bold;
 }
 
 .form-login {
+    margin: 2em 0;
+}
 
+.login_text {
+    text-align: left;
+    font-weight: bold;
+}
+
+.login_btn {
+    padding: 0.75em;
+    font-weight: bold;
 }

@@ -3,11 +3,10 @@
 @import "main.css";
 
 :root {
-  --c-main: rgba(85, 59, 243, 1);
-  --c-sub: rgba(118, 123, 255, 1);
-  --c-sub2: #d8d9ff;
-  --c-sub3: rgba(118, 123, 255, 0.4);
-  --c-hover: #402eb8;
+  --c-main: #99ccff;
+  --c-sub: #6699ff;
+  --c-sub2: #6666ff;
+  --c-hover: #66b3ff;
   --c-back_lightgray: rgba(221, 221, 221, 1);
   --c-back_black: rgba(41, 41, 41, 1);
   --c-back_darkgray: rgba(74, 74, 74, 1);
@@ -343,10 +342,11 @@ textarea:hover, input:hover, select:hover {
 
 
 .button {
-  background-color: var(--c-sub);
-  width: max-content;
+  background-color: var(--c-main);
+   width: 100%;
   border: none;
-  border-radius: 30px;
+  border-radius: 15px;
+  font-size: 1.5em;
 }
 
 .button:hover {

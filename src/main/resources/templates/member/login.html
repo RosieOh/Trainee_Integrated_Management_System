@@ -10,26 +10,28 @@
 <body>
     <div class="main">
         <section class="container">
-            <div class="login_box">
-                <h1>로그인</h1>
-                <form th:action="@{/loginPro}" method="post">
-                    <div class="form-login">
-                        <input type="text" name="id" id="id" required />
-                        <label><span>아이디</span></label>
-                    </div>
-                    <div class="form-login">
-                        <input type="password" name="pw" id="pw" required />
-                        <label><span>비밀번호</span></label>
-                    </div>
-                    <button type="submit" class="">로그인</button>
-<!--                        <div th:if="${param.error}">-->
-<!--                            <p style="color:red">아이디 또는 비밀번호가 올바르지 않거나 <br> 가입이 되지 않았습니다.</p>-->
-<!--                        </div>-->
-<!--                        <div th:if="${param.authError}">-->
-<!--                            <p style="color:blue">토큰 정보가 만료되었습니다. 토큰을 갱신하시기 바랍니다.</p>-->
-<!--                        </div>-->
-                    <p class="login-text">회원이 아니신가요? <a th:href="@{/memJoin}">회원가입</a></p>
-                </form>
+            <div class="login_loca">
+                <div class="login_box">
+                    <h1>로그인</h1>
+                    <form th:action="@{/loginPro}" method="post">
+                        <div class="form-login">
+                            <label>아이디</label>
+                            <input type="text" name="id" id="id" required />
+                        </div>
+                        <div class="form-login">
+                            <label>비밀번호</label>
+                            <input type="password" name="pw" id="pw" required />
+                        </div>
+                        <button type="submit" class="button login_btn">로그인</button>
+    <!--                        <div th:if="${param.error}">-->
+    <!--                            <p style="color:red">아이디 또는 비밀번호가 올바르지 않거나 <br> 가입이 되지 않았습니다.</p>-->
+    <!--                        </div>-->
+    <!--                        <div th:if="${param.authError}">-->
+    <!--                            <p style="color:blue">토큰 정보가 만료되었습니다. 토큰을 갱신하시기 바랍니다.</p>-->
+    <!--                        </div>-->
+                        <p class="login_text">회원이 아니신가요? <a th:href="@{/memJoin}">회원가입</a></p>
+                    </form>
+                </div>
             </div>
         </section>
     </div>
