@@ -22,5 +22,9 @@ public class MetricsController {
     public String endpoint3() {
         return "Metrics for endPoint3";
     }
+    @GetMapping("/end-point4")
+    public String endpoint4() {
+        return "Metrics for endPoint4";
+    }
 
 }
