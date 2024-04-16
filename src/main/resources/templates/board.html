@@ -21,11 +21,52 @@
   </head>
   <body>
   <th:block th:replace="~{include/header :: header}"></th:block>
-    <div class="main" >
+    <div class="main admin">
       <th:block th:replace="~{include/adminbar :: adminbar}"></th:block>
+      <div class="main_title">
+        <h1>회원관리</h1>
+      </div>
+      <div class="admin-board">
+        <div class="admin-title">
+          <div><i class="fas fa-user-circle"></i></div>
+          <div><h5>이름</h5>
+          </div>
+        </div>
+        <div class="admin-content">
+          <div class="admin-content_box red">
+             <ul class="admin-content_in">
+              <li class="nav-dropdown">
+                <a class="nav_link" href="#">풀스택
+                  <div class="nav-dropdown_arrow">▼</div>
+                </a>
+                <ul class="nav-dropdown_wrap">
+                  <li class="">
+                    <a class="nav_link " th:href="@{/adminSubject/list}">
+                      과정신청 관리
+                    </a>
+                  </li>
+                  <li class="">
+                    <a class="nav_link " th:href="@{/apply/list}">
+                      사전알림 관리
+                    </a>
+                  </li>
+                  <li class="">
+                    <a class="nav_link " th:href="@{/modifyBoard/list}">
+                      수정요청
+                    </a>
+                  </li>
+                  <li class="">
+                    <a class="nav_link " th:href="@{/logout}">
+                      로그아웃
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+
+          </div>
 
       <h2>Board</h2>
-
       <div>
         <h2>Member</h2>
         <table>
@@ -100,8 +141,8 @@
           </tbody>
         </table>
       </div>
-
-
+      </div>
+      </div>
     </div>
   </body>
 </html>

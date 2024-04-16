@@ -4,39 +4,34 @@
   <body>
     <th:block th:fragment="adminbar">
       <nav class="adminBar">
-          <div class="navbar_box">
-            <div class="nav-content">
-             <a class="nav_link " th:href="@{/}"><i class="fas fa-home"></i></a>
-            </div>
-            <div class="navbar-menu " id="navigation">
-              <ul class="nav-wrap">
-              <i class="far fa-clipboard"></i>
-              <i class="fas fa-user-edit"></i>
-              <i class="fas fa-sitemap"></i>
-              <i class="fas fa-paste"></i>
-              <i class="fas fa-book"></i>
-
-              <li class="nav-content">
-              <a class="nav_link " th:href="@{/}"><i class="fas fa-window-maximize"></i></a>
-              </li>
-              <li class="nav-content">
-              <a class="nav_link " th:href="@{/}"><i class="fas fa-bell"></i></a>
-              </li>
-              <li class="nav-content">
-              <a class="nav_link " th:href="@{/}"><i class="fas fa-th"></i></a>
-              </li>
-              <th:block sec:authorize="isAnonymous()">
-              <li class="nav-content">
-              <a th:href="@{/member/login}" class="nav_link ">로그인</a>
-              </li>
-              </th:block>
-              <th:block sec:authorize="isAuthenticated()">
-              <li class="nav-content">
-              <a class="nav_link " th:href="@{/logout}">로그아웃</a>
-              </li>
-              </th:block>
-              </ul>
-            </div>
+        <div class="adminBar_box">
+          <ul class="adminBar_content">
+            <li>
+             <a class="nav_link " th:href="@{/}"><i class="fas fa-user-edit"></i>
+             <p>회원</p>
+             </a>
+            </li>
+            <li>
+              <a class="nav_link " th:href="@{/}"><i class="fas fa-clipboard"></i>
+                <p>게시판</p>
+              </a>
+            </li>
+            <li>
+              <a class="nav_link " th:href="@{/}"><i class="fas fa-sitemap"></i>
+                <p>미정</p>
+              </a>
+            </li>
+            <li>
+              <a class="nav_link " th:href="@{/}"><i class="fas fa-paste"></i>
+                <p>미정</p>
+              </a>
+            </li>
+            <li>
+              <a class="nav_link " th:href="@{/}"><i class="fas fa-book"></i>
+                <p>미정</p>
+              </a>
+            </li>
+            </ul>
           </div>
       </nav>
     </th:block>
