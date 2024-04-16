@@ -12,11 +12,11 @@
         <section class="container">
             <div class="login_loca">
                 <div class="login_box">
-                    <h1>천재IT교육센터</h1>
+                    <a th:href="@{/}"><h1>천재IT교육센터</h1></a>
                     <form th:action="@{/joinPro}" method="post">
                         <div class="form-login">
                             <label>이메일</label>
-                            <input type="text" name="email" required />
+                            <input type="email" name="email" id="email_id" required />
                         </div>
                         <div class="form-login">
                             <label>비밀번호</label>
@@ -36,7 +36,7 @@
                         </div>
                         <div class="form-login">
                             <label>연락처</label>
-                            <input type="tel" name="phone" />
+                            <input type="tel" name="phone" placeholder="010-0000-0000" />
                         </div>
                         <div class="form-login">
                             <label>주소</label>
@@ -55,11 +55,25 @@
     </div>
 </body>
 </html>
-<!--<script th:inline="javascript">-->
-<!--    $(document).ready(function(){-->
-<!--        $(".login_loca").click(function(){-->
-<!--            $(".login_box label").css("transform", "translateY(-50px)");-->
-<!--            $(".login_box input").css({"visibility": "visible", "transition-delay": "0.3s", "transition-duration": "1s"});-->
-<!--        })-->
-<!--    })-->
-<!--</script>-->
+
+<script th:inline="javascript">
+    var email_rule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
+    function checkEmail() {
+        var email_id = $("#email_id").val();
+
+        if (!email_id) {
+            alert("이메일을 입력해주세요");
+            $("#email_id").focus();
+            return false;
+        }
+
+        var mail = email_id;
+        $("#mail").val(mail);
+
+        if (!email_rule.test(mail)) {
+            alert("이메일을 형식에 맞게 입력해주세요.");
+            return false;
+        }
+    }
+</script>
