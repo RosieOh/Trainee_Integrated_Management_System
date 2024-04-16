@@ -1,0 +1,107 @@
+<!doctype html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+            content="minimum-scale=1.0, width=device-width, maximum-scale=1, ser-scalable=no"
+            name="viewport"
+    />
+    <title>천재IT교육센터</title>
+    <th:block th:replace="~{include/head :: head}"></th:block>
+    <style>
+      tr, th, td {
+        border: 1px solid black;
+        height: 30px;
+        width: 200px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+  <th:block th:replace="~{include/header :: header}"></th:block>
+    <div class="main" >
+      <th:block th:replace="~{include/adminbar :: adminbar}"></th:block>
+
+      <h2>Board</h2>
+
+      <div>
+        <h2>Member</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>name</th>
+              <th>gender</th>
+              <th>phone</th>
+              <th>cno</th>
+              <th>cno</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="member, about :${memberList}">
+              <td th:text="${member.email}"></td>
+              <td th:text="${member.name}"></td>
+              <td th:text="${member.gender}"></td>
+              <td th:text="${member.phone}"></td>
+              <td th:text="${member.course}"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <h2>Course</h2>
+        <table>
+          <thead>
+          <tr>
+            <th>과정</th>
+            <th>기수</th>
+            <th>대표강사</th>
+            <th>담당 매니저</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="course, about :${courseList}">
+            <td th:text="${course.subject}"></td>
+            <td th:text="${course.flag}"></td>
+            <td th:text="${course.instructor}"></td>
+            <td th:text="${course.manager}"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <h2>MemberVO</h2>
+        <table>
+          <thead>
+          <tr>
+            <th>이름</th>
+            <th>이름2</th>
+            <th>이메일</th>
+            <th>이메일2</th>
+            <th>Course</th>
+            <th>member.course.subject</th>
+            <th>member.course.flag</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="member, about :${memberVOList}">
+            <td th:text="${member.name}"></td>
+            <td th:text="${member.getName()}"></td>
+            <td th:text="${member.email}"></td>
+            <td th:text="${member.getEmail()}"></td>
+            <td th:text="${member.getCourse()}"></td>
+            <td th:text="${member.course.subject}"></td>
+            <td th:text="${member.course.flag}"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+    </div>
+  </body>
+</html>

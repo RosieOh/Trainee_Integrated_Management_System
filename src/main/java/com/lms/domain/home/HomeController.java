@@ -41,20 +41,6 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Principal principal,Model model) {
-        Integer a = 2;
-        CourseDTO courseDTO = courseService.course_One(14);
-        List<MemberDTO> memberList = memberService.memberList();
-        List<CourseDTO> courseList = courseService.course_List();
-        List<MemberDTO> memberVOList = memberService.memberVOList2(14);
-        List<Member> memberVOList1 = memberService.memberVOList1();
-        model.addAttribute("memberList",memberList);
-        model.addAttribute("courseList",courseList);
-        model.addAttribute("memberVOList",memberVOList);
-        model.addAttribute("memberVOList1",memberVOList1);
-        log.info("memberList ㅡㅡㅡㅡㅡㅡㅡㅡㅡ" + memberList);
-        log.info("memberVOList ㅡㅡㅡㅡㅡㅡㅡㅡㅡ" + memberVOList);
-        log.info("courseList ㅡㅡㅡㅡㅡㅡㅡㅡㅡ" + courseList);
-        log.info("memberVOList1 ㅡㅡㅡㅡㅡㅡㅡㅡㅡ" + memberVOList1);
 
         return "index";
     }
@@ -104,4 +90,23 @@ public class HomeController {
         return "member/login";
     }
 
+    @GetMapping("/board")
+    public String board(Model model, Principal principal){
+        Integer a = 2;
+        CourseDTO courseDTO = courseService.course_One(14);
+        List<MemberDTO> memberList = memberService.memberList();
+        List<CourseDTO> courseList = courseService.course_List();
+        List<MemberDTO> memberVOList = memberService.memberVOList2(14);
+        List<Member> memberVOList1 = memberService.memberVOList1();
+        model.addAttribute("memberList",memberList);
+        model.addAttribute("courseList",courseList);
+        model.addAttribute("memberVOList",memberVOList);
+        model.addAttribute("memberVOList1",memberVOList1);
+        log.info("memberList ㅡㅡㅡㅡㅡㅡㅡㅡㅡ" + memberList);
+        log.info("memberVOList ㅡㅡㅡㅡㅡㅡㅡㅡㅡ" + memberVOList);
+        log.info("courseList ㅡㅡㅡㅡㅡㅡㅡㅡㅡ" + courseList);
+        log.info("memberVOList1 ㅡㅡㅡㅡㅡㅡㅡㅡㅡ" + memberVOList1);
+
+        return "board";
+    }
 }

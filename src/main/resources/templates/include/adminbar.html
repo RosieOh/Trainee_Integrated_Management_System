@@ -2,9 +2,8 @@
 <html lang="en"
   xmlns:th="http://www.thymeleaf.org">
   <body>
-    <th:block th:fragment="header">
-      <nav id="navbar" class="navbar">
-        <div class="container">
+    <th:block th:fragment="adminbar">
+      <nav class="adminBar">
           <div class="navbar_box">
             <div class="nav-content">
              <a class="nav_link " th:href="@{/}"><i class="fas fa-home"></i></a>
@@ -39,7 +38,6 @@
               </ul>
             </div>
           </div>
-        </div>
       </nav>
     </th:block>
   </body>
