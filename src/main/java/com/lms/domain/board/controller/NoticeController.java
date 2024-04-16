@@ -1,6 +1,8 @@
 package com.lms.domain.board.controller;
 
 import com.lms.domain.board.dto.BoardDTO;
+import com.lms.domain.board.entity.Board;
+import com.lms.domain.board.repository.BoardRepository;
 import com.lms.domain.board.service.BoardService;
 import com.lms.domain.file.dto.FileDTO;
 import com.lms.domain.file.service.FileService;
@@ -39,21 +41,14 @@ public class NoticeController {
     private final MemberService memberService;
     private final MemberRepository memberRepository;
     private final BoardService boardService;
+    private final BoardRepository boardRepository;
     private final FileService fileService;
 
     @GetMapping(value = {"/list", "/"})
-    public String noticeListAll(Model model, Principal principal) {
+    public String noticeListAll(Model model) {
         String boardType = "NOTICE";
-        List<BoardDTO> boardList = boardService.findByBoardType(boardType);
+        List<Board> boardList = boardRepository.findAll();
         model.addAttribute("boardList", boardList);
-        String email = principal.getName();
-        Optional<Member> optionalMember = memberRepository.findByEmail2(email);
-        if (optionalMember.isPresent()) {
-            Member member = optionalMember.get();
-            String name = member.getName();
-            model.addAttribute("name", name);
-        }
-        model.addAttribute("principal", principal);
         return "notice/list";
     }
 
@@ -83,15 +78,14 @@ public class NoticeController {
 
 
     @GetMapping("/register")
-    public String registerForm(Model model, Principal principal) {
-        String email = principal.getName();
-        Optional<Member> optionalMember = memberRepository.findByEmail2(email);
-        if (optionalMember.isPresent()) {
-            Member member = optionalMember.get();
-            String name = member.getName();
-            model.addAttribute("name", name);
-        }
+    public String registerForm(Model model) {
         return "notice/register";
+    }
+
+    @PostMapping("/registerPro")
+    public String registerpro(Model model, Board board) {
+        boardRepository.save(board);
+        return "redirect:list";
     }
 
     @PostMapping("/register")

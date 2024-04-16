@@ -1,0 +1,74 @@
+@charset "UTF-8";
+
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(http://cdn.jsdelivr.net/font-nanum/1.0/nanumbarungothic/nanumbarungothic.css);
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap');
+
+.board_list {width:100%; border-top:2px solid #252525; border-bottom:1px solid #ccc; margin:15px 0; border-collapse: collapse;}
+.board_list thead th:first-child {background-image:none;}
+.board_list thead th {border-bottom:1px solid #ccc; padding:13px 0; color:#3b3a3a; text-align: center; vertical-align:middle;}
+.board_list tbody td {border-top:1px solid #ccc; padding:13px 0; text-align:center; vertical-align:middle;}
+.board_list tbody tr:first-child td {border:none;}
+.board_list tbody tr:hover{background:#ffff99;}
+.board_list tbody td.title {text-align:left; padding-left:20px;}
+.board_list tbody td a {display:inline-block}
+
+.board_detail {width:100%; border-top:2px solid #252525; border-bottom:1px solid #ccc; border-collapse:collapse; table-layout: fixed;}
+.board_detail tbody input {width:100%;}
+.board_detail tbody th {text-align:left; background:#f7f7f7; color:#3b3a3a; vertical-align:middle; text-align: center;}
+.board_detail tbody th, .board_detail tbody td {padding:10px 15px; border-bottom:1px solid #ccc; font-size: 20px;}
+.board_detail tbody textarea {width:100%; min-height:170px}
+
+.btn {margin:5px; padding:5px 11px; color:#fff !important; display:inline-block; background-color:#7D7F82; vertical-align:middle; border-radius:0 !important; cursor:pointer; border:none;}
+.btn:hover {background: #6b9ab8;}
+
+.file_list a {display:inherit !important;}
+
+.button_modify {
+    text-align: right;
+}
+
+
+/* table */
+
+
+.table1 {
+    font-size: 1.25rem;
+    border-top: 2px solid #dee2e6;
+    border-bottom: 1px solid #dbdbdb;
+    width: 100%; /* 표의 전체 너비를 100%로 설정 */
+}
+.table1 th {
+    white-space: nowrap;
+    background: #eff1f8;
+}
+.table1 td {
+    white-space: nowrap;
+}
+.table1 td, .table1 th {
+    padding: 0.75em 0.75em;
+}
+
+.item1 { width:6%; text-align: center; }
+.item2 { width:20%; text-align: center; }
+.item3 { width:25%; text-align: center; }
+.item4 { width:25%; text-align: center; }
+.item5 { width:30%; text-align: center; }
+
+.item_td {
+    text-align: center;
+    font-size: 18px;
+}
+
+.item_hole {
+    width: 50%;
+    margin: 0 auto;
+    padding-top: 100px;
+    min-height: 58vh;
+}
+
+.button_course_1 {
+    padding-bottom: 40px;
+    padding-top: 50px;
+    text-align: right;
+}

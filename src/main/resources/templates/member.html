@@ -1,0 +1,147 @@
+<!doctype html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+            content="minimum-scale=1.0, width=device-width, maximum-scale=1, ser-scalable=no"
+            name="viewport"
+    />
+    <title>천재IT교육센터</title>
+    <th:block th:replace="~{include/head :: head}"></th:block>
+  </head>
+  <body>
+  <th:block th:replace="~{include/header :: header}"></th:block>
+    <div class="main admin">
+      <th:block th:replace="~{include/adminbar :: adminbar}"></th:block>
+      <div class="main_title">
+        <h1>회원관리</h1>
+      </div>
+      <div class="admin-board">
+        <div class="admin-title">
+          <div><i class="fas fa-user-circle"></i></div>
+          <div><h5>이름</h5>
+          </div>
+        </div>
+        <div class="admin-content flex">
+          <div class="admin-content_box">
+             <ul class="admin-content_in">
+              <li class="nav-dropdown">
+                <a class="nav_link" href="#">빅데이터
+                  <div class="nav-dropdown_arrow">▼</div>
+                </a>
+                <ul class="nav-dropdown_wrap">
+                  <li class="">
+                    <a class="nav_link " th:href="@{/board(cno=1)}">
+                      1 기
+                    </a>
+                  </li>
+                  <li class="">
+                    <a class="nav_link " th:href="@{/board(cno=2)}">
+                    2 기
+                    </a>
+                  </li>
+                  <li class="">
+                    <a class="nav_link " th:href="@{/board(cno=3)}">
+                    3 기
+                    </a>
+                  </li>
+                  <li class="">
+                    <a class="nav_link " th:href="@{/board(cno=4)}">
+                    4 기
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="admin-content_in">
+              <li class="nav-dropdown">
+                <a class="nav_link" href="#">풀스택
+                  <div class="nav-dropdown_arrow">▼</div>
+                </a>
+                <ul class="nav-dropdown_wrap">
+                  <li class="">
+                    <a class="nav_link " th:href="@{/board(cno=5)}">
+                      1 기
+                    </a>
+                  </li>
+                  <li class="">
+                    <a class="nav_link " th:href="@{/board(cno=6)}">
+                      2 기
+                    </a>
+                  </li>
+                  <li class="">
+                    <a class="nav_link " th:href="@{/board(cno=7)}">
+                      3 기
+                    </a>
+                  </li>
+                  <li class="">
+                    <a class="nav_link " th:href="@{/board(cno=8)}">
+                      4 기
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="admin-content_in">
+              <li class="nav-dropdown">
+                <a class="nav_link" href="#">PM
+                  <div class="nav-dropdown_arrow">▼</div>
+                </a>
+                <ul class="nav-dropdown_wrap">
+                  <li class="">
+                    <a class="nav_link " th:href="@{/board(cno=9)}">
+                      1 기
+                    </a>
+                  </li>
+                  <li class="">
+                    <a class="nav_link " th:href="@{/board(cno=10)}">
+                      2 기
+                    </a>
+                  </li>
+                  <li class="">
+                    <a class="nav_link " th:href="@{/board(cno=11)}">
+                      3 기
+                    </a>
+                  </li>
+                  <li class="">
+                    <a class="nav_link " th:href="@{/board(cno=12)}">
+                      4 기
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+      <div>
+        <table>
+          <thead>
+          <tr>
+            <th>이름</th>
+            <th>이름2</th>
+            <th>이메일</th>
+            <th>이메일2</th>
+            <th>Course</th>
+            <th>member.course.subject</th>
+            <th>member.course.flag</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="member, about :${memberVOList}">
+            <td th:text="${member.name}"></td>
+            <td th:text="${member.getName()}"></td>
+            <td th:text="${member.email}"></td>
+            <td th:text="${member.getEmail()}"></td>
+            <td th:text="${member.getCourse()}"></td>
+            <td th:text="${member.course.subject}"></td>
+            <td th:text="${member.course.flag}"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
+      </div>
+    </div>
+  </body>
+</html>

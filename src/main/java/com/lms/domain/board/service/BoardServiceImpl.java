@@ -80,14 +80,9 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public List<BoardDTO> findByBoardType(String boardType) {
         List<Board> lst = boardRepository.findByBoardType(boardType);
-
-        if (lst != null && !lst.isEmpty()) {
             List<BoardDTO> boardList = lst.stream().map(board -> modelMapper.map(board, BoardDTO.class))
                     .collect(Collectors.toList());
             return boardList;
-        } else {
-            return Collections.emptyList();
-        }
     }
 
     @Override
