@@ -1,6 +1,7 @@
 package com.lms.domain.member.entity;
 
 import com.lms.domain.Course.entity.Course;
+import com.lms.domain.counsel.entity.Counsel;
 import com.lms.domain.member.dto.MemberDTO;
 import com.lms.global.cosntant.BaseEntity;
 import com.lms.global.cosntant.Role;
@@ -61,7 +62,6 @@ public class Member extends BaseEntity {
     @JoinColumn(name = "cno", referencedColumnName = "no")
     private Course course;      // 강의 분류
 
-
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private Set<Role> roleSet = new HashSet<>();
@@ -80,18 +80,10 @@ public class Member extends BaseEntity {
     }
 
     @Builder
-    public Member(String oauth2Id, String email, String pw, String name, String provider, String providerId) {
-        this.oauth2Id = oauth2Id;
+    public Member(String email, String pw, String name) {
         this.name = name;
         this.pw = pw;
         this.email = email;
-        this.provider = provider;
-        this.providerId = providerId;
     }
 
-    private String oauth2Id;
-
-    private String provider;
-
-    private String providerId;
 }

@@ -1,5 +1,6 @@
 package com.lms.domain.member.controller;
 
+import com.lms.domain.member.dto.MemberDTO;
 import com.lms.domain.member.service.MemberService;
 import com.lms.global.cosntant.Status;
 import jakarta.servlet.http.HttpServletRequest;
@@ -68,44 +69,43 @@ public class MemberController {
         }
     }
 
-//    @GetMapping("join")
-//    public String joinForm(Model model) {
-//        return "member/join";
-//    }
-//
-//    @PostMapping("joinPro")
-//    public String join(Model model, MemberJoinDTO memberJoinDTO) {
-//        memberService.memberInsert(memberJoinDTO);
-//        model.addAttribute("msg", "천재IT교육센터에 오신 것을 환영합니다!");
-//        model.addAttribute("url", "/");
-//        return "member/alert";
-//    }
-//
-//    @PostMapping("idCheckPro")
-//    public ResponseEntity idCheck(@RequestBody MemberJoinDTO memberJoinDTO) throws Exception {
-//        String email = memberJoinDTO.getEmail();
-//        boolean result = memberService.idCheck(email);
-//        return new ResponseEntity<>(result, HttpStatus.OK);
-//    }
-//
-//    @GetMapping("remove")
-//    public String remove(String email, Model model) {
-//        MemberJoinDTO memberJoinDTO = memberService.getEmail(email);
-//        memberJoinDTO.setStatus(Status.OUT);
-//        memberService.memberUpdate(memberJoinDTO);
-//        model.addAttribute("msg", "지금까지 감사합니다.");
-//        model.addAttribute("url", "/logout");
-//        return "/alert";
-//    }
-//
-//    @PostMapping("changePw")
-//    public String changePassword(Model model, String pw, String email) {
-//        MemberJoinDTO memberJoinDTO = memberService.getEmail(email);
-//        memberJoinDTO.setPw(pw);
-//        memberService.memberChangePw(memberJoinDTO);
-//        model.addAttribute("url", 2);
-//        return "/alert";
-//    }
+    @GetMapping("join")
+    public String joinForm(Model model) {
+        return "member/join";
+    }
+
+    @PostMapping("joinPro")
+    public String join(Model model, MemberDTO memberDTO) {
+        memberService.memberInsert(memberDTO);
+        model.addAttribute("msg", "천재IT교육센터에 오신 것을 환영합니다!");
+        model.addAttribute("url", "/");
+        return "member/alert";
+    }
+    @PostMapping("idCheckPro")
+    public ResponseEntity idCheck(@RequestBody MemberDTO memberDTO) throws Exception {
+        String email = memberDTO.getEmail();
+        boolean result = memberService.idCheck(email);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("remove")
+    public String remove(String email, Model model) {
+        MemberDTO memberDTO = memberService.getEmail(email);
+        memberDTO.setStatus(Status.OUT);
+        memberService.memberUpdate(memberDTO);
+        model.addAttribute("msg", "지금까지 감사합니다.");
+        model.addAttribute("url", "/logout");
+        return "/alert";
+    }
+
+    @PostMapping("changePw")
+    public String changePassword(Model model, String pw, String email) {
+        MemberDTO memberDTO = memberService.getEmail(email);
+        memberDTO.setPw(pw);
+        memberService.memberChangePw(memberDTO);
+        model.addAttribute("url", 2);
+        return "/alert";
+    }
 
 
 }
