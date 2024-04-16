@@ -21,8 +21,7 @@ public interface MemberService {
     public int loginPro(String email);
     public boolean idCheck(String email);
     public void memberChangePw(MemberDTO memberDTO);
-    public List<MemberDTO> memberVOList2(Integer cno);
-    public List<Member> memberVOList1();
+    public List<MemberDTO> memberVOList(Integer cno);
 
     // 고정 아이디 생성
     void createAdminMember();

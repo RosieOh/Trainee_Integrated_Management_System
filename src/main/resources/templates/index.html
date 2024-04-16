@@ -10,25 +10,18 @@
     />
     <title>천재IT교육센터</title>
     <th:block th:replace="~{include/head :: head}"></th:block>
-    <style>
-      tr, th, td {
-        border: 1px solid black;
-        height: 30px;
-        width: 200px;
-        text-align: center;
-      }
-    </style>
   </head>
   <body>
     <div class="main" >
       <h2>Main Start</h2>
-
+      <div style="display: block">
       <a th:href="@{/course}">강의추가</a>
       <a th:href="@{/join}">작동 회원가입</a>
       <a th:href="@{/memJoin}">회원가입</a>
       <a th:href="@{/login}">로그인</a>
-      <a th:href="@{/board}">게시판</a>
-
+      <a th:href="@{/member(cno=1)}">회원관리</a>
+      <a th:href="@{/notice/list}">게시판</a>
+      </div>
     </div>
   </body>
 </html>

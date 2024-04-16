@@ -2,16 +2,12 @@
 package com.lms.domain.home;
 
 import com.lms.domain.Course.dto.CourseDTO;
-import com.lms.domain.Course.entity.Course;
 import com.lms.domain.Course.service.CourseService;
 import com.lms.domain.member.dto.MemberDTO;
-import com.lms.domain.member.dto.MemberVO;
-import com.lms.domain.member.entity.Member;
 import com.lms.domain.member.repository.MemberRepository;
 import com.lms.domain.member.service.MemberService;
 import com.lms.global.cosntant.Role;
 import com.lms.global.cosntant.Status;
-import com.lms.global.cosntant.Subject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -21,9 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.net.http.HttpRequest;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -41,8 +35,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Principal principal,Model model) {
-
-        return "index";
+        return "redirect:/member";
     }
 
     @GetMapping("join")
@@ -69,16 +62,16 @@ public class HomeController {
     }
 
     @GetMapping("/course")
-    public String course(){
+    public String course(Model model){
+        List<CourseDTO> courseDTOList = courseService.course_List();
+        model.addAttribute("courseDTOList",courseDTOList);
         return "course";
     }
 
     @PostMapping("/coursePro")
     public String coursePro(CourseDTO courseDTO){
-        log.info("courseDTO ㅡㅡㅡㅡㅡㅡㅡㅡ" + courseDTO);
         courseService.course_Add(courseDTO);
-
-        return "redirect:/";
+        return "redirect:/course";
     }
     @GetMapping("/memJoin")
     public String memJoin(){
@@ -90,23 +83,17 @@ public class HomeController {
         return "member/login";
     }
 
-    @GetMapping("/board")
-    public String board(Model model, Principal principal){
-        Integer a = 2;
-        CourseDTO courseDTO = courseService.course_One(14);
-        List<MemberDTO> memberList = memberService.memberList();
-        List<CourseDTO> courseList = courseService.course_List();
-        List<MemberDTO> memberVOList = memberService.memberVOList2(14);
-        List<Member> memberVOList1 = memberService.memberVOList1();
-        model.addAttribute("memberList",memberList);
-        model.addAttribute("courseList",courseList);
+    @GetMapping("/member")
+    public String board(Model model, Principal principal, Integer cno){
+        List<MemberDTO> memberDTOList = memberService.memberList();
+        List<MemberDTO> memberVOList = memberService.memberVOList(cno);
+        model.addAttribute("memberDTOList",memberDTOList);
         model.addAttribute("memberVOList",memberVOList);
-        model.addAttribute("memberVOList1",memberVOList1);
-        log.info("memberList ㅡㅡㅡㅡㅡㅡㅡㅡㅡ" + memberList);
-        log.info("memberVOList ㅡㅡㅡㅡㅡㅡㅡㅡㅡ" + memberVOList);
-        log.info("courseList ㅡㅡㅡㅡㅡㅡㅡㅡㅡ" + courseList);
-        log.info("memberVOList1 ㅡㅡㅡㅡㅡㅡㅡㅡㅡ" + memberVOList1);
+        return "member";
+    }
 
+    @GetMapping("/board")
+    public String board(){
         return "board";
     }
 }

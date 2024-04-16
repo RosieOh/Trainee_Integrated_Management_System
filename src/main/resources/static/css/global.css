@@ -1,6 +1,7 @@
 @charset "UTF-8";
 /* abc 순으로 기입 */
 @import "main.css";
+@import "board.css";
 
 :root {
   --c-main: #99ccff;
@@ -112,7 +113,20 @@ textarea:hover, input:hover, select:hover {
   border-color: var(--c-main);
   outline: none;
 }
+table {
+  width: 100%;
+}
+tr, th, td {
+  border-width: 1px 0 0;
+  border-style: solid;
+  height: 30px;
+  width: 200px;
+  text-align: center;
+}
 
+tr:last-child td {
+  border-width: 1px 0;
+}
 [type="radio"] {
   appearance: none;
   border: max(2px, 0.1em) solid var(--c-back_gray);
@@ -185,23 +199,6 @@ textarea:hover, input:hover, select:hover {
   border: 1px blue solid;
 }
 
-.radius {
-  border-radius: 20px;
-  margin: 0 0.5rem;
-}
-
-.radius1 {
-  border-radius: 10px;
-}
-
-.radius2 {
-  border-radius: 20px;
-}
-
-.inline_block {
-  display: flex;
-}
-
 .back_black {
   background-color: var(--c-back_black);
 }
@@ -228,6 +225,9 @@ textarea:hover, input:hover, select:hover {
 .back_none {
   background-color: transparent;
 }
+.flex {
+  display: flex;
+}
 
 .flex_around {
   display: flex;
@@ -249,58 +249,6 @@ textarea:hover, input:hover, select:hover {
   flex-direction: column;
 }
 
-.width {
-  width: 100%;
-}
-.width_vw {
-  width: 100vw;
-}
-
-.width_50 {
-  width: 50%;
-}
-
-.width_33 {
-  width: 33.33%;
-}
-
-.font_white {
-  color: var(--c-white);
-}
-
-.font_main_1 {
-  color: var(--c-main);
-}
-
-.font_gray {
-  color: var(--c-back_gray);
-}
-.font_darkgray {
-  color: var(--c-back_darkgray);
-}
-
-.font_black {
-  color: var(--c-black);
-}
-.font_weight_700 {
-  font-weight: 700;
-}
-
-.margin_top_6r {
-  margin-top: 6rem;
-}
-
-.ml_1 {
-  margin-left: 1rem;
-}
-.mr_05 {
-  margin-right: 0.5rem;
-  border-radius: 10px;
-}
-.mt_8 {
-  margin-top: 8rem;
-}
-
 .border_dashed {
   border-color: var(--c-back_lightgray);
   border-style: dashed;
@@ -310,36 +258,6 @@ textarea:hover, input:hover, select:hover {
 .border_gray {
   border: 1px solid var(--c-back_gray);
 }
-
-
-.text_left {
-  text-align: left;
-}
-
-.text_center {
-  text-align: center;
-}
-
-.text_right {
-  text-align: right;
-}
-
-.border_ra {
-  border-radius: var(--border_radius);
-}
-
-.border10 {
-  border-radius: 10px;
-}
-
-.border_ra_2 {
-  border-radius: 0 60px;
-}
-
-.li_disc li{
-  list-style: disc;
-}
-
 
 .button {
   background-color: var(--c-main);
@@ -393,21 +311,4 @@ textarea:hover, input:hover, select:hover {
   font-size: 1rem;
   border-radius: 30px;
   margin: 1em 0;
-}
-
-.display_inline {
-  display: inline-block;
-}
-
-.mt_5r{
-  margin-top: 5rem;
-}
-
-.img_h450 {
-  height: 450px;
-}
-
-.right_flex{
-  display: flex;
-  flex-direction: row-reverse;
 }

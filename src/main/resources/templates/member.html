@@ -26,6 +26,11 @@
         </div>
         <div class="admin-content flex">
           <div class="admin-content_box">
+<!--            <ul class="admin-content_in">-->
+<!--              <li class="nav-dropdown">-->
+<!--                <a class="nav_link" th:href="@{/member}">전체</a>-->
+<!--              </li>-->
+<!--            </ul>-->
              <ul class="admin-content_in">
               <li class="nav-dropdown">
                 <a class="nav_link" href="#">빅데이터
@@ -33,22 +38,22 @@
                 </a>
                 <ul class="nav-dropdown_wrap">
                   <li class="">
-                    <a class="nav_link " th:href="@{/board(cno=1)}">
+                    <a class="nav_link " th:href="@{/member(cno=1)}">
                       1 기
                     </a>
                   </li>
                   <li class="">
-                    <a class="nav_link " th:href="@{/board(cno=2)}">
+                    <a class="nav_link " th:href="@{/member(cno=2)}">
                     2 기
                     </a>
                   </li>
                   <li class="">
-                    <a class="nav_link " th:href="@{/board(cno=3)}">
+                    <a class="nav_link " th:href="@{/member(cno=3)}">
                     3 기
                     </a>
                   </li>
                   <li class="">
-                    <a class="nav_link " th:href="@{/board(cno=4)}">
+                    <a class="nav_link " th:href="@{/member(cno=4)}">
                     4 기
                     </a>
                   </li>
@@ -62,22 +67,22 @@
                 </a>
                 <ul class="nav-dropdown_wrap">
                   <li class="">
-                    <a class="nav_link " th:href="@{/board(cno=5)}">
+                    <a class="nav_link " th:href="@{/member(cno=5)}">
                       1 기
                     </a>
                   </li>
                   <li class="">
-                    <a class="nav_link " th:href="@{/board(cno=6)}">
+                    <a class="nav_link " th:href="@{/member(cno=6)}">
                       2 기
                     </a>
                   </li>
                   <li class="">
-                    <a class="nav_link " th:href="@{/board(cno=7)}">
+                    <a class="nav_link " th:href="@{/member(cno=7)}">
                       3 기
                     </a>
                   </li>
                   <li class="">
-                    <a class="nav_link " th:href="@{/board(cno=8)}">
+                    <a class="nav_link " th:href="@{/member(cno=8)}">
                       4 기
                     </a>
                   </li>
@@ -91,22 +96,22 @@
                 </a>
                 <ul class="nav-dropdown_wrap">
                   <li class="">
-                    <a class="nav_link " th:href="@{/board(cno=9)}">
+                    <a class="nav_link " th:href="@{/member(cno=9)}">
                       1 기
                     </a>
                   </li>
                   <li class="">
-                    <a class="nav_link " th:href="@{/board(cno=10)}">
+                    <a class="nav_link " th:href="@{/member(cno=10)}">
                       2 기
                     </a>
                   </li>
                   <li class="">
-                    <a class="nav_link " th:href="@{/board(cno=11)}">
+                    <a class="nav_link " th:href="@{/member(cno=11)}">
                       3 기
                     </a>
                   </li>
                   <li class="">
-                    <a class="nav_link " th:href="@{/board(cno=12)}">
+                    <a class="nav_link " th:href="@{/member(cno=12)}">
                       4 기
                     </a>
                   </li>
@@ -114,28 +119,29 @@
               </li>
             </ul>
           </div>
+
       <div>
         <table>
           <thead>
           <tr>
+            <th>클래스</th>
             <th>이름</th>
-            <th>이름2</th>
             <th>이메일</th>
-            <th>이메일2</th>
-            <th>Course</th>
-            <th>member.course.subject</th>
-            <th>member.course.flag</th>
+            <th>성별</th>
+            <th>생년월일</th>
+            <th>연락처</th>
+            <th>주소</th>
           </tr>
           </thead>
           <tbody>
           <tr th:each="member, about :${memberVOList}">
+            <td th:text="${member.course.subject} + ' ' +  ${member.course.flag} + '기'"></td>
             <td th:text="${member.name}"></td>
-            <td th:text="${member.getName()}"></td>
             <td th:text="${member.email}"></td>
-            <td th:text="${member.getEmail()}"></td>
-            <td th:text="${member.getCourse()}"></td>
-            <td th:text="${member.course.subject}"></td>
-            <td th:text="${member.course.flag}"></td>
+            <td th:text="${member.gender}"></td>
+            <td th:text="${member.birth}"></td>
+            <td th:text="${member.phone}"></td>
+            <td th:text="${member.address}"></td>
           </tr>
           </tbody>
         </table>

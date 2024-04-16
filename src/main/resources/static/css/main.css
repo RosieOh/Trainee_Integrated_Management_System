@@ -35,7 +35,7 @@
 
 .nav-content {
     line-height: 1.5;
-    padding: 1.25rem;
+    padding: 1.25rem 1.5rem;
     white-space: nowrap;
     display: flex;
     align-items: center;
@@ -68,7 +68,7 @@
 /* adminbar */
 
 .adminBar {
-    width: 70px;
+    width: 75px;
     height: 100vh;
     background-color: var(--c-main);
 }
@@ -98,6 +98,7 @@
 .admin-board {
     width: 100%;
     height: auto;
+
 }
 
 .admin-title {
@@ -121,13 +122,15 @@
 
 .admin-content {
     width: 100%;
-    display: flex;
+    padding: 2rem 0;
 }
 
 .admin-content_box {
-    width: 10%;
+    width: 170px;
     font-size: 18px;
     padding-left: 0.75rem;
+    border: 1px solid black;
+    display: inline-block;
 }
 
 .admin-content_in {
@@ -165,7 +168,11 @@
     }
 }
 
-
+.course_box {
+    margin: 0 auto;
+    padding: 0 5rem 2rem;
+    width: 90%;
+}
 
 
 /* gotop */
