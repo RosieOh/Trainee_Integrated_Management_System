@@ -312,3 +312,8 @@ tr:last-child td {
   border-radius: 30px;
   margin: 1em 0;
 }
+
+.board_btn {
+  width: 250px;
+  float: right;
+}

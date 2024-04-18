@@ -1,0 +1,93 @@
+<!doctype html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+  <meta charset="UTF-8" />
+  <meta
+          content="minimum-scale=1.0, width=device-width, maximum-scale=1, ser-scalable=no"
+          name="viewport"
+  />
+  <title>천재IT교육센터</title>
+  <th:block th:replace="~{include/head :: head}"></th:block>
+</head>
+<body>
+<th:block th:replace="~{include/header :: header}"></th:block>
+<div class="main admin">
+  <th:block th:replace="~{include/adminbar :: adminbar}"></th:block>
+  <div class="main_title">
+    <h1>강의</h1>
+  </div>
+  <div class="admin-board">
+      <div class="admin-content">
+        <div class="course_box">
+          <h2>리스트</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>과정</th>
+                <th>기수</th>
+                <th>시작일</th>
+                <th>종료일</th>
+                <th>훈련시간</th>
+                <th>대표강사</th>
+                <th>담당 매니저</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr th:each="course, about :${courseDTOList}">
+                <td th:text="${course.subject}"></td>
+                <td th:text="${course.flag} + '기'"></td>
+                <td th:text="${course.start_date}"></td>
+                <td th:text="${course.end_date}"></td>
+                <td th:text="${course.train_time}"></td>
+                <td th:text="${course.instructor}"></td>
+                <td th:text="${course.manager}"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="course_box">
+        <h2>강의추가</h2>
+          <form th:action="@{/coursePro}" method="post">
+            <table>
+              <tbody>
+                <tr>
+                    <td>
+                      <select name="subject" >
+                        <option value="BIGDATA"> 빅데이터 </option>
+                        <option value="FULLSTACK"> 풀스택 </option>
+                        <option value="PM"> PM </option>
+                      </select>
+                    </td>
+                    <td>
+                      <input type="number" name="flag"/>
+                    </td>
+                    <td>
+                      <input type="text" name="start_date"/>
+                    </td>
+                    <td>
+                      <input type="text" name="end_date"/>
+                    </td>
+                    <td>
+                      <input type="text" name="train_time"/>
+                    </td>
+                    <td>
+                      <input type="text" name="instructor"/>
+                    </td>
+                    <td>
+                      <input type="text" name="manager"/>
+                    </td>
+                </tr>
+              </tbody>
+            </table>
+          <div class="board_btn">
+          <button type="submit" class="button ">등록</button>
+          </div>
+          </form>
+        </div>
+      </div>
+  </div>
+</div>
+</body>
+</html>

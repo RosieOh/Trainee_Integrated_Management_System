@@ -32,7 +32,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public CourseDTO course_One(Integer no) {
+    public CourseDTO course_Read(Integer no) {
         Optional<Course> course = courseRepository.findById(no);
         CourseDTO courseDTO = modelMapper.map(course, CourseDTO.class);
         return courseDTO;
