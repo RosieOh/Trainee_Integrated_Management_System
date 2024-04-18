@@ -1,5 +1,5 @@
 
-package com.lms.domain.home;
+package com.lms.domain;
 
 import com.lms.domain.Course.dto.CourseDTO;
 import com.lms.domain.Course.service.CourseService;
