@@ -5,6 +5,7 @@ import com.lms.domain.Course.entity.Course;
 import com.lms.domain.Course.repository.CourseRepository;
 import com.lms.domain.member.dto.MemberDTO;
 import com.lms.domain.member.entity.Member;
+import com.lms.global.cosntant.Subject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
@@ -23,7 +24,7 @@ public class CourseServiceImpl implements CourseService {
     private final CourseRepository courseRepository;
 
     @Override
-    public List<CourseDTO> course_List() {
+    public List<CourseDTO> course_list() {
         List<Course> courseList = courseRepository.findAll();
         List<CourseDTO> courseDTOList = courseList.stream().map(
                         course -> modelMapper.map(course,CourseDTO.class))
@@ -32,22 +33,31 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public CourseDTO course_Read(Integer no) {
+    public CourseDTO course_read(Integer no) {
         Optional<Course> course = courseRepository.findById(no);
         CourseDTO courseDTO = modelMapper.map(course, CourseDTO.class);
         return courseDTO;
     }
 
     @Override
-    public void course_Add(CourseDTO courseDTO) {
+    public void course_add(CourseDTO courseDTO) {
         Course course = modelMapper.map(courseDTO, Course.class);
         courseRepository.save(course);
     }
 
     @Override
-    public void course_Edit(CourseDTO courseDTO) {
+    public void course_edit(CourseDTO courseDTO) {
         Optional<Course> course = courseRepository.findById(courseDTO.getNo());
         Course course1 = course.orElseThrow();
         courseRepository.save(course1);
+    }
+
+    @Override
+    public List<CourseDTO> course_subject_list(Subject subject) {
+        List<Course> courseList = courseRepository.course_subject_list(subject);
+        List<CourseDTO> courseDTOList = courseList.stream().map(
+                        course -> modelMapper.map(course,CourseDTO.class))
+                .collect(Collectors.toList());
+        return courseDTOList;
     }
 }

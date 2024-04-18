@@ -61,7 +61,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public List<MemberDTO> memberList() {
+    public List<MemberDTO> member_list() {
         List<Member> memberList = memberRepository.findAll();
         List<MemberDTO> memberDTOList = memberList.stream().map(
                 member -> modelMapper.map(member,MemberDTO.class))
@@ -70,7 +70,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public MemberDTO getEmail(String email) {
+    public MemberDTO email_read(String email) {
         Member member = memberRepository.getEmail(email);
         MemberDTO memberDTO = modelMapper.map(member, MemberDTO.class);
         return memberDTO;
@@ -78,7 +78,7 @@ public class MemberServiceImpl implements MemberService{
 
 
     @Override
-    public void memberInsert(MemberDTO memberDTO) {
+    public void member_add(MemberDTO memberDTO) {
         String password = passwordEncoder.encode(memberDTO.getPw());
         memberDTO.setPw(password);
         memberDTO.setRole(Role.STUDENT);
@@ -88,13 +88,13 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public Member LoginEmail(String email) {
+    public Member Login_email(String email) {
         Member member = memberRepository.getEmail(email);
         return member;
     }
 
     @Override
-    public void memberUpdate(MemberDTO memberDTO) {
+    public void member_edit(MemberDTO memberDTO) {
         Optional<Member> member = memberRepository.getMember(memberDTO.getEmail());
         Member member1 = member.orElseThrow();
         member1.change(memberDTO);
@@ -102,7 +102,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public void stateUpdate(MemberDTO memberDTO) {
+    public void state_edit(MemberDTO memberDTO) {
         Optional<Member> member = memberRepository.getMember(memberDTO.getEmail());
         Member member1 = member.orElseThrow();
         member1.stateUpdate(memberDTO);
@@ -110,20 +110,16 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public void roleUpdate(MemberDTO memberDTO) {
+    public void role_edit(MemberDTO memberDTO) {
         Optional<Member> member = memberRepository.getMember(memberDTO.getEmail());
         Member member1 = member.orElseThrow();
         member1.roleUpdate(memberDTO);
         memberRepository.save(member1);
     }
 
-    @Override
-    public void memberDelete(Long id) {
-        memberRepository.deleteById(id);
-    }
 
     @Override
-    public int loginPro(String email) {
+    public int login_pro(String email) {
         int pass = 0;
         Member member = memberRepository.getEmail(email);
         LocalDateTime localDateTime = LocalDateTime.now().minusDays(30); // 현재 시점에서 30일 동안 반응이 없으면 휴면
@@ -146,7 +142,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public boolean idCheck(String email) {
+    public boolean id_check(String email) {
         boolean pass = true;
         int cnt = memberRepository.countByEmail(email);
         if(cnt > 0) pass = false;
@@ -154,7 +150,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public void memberChangePw(MemberDTO memberDTO) {
+    public void member_change_pw(MemberDTO memberDTO) {
         String password = passwordEncoder.encode(memberDTO.getPw());
         memberDTO.setPw(password);
         Member member = modelMapper.map(memberDTO, Member.class);
@@ -163,7 +159,7 @@ public class MemberServiceImpl implements MemberService{
 
 
     @Override
-    public List<MemberDTO> memberVOList(Integer cno) {
+    public List<MemberDTO> memberVO_list(Integer cno) {
         List<Member> memberList = memberRepository.voList2(cno);
         List<MemberDTO> memberDTOList = memberList.stream().map(
                         member -> modelMapper.map(member,MemberDTO.class))

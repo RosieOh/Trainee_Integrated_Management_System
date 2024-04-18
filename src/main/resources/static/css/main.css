@@ -170,7 +170,7 @@
 
 .course_box {
     margin: 0 auto;
-    padding: 0 5rem 2rem;
+    padding: 0 5rem 3rem;
     width: 90%;
 }
 
@@ -249,4 +249,10 @@
     padding: 0.75em;
     margin-top: 20px;
     font-weight: bold;
+}
+
+/* admin-board */
+.admin-board h2 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
 }

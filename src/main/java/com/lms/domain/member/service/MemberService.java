@@ -9,19 +9,18 @@ import java.util.List;
 
 public interface MemberService {
 
-    public List<MemberDTO> memberList();
+    public List<MemberDTO> member_list();
     public PasswordEncoder passwordEncoder();
-    public MemberDTO getEmail(String email);
-    public void memberInsert(MemberDTO memberDTO);
-    public Member LoginEmail(String email);
-    public void memberUpdate(MemberDTO memberDTO);
-    public void stateUpdate(MemberDTO memberDTO);
-    public void roleUpdate(MemberDTO memberDTO);
-    public void memberDelete(Long id);
-    public int loginPro(String email);
-    public boolean idCheck(String email);
-    public void memberChangePw(MemberDTO memberDTO);
-    public List<MemberDTO> memberVOList(Integer cno);
+    public MemberDTO email_read(String email);
+    public void member_add(MemberDTO memberDTO);
+    public Member Login_email(String email);
+    public void member_edit(MemberDTO memberDTO);
+    public void state_edit(MemberDTO memberDTO);
+    public void role_edit(MemberDTO memberDTO);
+    public int login_pro(String email);
+    public boolean id_check(String email);
+    public void member_change_pw(MemberDTO memberDTO);
+    public List<MemberDTO> memberVO_list(Integer cno);
 
     // 고정 아이디 생성
     void createAdminMember();

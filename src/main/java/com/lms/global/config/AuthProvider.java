@@ -36,7 +36,7 @@ public class AuthProvider implements AuthenticationProvider {
 
         PasswordEncoder passwordEncoder = memberService.passwordEncoder();
         UsernamePasswordAuthenticationToken token;
-        Member memberToken = memberService.LoginEmail(email);
+        Member memberToken = memberService.Login_email(email);
 
         if(memberToken != null && passwordEncoder.matches(pw, memberToken.getPw())) {
             List<GrantedAuthority> roles = new ArrayList<>();

@@ -4,11 +4,9 @@ package com.lms.domain;
 import com.lms.domain.Course.dto.CourseDTO;
 import com.lms.domain.Course.service.CourseService;
 import com.lms.domain.member.dto.MemberDTO;
-import com.lms.domain.member.repository.MemberRepository;
 import com.lms.domain.member.service.MemberService;
 import com.lms.global.cosntant.Role;
 import com.lms.global.cosntant.Status;
-import com.lms.global.cosntant.Subject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -25,8 +23,8 @@ import java.util.List;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/")
-public class HomeController {
+@RequestMapping("/admin")
+public class AdminController {
 
     private final MemberService memberService;
     private final CourseService courseService;
@@ -87,18 +85,13 @@ public class HomeController {
 
     @GetMapping("/member")
     public String board(Model model, Principal principal, Integer cno){
-
-        List<CourseDTO> course_big_List = courseService.course_subject_list(Subject.BIGDATA);
-        List<CourseDTO> course_full_List = courseService.course_subject_list(Subject.FULLSTACK);
-        List<CourseDTO> course_pm_List = courseService.course_subject_list(Subject.PM);
-        List<MemberDTO> memberList = memberService.member_list();
+        List<CourseDTO> courseDTOList = courseService.course_list();
+        List<MemberDTO> memberDTOList = memberService.member_list();
         List<MemberDTO> memberVOList = memberService.memberVO_list(cno);
-        model.addAttribute("memberList",memberList);
+        model.addAttribute("memberDTOList",memberDTOList);
         model.addAttribute("memberVOList",memberVOList);
-        model.addAttribute("course_big_List",course_big_List);
-        model.addAttribute("course_full_List",course_full_List);
-        model.addAttribute("course_pm_List",course_pm_List);
-        model.addAttribute("cno",cno);
+        model.addAttribute("courseDTOList",courseDTOList);
+        log.info("courseDTOList ----------------" + courseDTOList);
         return "admin/member/list";
     }
 

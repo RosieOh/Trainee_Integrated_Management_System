@@ -261,10 +261,11 @@ tr:last-child td {
 
 .button {
   background-color: var(--c-main);
-   width: 100%;
-  border: none;
+  text-align: center;
   border-radius: 15px;
-  font-size: 1.5em;
+  border: none;
+  font-size: 1.5rem;
+  width: 100%;
 }
 
 .button:hover {
@@ -314,6 +315,7 @@ tr:last-child td {
 }
 
 .board_btn {
+  margin-top: 1rem;
   width: 250px;
   float: right;
 }

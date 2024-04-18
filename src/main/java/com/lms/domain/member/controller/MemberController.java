@@ -44,7 +44,7 @@ public class MemberController {
     public String status(Model model, Principal principal) {
 
         String email = principal.getName();
-        int pass = memberService.loginPro(email);
+        int pass = memberService.login_pro(email);
         if (pass == 1) {
             model.addAttribute("msg", "환영합니다! 로그인 되었습니다!");
             model.addAttribute("url", "/");
@@ -68,39 +68,40 @@ public class MemberController {
     public String joinForm(Model model) {
         return "member/join";
     }
-
-    @PostMapping("joinPro")
-    public String join(Model model, MemberDTO memberDTO) {
-        memberService.memberInsert(memberDTO);
-        model.addAttribute("msg", "천재IT교육센터에 오신 것을 환영합니다!");
-        model.addAttribute("url", "/");
-        return "member/alert";
-    }
-    @PostMapping("idCheckPro")
-    public ResponseEntity idCheck(@RequestBody MemberDTO memberDTO) throws Exception {
-        String email = memberDTO.getEmail();
-        boolean result = memberService.idCheck(email);
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-
-    @GetMapping("remove")
-    public String remove(String email, Model model) {
-        MemberDTO memberDTO = memberService.getEmail(email);
-        memberDTO.setStatus(Status.OUT);
-        memberService.memberUpdate(memberDTO);
-        model.addAttribute("msg", "지금까지 감사합니다.");
-        model.addAttribute("url", "/logout");
-        return "/alert";
-    }
-
-    @PostMapping("changePw")
-    public String changePassword(Model model, String pw, String email) {
-        MemberDTO memberDTO = memberService.getEmail(email);
-        memberDTO.setPw(pw);
-        memberService.memberChangePw(memberDTO);
-        model.addAttribute("url", 2);
-        return "/alert";
-    }
+//
+//    @PostMapping("joinPro")
+//    public String join(Model model, MemberDTO memberDTO) {
+//        memberService.memberInsert(memberDTO);
+//        model.addAttribute("msg", "천재IT교육센터에 오신 것을 환영합니다!");
+//        model.addAttribute("url", "/");
+//        return "member/alert";
+//    }
+//
+//    @PostMapping("idCheckPro")
+//    public ResponseEntity idCheck(@RequestBody MemberDTO memberDTO) throws Exception {
+//        String email = memberDTO.getEmail();
+//        boolean result = memberService.idCheck(email);
+//        return new ResponseEntity<>(result, HttpStatus.OK);
+//    }
+//
+//    @GetMapping("remove")
+//    public String remove(String email, Model model) {
+//        MemberDTO memberDTO = memberService.getEmail(email);
+//        memberDTO.setStatus(Status.OUT);
+//        memberService.memberUpdate(memberDTO);
+//        model.addAttribute("msg", "지금까지 감사합니다.");
+//        model.addAttribute("url", "/logout");
+//        return "/alert";
+//    }
+//
+//    @PostMapping("changePw")
+//    public String changePassword(Model model, String pw, String email) {
+//        MemberDTO memberDTO = memberService.getEmail(email);
+//        memberDTO.setPw(pw);
+//        memberService.memberChangePw(memberDTO);
+//        model.addAttribute("url", 2);
+//        return "/alert";
+//    }
 
 
 }
