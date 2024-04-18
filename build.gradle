@@ -31,8 +31,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-mail'
     implementation 'org.projectlombok:lombok:1.18.28'
     implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
-    // 아래 aws는 승인 나면 활용 예정
-//    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
 
     implementation 'io.micrometer:micrometer-registry-prometheus'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
