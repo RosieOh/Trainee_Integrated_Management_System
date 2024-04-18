@@ -1,5 +1,7 @@
 package com.lms.domain.counsel.entity;
 
+import com.lms.domain.Course.entity.Course;
+import com.lms.domain.student.entity.Student;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -69,8 +71,9 @@ public class Counsel {
     @Column(length = 500, nullable = false)
     private String name;
 
-    @Column(length = 500, nullable = false)
-    private String student;
+    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @JoinColumn(name = "couno", referencedColumnName = "no")
+    private Student student;   // 학생
 
     @Column(length = 500, nullable = false)
     private LocalDateTime date;
