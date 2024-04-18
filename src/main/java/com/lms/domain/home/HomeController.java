@@ -29,12 +29,11 @@ public class HomeController {
 
     private final MemberService memberService;
     private final CourseService courseService;
-    private final MemberRepository memberRepository;
-
 
 
     @GetMapping("/")
     public String home(Principal principal,Model model) {
+        memberService.createAdminMember(); // 관리자 회원 생성 메서드 호출
         return "admin/member/list";
     }
 

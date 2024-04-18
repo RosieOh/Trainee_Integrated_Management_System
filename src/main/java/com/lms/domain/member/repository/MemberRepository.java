@@ -13,9 +13,6 @@ import java.util.Optional;
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
-    public Optional<Member> findByOauth2Id(String oauth2Id);
-    public Optional<Member> findByName(String name);
-
     @EntityGraph(attributePaths = "roleSet")
     @Query("select m from Member m where m.email = :email")
     Optional<Member> getWithRoles(String email);
