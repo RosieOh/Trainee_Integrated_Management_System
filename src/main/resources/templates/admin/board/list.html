@@ -1,0 +1,51 @@
+<!doctype html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+  <meta charset="UTF-8" />
+  <meta
+          content="minimum-scale=1.0, width=device-width, maximum-scale=1, ser-scalable=no"
+          name="viewport"
+  />
+  <title>천재IT교육센터</title>
+  <th:block th:replace="~{include/head :: head}"></th:block>
+</head>
+<body>
+<th:block th:replace="~{include/header :: header}"></th:block>
+<div class="main admin">
+  <th:block th:replace="~{include/adminbar :: adminbar}"></th:block>
+  <div class="main_title">
+    <h1>공지사항</h1>
+  </div>
+  <div class="admin-board">
+      <div class="admin-content">
+        <div class="course_box">
+          <h2>리스트</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>no</th>
+                <th>제목</th>
+                <th>내용</th>
+                <th>작성일</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr th:each="notice, about :${boardList}">
+                <td th:text="${about.count}"></td>
+                <td th:text="${notice.title}"></td>
+                <td th:text="${notice.content}"></td>
+                <td th:text="${notice.regDate}"></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="board_btn">
+            <a th:href="@{/notice/register}" class="button">글쓰기</a>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+</body>
+</html>

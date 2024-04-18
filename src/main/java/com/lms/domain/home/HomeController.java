@@ -35,14 +35,14 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Principal principal,Model model) {
-        return "redirect:/member";
+        return "admin/member/list";
     }
 
     @GetMapping("join")
     public String join(Model model){
         List<CourseDTO> courseDTOList = courseService.course_List();
         model.addAttribute("courseDTOList", courseDTOList);
-        return "join";
+        return "user/member/join";
     }
 
     @PostMapping("/joinPro")
@@ -65,7 +65,7 @@ public class HomeController {
     public String course(Model model){
         List<CourseDTO> courseDTOList = courseService.course_List();
         model.addAttribute("courseDTOList",courseDTOList);
-        return "course";
+        return "admin/course";
     }
 
     @PostMapping("/coursePro")
@@ -73,27 +73,28 @@ public class HomeController {
         courseService.course_Add(courseDTO);
         return "redirect:/course";
     }
+
     @GetMapping("/memJoin")
     public String memJoin(){
-        return "member/join";
+        return "join(ex)";
     }
+
 
     @GetMapping("/login")
     public String login(){
-        return "member/login";
+        return "user/member/login";
     }
 
     @GetMapping("/member")
     public String board(Model model, Principal principal, Integer cno){
+        List<CourseDTO> courseDTOList = courseService.course_List();
         List<MemberDTO> memberDTOList = memberService.memberList();
         List<MemberDTO> memberVOList = memberService.memberVOList(cno);
         model.addAttribute("memberDTOList",memberDTOList);
         model.addAttribute("memberVOList",memberVOList);
-        return "member";
+        model.addAttribute("courseDTOList",courseDTOList);
+        return "admin/member/list";
     }
 
-    @GetMapping("/board")
-    public String board(){
-        return "board";
-    }
+
 }

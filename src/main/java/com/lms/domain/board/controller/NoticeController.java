@@ -49,7 +49,7 @@ public class NoticeController {
         String boardType = "NOTICE";
         List<Board> boardList = boardRepository.findAll();
         model.addAttribute("boardList", boardList);
-        return "notice/list";
+        return "admin/board/list";
     }
 
     @GetMapping("/read")
@@ -79,7 +79,7 @@ public class NoticeController {
 
     @GetMapping("/register")
     public String registerForm(Model model) {
-        return "notice/register";
+        return "admin/board/register";
     }
 
     @PostMapping("/registerPro")
