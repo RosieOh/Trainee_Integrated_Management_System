@@ -4,6 +4,7 @@ import com.lms.global.cosntant.BaseEntity;
 import com.lms.global.cosntant.Subject;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Getter
@@ -37,4 +38,7 @@ public class Course extends BaseEntity {
 
     @Column(nullable = true)
     private String manager;        //담당 매니저
+
+    @ColumnDefault("'n'")
+    private String delete_type;        // 공개여부
 }

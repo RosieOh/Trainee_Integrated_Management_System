@@ -13,4 +13,6 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
     @Query("select c from Course c where c.subject= :subject order by c.flag asc")
     List<Course> course_subject_list(Subject subject);
 
+    @Query("select c from Course c where c.subject= :subject and c.delete_type = 'y' order by c.flag asc")
+    List<Course> course_join_list(Subject subject);
 }

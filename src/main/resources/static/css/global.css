@@ -8,6 +8,7 @@
   --c-sub: #6699ff;
   --c-sub2: #6666ff;
   --c-hover: #66b3ff;
+  --c-main_back: #EEF1F6;
   --c-back_lightgray: rgba(221, 221, 221, 1);
   --c-back_black: rgba(41, 41, 41, 1);
   --c-back_darkgray: rgba(74, 74, 74, 1);
@@ -97,7 +98,6 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
