@@ -1,7 +1,7 @@
-<!doctype html>
-<html
-        xmlns:th="http://www.thymeleaf.org"
->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{include/layout}">
 <head>
   <meta charset="UTF-8" />
   <meta
@@ -13,22 +13,7 @@
   <link rel="stylesheet" th:href="@{/static/css/hk.css}">
 </head>
 <body>
-<th:block th:replace="~{include/header :: header}"></th:block>
-<div class="user_img_box"><img th:src="@{/images/Character2.png}" alt="" class="user_img"></div>
-<div class="user_main">
-  <div class="user_title">
-    <h2>나의 정보</h2>
-  </div>
-  <div class="user_tab">
-    <ul class="nav nav-tabs">
-      <li class="nav-item">
-        <a class="nav-link" aria-current="page" th:href="@{/index2}">기본정보</a>
-      </li>
-      <li class="nav-item2">
-        <a class="nav-link" th:href="@{/index3}">추가정보</a>
-      </li>
-    </ul>
-  </div>
+<div layout:fragment="content">
 <!--  <form th:action="@{/}" method="post" onsubmit="return modify(this)">-->
   <div class="user_content">
     <div>
