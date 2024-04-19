@@ -2,6 +2,7 @@
 /* abc 순으로 기입 */
 @import "main.css";
 @import "board.css";
+@import "doyouni.css";
 
 :root {
   --c-main: #99ccff;

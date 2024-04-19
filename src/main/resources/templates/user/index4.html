@@ -1,0 +1,50 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta content="minimum-scale=1.0, width=device-width, maximum-scale=1, ser-scalable=no" name="viewport"/>
+  <title>천재IT교육센터</title>
+  <th:block th:replace="~{include/head :: head}"></th:block>
+</head>
+<body>
+<div class="main admin">
+  <th:block th:replace="~{include/header :: header}"></th:block>
+  <th:block th:replace="~{include/adminbar :: adminbar}"></th:block>
+    <div class="member1">
+      <section>
+        <nav class="menu">
+          <a href="#"><i class="fas fa-bars"></i></a>
+          <a href="#"><i class="far fa-sticky-note"></i></a>
+        </nav>
+
+        <article class="profile">
+          <div class="profile_img"><i class="fas fa-user-circle"></i></div>
+
+          <h1>DCODELAB</h1>
+          <h2>UI/UX INTERACTIVE DEVELOPER</h2>
+
+          <a href="#" class="btnView">VIEW MORE</a>
+        </article>
+
+        <ul class="contact">
+          <li>
+            <i class="fab fa-facebook-f"></i>
+            <span>Visit My Facebook page.</span>
+          </li>
+          <li>
+            <i class="fas fa-envelope "></i>
+            <span>hadaboni80@naver.com</span>
+          </li>
+        </ul>
+
+        <nav class="others">
+          <a href="member1.html" class="on"></a>
+          <a href="member2.html"></a>
+          <a href="member3.html"></a>
+          <a href="member4.html"></a>
+        </nav>
+      </section>
+    </div>
+</div>
+</body>
+</html>
