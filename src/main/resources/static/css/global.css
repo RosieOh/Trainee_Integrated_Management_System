@@ -84,12 +84,12 @@ input, textarea, select {
   border-color: var(--c-back_gray);
   border-radius: 5px;
   line-height: 1.5;
-  font-size: 1.2em;
+  font-size: 100%;
 }
 input, select {
   height: 50px;
   border: 1px solid;
-  padding: 0 10px;
+  padding: 14px 0 10px 10px;
 }
 textarea {
   padding: 10px 10px;
@@ -264,8 +264,9 @@ tr:last-child td {
   text-align: center;
   border-radius: 15px;
   border: none;
-  font-size: 1.5rem;
   width: 100%;
+  font-weight: bold;
+  font-size: 1.5rem;
 }
 
 .button:hover {
@@ -319,3 +320,4 @@ tr:last-child td {
   width: 250px;
   float: right;
 }
+

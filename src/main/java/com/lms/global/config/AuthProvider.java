@@ -1,6 +1,8 @@
 package com.lms.global.config;
 
+import com.lms.domain.member.dto.MemberDTO;
 import com.lms.domain.member.entity.Member;
+import com.lms.domain.member.repository.MemberRepository;
 import com.lms.domain.member.service.MemberService;
 import com.lms.global.cosntant.Role;
 import lombok.RequiredArgsConstructor;
@@ -26,25 +28,32 @@ import java.util.List;
 public class AuthProvider implements AuthenticationProvider {
 
     private final MemberService memberService;
+    private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        String email = (String) authentication.getPrincipal();
+        String id = (String) authentication.getPrincipal();
+        log.info("id ----------" + id);
         String pw = (String) authentication.getCredentials();
 
         PasswordEncoder passwordEncoder = memberService.passwordEncoder();
         UsernamePasswordAuthenticationToken token;
-        Member memberToken = memberService.Login_email(email);
+        Member memberToken = memberRepository.findId(id);
+        log.info("memberToken ----------" + memberToken);
+
 
         if(memberToken != null && passwordEncoder.matches(pw, memberToken.getPw())) {
             List<GrantedAuthority> roles = new ArrayList<>();
             if (memberToken.getRole().equals(Role.ADMIN)) {
                 roles.add(new SimpleGrantedAuthority("ADMIN")); // ADMIN 권한 부여
 
-            } else if (memberToken.getRole().equals(Role.MANAGER)) {
+            } else if (memberToken.getRole().equals(Role.TEACHER)) {
                 roles.add(new SimpleGrantedAuthority("MANAGER"));   // MANAGER 권한 부여
+
+            } else if (memberToken.getRole().equals(Role.MANAGER)) {
+            roles.add(new SimpleGrantedAuthority("MANAGER"));   // MANAGER 권한 부여
 
             } else {
                 roles.add(new SimpleGrantedAuthority("STUDENT"));       // STUDENT 권한 부여

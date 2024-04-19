@@ -25,17 +25,22 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     boolean existsByEmail(String email);
 
-    @Query("select m from Member m where m.email = :email")
-    Member getEmail(@Param("email") String email);
+    @Query("select m from Member m where m.login_id = :id")
+    Optional<Member> id_read(@Param("id") String id);
+
+    @Query("select m from Member m where m.login_id = :id")
+    Member id_read2(@Param("id") String id);
 
     @Query("select m from Member m where m.name = :name")
     Member getName(@Param("name") String name);
 
+    @Query("select m from Member m where m.login_id = :id")
+    Member findId(@Param("id") String id);
 
-    Integer countByEmail(@Param("email") String email);
+    Integer countByEmail(@Param("id") String id);
 
-    @Query("select m from Member m where m.email = :email")
-    Optional<Member> getMember(@Param("email") String email);
+    @Query("select m from Member m where m.login_id = :id")
+    Optional<Member> getMember(@Param("id") String id);
 
 
     @Query("select l from Member l where l.course.no = :cno")

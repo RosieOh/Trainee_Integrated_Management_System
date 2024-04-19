@@ -8,87 +8,56 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class Student extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long no;
 
-    @Column(unique = true, nullable = false)
-    private String email;           // 유저가 사용하는 이메일
+    @Column(nullable = true)
+    private String cert;            //자격증
 
     @Column(nullable = true)
-    private String smoke;            //흡연
+    private String exp;             //경력
 
     @Column(nullable = true)
-    private String disease;            //질병
+    private String stack;           //기술스택
 
     @Column(nullable = true)
-    private String accident;            //사고
+    private String OA;              // Word/PPT/Excel
 
     @Column(nullable = true)
-    private String etc;            //기타
+    private String content;         // 상담내용
 
     @Column(nullable = true)
-    private String reason;            //사유
+    private String satis;           // 전반적 만족도
 
     @Column(nullable = true)
-    private String score;            //벌점
+    private String edu_data;        // 학습자료
 
     @Column(nullable = true)
-    private String date;            //날짜
+    private String instructor;      // 담당 강사
 
     @Column(nullable = true)
-    private String education;            //교육수료
+    private String task;            // 과제 및 피드백
 
     @Column(nullable = true)
-    private String certi;            //자격증
+    private String env;             // 학습환경 및 장비
 
     @Column(nullable = true)
-    private String workshop;            //워크샵
+    private String goal;            // 최종목표
 
     @Column(nullable = true)
-    private String cv;            //자기소개서
+    private String doc;             // 입사지원 서류관련 의견
 
     @Column(nullable = true)
-    private String resume;            //이력서
+    private String personal;        // 성격 및 태도
 
     @Column(nullable = true)
-    private String univ;            //대학교
+    private String opinion;         // 종합 의견
 
     @Column(nullable = true)
-    private String major;           //학과
-
-    @Column(nullable = true)
-    private String job_program;     //국취참여여부
-
-    @Column(nullable = true)
-    private String fund;            //지원센터
-
-    @Column(nullable = true)
-    private String cert;            //수료증번호
-
-    @Column(nullable = true)
-    private String picture;         //프로필 사진
-
-    @Column(nullable = true)
-    private String complete;        //수료여부
-
-    @Column(nullable = true)
-    private String depart;        //부서
-
-    @Column(nullable = true)
-    private String hope;        //희망부서
-
-    @Column(nullable = true)
-    private String early;        //조기인턴유무
-
-    @Column(nullable = true)
-    private String other;        //타기업취업
-
-    @Column(nullable = true)
-    private String portfolio;        //포트폴리오
+    private String etc;             // 기타
 
 }

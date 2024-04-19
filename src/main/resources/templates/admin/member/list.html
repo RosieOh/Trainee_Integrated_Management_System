@@ -28,7 +28,7 @@
           <div class="admin-content_box">
             <ul class="admin-content_in">
               <li class="nav-dropdown">
-                <a class="nav_link" th:href="@{/member}">전체
+                <a class="nav_link" th:href="@{/admin_member}">전체
                 </a>
               </li>
             </ul>
@@ -40,7 +40,7 @@
                     <ul class="nav-dropdown_wrap">
                       <th:block th:each="course_big : ${course_big_List}">
                       <li>
-                        <a class="nav_link " th:href="@{/member(cno=${course_big.getNo()})}" th:text="${course_big.getFlag()} + '기'"></a>
+                        <a class="nav_link " th:href="@{/admin_member(cno=${course_big.getNo()})}" th:text="${course_big.getFlag()} + '기'"></a>
                       </li>
                       </th:block>
                     </ul>
@@ -54,7 +54,7 @@
                 <ul class="nav-dropdown_wrap">
                   <th:block th:each="course_full : ${course_full_List}">
                     <li>
-                      <a class="nav_link " th:href="@{/member(cno=${course_full.getNo()})}" th:text="${course_full.getFlag()} + '기'"></a>
+                      <a class="nav_link " th:href="@{/admin_member(cno=${course_full.getNo()})}" th:text="${course_full.getFlag()} + '기'"></a>
                     </li>
                   </th:block>
                 </ul>
@@ -68,7 +68,7 @@
                 <ul class="nav-dropdown_wrap">
                   <th:block th:each="course_pm : ${course_pm_List}">
                     <li>
-                      <a class="nav_link " th:href="@{/member(cno=${course_pm.getNo()})}" th:text="${course_pm.getFlag()} + '기'"></a>
+                      <a class="nav_link " th:href="@{/admin_member(cno=${course_pm.getNo()})}" th:text="${course_pm.getFlag()} + '기'"></a>
                     </li>
                   </th:block>
                 </ul>
@@ -99,19 +99,19 @@
                 <td th:text="${member.gender}"></td>
                 <td th:text="${member.birth}"></td>
                 <td th:text="${member.phone}"></td>
-                <td th:text="${member.address}"></td>
+                <td th:text="${member.addr1}"></td>
                 <td th:text="${#temporals.format(member.createdTime, 'yyyy-MM-dd hh:mm')}"></td>
               </tr>
             </th:block>
               <th:block th:if="${cno != null}">
                 <tr th:each="member, about :${memberVOList}">
-                  <td th:text="${member.course.subject} + ' ' +  ${member.course.flag} + '기'"></td>
+<!--                  <td th:text="${member.course.subject} + ' ' +  ${member.course.flag} + '기'"></td>-->
                   <td th:text="${member.name}"></td>
                   <td th:text="${member.email}"></td>
                   <td th:text="${member.gender}"></td>
                   <td th:text="${member.birth}"></td>
                   <td th:text="${member.phone}"></td>
-                  <td th:text="${member.address}"></td>
+                  <td th:text="${member.addr1}"></td>
                   <td th:text="${#temporals.format(member.createdTime, 'yyyy-MM-dd hh:mm')}"></td>
                 </tr>
               </th:block>

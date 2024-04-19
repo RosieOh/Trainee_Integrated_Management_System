@@ -17,9 +17,11 @@ public class MemberDTO {
 
     private Long no;     // 기본키
 
-    private String email;           // 유저가 사용하는 이메일
+    private String login_id;           // 유저가 사용하는 아이디
 
     private String pw;              //비밀번호
+
+    private String email;              // 이메일
 
     private String name;            //유저 이름
 
@@ -29,7 +31,11 @@ public class MemberDTO {
 
     private String phone;           //연락처
 
-    private String address;         //주소
+    private String addr1;         // 기본 주소
+
+    private String addr2;         // 상세 주소
+
+    private String postcode;         //우편번호
 
     @Enumerated(EnumType.STRING)
     private Status status;          //회원 활동상태
