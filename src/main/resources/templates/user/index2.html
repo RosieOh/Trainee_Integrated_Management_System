@@ -29,6 +29,7 @@
       </li>
     </ul>
   </div>
+<!--  <form th:action="@{/}" method="post" onsubmit="return modify(this)">-->
   <div class="user_content">
     <div>
       <img src="" alt="">
@@ -41,7 +42,7 @@
       <label for="pw" >비밀번호</label>
       <div class="myinfo_line">
         <input type="text"  id="pw" name="pw"  value="******" readonly>
-        <a href="" class="btn_pwChange">비밀번호 변경</a>
+        <a th:href="@{/pw}" class="btn_pwChange">비밀번호 변경</a>
       </div>
     </div>
     <div class="user_info_box infoemail">
@@ -117,12 +118,58 @@
     </div>
     <div class="myinfo_btn_group">
       <button type="submit" class="btn_myInfo">회원정보수정</button>
-      <button type="submit" class="btn_myInfo_out">회원탈퇴</button>
+      <a th:href="@{/}" class="btn_myInfo_out">회원탈퇴</a>
     </div>
   </div>
+<!--  </form>-->
 </div>
 </body>
 </html>
+<script>
+  const email2_select = document.querySelector('#email2_select')
+  const email2 = document.querySelector('#email2')
+  email2_select.addEventListener('change', (event) => {
+    if(event.target.value !== "self") {
+      email2.value = event.target.value
+      email2.disabled = true
+    } else {
+      email2.value = ""
+      email2.disabled = false
+    }
+  })
+</script>
+<script>
+  function modify(f){
+    let phoneval =  $("#phone1").val() + $("#phone2").val() + $("#phone3").val()
+    $("#phone").val(phoneval)
+
+    let emailval =  $("#email1").val() +'@'+ $("#email2").val()
+    $("#email").val(emailval)
+
+    let birthval =  $("#birth1").val() +'년'+ $("#birth2").val() +'월'+ $("#birth3").val() +'일'
+    $("#birth").val(birthval)
+
+    if(f.pw.value!=f.pw2.value){
+      alert("비밀번호와 비밀번호 확인이 서로 다릅니다.");
+      f.pw.focus();
+      return false;
+    }
+    if(f.pw.value.length(8-16)){
+      alert("비밀번호는 최소 8자리에서 최대 16자리까지 숫자, 영문, 특수문자 각 1개 이상 포함해주세요.");
+      f.pw.focus();
+      return false;
+    }
+
+    let value = $("#pw").val();
+
+    let pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&.,])[A-Za-z\d$@$!%*#?&]{8,16}$"
+    if (!pattern.test(value)) {
+      alert("숫자, 영문, 특수문자 각 1개 이상 포함입니다.");
+      $("#pw").focus();
+      return false;
+    }
+  }
+</script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
   function findAddr(){

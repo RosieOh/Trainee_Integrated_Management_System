@@ -21,42 +21,28 @@
   </div>
   <div class="user_tab">
     <ul class="nav nav-tabs">
-      <li class="nav-item2">
+      <li class="nav-item">
         <a class="nav-link" aria-current="page" th:href="@{/index2}">기본정보</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item2">
         <a class="nav-link" th:href="@{/index3}">추가정보</a>
       </li>
     </ul>
   </div>
+<!--  <form th:action="@{/}" method="post" >-->
   <div class="user_content">
-    <div>
-      <img src="" alt="">
+    <div class="pw_title">
+      <h2>본인확인</h2>
+      <p>비밀번호를 입력해주세요<i class="far fa-smile"></i></p>
     </div>
-    <div class="user_info_box">
-      <label for="stack" >기술스택</label>
-      <input type="text" id="stack" name="stack">
-    </div>
-    <div class="user_info_box">
-      <label for="exp" >경력</label>
-      <input type="text" id="exp" name="exp">
-    </div>
-    <div class="user_info_box">
-      <label for="cert" >자격증</label>
-      <input type="text" id="cert" name="cert">
-    </div>
-    <div class="user_info_box">
-      <label for="smoke" >흡연</label>
-      <input type="text" id="smoke" name="smoke">
-    </div>
-    <div class="user_info_box">
-      <label for="sick" >질병</label>
-      <input type="text" id="sick" name="sick">
+    <div class="pw_box">
+      <input type="password" name="pw" id="pw" required>
     </div>
     <div class="myinfo_btn_group">
       <button type="submit" class="btn_myInfo">입력</button>
     </div>
   </div>
+<!--  </form>-->
 </div>
 </body>
 </html>
