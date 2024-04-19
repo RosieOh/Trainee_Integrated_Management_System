@@ -102,5 +102,15 @@ public class HomeController {
         return "admin/member/list";
     }
 
+    //로그인 했을 때 회원 화면 (기본 정보)
+    @GetMapping("/index2")
+    public String main2(Model model) {
+        return "user/index2";
+    }
+
+    //(추가 정보 입력)
+    @GetMapping("/index3")
+    public String main3(Model model) { return "user/index3"; }
+
 
 }
