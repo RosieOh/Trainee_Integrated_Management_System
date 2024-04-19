@@ -2,12 +2,14 @@ package com.lms.domain.member.service;
 
 import com.lms.domain.Course.dto.CourseDTO;
 import com.lms.domain.Course.entity.Course;
+import com.lms.domain.Course.repository.CourseRepository;
 import com.lms.domain.member.dto.MemberDTO;
 import com.lms.domain.member.dto.MemberVO;
 import com.lms.domain.member.entity.Member;
 import com.lms.domain.member.repository.MemberRepository;
 import com.lms.global.cosntant.Role;
 import com.lms.global.cosntant.Status;
+import com.lms.global.cosntant.Subject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
@@ -27,35 +29,37 @@ public class MemberServiceImpl implements MemberService{
     private final ModelMapper modelMapper;
 
     private final MemberRepository memberRepository;
-
+    private final CourseRepository courseRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
     public void createAdminMember() {
         // 이미 존재하는 회원인지 확인
-        if (!memberRepository.existsByEmail("admin@chunjaeIT.co.kr")) {
+        if (memberRepository.countId("admin") <= 0) {
+            Course course = Course.builder()
+                    .no(1)
+                    .subject(Subject.EXCEPTION)
+                    .flag(1)
+                    .build();
+            courseRepository.save(course);
             // 관리자 계정 생성 및 초기 설정
             Member admin = Member.builder()
+                    .id("admin")
                     .pw(passwordEncoder.encode("1234"))
                     .name("관리자")
                     .email("admin@chunjaeIT.co.kr")
                     .role(Role.ADMIN)
                     .status(Status.ACTIVE)
                     .phone("02-3282-8589")
+                    .course(course)
                     .build();
-
             memberRepository.save(admin);
-
             log.info("Admin 계정이 생성되었습니다.");
         } else {
             log.info("Admin 계정이 이미 존재합니다.");
         }
     }
 
-    @Override
-    public boolean existByEmail(String email) {
-        return memberRepository.existsByEmail(email);
-    }
 
     @Override
     public PasswordEncoder passwordEncoder() {
@@ -83,30 +87,27 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public void member_edit(MemberDTO memberDTO) {
-        Optional<Member> member = memberRepository.getMember(memberDTO.getEmail());
+        Optional<Member> member = memberRepository.id_read(memberDTO.getId());
         Member member1 = member.orElseThrow();
-        member1.change(memberDTO);
         memberRepository.save(member1);
     }
 
     @Override
     public void state_edit(MemberDTO memberDTO) {
-        Optional<Member> member = memberRepository.getMember(memberDTO.getEmail());
+        Optional<Member> member = memberRepository.id_read(memberDTO.getId());
         Member member1 = member.orElseThrow();
-        member1.stateUpdate(memberDTO);
         memberRepository.save(member1);
     }
 
     @Override
     public void role_edit(MemberDTO memberDTO) {
-        Optional<Member> member = memberRepository.getMember(memberDTO.getEmail());
+        Optional<Member> member = memberRepository.id_read(memberDTO.getId());
         Member member1 = member.orElseThrow();
-        member1.roleUpdate(memberDTO);
         memberRepository.save(member1);
     }
 
     @Override
-    public MemberDTO login_id(String id) {
+    public MemberDTO loginId(String id) {
         Optional<Member> member = memberRepository.id_read("id");
         MemberDTO memberDTO = modelMapper.map(member, MemberDTO.class);
         return memberDTO;
@@ -115,7 +116,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public int login_pro(String id) {
         int pass = 0;
-        Member member = memberRepository.id_read2(id);
+        Member member = memberRepository.findId(id);
         LocalDateTime localDateTime = LocalDateTime.now().minusDays(30); // 현재 시점에서 30일 동안 반응이 없으면 휴면
         if (localDateTime.isAfter(member.getLoginAt())) {
             member.setStatus(Status.REST);
@@ -138,7 +139,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public boolean id_check(String id) {
         boolean pass = true;
-        int cnt = memberRepository.countByEmail(id);
+        int cnt = memberRepository.countId(id);
         if(cnt > 0) pass = false;
         return pass;
     }
@@ -161,4 +162,10 @@ public class MemberServiceImpl implements MemberService{
         return memberDTOList;
     }
 
+    @Override
+    public Member auth(String id) {
+        Member member = memberRepository.findId(id);
+        log.info("member ---------------------------------------- ???" + member);
+        return member;
+    }
 }

@@ -13,35 +13,14 @@ import java.util.Optional;
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
-    @EntityGraph(attributePaths = "roleSet")
-    @Query("select m from Member m where m.email = :email")
-    Optional<Member> getWithRoles(String email);
-
-    @EntityGraph(attributePaths = "roleSet")
-    Member findByEmail(String email);
-
-    @Query("select m from Member m where m.email = :email")
-    Optional<Member> findByEmail2(String email);
-
-    boolean existsByEmail(String email);
-
-    @Query("select m from Member m where m.login_id = :id")
+    @Query("select m from Member m where m.id = :id")
     Optional<Member> id_read(@Param("id") String id);
 
-    @Query("select m from Member m where m.login_id = :id")
-    Member id_read2(@Param("id") String id);
-
-    @Query("select m from Member m where m.name = :name")
-    Member getName(@Param("name") String name);
-
-    @Query("select m from Member m where m.login_id = :id")
+    @Query("select m from Member m where m.id = :id")
     Member findId(@Param("id") String id);
 
-    Integer countByEmail(@Param("id") String id);
-
-    @Query("select m from Member m where m.login_id = :id")
-    Optional<Member> getMember(@Param("id") String id);
-
+    @Query("select count(m) from Member m where m.id = :id")
+    Integer countId(@Param("id") String id);
 
     @Query("select l from Member l where l.course.no = :cno")
     List<Member> voList2(Integer cno);

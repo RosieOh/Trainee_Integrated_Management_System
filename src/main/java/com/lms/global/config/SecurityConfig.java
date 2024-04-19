@@ -25,19 +25,19 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        log.info("-------------------  filter Chain  ------------------");
-
+        log.info("-------------------  filter Chain Start ------------------");
 
         http.csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests((authorizeRequests) -> {authorizeRequests.requestMatchers(new AntPathRequestMatcher("**")).permitAll();})
                 .authorizeHttpRequests((authorizeRequests) -> {authorizeRequests.requestMatchers(new AntPathRequestMatcher("/")).permitAll();})
             .formLogin((formLogin) -> formLogin
-                        .loginPage("/member/login")
-                        .failureUrl("/member/login?error=true")
-                        .loginProcessingUrl("/loginPro")
+                        .loginPage("/login")
+                        .failureUrl("/login")
+                        .loginProcessingUrl("/login")
                         .defaultSuccessUrl("/")
                         .usernameParameter("id")
                         .passwordParameter("pw"))
+
             .logout((logout) -> logout.logoutUrl("/logout").logoutSuccessUrl("/"))
                 .exceptionHandling((exceptionHandling) -> {
                     exceptionHandling
@@ -45,9 +45,8 @@ public class SecurityConfig {
                             .accessDeniedPage("/denied") // 접근 거부 페이지 설정
                             .defaultAuthenticationEntryPointFor(new Http403ForbiddenEntryPoint(), new AntPathRequestMatcher("/error-500")); // 500 에러 페이지 설정
                 })
-
-
                 .headers((headers) -> headers.addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)));
+        log.info("-------------------  filter Chain End ------------------");
 
         return http.build();
     }

@@ -73,13 +73,13 @@ public class MemberController {
         return "member/join";
     }
 
-    @PostMapping("idCheckPro")
-    public ResponseEntity idCheck(@RequestBody MemberDTO memberDTO) throws Exception {
-        String id = memberDTO.getLogin_id();
-        log.info("id -----------" + id);
-        boolean result = memberService.id_check(id);
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
+//    @PostMapping("idCheckPro")
+//    public ResponseEntity idCheck(@RequestBody MemberDTO memberDTO) throws Exception {
+//        String id = memberDTO.getloginId();
+//        log.info("id -----------" + id);
+//        boolean result = memberService.id_check(id);
+//        return new ResponseEntity<>(result, HttpStatus.OK);
+//    }
 
 //
 //    @PostMapping("joinPro")

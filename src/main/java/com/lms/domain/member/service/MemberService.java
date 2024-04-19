@@ -15,20 +15,14 @@ public interface MemberService {
     public void member_edit(MemberDTO memberDTO);
     public void state_edit(MemberDTO memberDTO);
     public void role_edit(MemberDTO memberDTO);
-    public MemberDTO login_id(String id);
+    public MemberDTO loginId(String id);
     public int login_pro(String id);
     public boolean id_check(String id);
     public void member_change_pw(MemberDTO memberDTO);
     public List<MemberDTO> memberVO_list(Integer cno);
+    Member auth(String id);
 
     // 고정 아이디 생성
     void createAdminMember();
-    boolean existByEmail(String email);
-
-
-
-
-
-
 
 }

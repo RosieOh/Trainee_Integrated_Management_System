@@ -17,7 +17,7 @@ public class MemberDTO {
 
     private Long no;     // 기본키
 
-    private String login_id;           // 유저가 사용하는 아이디
+    private String id;           // 유저가 사용하는 아이디
 
     private String pw;              //비밀번호
 

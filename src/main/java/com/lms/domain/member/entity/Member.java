@@ -7,6 +7,7 @@ import com.lms.global.cosntant.Role;
 import com.lms.global.cosntant.Status;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
@@ -27,7 +28,7 @@ public class Member extends BaseEntity {
     private Long no;     // 기본키
 
     @Column(unique = true, nullable = true)
-    private String login_id;           // 유저가 사용하는 아이디
+    private String id;           // 유저가 사용하는 아이디
 
     @Column(nullable = true)
     private String pw;              //비밀번호
@@ -63,35 +64,9 @@ public class Member extends BaseEntity {
     private LocalDateTime loginAt;  //최종 로그인시간
 
     @Enumerated(EnumType.STRING)
-    @Builder.Default
-    private Role role = Role.STUDENT; // 디폴트로 USER 권한을 갖도록 초기화
+    private Role role; // 디폴트로 USER 권한을 갖도록 초기화
 
     @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @JoinColumn(name = "cno", referencedColumnName = "no")
     private Course course;      // 강의 분류
-
-    @ElementCollection(fetch = FetchType.EAGER)
-    @Builder.Default
-    private Set<Role> roleSet = new HashSet<>();
-
-
-    public void change(MemberDTO memberDTO) {
-        this.phone = memberDTO.getPhone();
-    }
-
-    public void stateUpdate(MemberDTO memberDTO) {
-        this.status = memberDTO.getStatus();
-    }
-
-    public void roleUpdate(MemberDTO memberDTO) {
-        this.role = memberDTO.getRole();
-    }
-
-    @Builder
-    public Member(String email, String pw, String name) {
-        this.name = name;
-        this.pw = pw;
-        this.email = email;
-    }
-
 }

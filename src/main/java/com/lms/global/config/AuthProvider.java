@@ -1,13 +1,10 @@
 package com.lms.global.config;
 
-import com.lms.domain.member.dto.MemberDTO;
 import com.lms.domain.member.entity.Member;
-import com.lms.domain.member.repository.MemberRepository;
 import com.lms.domain.member.service.MemberService;
 import com.lms.global.cosntant.Role;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,21 +25,23 @@ import java.util.List;
 public class AuthProvider implements AuthenticationProvider {
 
     private final MemberService memberService;
-    private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        log.info("-------------------  Auth Start ------------------");
+
         String id = (String) authentication.getPrincipal();
         log.info("id ----------" + id);
         String pw = (String) authentication.getCredentials();
+        log.info("pw ----------" + pw);
 
         PasswordEncoder passwordEncoder = memberService.passwordEncoder();
         UsernamePasswordAuthenticationToken token;
-        Member memberToken = memberRepository.findId(id);
-        log.info("memberToken ----------" + memberToken);
-
+        log.info("memberToken ---------------------------------------- Start");
+        Member memberToken = memberService.auth(id);
+        log.info("memberToken ---------------------------------------- End" + memberToken);
 
         if(memberToken != null && passwordEncoder.matches(pw, memberToken.getPw())) {
             List<GrantedAuthority> roles = new ArrayList<>();
@@ -58,10 +57,11 @@ public class AuthProvider implements AuthenticationProvider {
             } else {
                 roles.add(new SimpleGrantedAuthority("STUDENT"));       // STUDENT 권한 부여
             }
-            token = new UsernamePasswordAuthenticationToken(memberToken.getEmail(), null, roles);
-
+            token = new UsernamePasswordAuthenticationToken(memberToken.getId(), null, roles);
+            log.info("-------------------  toekn End ------------------");
             return token;
         } throw new BadCredentialsException("No such Member or Wrong Password.");
+
     }
 
     @Override
