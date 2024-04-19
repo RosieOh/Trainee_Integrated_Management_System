@@ -19,7 +19,7 @@ services:
 
       - MYSQL_DATABASE=chunjaeitlms
 
-      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_ROOT_PASSWORD=chunjae@12
 
       - MYSQL_ROOT_HOST=%
 
@@ -42,7 +42,7 @@ services:
 
       SPRING_DATASOURCE_USERNAME: root
 
-      SPRING_DATASOURCE_PASSWORD: 1234
+      SPRING_DATASOURCE_PASSWORD: chunjae@12
 
     ports:
 
