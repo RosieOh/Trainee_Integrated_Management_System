@@ -2,17 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{include/layout}">
-<head>
-  <meta charset="UTF-8" />
-  <meta
-          content="minimum-scale=1.0, width=device-width, maximum-scale=1, ser-scalable=no"
-          name="viewport"
-  />
-  <title>천재IT교육센터</title>
-  <th:block th:replace="~{include/head :: head}"></th:block>
-  <link rel="stylesheet" th:href="@{/static/css/hk.css}">
-</head>
-<body>
+
 <div layout:fragment="content">
 <!--  <form th:action="@{/}" method="post" onsubmit="return modify(this)">-->
   <div class="user_content">
@@ -108,8 +98,7 @@
   </div>
 <!--  </form>-->
 </div>
-</body>
-</html>
+
 <script>
   const email2_select = document.querySelector('#email2_select')
   const email2 = document.querySelector('#email2')

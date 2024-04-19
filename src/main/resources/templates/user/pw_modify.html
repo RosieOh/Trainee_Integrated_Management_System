@@ -1,58 +1,32 @@
-<!doctype html>
-<html
-        xmlns:th="http://www.thymeleaf.org"
->
-<head>
-  <meta charset="UTF-8" />
-  <meta
-          content="minimum-scale=1.0, width=device-width, maximum-scale=1, ser-scalable=no"
-          name="viewport"
-  />
-  <title>천재IT교육센터</title>
-  <th:block th:replace="~{include/head :: head}"></th:block>
-  <link rel="stylesheet" th:href="@{/static/css/hk.css}">
-</head>
-<body>
-<th:block th:replace="~{include/header :: header}"></th:block>
-<div class="user_img_box"><img th:src="@{/images/Character2.png}" alt="" class="user_img"></div>
-<div class="user_main">
-  <div class="user_title">
-    <h2>나의 정보</h2>
-  </div>
-  <div class="user_tab">
-    <ul class="nav nav-tabs">
-      <li class="nav-item">
-        <a class="nav-link" aria-current="page" th:href="@{/index2}">기본정보</a>
-      </li>
-      <li class="nav-item2">
-        <a class="nav-link" th:href="@{/index3}">추가정보</a>
-      </li>
-    </ul>
-  </div>
-<!--  <form th:action="@{/}" method="post" onsubmit="return pwModify(this)">-->
-    <div class="user_content">
-      <div class="pw_title">
-        <h2>비밀번호 변경</h2>
-        <p>새로운 비밀번호를 입력해주세요 <i class="far fa-smile"></i></p>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{include/layout}">
+
+<div layout:fragment="content">
+  <!--  <form th:action="@{/}" method="post" onsubmit="return pwModify(this)">-->
+  <div class="user_content">
+    <div class="pw_title">
+      <h2>비밀번호 변경</h2>
+      <p>새로운 비밀번호를 입력해주세요 <i class="far fa-smile"></i></p>
+    </div>
+    <div class="pw_modify_box">
+      <div class="user_info_box pw2">
+        <label for="pw">비밀번호</label>
+        <input type="password" name="pw" id="pw" placeholder="숫자, 영문, 특수문자 각 1개 이상 포함/최소 8자리에서 최대 16자리" required />
       </div>
-      <div class="pw_modify_box">
-        <div class="user_info_box pw2">
-          <label for="pw">비밀번호</label>
-          <input type="password" name="pw" id="pw" placeholder="숫자, 영문, 특수문자 각 1개 이상 포함/최소 8자리에서 최대 16자리" required />
-        </div>
-        <div class="user_info_box pw">
-          <label for="pw">비밀번호 확인</label>
-          <input type="password" name="pw2" id="pw2" placeholder="비밀번호를 다시 입력해주세요." required />
-        </div>
-      </div>
-      <div class="myinfo_btn_group">
-        <button type="submit" class="btn_myInfo">변경</button>
+      <div class="user_info_box pw">
+        <label for="pw">비밀번호 확인</label>
+        <input type="password" name="pw2" id="pw2" placeholder="비밀번호를 다시 입력해주세요." required />
       </div>
     </div>
-<!--  </form>-->
+    <div class="myinfo_btn_group">
+      <button type="submit" class="btn_myInfo">변경</button>
+    </div>
+  </div>
+  <!--  </form>-->
 </div>
-</body>
-</html>
+
 <script>
   function pwModify(f) {
     if (f.pw.value != f.pw2.value) {
