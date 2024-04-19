@@ -55,25 +55,22 @@
     padding-left: 20px;
 }
 
-.nav-item {
-    width: 95px;
-    text-align: center;
-    line-height: 40px;
-    border-bottom: 3px solid #232323;
-}
-
 .nav-item a {
     font-weight: bold;
 }
 
-.nav-item2 {
+.nav-item {
     width: 95px;
     text-align: center;
     line-height: 40px;
 }
 
 .nav-link {
-    padding: 15px;
+    padding: 11px;
+}
+
+.nav-link.active {
+    border-bottom: 3px solid #232323;
 }
 
 .myinfo_line {

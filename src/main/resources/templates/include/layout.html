@@ -20,11 +20,11 @@
   </div>
   <div class="user_tab">
     <ul class="nav nav-tabs">
-      <li class="nav-item2">
-        <a class="nav-link" aria-current="page" th:href="@{/index2}">기본정보</a>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/index2}" >기본정보</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:href="@{/index3}">추가정보</a>
+        <a class="nav-link" th:href="@{/index3}" >추가정보</a>
       </li>
     </ul>
   </div>
@@ -32,3 +32,10 @@
 </div>
 </body>
 </html>
+<script>
+  $(documnent).ready(function () {
+    $(".nav-link").click(function(event) {
+      $(".nav-link").addClass("active");
+    })
+  });
+</script>
