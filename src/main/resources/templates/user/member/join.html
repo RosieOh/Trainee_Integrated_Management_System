@@ -65,7 +65,7 @@
                         <div class="form-login">
                             <label>생일<em>*</em></label>
                             <div class="join_tel">
-                                <input type="number" name="birth1" id="birth1" placeholder="YYYY" maxlength="4" required />
+                                <input type="number" class="number" name="birth1" id="birth1" placeholder="YYYY" maxlength="4" min="1940" max="2030" required />
                                 <p></p>
                                 <select name="birth2" id="birth2" >
                                     <option value="" selected>MM</option>
@@ -83,7 +83,7 @@
                                     <option value="12">12월</option>
                                 </select>
                                 <p></p>
-                                <input type="number" name="birth3" id="birth3" placeholder="DD" maxlength="2" required />
+                                <input type="number" class="number" name="birth3" id="birth3" placeholder="DD" maxlength="2" min="1" max="31" required />
                                 <input type="hidden" name="birth" id="birth"/>
                             </div>
                         </div>
@@ -98,11 +98,11 @@
                         <div class="form-login">
                             <label>연락처<em>*</em></label>
                             <div class="join_tel">
-                                <input type="tel" name="phone1" id="phone1" placeholder="000" maxlength="4" required/>
+                                <input type="number" class="number" id="phone1" placeholder="000" maxlength="4" required/>
                                 <p>-</p>
-                                <input type="tel" name="phone2" id="phone2" placeholder="0000" maxlength="4" required/>
+                                <input type="number" class="number" id="phone2" placeholder="0000" maxlength="4" required/>
                                 <p>-</p>
-                                <input type="tel" name="phone3" id="phone3" placeholder="0000" maxlength="4" required/>
+                                <input type="number" class="number" id="phone3" placeholder="0000" maxlength="4" th:maxlength="4" required/>
                                 <input type="hidden" name="phone" id="phone"/>
                             </div>
                         </div>
@@ -135,18 +135,34 @@
             email2.disabled = false
         }
     })
+
+
+</script>
+    <script>
+    var number = document.querySelector('.number');
+        number.onkeydown = function(e) {
+        if(!((e.keyCode > 95 && e.keyCode < 106)
+            || (e.keyCode > 47 && e.keyCode < 58)
+            || e.keyCode == 8)) {
+            return false;
+        }
+        if(number.val().length > 4) {
+            return false;
+        }
+
+    }
 </script>
 <script>
-    function idCheck(){
-        if($("#id").val()==""){
+    function idCheck() {
+        if ($("#id").val() == "") {
             alert("아이디를 입력하지 않았습니다.");
             $("#id").focus();
             return false;
         }
 
-        var params = {"id" : $("#id").val()};
+        var params = {"id": $("#id").val()};
         $.ajax({
-            url:"/member/idCheckPro",	//아이디가 전송되어질 곳
+            url: "/member/idCheckPro",	//아이디가 전송되어질 곳
             type:"post",
             data:JSON.stringify(params),
             dataType:"json",
@@ -174,8 +190,12 @@
         let phoneval =  $("#phone1").val() + $("#phone2").val() + $("#phone3").val()
         $("#phone").val(phoneval)
 
-        let emailval =  $("#email1").val() +'@'+ $("#email2").val()
-        $("#email").val(emailval)
+        if($("#email2").val() == "") {
+            return false
+        }
+            let emailval = $("#email1").val() + '@' + $("#email2").val()
+            $("#email").val(emailval)
+
 
         let birthval =  $("#birth1").val() +'년'+ $("#birth2").val() +'월'+ $("#birth3").val() +'일'
         $("#birth").val(birthval)

@@ -18104,3 +18104,665 @@ Caused by: org.thymeleaf.exceptions.TemplateInputException: Error resolving temp
 2024-04-19 12:54:54.427 INFO  [SpringApplicationShutdownHook] [o.s.o.j.LocalContainerEntityManagerFactoryBean] - Closing JPA EntityManagerFactory for persistence unit 'default'
 2024-04-19 12:54:54.429 INFO  [SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] - HikariPool-95 - Shutdown initiated...
 2024-04-19 12:54:54.432 INFO  [SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] - HikariPool-95 - Shutdown completed.
+2024-04-19 12:57:26.798 INFO  [background-preinit] [o.h.validator.internal.util.Version] - HV000001: Hibernate Validator 8.0.1.Final
+2024-04-19 12:57:26.825 INFO  [restartedMain] [com.lms.LmsApplication] - Starting LmsApplication using Java 17.0.10 with PID 10412 (C:\kyo\ChunjaeIT_LMS\build\classes\java\main started by user in C:\kyo\ChunjaeIT_LMS)
+2024-04-19 12:57:26.826 INFO  [restartedMain] [com.lms.LmsApplication] - The following 1 profile is active: "local"
+2024-04-19 12:57:26.977 INFO  [restartedMain] [o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-04-19 12:57:26.977 INFO  [restartedMain] [o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-04-19 12:57:27.698 INFO  [restartedMain] [o.s.d.r.c.RepositoryConfigurationDelegate] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-19 12:57:27.751 INFO  [restartedMain] [o.s.d.r.c.RepositoryConfigurationDelegate] - Finished Spring Data repository scanning in 49 ms. Found 5 JPA repository interfaces.
+2024-04-19 12:57:28.212 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat initialized with port(s): 8080 (http)
+2024-04-19 12:57:28.218 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8080"]
+2024-04-19 12:57:28.219 INFO  [restartedMain] [o.apache.catalina.core.StandardService] - Starting service [Tomcat]
+2024-04-19 12:57:28.219 INFO  [restartedMain] [org.apache.catalina.core.StandardEngine] - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2024-04-19 12:57:28.322 INFO  [restartedMain] [org.apache.jasper.servlet.TldScanner] - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-04-19 12:57:28.325 INFO  [restartedMain] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring embedded WebApplicationContext
+2024-04-19 12:57:28.325 INFO  [restartedMain] [o.s.b.w.s.c.ServletWebServerApplicationContext] - Root WebApplicationContext: initialization completed in 1347 ms
+2024-04-19 12:57:28.474 INFO  [restartedMain] [o.hibernate.jpa.internal.util.LogHelper] - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-19 12:57:28.514 INFO  [restartedMain] [org.hibernate.Version] - HHH000412: Hibernate ORM core version 6.2.13.Final
+2024-04-19 12:57:28.516 INFO  [restartedMain] [org.hibernate.cfg.Environment] - HHH000406: Using bytecode reflection optimizer
+2024-04-19 12:57:28.696 INFO  [restartedMain] [o.s.o.j.p.SpringPersistenceUnitInfo] - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-19 12:57:28.713 INFO  [restartedMain] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Starting...
+2024-04-19 12:57:28.854 INFO  [restartedMain] [com.zaxxer.hikari.pool.HikariPool] - HikariPool-1 - Added connection org.mariadb.jdbc.Connection@e331be1
+2024-04-19 12:57:28.856 INFO  [restartedMain] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Start completed.
+2024-04-19 12:57:28.870 WARN  [restartedMain] [org.hibernate.orm.deprecation] - HHH90000025: MariaDB103Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-04-19 12:57:28.871 WARN  [restartedMain] [org.hibernate.orm.deprecation] - HHH90000026: MariaDB103Dialect has been deprecated; use org.hibernate.dialect.MariaDBDialect instead
+2024-04-19 12:57:29.463 INFO  [restartedMain] [o.h.e.t.j.p.i.JtaPlatformInitiator] - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-19 12:57:29.537 INFO  [restartedMain] [o.s.o.j.LocalContainerEntityManagerFactoryBean] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-19 12:57:29.705 INFO  [restartedMain] [o.s.d.j.r.query.QueryEnhancerFactory] - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-04-19 12:57:30.214 WARN  [restartedMain] [o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-19 12:57:30.269 INFO  [restartedMain] [com.lms.global.config.SecurityConfig] - -------------------  filter Chain  ------------------
+2024-04-19 12:57:30.293 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@260f1ce8, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@34e89016, org.springframework.security.web.context.SecurityContextHolderFilter@4b04dd74, org.springframework.security.web.header.HeaderWriterFilter@42a5e794, org.springframework.security.web.authentication.logout.LogoutFilter@b7716a5, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@49588a03, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@385dc0dd, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@c96a0d7, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@75ba171e, org.springframework.security.web.access.ExceptionTranslationFilter@1a4760eb, org.springframework.security.web.access.intercept.AuthorizationFilter@492bb75]
+2024-04-19 12:57:30.294 INFO  [restartedMain] [com.lms.global.config.SecurityConfig] - -------------------- WebSecurity ----------------------
+2024-04-19 12:57:30.296 WARN  [restartedMain] [o.s.s.c.a.web.builders.WebSecurity] - You are asking Spring Security to ignore org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@7027f9e0. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-04-19 12:57:30.296 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will not secure org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@7027f9e0
+2024-04-19 12:57:30.720 INFO  [restartedMain] [o.s.b.d.a.OptionalLiveReloadServer] - LiveReload server is running on port 35729
+2024-04-19 12:57:30.723 INFO  [restartedMain] [o.s.b.a.e.web.EndpointLinksResolver] - Exposing 4 endpoint(s) beneath base path '/actuator'
+2024-04-19 12:57:30.761 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Starting ProtocolHandler ["http-nio-8080"]
+2024-04-19 12:57:30.780 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat started on port(s): 8080 (http) with context path ''
+2024-04-19 12:57:30.794 INFO  [restartedMain] [com.lms.LmsApplication] - Started LmsApplication in 4.268 seconds (process running for 4.738)
+2024-04-19 12:57:31.242 INFO  [RMI TCP Connection(3)-10.40.1.116] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-04-19 12:57:31.242 INFO  [RMI TCP Connection(3)-10.40.1.116] [o.s.web.servlet.DispatcherServlet] - Initializing Servlet 'dispatcherServlet'
+2024-04-19 12:57:31.243 INFO  [RMI TCP Connection(3)-10.40.1.116] [o.s.web.servlet.DispatcherServlet] - Completed initialization in 1 ms
+2024-04-19 12:57:38.617 INFO  [http-nio-8080-exec-4] [c.l.d.member.service.MemberServiceImpl] - Admin 계정이 이미 존재합니다.
+2024-04-19 12:58:16.018 INFO  [http-nio-8080-exec-1] [c.l.d.member.controller.MemberController] - id -----------null
+2024-04-19 12:58:18.478 INFO  [http-nio-8080-exec-4] [c.l.d.member.controller.MemberController] - id -----------null
+2024-04-19 13:00:15.768 INFO  [File Watcher] [o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener] - Restarting due to 26 class path changes (0 additions, 0 deletions, 26 modifications)
+2024-04-19 13:00:15.949 INFO  [Thread-7] [o.apache.coyote.http11.Http11NioProtocol] - Pausing ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:00:15.950 INFO  [Thread-7] [o.apache.catalina.core.StandardService] - Stopping service [Tomcat]
+2024-04-19 13:00:15.965 INFO  [Thread-7] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-04-19 13:00:16.000 INFO  [Thread-7] [o.apache.coyote.http11.Http11NioProtocol] - Stopping ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:00:16.014 INFO  [Thread-7] [o.apache.coyote.http11.Http11NioProtocol] - Destroying ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:00:16.045 INFO  [Thread-7] [o.s.o.j.LocalContainerEntityManagerFactoryBean] - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-04-19 13:00:16.096 INFO  [Thread-7] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Shutdown initiated...
+2024-04-19 13:00:16.117 INFO  [Thread-7] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Shutdown completed.
+2024-04-19 13:00:16.406 INFO  [restartedMain] [com.lms.LmsApplication] - Starting LmsApplication using Java 17.0.10 with PID 10412 (C:\kyo\ChunjaeIT_LMS\build\classes\java\main started by user in C:\kyo\ChunjaeIT_LMS)
+2024-04-19 13:00:16.406 INFO  [restartedMain] [com.lms.LmsApplication] - The following 1 profile is active: "local"
+2024-04-19 13:00:16.750 INFO  [restartedMain] [o.s.d.r.c.RepositoryConfigurationDelegate] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-19 13:00:16.768 INFO  [restartedMain] [o.s.d.r.c.RepositoryConfigurationDelegate] - Finished Spring Data repository scanning in 17 ms. Found 5 JPA repository interfaces.
+2024-04-19 13:00:16.852 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat initialized with port(s): 8080 (http)
+2024-04-19 13:00:16.852 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:00:16.853 INFO  [restartedMain] [o.apache.catalina.core.StandardService] - Starting service [Tomcat]
+2024-04-19 13:00:16.853 INFO  [restartedMain] [org.apache.catalina.core.StandardEngine] - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2024-04-19 13:00:16.897 INFO  [restartedMain] [org.apache.jasper.servlet.TldScanner] - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-04-19 13:00:16.897 INFO  [restartedMain] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring embedded WebApplicationContext
+2024-04-19 13:00:16.898 INFO  [restartedMain] [o.s.b.w.s.c.ServletWebServerApplicationContext] - Root WebApplicationContext: initialization completed in 491 ms
+2024-04-19 13:00:16.937 INFO  [restartedMain] [o.hibernate.jpa.internal.util.LogHelper] - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-19 13:00:16.942 INFO  [restartedMain] [o.s.o.j.p.SpringPersistenceUnitInfo] - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-19 13:00:16.942 INFO  [restartedMain] [com.zaxxer.hikari.HikariDataSource] - HikariPool-2 - Starting...
+2024-04-19 13:00:16.950 INFO  [restartedMain] [com.zaxxer.hikari.pool.HikariPool] - HikariPool-2 - Added connection org.mariadb.jdbc.Connection@2ff9bb3e
+2024-04-19 13:00:16.950 INFO  [restartedMain] [com.zaxxer.hikari.HikariDataSource] - HikariPool-2 - Start completed.
+2024-04-19 13:00:16.950 WARN  [restartedMain] [org.hibernate.orm.deprecation] - HHH90000025: MariaDB103Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-04-19 13:00:16.950 WARN  [restartedMain] [org.hibernate.orm.deprecation] - HHH90000026: MariaDB103Dialect has been deprecated; use org.hibernate.dialect.MariaDBDialect instead
+2024-04-19 13:00:17.010 INFO  [restartedMain] [o.h.e.t.j.p.i.JtaPlatformInitiator] - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-19 13:00:17.043 INFO  [restartedMain] [o.s.o.j.LocalContainerEntityManagerFactoryBean] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-19 13:00:17.165 WARN  [restartedMain] [o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-19 13:00:17.175 INFO  [restartedMain] [com.lms.global.config.SecurityConfig] - -------------------  filter Chain  ------------------
+2024-04-19 13:00:17.185 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5f78890, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@30dc46a4, org.springframework.security.web.context.SecurityContextHolderFilter@7a6dc76f, org.springframework.security.web.header.HeaderWriterFilter@63e11940, org.springframework.security.web.authentication.logout.LogoutFilter@5fec3431, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@3b047e7d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@29b4f947, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@206ef2c0, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2af7b92c, org.springframework.security.web.access.ExceptionTranslationFilter@6c3cadfc, org.springframework.security.web.access.intercept.AuthorizationFilter@633804b]
+2024-04-19 13:00:17.186 INFO  [restartedMain] [com.lms.global.config.SecurityConfig] - -------------------- WebSecurity ----------------------
+2024-04-19 13:00:17.187 WARN  [restartedMain] [o.s.s.c.a.web.builders.WebSecurity] - You are asking Spring Security to ignore org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@34c039c1. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-04-19 13:00:17.187 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will not secure org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@34c039c1
+2024-04-19 13:00:17.330 INFO  [restartedMain] [o.s.b.d.a.OptionalLiveReloadServer] - LiveReload server is running on port 35729
+2024-04-19 13:00:17.333 INFO  [restartedMain] [o.s.b.a.e.web.EndpointLinksResolver] - Exposing 4 endpoint(s) beneath base path '/actuator'
+2024-04-19 13:00:17.367 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Starting ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:00:17.372 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat started on port(s): 8080 (http) with context path ''
+2024-04-19 13:00:17.382 INFO  [restartedMain] [com.lms.LmsApplication] - Started LmsApplication in 0.999 seconds (process running for 171.326)
+2024-04-19 13:00:17.386 INFO  [restartedMain] [o.s.b.d.a.ConditionEvaluationDeltaLoggingListener] - Condition evaluation unchanged
+2024-04-19 13:01:16.166 INFO  [File Watcher] [o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener] - Restarting due to 26 class path changes (0 additions, 0 deletions, 26 modifications)
+2024-04-19 13:01:16.206 INFO  [Thread-9] [o.apache.coyote.http11.Http11NioProtocol] - Pausing ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:01:16.206 INFO  [Thread-9] [o.apache.catalina.core.StandardService] - Stopping service [Tomcat]
+2024-04-19 13:01:16.219 INFO  [Thread-9] [o.apache.coyote.http11.Http11NioProtocol] - Stopping ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:01:16.222 INFO  [Thread-9] [o.apache.coyote.http11.Http11NioProtocol] - Destroying ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:01:16.229 INFO  [Thread-9] [o.s.o.j.LocalContainerEntityManagerFactoryBean] - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-04-19 13:01:16.237 INFO  [Thread-9] [com.zaxxer.hikari.HikariDataSource] - HikariPool-2 - Shutdown initiated...
+2024-04-19 13:01:16.245 INFO  [Thread-9] [com.zaxxer.hikari.HikariDataSource] - HikariPool-2 - Shutdown completed.
+2024-04-19 13:01:16.466 INFO  [restartedMain] [com.lms.LmsApplication] - Starting LmsApplication using Java 17.0.10 with PID 10412 (C:\kyo\ChunjaeIT_LMS\build\classes\java\main started by user in C:\kyo\ChunjaeIT_LMS)
+2024-04-19 13:01:16.466 INFO  [restartedMain] [com.lms.LmsApplication] - The following 1 profile is active: "local"
+2024-04-19 13:01:16.761 INFO  [restartedMain] [o.s.d.r.c.RepositoryConfigurationDelegate] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-19 13:01:16.780 INFO  [restartedMain] [o.s.d.r.c.RepositoryConfigurationDelegate] - Finished Spring Data repository scanning in 18 ms. Found 5 JPA repository interfaces.
+2024-04-19 13:01:16.881 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat initialized with port(s): 8080 (http)
+2024-04-19 13:01:16.882 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:01:16.882 INFO  [restartedMain] [o.apache.catalina.core.StandardService] - Starting service [Tomcat]
+2024-04-19 13:01:16.882 INFO  [restartedMain] [org.apache.catalina.core.StandardEngine] - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2024-04-19 13:01:16.915 INFO  [restartedMain] [org.apache.jasper.servlet.TldScanner] - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-04-19 13:01:16.915 INFO  [restartedMain] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring embedded WebApplicationContext
+2024-04-19 13:01:16.915 INFO  [restartedMain] [o.s.b.w.s.c.ServletWebServerApplicationContext] - Root WebApplicationContext: initialization completed in 448 ms
+2024-04-19 13:01:16.950 INFO  [restartedMain] [o.hibernate.jpa.internal.util.LogHelper] - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-19 13:01:16.954 INFO  [restartedMain] [o.s.o.j.p.SpringPersistenceUnitInfo] - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-19 13:01:16.955 INFO  [restartedMain] [com.zaxxer.hikari.HikariDataSource] - HikariPool-3 - Starting...
+2024-04-19 13:01:16.960 INFO  [restartedMain] [com.zaxxer.hikari.pool.HikariPool] - HikariPool-3 - Added connection org.mariadb.jdbc.Connection@68872633
+2024-04-19 13:01:16.960 INFO  [restartedMain] [com.zaxxer.hikari.HikariDataSource] - HikariPool-3 - Start completed.
+2024-04-19 13:01:16.961 WARN  [restartedMain] [org.hibernate.orm.deprecation] - HHH90000025: MariaDB103Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-04-19 13:01:16.961 WARN  [restartedMain] [org.hibernate.orm.deprecation] - HHH90000026: MariaDB103Dialect has been deprecated; use org.hibernate.dialect.MariaDBDialect instead
+2024-04-19 13:01:17.012 INFO  [restartedMain] [o.h.e.t.j.p.i.JtaPlatformInitiator] - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-19 13:01:17.027 INFO  [restartedMain] [o.s.o.j.LocalContainerEntityManagerFactoryBean] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-19 13:01:17.138 WARN  [restartedMain] [o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-19 13:01:17.148 INFO  [restartedMain] [com.lms.global.config.SecurityConfig] - -------------------  filter Chain  ------------------
+2024-04-19 13:01:17.155 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2d5db921, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@704d8146, org.springframework.security.web.context.SecurityContextHolderFilter@3061d97, org.springframework.security.web.header.HeaderWriterFilter@3af702d1, org.springframework.security.web.authentication.logout.LogoutFilter@78cea779, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@20252733, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@175ac337, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4974935c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5cffcbaf, org.springframework.security.web.access.ExceptionTranslationFilter@57e12232, org.springframework.security.web.access.intercept.AuthorizationFilter@54cf0a3a]
+2024-04-19 13:01:17.156 INFO  [restartedMain] [com.lms.global.config.SecurityConfig] - -------------------- WebSecurity ----------------------
+2024-04-19 13:01:17.157 WARN  [restartedMain] [o.s.s.c.a.web.builders.WebSecurity] - You are asking Spring Security to ignore org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@6eae5871. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-04-19 13:01:17.157 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will not secure org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@6eae5871
+2024-04-19 13:01:17.278 INFO  [restartedMain] [o.s.b.d.a.OptionalLiveReloadServer] - LiveReload server is running on port 35729
+2024-04-19 13:01:17.279 INFO  [restartedMain] [o.s.b.a.e.web.EndpointLinksResolver] - Exposing 4 endpoint(s) beneath base path '/actuator'
+2024-04-19 13:01:17.294 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Starting ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:01:17.297 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat started on port(s): 8080 (http) with context path ''
+2024-04-19 13:01:17.301 INFO  [restartedMain] [com.lms.LmsApplication] - Started LmsApplication in 0.856 seconds (process running for 231.244)
+2024-04-19 13:01:17.302 INFO  [restartedMain] [o.s.b.d.a.ConditionEvaluationDeltaLoggingListener] - Condition evaluation unchanged
+2024-04-19 13:03:01.271 INFO  [File Watcher] [o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener] - Restarting due to 26 class path changes (0 additions, 0 deletions, 26 modifications)
+2024-04-19 13:03:01.663 INFO  [http-nio-8080-exec-1] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-04-19 13:03:01.665 INFO  [http-nio-8080-exec-1] [o.s.web.servlet.DispatcherServlet] - Initializing Servlet 'dispatcherServlet'
+2024-04-19 13:03:01.683 INFO  [Thread-14] [o.apache.coyote.http11.Http11NioProtocol] - Pausing ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:03:01.685 INFO  [Thread-14] [o.apache.catalina.core.StandardService] - Stopping service [Tomcat]
+2024-04-19 13:03:01.687 INFO  [http-nio-8080-exec-1] [o.s.web.servlet.DispatcherServlet] - Completed initialization in 21 ms
+2024-04-19 13:03:01.700 INFO  [Thread-14] [o.apache.catalina.core.StandardWrapper] - Waiting for [1] instance(s) to be deallocated for Servlet [dispatcherServlet]
+2024-04-19 13:03:02.680 INFO  [Thread-14] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-04-19 13:03:02.694 INFO  [Thread-14] [o.apache.coyote.http11.Http11NioProtocol] - Stopping ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:03:02.697 INFO  [Thread-14] [o.apache.coyote.http11.Http11NioProtocol] - Destroying ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:03:02.722 INFO  [Thread-14] [o.s.o.j.LocalContainerEntityManagerFactoryBean] - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-04-19 13:03:02.744 INFO  [Thread-14] [com.zaxxer.hikari.HikariDataSource] - HikariPool-3 - Shutdown initiated...
+2024-04-19 13:03:02.751 INFO  [Thread-14] [com.zaxxer.hikari.HikariDataSource] - HikariPool-3 - Shutdown completed.
+2024-04-19 13:03:03.483 INFO  [restartedMain] [com.lms.LmsApplication] - Starting LmsApplication using Java 17.0.10 with PID 10412 (C:\kyo\ChunjaeIT_LMS\build\classes\java\main started by user in C:\kyo\ChunjaeIT_LMS)
+2024-04-19 13:03:03.483 INFO  [restartedMain] [com.lms.LmsApplication] - The following 1 profile is active: "local"
+2024-04-19 13:03:04.255 INFO  [restartedMain] [o.s.d.r.c.RepositoryConfigurationDelegate] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-19 13:03:04.317 INFO  [restartedMain] [o.s.d.r.c.RepositoryConfigurationDelegate] - Finished Spring Data repository scanning in 61 ms. Found 5 JPA repository interfaces.
+2024-04-19 13:03:04.590 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat initialized with port(s): 8080 (http)
+2024-04-19 13:03:04.591 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:03:04.591 INFO  [restartedMain] [o.apache.catalina.core.StandardService] - Starting service [Tomcat]
+2024-04-19 13:03:04.591 INFO  [restartedMain] [org.apache.catalina.core.StandardEngine] - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2024-04-19 13:03:04.682 INFO  [restartedMain] [org.apache.jasper.servlet.TldScanner] - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-04-19 13:03:04.683 INFO  [restartedMain] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring embedded WebApplicationContext
+2024-04-19 13:03:04.683 INFO  [restartedMain] [o.s.b.w.s.c.ServletWebServerApplicationContext] - Root WebApplicationContext: initialization completed in 1191 ms
+2024-04-19 13:03:04.762 INFO  [restartedMain] [o.hibernate.jpa.internal.util.LogHelper] - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-19 13:03:04.778 INFO  [restartedMain] [o.s.o.j.p.SpringPersistenceUnitInfo] - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-19 13:03:04.780 INFO  [restartedMain] [com.zaxxer.hikari.HikariDataSource] - HikariPool-4 - Starting...
+2024-04-19 13:03:04.796 INFO  [restartedMain] [com.zaxxer.hikari.pool.HikariPool] - HikariPool-4 - Added connection org.mariadb.jdbc.Connection@19473243
+2024-04-19 13:03:04.796 INFO  [restartedMain] [com.zaxxer.hikari.HikariDataSource] - HikariPool-4 - Start completed.
+2024-04-19 13:03:04.799 WARN  [restartedMain] [org.hibernate.orm.deprecation] - HHH90000025: MariaDB103Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-04-19 13:03:04.799 WARN  [restartedMain] [org.hibernate.orm.deprecation] - HHH90000026: MariaDB103Dialect has been deprecated; use org.hibernate.dialect.MariaDBDialect instead
+2024-04-19 13:03:04.927 INFO  [restartedMain] [o.h.e.t.j.p.i.JtaPlatformInitiator] - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-19 13:03:04.961 INFO  [restartedMain] [o.s.o.j.LocalContainerEntityManagerFactoryBean] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-19 13:03:05.199 WARN  [restartedMain] [o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-19 13:03:05.216 INFO  [restartedMain] [com.lms.global.config.SecurityConfig] - -------------------  filter Chain  ------------------
+2024-04-19 13:03:05.230 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1fbc4f52, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@62e7b25e, org.springframework.security.web.context.SecurityContextHolderFilter@5587e332, org.springframework.security.web.header.HeaderWriterFilter@4a996376, org.springframework.security.web.authentication.logout.LogoutFilter@200cf1d5, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@58799fd1, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@42242d8a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4b7b4d01, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1c4c6d87, org.springframework.security.web.access.ExceptionTranslationFilter@4e1b6f1, org.springframework.security.web.access.intercept.AuthorizationFilter@52a59e03]
+2024-04-19 13:03:05.231 INFO  [restartedMain] [com.lms.global.config.SecurityConfig] - -------------------- WebSecurity ----------------------
+2024-04-19 13:03:05.232 WARN  [restartedMain] [o.s.s.c.a.web.builders.WebSecurity] - You are asking Spring Security to ignore org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@2c26e6e8. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-04-19 13:03:05.232 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will not secure org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@2c26e6e8
+2024-04-19 13:03:05.424 INFO  [restartedMain] [o.s.b.d.a.OptionalLiveReloadServer] - LiveReload server is running on port 35729
+2024-04-19 13:03:05.428 INFO  [restartedMain] [o.s.b.a.e.web.EndpointLinksResolver] - Exposing 4 endpoint(s) beneath base path '/actuator'
+2024-04-19 13:03:05.455 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Starting ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:03:05.462 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat started on port(s): 8080 (http) with context path ''
+2024-04-19 13:03:05.468 INFO  [restartedMain] [com.lms.LmsApplication] - Started LmsApplication in 2.084 seconds (process running for 339.412)
+2024-04-19 13:03:05.470 INFO  [restartedMain] [o.s.b.d.a.ConditionEvaluationDeltaLoggingListener] - Condition evaluation unchanged
+2024-04-19 13:03:05.697 INFO  [http-nio-8080-exec-1] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-04-19 13:03:05.697 INFO  [http-nio-8080-exec-1] [o.s.web.servlet.DispatcherServlet] - Initializing Servlet 'dispatcherServlet'
+2024-04-19 13:03:05.698 INFO  [http-nio-8080-exec-1] [o.s.web.servlet.DispatcherServlet] - Completed initialization in 1 ms
+2024-04-19 13:06:44.200 INFO  [http-nio-8080-exec-7] [c.l.d.member.service.MemberServiceImpl] - Admin 계정이 이미 존재합니다.
+2024-04-19 13:06:44.875 INFO  [File Watcher] [o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener] - Restarting due to 26 class path changes (0 additions, 0 deletions, 26 modifications)
+2024-04-19 13:06:44.915 INFO  [Thread-19] [o.apache.coyote.http11.Http11NioProtocol] - Pausing ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:06:44.916 INFO  [Thread-19] [o.apache.catalina.core.StandardService] - Stopping service [Tomcat]
+2024-04-19 13:06:44.922 INFO  [Thread-19] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-04-19 13:06:44.960 INFO  [Thread-19] [o.apache.coyote.http11.Http11NioProtocol] - Stopping ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:06:44.967 INFO  [Thread-19] [o.apache.coyote.http11.Http11NioProtocol] - Destroying ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:06:44.982 INFO  [Thread-19] [o.s.o.j.LocalContainerEntityManagerFactoryBean] - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-04-19 13:06:44.995 INFO  [Thread-19] [com.zaxxer.hikari.HikariDataSource] - HikariPool-4 - Shutdown initiated...
+2024-04-19 13:06:45.004 INFO  [Thread-19] [com.zaxxer.hikari.HikariDataSource] - HikariPool-4 - Shutdown completed.
+2024-04-19 13:06:45.403 INFO  [restartedMain] [com.lms.LmsApplication] - Starting LmsApplication using Java 17.0.10 with PID 10412 (C:\kyo\ChunjaeIT_LMS\build\classes\java\main started by user in C:\kyo\ChunjaeIT_LMS)
+2024-04-19 13:06:45.403 INFO  [restartedMain] [com.lms.LmsApplication] - The following 1 profile is active: "local"
+2024-04-19 13:06:45.700 INFO  [restartedMain] [o.s.d.r.c.RepositoryConfigurationDelegate] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-19 13:06:45.722 INFO  [restartedMain] [o.s.d.r.c.RepositoryConfigurationDelegate] - Finished Spring Data repository scanning in 20 ms. Found 5 JPA repository interfaces.
+2024-04-19 13:06:45.867 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat initialized with port(s): 8080 (http)
+2024-04-19 13:06:45.867 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:06:45.867 INFO  [restartedMain] [o.apache.catalina.core.StandardService] - Starting service [Tomcat]
+2024-04-19 13:06:45.867 INFO  [restartedMain] [org.apache.catalina.core.StandardEngine] - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2024-04-19 13:06:45.911 INFO  [restartedMain] [org.apache.jasper.servlet.TldScanner] - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-04-19 13:06:45.911 INFO  [restartedMain] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring embedded WebApplicationContext
+2024-04-19 13:06:45.911 INFO  [restartedMain] [o.s.b.w.s.c.ServletWebServerApplicationContext] - Root WebApplicationContext: initialization completed in 502 ms
+2024-04-19 13:06:45.955 INFO  [restartedMain] [o.hibernate.jpa.internal.util.LogHelper] - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-19 13:06:45.960 INFO  [restartedMain] [o.s.o.j.p.SpringPersistenceUnitInfo] - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-19 13:06:45.961 INFO  [restartedMain] [com.zaxxer.hikari.HikariDataSource] - HikariPool-5 - Starting...
+2024-04-19 13:06:45.985 INFO  [restartedMain] [com.zaxxer.hikari.pool.HikariPool] - HikariPool-5 - Added connection org.mariadb.jdbc.Connection@42e4c862
+2024-04-19 13:06:45.985 INFO  [restartedMain] [com.zaxxer.hikari.HikariDataSource] - HikariPool-5 - Start completed.
+2024-04-19 13:06:45.985 WARN  [restartedMain] [org.hibernate.orm.deprecation] - HHH90000025: MariaDB103Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-04-19 13:06:45.985 WARN  [restartedMain] [org.hibernate.orm.deprecation] - HHH90000026: MariaDB103Dialect has been deprecated; use org.hibernate.dialect.MariaDBDialect instead
+2024-04-19 13:06:46.035 INFO  [restartedMain] [o.h.e.t.j.p.i.JtaPlatformInitiator] - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-19 13:06:46.094 INFO  [restartedMain] [o.s.o.j.LocalContainerEntityManagerFactoryBean] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-19 13:06:46.258 WARN  [restartedMain] [o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-19 13:06:46.268 INFO  [restartedMain] [com.lms.global.config.SecurityConfig] - -------------------  filter Chain  ------------------
+2024-04-19 13:06:46.277 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2b7d8a5f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@376c43a1, org.springframework.security.web.context.SecurityContextHolderFilter@3fc7470b, org.springframework.security.web.header.HeaderWriterFilter@459fc3b5, org.springframework.security.web.authentication.logout.LogoutFilter@6dd3179b, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@2d956c7a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2daab1ed, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@53900936, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@559a6fdb, org.springframework.security.web.access.ExceptionTranslationFilter@1c4c5107, org.springframework.security.web.access.intercept.AuthorizationFilter@69a176a9]
+2024-04-19 13:06:46.277 INFO  [restartedMain] [com.lms.global.config.SecurityConfig] - -------------------- WebSecurity ----------------------
+2024-04-19 13:06:46.278 WARN  [restartedMain] [o.s.s.c.a.web.builders.WebSecurity] - You are asking Spring Security to ignore org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@4b8bad49. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-04-19 13:06:46.278 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will not secure org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@4b8bad49
+2024-04-19 13:06:46.420 INFO  [restartedMain] [o.s.b.d.a.OptionalLiveReloadServer] - LiveReload server is running on port 35729
+2024-04-19 13:06:46.422 INFO  [restartedMain] [o.s.b.a.e.web.EndpointLinksResolver] - Exposing 4 endpoint(s) beneath base path '/actuator'
+2024-04-19 13:06:46.439 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Starting ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:06:46.441 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat started on port(s): 8080 (http) with context path ''
+2024-04-19 13:06:46.446 INFO  [restartedMain] [com.lms.LmsApplication] - Started LmsApplication in 1.071 seconds (process running for 560.39)
+2024-04-19 13:06:46.447 INFO  [restartedMain] [o.s.b.d.a.ConditionEvaluationDeltaLoggingListener] - Condition evaluation unchanged
+2024-04-19 13:06:46.559 INFO  [http-nio-8080-exec-1] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-04-19 13:06:46.559 INFO  [http-nio-8080-exec-1] [o.s.web.servlet.DispatcherServlet] - Initializing Servlet 'dispatcherServlet'
+2024-04-19 13:06:46.560 INFO  [http-nio-8080-exec-1] [o.s.web.servlet.DispatcherServlet] - Completed initialization in 1 ms
+2024-04-19 13:07:48.326 INFO  [File Watcher] [o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener] - Restarting due to 26 class path changes (0 additions, 0 deletions, 26 modifications)
+2024-04-19 13:07:48.714 INFO  [Thread-24] [o.apache.coyote.http11.Http11NioProtocol] - Pausing ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:07:48.715 INFO  [Thread-24] [o.apache.catalina.core.StandardService] - Stopping service [Tomcat]
+2024-04-19 13:07:48.728 INFO  [Thread-24] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-04-19 13:07:48.841 INFO  [Thread-24] [o.apache.coyote.http11.Http11NioProtocol] - Stopping ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:07:48.885 INFO  [Thread-24] [o.apache.coyote.http11.Http11NioProtocol] - Destroying ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:07:48.954 INFO  [Thread-24] [o.s.o.j.LocalContainerEntityManagerFactoryBean] - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-04-19 13:07:49.162 INFO  [Thread-24] [com.zaxxer.hikari.HikariDataSource] - HikariPool-5 - Shutdown initiated...
+2024-04-19 13:07:49.331 INFO  [Thread-24] [com.zaxxer.hikari.HikariDataSource] - HikariPool-5 - Shutdown completed.
+2024-04-19 13:07:50.055 INFO  [restartedMain] [com.lms.LmsApplication] - Starting LmsApplication using Java 17.0.10 with PID 10412 (C:\kyo\ChunjaeIT_LMS\build\classes\java\main started by user in C:\kyo\ChunjaeIT_LMS)
+2024-04-19 13:07:50.055 INFO  [restartedMain] [com.lms.LmsApplication] - The following 1 profile is active: "local"
+2024-04-19 13:07:50.544 INFO  [restartedMain] [o.s.d.r.c.RepositoryConfigurationDelegate] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-19 13:07:50.638 INFO  [restartedMain] [o.s.d.r.c.RepositoryConfigurationDelegate] - Finished Spring Data repository scanning in 92 ms. Found 5 JPA repository interfaces.
+2024-04-19 13:07:51.102 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat initialized with port(s): 8080 (http)
+2024-04-19 13:07:51.103 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:07:51.103 INFO  [restartedMain] [o.apache.catalina.core.StandardService] - Starting service [Tomcat]
+2024-04-19 13:07:51.103 INFO  [restartedMain] [org.apache.catalina.core.StandardEngine] - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2024-04-19 13:07:51.190 INFO  [restartedMain] [org.apache.jasper.servlet.TldScanner] - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-04-19 13:07:51.192 INFO  [restartedMain] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring embedded WebApplicationContext
+2024-04-19 13:07:51.192 INFO  [restartedMain] [o.s.b.w.s.c.ServletWebServerApplicationContext] - Root WebApplicationContext: initialization completed in 1137 ms
+2024-04-19 13:07:51.233 INFO  [restartedMain] [o.hibernate.jpa.internal.util.LogHelper] - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-19 13:07:51.240 INFO  [restartedMain] [o.s.o.j.p.SpringPersistenceUnitInfo] - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-19 13:07:51.241 INFO  [restartedMain] [com.zaxxer.hikari.HikariDataSource] - HikariPool-6 - Starting...
+2024-04-19 13:07:51.249 INFO  [restartedMain] [com.zaxxer.hikari.pool.HikariPool] - HikariPool-6 - Added connection org.mariadb.jdbc.Connection@4ce71499
+2024-04-19 13:07:51.249 INFO  [restartedMain] [com.zaxxer.hikari.HikariDataSource] - HikariPool-6 - Start completed.
+2024-04-19 13:07:51.250 WARN  [restartedMain] [org.hibernate.orm.deprecation] - HHH90000025: MariaDB103Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-04-19 13:07:51.250 WARN  [restartedMain] [org.hibernate.orm.deprecation] - HHH90000026: MariaDB103Dialect has been deprecated; use org.hibernate.dialect.MariaDBDialect instead
+2024-04-19 13:07:51.353 INFO  [restartedMain] [o.h.e.t.j.p.i.JtaPlatformInitiator] - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-19 13:07:51.388 INFO  [restartedMain] [o.s.o.j.LocalContainerEntityManagerFactoryBean] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-19 13:07:51.581 WARN  [restartedMain] [o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-19 13:07:51.590 INFO  [restartedMain] [com.lms.global.config.SecurityConfig] - -------------------  filter Chain  ------------------
+2024-04-19 13:07:51.600 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4ec83ac8, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@e1b284, org.springframework.security.web.context.SecurityContextHolderFilter@502100ad, org.springframework.security.web.header.HeaderWriterFilter@688af121, org.springframework.security.web.authentication.logout.LogoutFilter@42d7ac77, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@31839c9b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@717b426c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@25171d8d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@67990894, org.springframework.security.web.access.ExceptionTranslationFilter@5a31d127, org.springframework.security.web.access.intercept.AuthorizationFilter@74f27db9]
+2024-04-19 13:07:51.600 INFO  [restartedMain] [com.lms.global.config.SecurityConfig] - -------------------- WebSecurity ----------------------
+2024-04-19 13:07:51.601 WARN  [restartedMain] [o.s.s.c.a.web.builders.WebSecurity] - You are asking Spring Security to ignore org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@7ebadc2a. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-04-19 13:07:51.601 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will not secure org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@7ebadc2a
+2024-04-19 13:07:51.724 INFO  [restartedMain] [o.s.b.d.a.OptionalLiveReloadServer] - LiveReload server is running on port 35729
+2024-04-19 13:07:51.726 INFO  [restartedMain] [o.s.b.a.e.web.EndpointLinksResolver] - Exposing 4 endpoint(s) beneath base path '/actuator'
+2024-04-19 13:07:51.743 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Starting ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:07:51.762 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat started on port(s): 8080 (http) with context path ''
+2024-04-19 13:07:51.768 INFO  [restartedMain] [com.lms.LmsApplication] - Started LmsApplication in 1.733 seconds (process running for 625.711)
+2024-04-19 13:07:51.769 INFO  [restartedMain] [o.s.b.d.a.ConditionEvaluationDeltaLoggingListener] - Condition evaluation unchanged
+2024-04-19 13:08:22.306 INFO  [File Watcher] [o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener] - Restarting due to 26 class path changes (0 additions, 0 deletions, 26 modifications)
+2024-04-19 13:08:22.413 INFO  [Thread-29] [o.apache.coyote.http11.Http11NioProtocol] - Pausing ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:08:22.413 INFO  [Thread-29] [o.apache.catalina.core.StandardService] - Stopping service [Tomcat]
+2024-04-19 13:08:22.420 INFO  [Thread-29] [o.apache.coyote.http11.Http11NioProtocol] - Stopping ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:08:22.422 INFO  [Thread-29] [o.apache.coyote.http11.Http11NioProtocol] - Destroying ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:08:22.430 INFO  [Thread-29] [o.s.o.j.LocalContainerEntityManagerFactoryBean] - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-04-19 13:08:22.436 INFO  [Thread-29] [com.zaxxer.hikari.HikariDataSource] - HikariPool-6 - Shutdown initiated...
+2024-04-19 13:08:22.441 INFO  [Thread-29] [com.zaxxer.hikari.HikariDataSource] - HikariPool-6 - Shutdown completed.
+2024-04-19 13:08:22.553 INFO  [restartedMain] [com.lms.LmsApplication] - Starting LmsApplication using Java 17.0.10 with PID 10412 (C:\kyo\ChunjaeIT_LMS\build\classes\java\main started by user in C:\kyo\ChunjaeIT_LMS)
+2024-04-19 13:08:22.553 INFO  [restartedMain] [com.lms.LmsApplication] - The following 1 profile is active: "local"
+2024-04-19 13:08:22.936 INFO  [restartedMain] [o.s.d.r.c.RepositoryConfigurationDelegate] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-19 13:08:22.969 INFO  [restartedMain] [o.s.d.r.c.RepositoryConfigurationDelegate] - Finished Spring Data repository scanning in 32 ms. Found 5 JPA repository interfaces.
+2024-04-19 13:08:23.103 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat initialized with port(s): 8080 (http)
+2024-04-19 13:08:23.103 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:08:23.103 INFO  [restartedMain] [o.apache.catalina.core.StandardService] - Starting service [Tomcat]
+2024-04-19 13:08:23.103 INFO  [restartedMain] [org.apache.catalina.core.StandardEngine] - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2024-04-19 13:08:23.163 INFO  [restartedMain] [org.apache.jasper.servlet.TldScanner] - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-04-19 13:08:23.163 INFO  [restartedMain] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring embedded WebApplicationContext
+2024-04-19 13:08:23.163 INFO  [restartedMain] [o.s.b.w.s.c.ServletWebServerApplicationContext] - Root WebApplicationContext: initialization completed in 609 ms
+2024-04-19 13:08:23.217 INFO  [restartedMain] [o.hibernate.jpa.internal.util.LogHelper] - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-19 13:08:23.224 INFO  [restartedMain] [o.s.o.j.p.SpringPersistenceUnitInfo] - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-19 13:08:23.224 INFO  [restartedMain] [com.zaxxer.hikari.HikariDataSource] - HikariPool-7 - Starting...
+2024-04-19 13:08:23.230 INFO  [restartedMain] [com.zaxxer.hikari.pool.HikariPool] - HikariPool-7 - Added connection org.mariadb.jdbc.Connection@2d98500d
+2024-04-19 13:08:23.230 INFO  [restartedMain] [com.zaxxer.hikari.HikariDataSource] - HikariPool-7 - Start completed.
+2024-04-19 13:08:23.230 WARN  [restartedMain] [org.hibernate.orm.deprecation] - HHH90000025: MariaDB103Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-04-19 13:08:23.230 WARN  [restartedMain] [org.hibernate.orm.deprecation] - HHH90000026: MariaDB103Dialect has been deprecated; use org.hibernate.dialect.MariaDBDialect instead
+2024-04-19 13:08:23.284 INFO  [restartedMain] [o.h.e.t.j.p.i.JtaPlatformInitiator] - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-19 13:08:23.307 INFO  [restartedMain] [o.s.o.j.LocalContainerEntityManagerFactoryBean] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-19 13:08:23.498 WARN  [restartedMain] [o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-19 13:08:23.511 INFO  [restartedMain] [com.lms.global.config.SecurityConfig] - -------------------  filter Chain  ------------------
+2024-04-19 13:08:23.525 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@51ea3a96, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1d4fd5f8, org.springframework.security.web.context.SecurityContextHolderFilter@774a7a12, org.springframework.security.web.header.HeaderWriterFilter@371a2d56, org.springframework.security.web.authentication.logout.LogoutFilter@55ac501c, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@66f1aae4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@19bf67d9, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1784c1ed, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@31156063, org.springframework.security.web.access.ExceptionTranslationFilter@22f58813, org.springframework.security.web.access.intercept.AuthorizationFilter@6f54062]
+2024-04-19 13:08:23.526 INFO  [restartedMain] [com.lms.global.config.SecurityConfig] - -------------------- WebSecurity ----------------------
+2024-04-19 13:08:23.527 WARN  [restartedMain] [o.s.s.c.a.web.builders.WebSecurity] - You are asking Spring Security to ignore org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@4772c07d. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-04-19 13:08:23.527 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will not secure org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@4772c07d
+2024-04-19 13:08:23.768 INFO  [restartedMain] [o.s.b.d.a.OptionalLiveReloadServer] - LiveReload server is running on port 35729
+2024-04-19 13:08:23.771 INFO  [restartedMain] [o.s.b.a.e.web.EndpointLinksResolver] - Exposing 4 endpoint(s) beneath base path '/actuator'
+2024-04-19 13:08:23.816 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Starting ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:08:23.820 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat started on port(s): 8080 (http) with context path ''
+2024-04-19 13:08:23.825 INFO  [restartedMain] [com.lms.LmsApplication] - Started LmsApplication in 1.303 seconds (process running for 657.769)
+2024-04-19 13:08:23.827 INFO  [restartedMain] [o.s.b.d.a.ConditionEvaluationDeltaLoggingListener] - Condition evaluation unchanged
+2024-04-19 13:08:23.857 INFO  [http-nio-8080-exec-1] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-04-19 13:08:23.857 INFO  [http-nio-8080-exec-1] [o.s.web.servlet.DispatcherServlet] - Initializing Servlet 'dispatcherServlet'
+2024-04-19 13:08:23.858 INFO  [http-nio-8080-exec-1] [o.s.web.servlet.DispatcherServlet] - Completed initialization in 1 ms
+2024-04-19 13:08:23.868 INFO  [http-nio-8080-exec-1] [c.l.d.member.service.MemberServiceImpl] - Admin 계정이 이미 존재합니다.
+2024-04-19 13:09:02.532 INFO  [File Watcher] [o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener] - Restarting due to 26 class path changes (0 additions, 0 deletions, 26 modifications)
+2024-04-19 13:09:02.602 INFO  [Thread-34] [o.apache.coyote.http11.Http11NioProtocol] - Pausing ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:09:02.603 INFO  [Thread-34] [o.apache.catalina.core.StandardService] - Stopping service [Tomcat]
+2024-04-19 13:09:02.607 INFO  [Thread-34] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-04-19 13:09:02.613 INFO  [Thread-34] [o.apache.coyote.http11.Http11NioProtocol] - Stopping ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:09:02.615 INFO  [Thread-34] [o.apache.coyote.http11.Http11NioProtocol] - Destroying ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:09:02.621 INFO  [Thread-34] [o.s.o.j.LocalContainerEntityManagerFactoryBean] - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-04-19 13:09:02.625 INFO  [Thread-34] [com.zaxxer.hikari.HikariDataSource] - HikariPool-7 - Shutdown initiated...
+2024-04-19 13:09:02.628 INFO  [Thread-34] [com.zaxxer.hikari.HikariDataSource] - HikariPool-7 - Shutdown completed.
+2024-04-19 13:09:02.886 INFO  [restartedMain] [com.lms.LmsApplication] - Starting LmsApplication using Java 17.0.10 with PID 10412 (C:\kyo\ChunjaeIT_LMS\build\classes\java\main started by user in C:\kyo\ChunjaeIT_LMS)
+2024-04-19 13:09:02.886 INFO  [restartedMain] [com.lms.LmsApplication] - The following 1 profile is active: "local"
+2024-04-19 13:09:03.230 INFO  [restartedMain] [o.s.d.r.c.RepositoryConfigurationDelegate] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-19 13:09:03.246 INFO  [restartedMain] [o.s.d.r.c.RepositoryConfigurationDelegate] - Finished Spring Data repository scanning in 16 ms. Found 5 JPA repository interfaces.
+2024-04-19 13:09:03.311 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat initialized with port(s): 8080 (http)
+2024-04-19 13:09:03.311 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:09:03.311 INFO  [restartedMain] [o.apache.catalina.core.StandardService] - Starting service [Tomcat]
+2024-04-19 13:09:03.311 INFO  [restartedMain] [org.apache.catalina.core.StandardEngine] - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2024-04-19 13:09:03.340 INFO  [restartedMain] [org.apache.jasper.servlet.TldScanner] - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-04-19 13:09:03.341 INFO  [restartedMain] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring embedded WebApplicationContext
+2024-04-19 13:09:03.341 INFO  [restartedMain] [o.s.b.w.s.c.ServletWebServerApplicationContext] - Root WebApplicationContext: initialization completed in 454 ms
+2024-04-19 13:09:03.376 INFO  [restartedMain] [o.hibernate.jpa.internal.util.LogHelper] - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-19 13:09:03.381 INFO  [restartedMain] [o.s.o.j.p.SpringPersistenceUnitInfo] - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-19 13:09:03.381 INFO  [restartedMain] [com.zaxxer.hikari.HikariDataSource] - HikariPool-8 - Starting...
+2024-04-19 13:09:03.385 INFO  [restartedMain] [com.zaxxer.hikari.pool.HikariPool] - HikariPool-8 - Added connection org.mariadb.jdbc.Connection@4b106338
+2024-04-19 13:09:03.385 INFO  [restartedMain] [com.zaxxer.hikari.HikariDataSource] - HikariPool-8 - Start completed.
+2024-04-19 13:09:03.385 WARN  [restartedMain] [org.hibernate.orm.deprecation] - HHH90000025: MariaDB103Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-04-19 13:09:03.385 WARN  [restartedMain] [org.hibernate.orm.deprecation] - HHH90000026: MariaDB103Dialect has been deprecated; use org.hibernate.dialect.MariaDBDialect instead
+2024-04-19 13:09:03.421 INFO  [restartedMain] [o.h.e.t.j.p.i.JtaPlatformInitiator] - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-19 13:09:03.434 INFO  [restartedMain] [o.s.o.j.LocalContainerEntityManagerFactoryBean] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-19 13:09:03.538 WARN  [restartedMain] [o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-19 13:09:03.546 INFO  [restartedMain] [com.lms.global.config.SecurityConfig] - -------------------  filter Chain  ------------------
+2024-04-19 13:09:03.554 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4d4f6ea7, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3a7fb587, org.springframework.security.web.context.SecurityContextHolderFilter@6fefe47f, org.springframework.security.web.header.HeaderWriterFilter@71bc588e, org.springframework.security.web.authentication.logout.LogoutFilter@5dca33f8, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@4116d08e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@c9b2d60, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5efda140, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5c252c9a, org.springframework.security.web.access.ExceptionTranslationFilter@31fc791a, org.springframework.security.web.access.intercept.AuthorizationFilter@3babb2e0]
+2024-04-19 13:09:03.554 INFO  [restartedMain] [com.lms.global.config.SecurityConfig] - -------------------- WebSecurity ----------------------
+2024-04-19 13:09:03.555 WARN  [restartedMain] [o.s.s.c.a.web.builders.WebSecurity] - You are asking Spring Security to ignore org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@61b2dd43. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-04-19 13:09:03.555 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will not secure org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@61b2dd43
+2024-04-19 13:09:03.668 INFO  [restartedMain] [o.s.b.d.a.OptionalLiveReloadServer] - LiveReload server is running on port 35729
+2024-04-19 13:09:03.670 INFO  [restartedMain] [o.s.b.a.e.web.EndpointLinksResolver] - Exposing 4 endpoint(s) beneath base path '/actuator'
+2024-04-19 13:09:03.684 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Starting ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:09:03.687 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat started on port(s): 8080 (http) with context path ''
+2024-04-19 13:09:03.690 INFO  [restartedMain] [com.lms.LmsApplication] - Started LmsApplication in 0.824 seconds (process running for 697.634)
+2024-04-19 13:09:03.691 INFO  [restartedMain] [o.s.b.d.a.ConditionEvaluationDeltaLoggingListener] - Condition evaluation unchanged
+2024-04-19 13:09:04.452 INFO  [http-nio-8080-exec-1] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-04-19 13:09:04.452 INFO  [http-nio-8080-exec-1] [o.s.web.servlet.DispatcherServlet] - Initializing Servlet 'dispatcherServlet'
+2024-04-19 13:09:04.453 INFO  [http-nio-8080-exec-1] [o.s.web.servlet.DispatcherServlet] - Completed initialization in 1 ms
+2024-04-19 13:09:21.633 INFO  [File Watcher] [o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener] - Restarting due to 26 class path changes (0 additions, 0 deletions, 26 modifications)
+2024-04-19 13:09:21.641 INFO  [Thread-39] [o.apache.coyote.http11.Http11NioProtocol] - Pausing ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:09:21.641 INFO  [Thread-39] [o.apache.catalina.core.StandardService] - Stopping service [Tomcat]
+2024-04-19 13:09:21.641 INFO  [Thread-39] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-04-19 13:09:21.643 INFO  [Thread-39] [o.apache.coyote.http11.Http11NioProtocol] - Stopping ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:09:21.644 INFO  [Thread-39] [o.apache.coyote.http11.Http11NioProtocol] - Destroying ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:09:21.646 INFO  [Thread-39] [o.s.o.j.LocalContainerEntityManagerFactoryBean] - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-04-19 13:09:21.646 INFO  [Thread-39] [com.zaxxer.hikari.HikariDataSource] - HikariPool-8 - Shutdown initiated...
+2024-04-19 13:09:21.649 INFO  [Thread-39] [com.zaxxer.hikari.HikariDataSource] - HikariPool-8 - Shutdown completed.
+2024-04-19 13:09:21.716 INFO  [restartedMain] [com.lms.LmsApplication] - Starting LmsApplication using Java 17.0.10 with PID 10412 (C:\kyo\ChunjaeIT_LMS\build\classes\java\main started by user in C:\kyo\ChunjaeIT_LMS)
+2024-04-19 13:09:21.716 INFO  [restartedMain] [com.lms.LmsApplication] - The following 1 profile is active: "local"
+2024-04-19 13:09:22.036 INFO  [restartedMain] [o.s.d.r.c.RepositoryConfigurationDelegate] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-19 13:09:22.065 INFO  [restartedMain] [o.s.d.r.c.RepositoryConfigurationDelegate] - Finished Spring Data repository scanning in 28 ms. Found 5 JPA repository interfaces.
+2024-04-19 13:09:22.161 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat initialized with port(s): 8080 (http)
+2024-04-19 13:09:22.162 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:09:22.162 INFO  [restartedMain] [o.apache.catalina.core.StandardService] - Starting service [Tomcat]
+2024-04-19 13:09:22.162 INFO  [restartedMain] [org.apache.catalina.core.StandardEngine] - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2024-04-19 13:09:22.225 INFO  [restartedMain] [org.apache.jasper.servlet.TldScanner] - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-04-19 13:09:22.226 INFO  [restartedMain] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring embedded WebApplicationContext
+2024-04-19 13:09:22.226 INFO  [restartedMain] [o.s.b.w.s.c.ServletWebServerApplicationContext] - Root WebApplicationContext: initialization completed in 509 ms
+2024-04-19 13:09:22.288 INFO  [restartedMain] [o.hibernate.jpa.internal.util.LogHelper] - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-19 13:09:22.294 INFO  [restartedMain] [o.s.o.j.p.SpringPersistenceUnitInfo] - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-19 13:09:22.294 INFO  [restartedMain] [com.zaxxer.hikari.HikariDataSource] - HikariPool-9 - Starting...
+2024-04-19 13:09:22.298 INFO  [restartedMain] [com.zaxxer.hikari.pool.HikariPool] - HikariPool-9 - Added connection org.mariadb.jdbc.Connection@54c58462
+2024-04-19 13:09:22.299 INFO  [restartedMain] [com.zaxxer.hikari.HikariDataSource] - HikariPool-9 - Start completed.
+2024-04-19 13:09:22.299 WARN  [restartedMain] [org.hibernate.orm.deprecation] - HHH90000025: MariaDB103Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-04-19 13:09:23.445 WARN  [restartedMain] [org.hibernate.orm.deprecation] - HHH90000026: MariaDB103Dialect has been deprecated; use org.hibernate.dialect.MariaDBDialect instead
+2024-04-19 13:09:23.492 INFO  [restartedMain] [o.h.e.t.j.p.i.JtaPlatformInitiator] - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-19 13:09:23.512 INFO  [restartedMain] [o.s.o.j.LocalContainerEntityManagerFactoryBean] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-19 13:09:23.645 WARN  [restartedMain] [o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-19 13:09:23.655 INFO  [restartedMain] [com.lms.global.config.SecurityConfig] - -------------------  filter Chain  ------------------
+2024-04-19 13:09:23.666 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@462bf718, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@13a6015e, org.springframework.security.web.context.SecurityContextHolderFilter@2454b6bb, org.springframework.security.web.header.HeaderWriterFilter@50699dea, org.springframework.security.web.authentication.logout.LogoutFilter@48cfb49d, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@7375ceb7, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@69738c85, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@553563ec, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@19d2250d, org.springframework.security.web.access.ExceptionTranslationFilter@5bfcf0cf, org.springframework.security.web.access.intercept.AuthorizationFilter@43f920ff]
+2024-04-19 13:09:23.666 INFO  [restartedMain] [com.lms.global.config.SecurityConfig] - -------------------- WebSecurity ----------------------
+2024-04-19 13:09:23.666 WARN  [restartedMain] [o.s.s.c.a.web.builders.WebSecurity] - You are asking Spring Security to ignore org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@11a86bfc. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-04-19 13:09:23.666 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will not secure org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@11a86bfc
+2024-04-19 13:09:23.811 INFO  [restartedMain] [o.s.b.d.a.OptionalLiveReloadServer] - LiveReload server is running on port 35729
+2024-04-19 13:09:23.813 INFO  [restartedMain] [o.s.b.a.e.web.EndpointLinksResolver] - Exposing 4 endpoint(s) beneath base path '/actuator'
+2024-04-19 13:09:23.828 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Starting ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:09:23.831 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat started on port(s): 8080 (http) with context path ''
+2024-04-19 13:09:23.836 INFO  [restartedMain] [com.lms.LmsApplication] - Started LmsApplication in 2.134 seconds (process running for 717.779)
+2024-04-19 13:09:23.837 INFO  [restartedMain] [o.s.b.d.a.ConditionEvaluationDeltaLoggingListener] - Condition evaluation unchanged
+2024-04-19 13:09:52.711 INFO  [http-nio-8080-exec-1] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-04-19 13:09:52.713 INFO  [http-nio-8080-exec-1] [o.s.web.servlet.DispatcherServlet] - Initializing Servlet 'dispatcherServlet'
+2024-04-19 13:09:52.722 INFO  [http-nio-8080-exec-1] [o.s.web.servlet.DispatcherServlet] - Completed initialization in 9 ms
+2024-04-19 13:09:54.271 INFO  [File Watcher] [o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener] - Restarting due to 26 class path changes (0 additions, 0 deletions, 26 modifications)
+2024-04-19 13:09:54.285 INFO  [Thread-44] [o.apache.coyote.http11.Http11NioProtocol] - Pausing ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:09:54.285 INFO  [Thread-44] [o.apache.catalina.core.StandardService] - Stopping service [Tomcat]
+2024-04-19 13:09:54.286 INFO  [Thread-44] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-04-19 13:09:54.292 INFO  [Thread-44] [o.apache.coyote.http11.Http11NioProtocol] - Stopping ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:09:54.294 INFO  [Thread-44] [o.apache.coyote.http11.Http11NioProtocol] - Destroying ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:09:54.298 INFO  [Thread-44] [o.s.o.j.LocalContainerEntityManagerFactoryBean] - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-04-19 13:09:54.302 INFO  [Thread-44] [com.zaxxer.hikari.HikariDataSource] - HikariPool-9 - Shutdown initiated...
+2024-04-19 13:09:54.306 INFO  [Thread-44] [com.zaxxer.hikari.HikariDataSource] - HikariPool-9 - Shutdown completed.
+2024-04-19 13:09:54.579 INFO  [restartedMain] [com.lms.LmsApplication] - Starting LmsApplication using Java 17.0.10 with PID 10412 (C:\kyo\ChunjaeIT_LMS\build\classes\java\main started by user in C:\kyo\ChunjaeIT_LMS)
+2024-04-19 13:09:54.579 INFO  [restartedMain] [com.lms.LmsApplication] - The following 1 profile is active: "local"
+2024-04-19 13:09:55.043 INFO  [restartedMain] [o.s.d.r.c.RepositoryConfigurationDelegate] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-19 13:09:55.085 INFO  [restartedMain] [o.s.d.r.c.RepositoryConfigurationDelegate] - Finished Spring Data repository scanning in 40 ms. Found 5 JPA repository interfaces.
+2024-04-19 13:09:55.212 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat initialized with port(s): 8080 (http)
+2024-04-19 13:09:55.212 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:09:55.212 INFO  [restartedMain] [o.apache.catalina.core.StandardService] - Starting service [Tomcat]
+2024-04-19 13:09:55.212 INFO  [restartedMain] [org.apache.catalina.core.StandardEngine] - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2024-04-19 13:09:55.259 INFO  [restartedMain] [org.apache.jasper.servlet.TldScanner] - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-04-19 13:09:55.259 INFO  [restartedMain] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring embedded WebApplicationContext
+2024-04-19 13:09:55.259 INFO  [restartedMain] [o.s.b.w.s.c.ServletWebServerApplicationContext] - Root WebApplicationContext: initialization completed in 679 ms
+2024-04-19 13:09:55.310 INFO  [restartedMain] [o.hibernate.jpa.internal.util.LogHelper] - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-19 13:09:55.314 INFO  [restartedMain] [o.s.o.j.p.SpringPersistenceUnitInfo] - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-19 13:09:55.315 INFO  [restartedMain] [com.zaxxer.hikari.HikariDataSource] - HikariPool-10 - Starting...
+2024-04-19 13:09:55.322 INFO  [restartedMain] [com.zaxxer.hikari.pool.HikariPool] - HikariPool-10 - Added connection org.mariadb.jdbc.Connection@3d748304
+2024-04-19 13:09:55.322 INFO  [restartedMain] [com.zaxxer.hikari.HikariDataSource] - HikariPool-10 - Start completed.
+2024-04-19 13:09:55.322 WARN  [restartedMain] [org.hibernate.orm.deprecation] - HHH90000025: MariaDB103Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-04-19 13:09:55.322 WARN  [restartedMain] [org.hibernate.orm.deprecation] - HHH90000026: MariaDB103Dialect has been deprecated; use org.hibernate.dialect.MariaDBDialect instead
+2024-04-19 13:09:55.358 INFO  [restartedMain] [o.h.e.t.j.p.i.JtaPlatformInitiator] - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-19 13:09:55.382 INFO  [restartedMain] [o.s.o.j.LocalContainerEntityManagerFactoryBean] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-19 13:09:55.477 WARN  [restartedMain] [o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-19 13:09:55.485 INFO  [restartedMain] [com.lms.global.config.SecurityConfig] - -------------------  filter Chain  ------------------
+2024-04-19 13:09:55.493 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7a1cbe53, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5150ce07, org.springframework.security.web.context.SecurityContextHolderFilter@605bf326, org.springframework.security.web.header.HeaderWriterFilter@520d89b1, org.springframework.security.web.authentication.logout.LogoutFilter@19536132, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@78c40a88, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3e5df08, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@185036b8, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@337ec7d, org.springframework.security.web.access.ExceptionTranslationFilter@fd28f9b, org.springframework.security.web.access.intercept.AuthorizationFilter@2d1fe55d]
+2024-04-19 13:09:55.494 INFO  [restartedMain] [com.lms.global.config.SecurityConfig] - -------------------- WebSecurity ----------------------
+2024-04-19 13:09:55.494 WARN  [restartedMain] [o.s.s.c.a.web.builders.WebSecurity] - You are asking Spring Security to ignore org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@6417873c. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-04-19 13:09:55.494 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will not secure org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@6417873c
+2024-04-19 13:09:55.605 INFO  [restartedMain] [o.s.b.d.a.OptionalLiveReloadServer] - LiveReload server is running on port 35729
+2024-04-19 13:09:55.606 INFO  [restartedMain] [o.s.b.a.e.web.EndpointLinksResolver] - Exposing 4 endpoint(s) beneath base path '/actuator'
+2024-04-19 13:09:55.619 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Starting ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:09:55.621 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat started on port(s): 8080 (http) with context path ''
+2024-04-19 13:09:55.625 INFO  [restartedMain] [com.lms.LmsApplication] - Started LmsApplication in 1.085 seconds (process running for 749.569)
+2024-04-19 13:09:55.626 INFO  [restartedMain] [o.s.b.d.a.ConditionEvaluationDeltaLoggingListener] - Condition evaluation unchanged
+2024-04-19 13:12:47.507 INFO  [File Watcher] [o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener] - Restarting due to 26 class path changes (0 additions, 0 deletions, 26 modifications)
+2024-04-19 13:12:47.728 INFO  [Thread-49] [o.apache.coyote.http11.Http11NioProtocol] - Pausing ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:12:47.729 INFO  [Thread-49] [o.apache.catalina.core.StandardService] - Stopping service [Tomcat]
+2024-04-19 13:12:47.815 INFO  [Thread-49] [o.apache.coyote.http11.Http11NioProtocol] - Stopping ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:12:47.830 INFO  [Thread-49] [o.apache.coyote.http11.Http11NioProtocol] - Destroying ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:12:47.864 INFO  [Thread-49] [o.s.o.j.LocalContainerEntityManagerFactoryBean] - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-04-19 13:12:47.911 INFO  [Thread-49] [com.zaxxer.hikari.HikariDataSource] - HikariPool-10 - Shutdown initiated...
+2024-04-19 13:12:47.944 INFO  [Thread-49] [com.zaxxer.hikari.HikariDataSource] - HikariPool-10 - Shutdown completed.
+2024-04-19 13:12:48.446 INFO  [restartedMain] [com.lms.LmsApplication] - Starting LmsApplication using Java 17.0.10 with PID 10412 (C:\kyo\ChunjaeIT_LMS\build\classes\java\main started by user in C:\kyo\ChunjaeIT_LMS)
+2024-04-19 13:12:48.446 INFO  [restartedMain] [com.lms.LmsApplication] - The following 1 profile is active: "local"
+2024-04-19 13:12:48.971 INFO  [restartedMain] [o.s.d.r.c.RepositoryConfigurationDelegate] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-19 13:12:49.025 INFO  [restartedMain] [o.s.d.r.c.RepositoryConfigurationDelegate] - Finished Spring Data repository scanning in 53 ms. Found 5 JPA repository interfaces.
+2024-04-19 13:12:49.285 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat initialized with port(s): 8080 (http)
+2024-04-19 13:12:49.286 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:12:49.286 INFO  [restartedMain] [o.apache.catalina.core.StandardService] - Starting service [Tomcat]
+2024-04-19 13:12:49.286 INFO  [restartedMain] [org.apache.catalina.core.StandardEngine] - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2024-04-19 13:12:49.386 INFO  [restartedMain] [org.apache.jasper.servlet.TldScanner] - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-04-19 13:12:49.387 INFO  [restartedMain] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring embedded WebApplicationContext
+2024-04-19 13:12:49.387 INFO  [restartedMain] [o.s.b.w.s.c.ServletWebServerApplicationContext] - Root WebApplicationContext: initialization completed in 940 ms
+2024-04-19 13:12:49.464 INFO  [restartedMain] [o.hibernate.jpa.internal.util.LogHelper] - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-19 13:12:49.468 INFO  [restartedMain] [o.s.o.j.p.SpringPersistenceUnitInfo] - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-19 13:12:49.469 INFO  [restartedMain] [com.zaxxer.hikari.HikariDataSource] - HikariPool-11 - Starting...
+2024-04-19 13:12:49.513 INFO  [restartedMain] [com.zaxxer.hikari.pool.HikariPool] - HikariPool-11 - Added connection org.mariadb.jdbc.Connection@68f85794
+2024-04-19 13:12:49.513 INFO  [restartedMain] [com.zaxxer.hikari.HikariDataSource] - HikariPool-11 - Start completed.
+2024-04-19 13:12:49.514 WARN  [restartedMain] [org.hibernate.orm.deprecation] - HHH90000025: MariaDB103Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-04-19 13:12:49.514 WARN  [restartedMain] [org.hibernate.orm.deprecation] - HHH90000026: MariaDB103Dialect has been deprecated; use org.hibernate.dialect.MariaDBDialect instead
+2024-04-19 13:12:49.565 INFO  [restartedMain] [o.h.e.t.j.p.i.JtaPlatformInitiator] - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-19 13:12:49.605 INFO  [restartedMain] [o.s.o.j.LocalContainerEntityManagerFactoryBean] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-19 13:12:49.702 WARN  [restartedMain] [o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-19 13:12:49.711 INFO  [restartedMain] [com.lms.global.config.SecurityConfig] - -------------------  filter Chain  ------------------
+2024-04-19 13:12:49.719 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@51e9b2ea, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@e34f043, org.springframework.security.web.context.SecurityContextHolderFilter@319cd5c4, org.springframework.security.web.header.HeaderWriterFilter@176a8dcd, org.springframework.security.web.authentication.logout.LogoutFilter@7494f50d, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@286032a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@28945bda, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@60b6cb6c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5d967b3d, org.springframework.security.web.access.ExceptionTranslationFilter@6dd4a7db, org.springframework.security.web.access.intercept.AuthorizationFilter@28ef63c3]
+2024-04-19 13:12:49.719 INFO  [restartedMain] [com.lms.global.config.SecurityConfig] - -------------------- WebSecurity ----------------------
+2024-04-19 13:12:49.720 WARN  [restartedMain] [o.s.s.c.a.web.builders.WebSecurity] - You are asking Spring Security to ignore org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@55432298. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-04-19 13:12:49.720 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will not secure org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@55432298
+2024-04-19 13:12:49.841 INFO  [restartedMain] [o.s.b.d.a.OptionalLiveReloadServer] - LiveReload server is running on port 35729
+2024-04-19 13:12:49.843 INFO  [restartedMain] [o.s.b.a.e.web.EndpointLinksResolver] - Exposing 4 endpoint(s) beneath base path '/actuator'
+2024-04-19 13:12:49.867 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Starting ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:12:49.870 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat started on port(s): 8080 (http) with context path ''
+2024-04-19 13:12:49.875 INFO  [restartedMain] [com.lms.LmsApplication] - Started LmsApplication in 1.454 seconds (process running for 923.819)
+2024-04-19 13:12:49.876 INFO  [restartedMain] [o.s.b.d.a.ConditionEvaluationDeltaLoggingListener] - Condition evaluation unchanged
+2024-04-19 13:12:49.899 INFO  [http-nio-8080-exec-1] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-04-19 13:12:49.900 INFO  [http-nio-8080-exec-1] [o.s.web.servlet.DispatcherServlet] - Initializing Servlet 'dispatcherServlet'
+2024-04-19 13:12:49.900 INFO  [http-nio-8080-exec-1] [o.s.web.servlet.DispatcherServlet] - Completed initialization in 0 ms
+2024-04-19 13:12:49.910 INFO  [http-nio-8080-exec-1] [c.l.d.member.service.MemberServiceImpl] - Admin 계정이 이미 존재합니다.
+2024-04-19 13:12:54.846 INFO  [http-nio-8080-exec-10] [c.l.d.member.service.MemberServiceImpl] - Admin 계정이 이미 존재합니다.
+2024-04-19 13:12:55.042 INFO  [http-nio-8080-exec-4] [c.l.d.member.service.MemberServiceImpl] - Admin 계정이 이미 존재합니다.
+2024-04-19 13:13:31.500 INFO  [http-nio-8080-exec-1] [c.l.d.member.service.MemberServiceImpl] - Admin 계정이 이미 존재합니다.
+2024-04-19 13:13:32.944 INFO  [File Watcher] [o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener] - Restarting due to 26 class path changes (0 additions, 0 deletions, 26 modifications)
+2024-04-19 13:13:33.212 INFO  [Thread-54] [o.apache.coyote.http11.Http11NioProtocol] - Pausing ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:13:33.212 INFO  [Thread-54] [o.apache.catalina.core.StandardService] - Stopping service [Tomcat]
+2024-04-19 13:13:33.223 INFO  [Thread-54] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-04-19 13:13:33.235 INFO  [Thread-54] [o.apache.coyote.http11.Http11NioProtocol] - Stopping ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:13:33.237 INFO  [Thread-54] [o.apache.coyote.http11.Http11NioProtocol] - Destroying ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:13:33.249 INFO  [Thread-54] [o.s.o.j.LocalContainerEntityManagerFactoryBean] - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-04-19 13:13:33.262 INFO  [Thread-54] [com.zaxxer.hikari.HikariDataSource] - HikariPool-11 - Shutdown initiated...
+2024-04-19 13:13:33.266 INFO  [Thread-54] [com.zaxxer.hikari.HikariDataSource] - HikariPool-11 - Shutdown completed.
+2024-04-19 13:13:33.424 INFO  [restartedMain] [com.lms.LmsApplication] - Starting LmsApplication using Java 17.0.10 with PID 10412 (C:\kyo\ChunjaeIT_LMS\build\classes\java\main started by user in C:\kyo\ChunjaeIT_LMS)
+2024-04-19 13:13:33.424 INFO  [restartedMain] [com.lms.LmsApplication] - The following 1 profile is active: "local"
+2024-04-19 13:13:33.667 INFO  [restartedMain] [o.s.d.r.c.RepositoryConfigurationDelegate] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-19 13:13:33.684 INFO  [restartedMain] [o.s.d.r.c.RepositoryConfigurationDelegate] - Finished Spring Data repository scanning in 17 ms. Found 5 JPA repository interfaces.
+2024-04-19 13:13:33.800 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat initialized with port(s): 8080 (http)
+2024-04-19 13:13:33.800 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:13:33.800 INFO  [restartedMain] [o.apache.catalina.core.StandardService] - Starting service [Tomcat]
+2024-04-19 13:13:33.800 INFO  [restartedMain] [org.apache.catalina.core.StandardEngine] - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2024-04-19 13:13:33.866 INFO  [restartedMain] [org.apache.jasper.servlet.TldScanner] - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-04-19 13:13:33.866 INFO  [restartedMain] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring embedded WebApplicationContext
+2024-04-19 13:13:33.866 INFO  [restartedMain] [o.s.b.w.s.c.ServletWebServerApplicationContext] - Root WebApplicationContext: initialization completed in 441 ms
+2024-04-19 13:13:33.902 INFO  [restartedMain] [o.hibernate.jpa.internal.util.LogHelper] - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-19 13:13:33.906 INFO  [restartedMain] [o.s.o.j.p.SpringPersistenceUnitInfo] - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-19 13:13:33.906 INFO  [restartedMain] [com.zaxxer.hikari.HikariDataSource] - HikariPool-12 - Starting...
+2024-04-19 13:13:33.912 INFO  [restartedMain] [com.zaxxer.hikari.pool.HikariPool] - HikariPool-12 - Added connection org.mariadb.jdbc.Connection@29bff385
+2024-04-19 13:13:33.913 INFO  [restartedMain] [com.zaxxer.hikari.HikariDataSource] - HikariPool-12 - Start completed.
+2024-04-19 13:13:33.913 WARN  [restartedMain] [org.hibernate.orm.deprecation] - HHH90000025: MariaDB103Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-04-19 13:13:33.913 WARN  [restartedMain] [org.hibernate.orm.deprecation] - HHH90000026: MariaDB103Dialect has been deprecated; use org.hibernate.dialect.MariaDBDialect instead
+2024-04-19 13:13:33.946 INFO  [restartedMain] [o.h.e.t.j.p.i.JtaPlatformInitiator] - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-19 13:13:33.964 INFO  [restartedMain] [o.s.o.j.LocalContainerEntityManagerFactoryBean] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-19 13:13:34.071 WARN  [restartedMain] [o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-19 13:13:34.080 INFO  [restartedMain] [com.lms.global.config.SecurityConfig] - -------------------  filter Chain  ------------------
+2024-04-19 13:13:34.087 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@c2d0928, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@45543602, org.springframework.security.web.context.SecurityContextHolderFilter@231f8717, org.springframework.security.web.header.HeaderWriterFilter@76eb0337, org.springframework.security.web.authentication.logout.LogoutFilter@25700ea5, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@290d3f8a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2d3da103, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@54d45ada, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5eacd763, org.springframework.security.web.access.ExceptionTranslationFilter@5a646e90, org.springframework.security.web.access.intercept.AuthorizationFilter@13f11251]
+2024-04-19 13:13:34.089 INFO  [restartedMain] [com.lms.global.config.SecurityConfig] - -------------------- WebSecurity ----------------------
+2024-04-19 13:13:34.090 WARN  [restartedMain] [o.s.s.c.a.web.builders.WebSecurity] - You are asking Spring Security to ignore org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@30c03719. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-04-19 13:13:34.090 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will not secure org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@30c03719
+2024-04-19 13:13:34.196 INFO  [restartedMain] [o.s.b.d.a.OptionalLiveReloadServer] - LiveReload server is running on port 35729
+2024-04-19 13:13:34.197 INFO  [restartedMain] [o.s.b.a.e.web.EndpointLinksResolver] - Exposing 4 endpoint(s) beneath base path '/actuator'
+2024-04-19 13:13:34.211 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Starting ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:13:34.214 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat started on port(s): 8080 (http) with context path ''
+2024-04-19 13:13:34.217 INFO  [restartedMain] [com.lms.LmsApplication] - Started LmsApplication in 0.807 seconds (process running for 968.161)
+2024-04-19 13:13:34.219 INFO  [restartedMain] [o.s.b.d.a.ConditionEvaluationDeltaLoggingListener] - Condition evaluation unchanged
+2024-04-19 13:13:34.294 INFO  [http-nio-8080-exec-1] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-04-19 13:13:34.294 INFO  [http-nio-8080-exec-1] [o.s.web.servlet.DispatcherServlet] - Initializing Servlet 'dispatcherServlet'
+2024-04-19 13:13:34.295 INFO  [http-nio-8080-exec-1] [o.s.web.servlet.DispatcherServlet] - Completed initialization in 1 ms
+2024-04-19 13:17:00.347 INFO  [File Watcher] [o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener] - Restarting due to 26 class path changes (0 additions, 0 deletions, 26 modifications)
+2024-04-19 13:17:00.465 INFO  [Thread-59] [o.apache.coyote.http11.Http11NioProtocol] - Pausing ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:17:00.466 INFO  [Thread-59] [o.apache.catalina.core.StandardService] - Stopping service [Tomcat]
+2024-04-19 13:17:00.474 INFO  [Thread-59] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-04-19 13:17:00.516 INFO  [Thread-59] [o.apache.coyote.http11.Http11NioProtocol] - Stopping ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:17:00.524 INFO  [Thread-59] [o.apache.coyote.http11.Http11NioProtocol] - Destroying ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:17:00.536 INFO  [Thread-59] [o.s.o.j.LocalContainerEntityManagerFactoryBean] - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-04-19 13:17:00.562 INFO  [Thread-59] [com.zaxxer.hikari.HikariDataSource] - HikariPool-12 - Shutdown initiated...
+2024-04-19 13:17:00.578 INFO  [Thread-59] [com.zaxxer.hikari.HikariDataSource] - HikariPool-12 - Shutdown completed.
+2024-04-19 13:17:00.950 INFO  [restartedMain] [com.lms.LmsApplication] - Starting LmsApplication using Java 17.0.10 with PID 10412 (C:\kyo\ChunjaeIT_LMS\build\classes\java\main started by user in C:\kyo\ChunjaeIT_LMS)
+2024-04-19 13:17:00.950 INFO  [restartedMain] [com.lms.LmsApplication] - The following 1 profile is active: "local"
+2024-04-19 13:17:01.311 INFO  [restartedMain] [o.s.d.r.c.RepositoryConfigurationDelegate] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-19 13:17:01.339 INFO  [restartedMain] [o.s.d.r.c.RepositoryConfigurationDelegate] - Finished Spring Data repository scanning in 28 ms. Found 5 JPA repository interfaces.
+2024-04-19 13:17:01.632 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat initialized with port(s): 8080 (http)
+2024-04-19 13:17:01.633 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:17:01.633 INFO  [restartedMain] [o.apache.catalina.core.StandardService] - Starting service [Tomcat]
+2024-04-19 13:17:01.633 INFO  [restartedMain] [org.apache.catalina.core.StandardEngine] - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2024-04-19 13:17:01.750 INFO  [restartedMain] [org.apache.jasper.servlet.TldScanner] - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-04-19 13:17:01.750 INFO  [restartedMain] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring embedded WebApplicationContext
+2024-04-19 13:17:01.750 INFO  [restartedMain] [o.s.b.w.s.c.ServletWebServerApplicationContext] - Root WebApplicationContext: initialization completed in 799 ms
+2024-04-19 13:17:01.789 INFO  [restartedMain] [o.hibernate.jpa.internal.util.LogHelper] - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-19 13:17:01.799 INFO  [restartedMain] [o.s.o.j.p.SpringPersistenceUnitInfo] - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-19 13:17:01.799 INFO  [restartedMain] [com.zaxxer.hikari.HikariDataSource] - HikariPool-13 - Starting...
+2024-04-19 13:17:01.831 INFO  [restartedMain] [com.zaxxer.hikari.pool.HikariPool] - HikariPool-13 - Added connection org.mariadb.jdbc.Connection@1f9d1f7b
+2024-04-19 13:17:01.831 INFO  [restartedMain] [com.zaxxer.hikari.HikariDataSource] - HikariPool-13 - Start completed.
+2024-04-19 13:17:01.832 WARN  [restartedMain] [org.hibernate.orm.deprecation] - HHH90000025: MariaDB103Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-04-19 13:17:01.832 WARN  [restartedMain] [org.hibernate.orm.deprecation] - HHH90000026: MariaDB103Dialect has been deprecated; use org.hibernate.dialect.MariaDBDialect instead
+2024-04-19 13:17:01.882 INFO  [restartedMain] [o.h.e.t.j.p.i.JtaPlatformInitiator] - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-19 13:17:01.917 INFO  [restartedMain] [o.s.o.j.LocalContainerEntityManagerFactoryBean] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-19 13:17:02.039 WARN  [restartedMain] [o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-19 13:17:02.048 INFO  [restartedMain] [com.lms.global.config.SecurityConfig] - -------------------  filter Chain  ------------------
+2024-04-19 13:17:02.058 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5a400a2f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@416c8c6a, org.springframework.security.web.context.SecurityContextHolderFilter@5dae0d0a, org.springframework.security.web.header.HeaderWriterFilter@45ca56f0, org.springframework.security.web.authentication.logout.LogoutFilter@52cca09d, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@6dbf874d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@136ddf4c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@684d8211, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@14c06d9f, org.springframework.security.web.access.ExceptionTranslationFilter@e7eb4a4, org.springframework.security.web.access.intercept.AuthorizationFilter@2bffc0d8]
+2024-04-19 13:17:02.059 INFO  [restartedMain] [com.lms.global.config.SecurityConfig] - -------------------- WebSecurity ----------------------
+2024-04-19 13:17:02.060 WARN  [restartedMain] [o.s.s.c.a.web.builders.WebSecurity] - You are asking Spring Security to ignore org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@3b494d56. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-04-19 13:17:02.060 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will not secure org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@3b494d56
+2024-04-19 13:17:02.181 INFO  [restartedMain] [o.s.b.d.a.OptionalLiveReloadServer] - LiveReload server is running on port 35729
+2024-04-19 13:17:02.183 INFO  [restartedMain] [o.s.b.a.e.web.EndpointLinksResolver] - Exposing 4 endpoint(s) beneath base path '/actuator'
+2024-04-19 13:17:02.199 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Starting ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:17:02.202 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat started on port(s): 8080 (http) with context path ''
+2024-04-19 13:17:02.208 INFO  [restartedMain] [com.lms.LmsApplication] - Started LmsApplication in 1.281 seconds (process running for 1176.151)
+2024-04-19 13:17:02.209 INFO  [restartedMain] [o.s.b.d.a.ConditionEvaluationDeltaLoggingListener] - Condition evaluation unchanged
+2024-04-19 13:18:37.381 INFO  [http-nio-8080-exec-4] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-04-19 13:18:37.388 INFO  [http-nio-8080-exec-4] [o.s.web.servlet.DispatcherServlet] - Initializing Servlet 'dispatcherServlet'
+2024-04-19 13:18:37.448 INFO  [http-nio-8080-exec-4] [o.s.web.servlet.DispatcherServlet] - Completed initialization in 58 ms
+2024-04-19 13:18:37.487 INFO  [File Watcher] [o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener] - Restarting due to 26 class path changes (0 additions, 0 deletions, 26 modifications)
+2024-04-19 13:18:37.510 INFO  [Thread-64] [o.apache.coyote.http11.Http11NioProtocol] - Pausing ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:18:37.541 INFO  [Thread-64] [o.apache.catalina.core.StandardService] - Stopping service [Tomcat]
+2024-04-19 13:18:37.543 INFO  [Thread-64] [o.apache.catalina.core.StandardWrapper] - Waiting for [4] instance(s) to be deallocated for Servlet [dispatcherServlet]
+2024-04-19 13:18:37.744 INFO  [Thread-64] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-04-19 13:18:37.756 WARN  [Thread-64] [o.a.c.loader.WebappClassLoaderBase] - The web application [ROOT] appears to have started a thread named [HikariPool-13 connection adder] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.10/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.10/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.10/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.10/java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:460)
+ java.base@17.0.10/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+ java.base@17.0.10/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.10/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.10/java.lang.Thread.run(Thread.java:842)
+2024-04-19 13:18:37.757 INFO  [Thread-64] [o.apache.coyote.http11.Http11NioProtocol] - Stopping ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:18:37.758 INFO  [Thread-64] [o.apache.coyote.http11.Http11NioProtocol] - Destroying ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:18:37.761 INFO  [Thread-64] [o.s.o.j.LocalContainerEntityManagerFactoryBean] - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-04-19 13:18:37.762 INFO  [Thread-64] [com.zaxxer.hikari.HikariDataSource] - HikariPool-13 - Shutdown initiated...
+2024-04-19 13:18:37.764 INFO  [Thread-64] [com.zaxxer.hikari.HikariDataSource] - HikariPool-13 - Shutdown completed.
+2024-04-19 13:18:37.892 INFO  [restartedMain] [com.lms.LmsApplication] - Starting LmsApplication using Java 17.0.10 with PID 10412 (C:\kyo\ChunjaeIT_LMS\build\classes\java\main started by user in C:\kyo\ChunjaeIT_LMS)
+2024-04-19 13:18:37.892 INFO  [restartedMain] [com.lms.LmsApplication] - The following 1 profile is active: "local"
+2024-04-19 13:18:38.116 INFO  [restartedMain] [o.s.d.r.c.RepositoryConfigurationDelegate] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-19 13:18:38.147 INFO  [restartedMain] [o.s.d.r.c.RepositoryConfigurationDelegate] - Finished Spring Data repository scanning in 30 ms. Found 5 JPA repository interfaces.
+2024-04-19 13:18:38.226 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat initialized with port(s): 8080 (http)
+2024-04-19 13:18:38.227 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:18:38.227 INFO  [restartedMain] [o.apache.catalina.core.StandardService] - Starting service [Tomcat]
+2024-04-19 13:18:38.227 INFO  [restartedMain] [org.apache.catalina.core.StandardEngine] - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2024-04-19 13:18:38.272 INFO  [restartedMain] [org.apache.jasper.servlet.TldScanner] - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-04-19 13:18:38.273 INFO  [restartedMain] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring embedded WebApplicationContext
+2024-04-19 13:18:38.273 INFO  [restartedMain] [o.s.b.w.s.c.ServletWebServerApplicationContext] - Root WebApplicationContext: initialization completed in 381 ms
+2024-04-19 13:18:38.314 INFO  [restartedMain] [o.hibernate.jpa.internal.util.LogHelper] - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-19 13:18:38.318 INFO  [restartedMain] [o.s.o.j.p.SpringPersistenceUnitInfo] - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-19 13:18:38.318 INFO  [restartedMain] [com.zaxxer.hikari.HikariDataSource] - HikariPool-14 - Starting...
+2024-04-19 13:18:38.339 INFO  [restartedMain] [com.zaxxer.hikari.pool.HikariPool] - HikariPool-14 - Added connection org.mariadb.jdbc.Connection@345ddcbc
+2024-04-19 13:18:38.339 INFO  [restartedMain] [com.zaxxer.hikari.HikariDataSource] - HikariPool-14 - Start completed.
+2024-04-19 13:18:38.339 WARN  [restartedMain] [org.hibernate.orm.deprecation] - HHH90000025: MariaDB103Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-04-19 13:18:38.339 WARN  [restartedMain] [org.hibernate.orm.deprecation] - HHH90000026: MariaDB103Dialect has been deprecated; use org.hibernate.dialect.MariaDBDialect instead
+2024-04-19 13:18:38.384 INFO  [restartedMain] [o.h.e.t.j.p.i.JtaPlatformInitiator] - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-19 13:18:38.424 INFO  [restartedMain] [o.s.o.j.LocalContainerEntityManagerFactoryBean] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-19 13:18:38.533 WARN  [restartedMain] [o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-19 13:18:38.543 INFO  [restartedMain] [com.lms.global.config.SecurityConfig] - -------------------  filter Chain  ------------------
+2024-04-19 13:18:38.552 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@58ba383a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@362be6ed, org.springframework.security.web.context.SecurityContextHolderFilter@62da46ea, org.springframework.security.web.header.HeaderWriterFilter@20f66698, org.springframework.security.web.authentication.logout.LogoutFilter@7e427102, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@359d85ea, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7d95c58d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5d4eecba, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7a082fc1, org.springframework.security.web.access.ExceptionTranslationFilter@c959dd8, org.springframework.security.web.access.intercept.AuthorizationFilter@7a968c9]
+2024-04-19 13:18:38.553 INFO  [restartedMain] [com.lms.global.config.SecurityConfig] - -------------------- WebSecurity ----------------------
+2024-04-19 13:18:38.554 WARN  [restartedMain] [o.s.s.c.a.web.builders.WebSecurity] - You are asking Spring Security to ignore org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@447b787. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-04-19 13:18:38.554 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will not secure org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@447b787
+2024-04-19 13:18:38.680 INFO  [restartedMain] [o.s.b.d.a.OptionalLiveReloadServer] - LiveReload server is running on port 35729
+2024-04-19 13:18:38.682 INFO  [restartedMain] [o.s.b.a.e.web.EndpointLinksResolver] - Exposing 4 endpoint(s) beneath base path '/actuator'
+2024-04-19 13:18:38.698 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Starting ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:18:38.700 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat started on port(s): 8080 (http) with context path ''
+2024-04-19 13:18:38.704 INFO  [restartedMain] [com.lms.LmsApplication] - Started LmsApplication in 0.825 seconds (process running for 1272.648)
+2024-04-19 13:18:38.705 INFO  [restartedMain] [o.s.b.d.a.ConditionEvaluationDeltaLoggingListener] - Condition evaluation unchanged
+2024-04-19 13:18:38.997 INFO  [http-nio-8080-exec-1] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-04-19 13:18:38.998 INFO  [http-nio-8080-exec-1] [o.s.web.servlet.DispatcherServlet] - Initializing Servlet 'dispatcherServlet'
+2024-04-19 13:18:38.998 INFO  [http-nio-8080-exec-1] [o.s.web.servlet.DispatcherServlet] - Completed initialization in 0 ms
+2024-04-19 13:18:45.212 INFO  [http-nio-8080-exec-6] [c.l.d.member.service.MemberServiceImpl] - Admin 계정이 이미 존재합니다.
+2024-04-19 13:20:02.946 INFO  [File Watcher] [o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener] - Restarting due to 26 class path changes (0 additions, 0 deletions, 26 modifications)
+2024-04-19 13:20:03.027 INFO  [Thread-69] [o.apache.coyote.http11.Http11NioProtocol] - Pausing ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:20:03.027 INFO  [Thread-69] [o.apache.catalina.core.StandardService] - Stopping service [Tomcat]
+2024-04-19 13:20:03.032 INFO  [Thread-69] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-04-19 13:20:03.062 INFO  [Thread-69] [o.apache.coyote.http11.Http11NioProtocol] - Stopping ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:20:03.066 INFO  [Thread-69] [o.apache.coyote.http11.Http11NioProtocol] - Destroying ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:20:03.078 INFO  [Thread-69] [o.s.o.j.LocalContainerEntityManagerFactoryBean] - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-04-19 13:20:03.085 INFO  [Thread-69] [com.zaxxer.hikari.HikariDataSource] - HikariPool-14 - Shutdown initiated...
+2024-04-19 13:20:03.092 INFO  [Thread-69] [com.zaxxer.hikari.HikariDataSource] - HikariPool-14 - Shutdown completed.
+2024-04-19 13:20:03.260 INFO  [restartedMain] [com.lms.LmsApplication] - Starting LmsApplication using Java 17.0.10 with PID 10412 (C:\kyo\ChunjaeIT_LMS\build\classes\java\main started by user in C:\kyo\ChunjaeIT_LMS)
+2024-04-19 13:20:03.260 INFO  [restartedMain] [com.lms.LmsApplication] - The following 1 profile is active: "local"
+2024-04-19 13:20:03.543 INFO  [restartedMain] [o.s.d.r.c.RepositoryConfigurationDelegate] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-19 13:20:03.569 INFO  [restartedMain] [o.s.d.r.c.RepositoryConfigurationDelegate] - Finished Spring Data repository scanning in 25 ms. Found 5 JPA repository interfaces.
+2024-04-19 13:20:03.763 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat initialized with port(s): 8080 (http)
+2024-04-19 13:20:03.763 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:20:03.763 INFO  [restartedMain] [o.apache.catalina.core.StandardService] - Starting service [Tomcat]
+2024-04-19 13:20:03.763 INFO  [restartedMain] [org.apache.catalina.core.StandardEngine] - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2024-04-19 13:20:03.842 INFO  [restartedMain] [org.apache.jasper.servlet.TldScanner] - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-04-19 13:20:03.843 INFO  [restartedMain] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring embedded WebApplicationContext
+2024-04-19 13:20:03.843 INFO  [restartedMain] [o.s.b.w.s.c.ServletWebServerApplicationContext] - Root WebApplicationContext: initialization completed in 582 ms
+2024-04-19 13:20:03.886 INFO  [restartedMain] [o.hibernate.jpa.internal.util.LogHelper] - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-19 13:20:03.890 INFO  [restartedMain] [o.s.o.j.p.SpringPersistenceUnitInfo] - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-19 13:20:03.890 INFO  [restartedMain] [com.zaxxer.hikari.HikariDataSource] - HikariPool-15 - Starting...
+2024-04-19 13:20:03.895 INFO  [restartedMain] [com.zaxxer.hikari.pool.HikariPool] - HikariPool-15 - Added connection org.mariadb.jdbc.Connection@524429f0
+2024-04-19 13:20:03.896 INFO  [restartedMain] [com.zaxxer.hikari.HikariDataSource] - HikariPool-15 - Start completed.
+2024-04-19 13:20:03.896 WARN  [restartedMain] [org.hibernate.orm.deprecation] - HHH90000025: MariaDB103Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-04-19 13:20:03.896 WARN  [restartedMain] [org.hibernate.orm.deprecation] - HHH90000026: MariaDB103Dialect has been deprecated; use org.hibernate.dialect.MariaDBDialect instead
+2024-04-19 13:20:03.929 INFO  [restartedMain] [o.h.e.t.j.p.i.JtaPlatformInitiator] - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-19 13:20:03.950 INFO  [restartedMain] [o.s.o.j.LocalContainerEntityManagerFactoryBean] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-19 13:20:04.040 WARN  [restartedMain] [o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-19 13:20:04.047 INFO  [restartedMain] [com.lms.global.config.SecurityConfig] - -------------------  filter Chain  ------------------
+2024-04-19 13:20:04.056 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6ff3c940, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3b598705, org.springframework.security.web.context.SecurityContextHolderFilter@3caad981, org.springframework.security.web.header.HeaderWriterFilter@7b711f30, org.springframework.security.web.authentication.logout.LogoutFilter@624c4773, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@6f047c0c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@67083e12, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7bbbe9f3, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4febe658, org.springframework.security.web.access.ExceptionTranslationFilter@7e8c4464, org.springframework.security.web.access.intercept.AuthorizationFilter@60c28086]
+2024-04-19 13:20:04.056 INFO  [restartedMain] [com.lms.global.config.SecurityConfig] - -------------------- WebSecurity ----------------------
+2024-04-19 13:20:04.057 WARN  [restartedMain] [o.s.s.c.a.web.builders.WebSecurity] - You are asking Spring Security to ignore org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@4f619712. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-04-19 13:20:04.057 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will not secure org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@4f619712
+2024-04-19 13:20:04.161 INFO  [restartedMain] [o.s.b.d.a.OptionalLiveReloadServer] - LiveReload server is running on port 35729
+2024-04-19 13:20:04.162 INFO  [restartedMain] [o.s.b.a.e.web.EndpointLinksResolver] - Exposing 4 endpoint(s) beneath base path '/actuator'
+2024-04-19 13:20:04.174 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Starting ProtocolHandler ["http-nio-8080"]
+2024-04-19 13:20:04.176 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat started on port(s): 8080 (http) with context path ''
+2024-04-19 13:20:04.181 INFO  [restartedMain] [com.lms.LmsApplication] - Started LmsApplication in 0.934 seconds (process running for 1358.124)
+2024-04-19 13:20:04.181 INFO  [restartedMain] [o.s.b.d.a.ConditionEvaluationDeltaLoggingListener] - Condition evaluation unchanged
