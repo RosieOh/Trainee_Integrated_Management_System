@@ -1,7 +1,6 @@
 package com.lms.domain.member.entity;
 
 import com.lms.domain.Course.entity.Course;
-import com.lms.domain.counsel.entity.Counsel;
 import com.lms.domain.member.dto.MemberDTO;
 import com.lms.global.cosntant.BaseEntity;
 import com.lms.global.cosntant.Role;
@@ -27,11 +26,14 @@ public class Member extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long no;     // 기본키
 
-    @Column(unique = true, nullable = false)
-    private String email;           // 유저가 사용하는 이메일
+    @Column(unique = true, nullable = true)
+    private String login_id;           // 유저가 사용하는 아이디
 
     @Column(nullable = true)
     private String pw;              //비밀번호
+
+    @Column(nullable = true)
+    private String email;              // 이메일
 
     @Column(nullable = true)
     private String name;            //유저 이름
@@ -46,7 +48,13 @@ public class Member extends BaseEntity {
     private String phone;           //연락처
 
     @Column(nullable = true)
-    private String address;         //주소
+    private String addr1;         // 기본 주소
+
+    @Column(nullable = true)
+    private String addr2;         // 상세 주소
+
+    @Column(nullable = true)
+    private String postcode;         //우편번호
 
     @Enumerated(EnumType.STRING)
     private Status status;          //회원 활동상태

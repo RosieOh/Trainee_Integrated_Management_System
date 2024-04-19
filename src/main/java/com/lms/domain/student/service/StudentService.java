@@ -1,19 +1,14 @@
-package com.lms.domain.counsel.service;
+package com.lms.domain.student.service;
 
-import com.lms.domain.board.dto.BoardDTO;
-import com.lms.domain.board.entity.Board;
-import com.lms.domain.counsel.dto.CounselDTO;
-import com.lms.domain.counsel.entity.Counsel;
+import com.lms.domain.student.dto.CounselDTO;
+import com.lms.domain.student.entity.Student;
 
 import java.util.List;
 
-public interface CounselService {
+public interface StudentService {
 
-    public List<CounselDTO> counsel_List(CounselDTO counselDTO);
-    public void counsel_Add(CounselDTO counselDTO);
-    public void counsel_Edit(CounselDTO counselDTO);
-    public CounselDTO counsel_Read(Long no);
-
-
-
+    public List<Student> student_list(Student student);
+    public Student student_read(Long no);
+    public void student_add(Student student);
+    public void student_edit(Student student);
 }

@@ -1,12 +1,8 @@
-package com.lms.domain.counsel.repository;
+package com.lms.domain.student.repository;
 
-import com.lms.domain.counsel.entity.Counsel;
+import com.lms.domain.student.entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
-import java.util.Optional;
-
-public interface CounselRepository extends JpaRepository<Counsel, Long> {
+public interface StudentRepository extends JpaRepository<Student, Long> {
 
 }

@@ -85,7 +85,7 @@ public class HomeController {
         return "user/member/login";
     }
 
-    @GetMapping("/member")
+    @GetMapping("/admin_member")
     public String board(Model model, Principal principal, Integer cno){
 
         List<CourseDTO> course_big_List = courseService.course_subject_list(Subject.BIGDATA);
@@ -99,6 +99,7 @@ public class HomeController {
         model.addAttribute("course_full_List",course_full_List);
         model.addAttribute("course_pm_List",course_pm_List);
         model.addAttribute("cno",cno);
+        log.info("memberList ----------------" + memberList);
         return "admin/member/list";
     }
 

@@ -1,4 +1,4 @@
-package com.lms.domain.counsel.dto;
+package com.lms.domain.student.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;

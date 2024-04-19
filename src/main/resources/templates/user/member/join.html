@@ -13,40 +13,108 @@
             <div class="login_loca">
                 <div class="login_box">
                     <a th:href="@{/}"><h1>천재IT교육센터</h1></a>
-                    <form th:action="@{/joinPro}" method="post">
+                    <form th:action="@{/joinPro}" method="post" onsubmit="return joinCheck(this)">
                         <div class="form-login">
-                            <label>이메일</label>
-                            <input type="email" name="email" id="email_id" required />
+                            <select name="cno" >
+                                <th:block th:each="course: ${courseDTOList}">
+                                    <option th:value="${course.getNo()}" th:selected="${course.subject} eq 'BIGDATA'">프로젝트 기반 빅데이터 서비스 개발자 양성 [[${course.flag}]]기</option>
+                                    <option th:value="${course.getNo()}" th:selected="${course.subject} eq 'FULLSTACK'">에듀테크 풀스택 개발자 양성(Java) [[${course.flag}]]기</option>
+                                    <option th:value="${course.getNo()}" th:selected="${course.subject} eq 'PM'">에듀테크 상품서비스 PM(프로덕트매니저) 양성 [[${course.flag}]]기</option>
+                                </th:block>
+                            </select>
                         </div>
                         <div class="form-login">
-                            <label>비밀번호</label>
-                            <input type="password" name="pw" required />
+                            <label>아이디<em>*</em></label>
+                            <div class="flex_between">
+                            <input type="text" name="login_id" id="id" class="join_input" placeholder="아이디를 입력해주세요." required />
+                            <button type="button" class="join_btn" onclick="idCheck()">아이디 중복 확인</button>
+                            </div>
+                            <input type="hidden" name="idCk" id="idCk" value="no">
+                            <p id="msg" class="no_check">아이디 중복 체크를 하지 않으셨습니다.</p>
                         </div>
                         <div class="form-login">
-                            <label>이름</label>
-                            <input type="text" name="name" />
+                            <label>이름<em>*</em></label>
+                            <input type="text" name="name" placeholder="한글로 공백없이 입력해주세요." required/>
                         </div>
                         <div class="form-login">
-                            <label><input type="radio" name="gender" value="남자"/>남자</label>
-                            <label><input type="radio" name="gender" value="여자"/>여자</label>
+                            <label>비밀번호<em>*</em></label>
+                            <input type="password" name="pw" placeholder="비밀번호를 입력해주세요." required />
+                            <p class="info mb-0">비밀번호는 최소 8자리에서 최대 16자리 <br> 숫자, 영문, 특수문자 각 1개 이상 포함</p>
                         </div>
                         <div class="form-login">
-                            <label>생일</label>
-                            <input type="date" name="birth" />
+                            <label>비밀번호 확인<em>*</em></label>
+                            <input type="password" name="pw2" placeholder="비밀번호를 다시 입력해주세요." required />
                         </div>
                         <div class="form-login">
-                            <label>연락처</label>
-                            <input type="tel" name="phone" placeholder="010-0000-0000" />
+                            <label>이메일<em>*</em></label>
+                            <div class="join_email">
+                                <input type="text" name="email1" id="email1" placeholder="이메일 입력" required />
+                                <p>@</p>
+                                <input type="text" name="email2" id="email2" required />
+                                <select id="email2_select">
+                                    <option value="self">직접입력</option>
+                                    <option value="naver.com">naver.com</option>
+                                    <option value="google.com">google.com</option>
+                                    <option value="kakao.com">kakao.com</option>
+                                    <option value="daum.net">daum.net</option>
+                                    <option value="hanmail.net">hanmail.net</option>
+                                </select>
+                                <input type="hidden" id="email" name="email"/>
+                            </div>
                         </div>
                         <div class="form-login">
-                            <label>주소</label>
-                            <input type="text" name="address" />
+                            <label>생일<em>*</em></label>
+                            <div class="join_tel">
+                                <input type="number" name="birth1" id="birth1" placeholder="YYYY" maxlength="4" required />
+                                <p></p>
+                                <select name="birth2" id="birth2" >
+                                    <option value="" selected>MM</option>
+                                    <option value="01">1월</option>
+                                    <option value="02">2월</option>
+                                    <option value="03">3월</option>
+                                    <option value="04">4월</option>
+                                    <option value="05">5월</option>
+                                    <option value="06">6월</option>
+                                    <option value="07">7월</option>
+                                    <option value="08">8월</option>
+                                    <option value="09">9월</option>
+                                    <option value="10">10월</option>
+                                    <option value="11">11월</option>
+                                    <option value="12">12월</option>
+                                </select>
+                                <p></p>
+                                <input type="number" name="birth3" id="birth3" placeholder="DD" maxlength="2" required />
+                                <input type="hidden" name="birth" id="birth"/>
+                            </div>
                         </div>
-                        <select name="cno" >
-                            <th:block th:each="course: ${courseDTOList}">
-                                <option th:value="${course.getNo()}" th:text="${course.subject} + ' '+ ${course.flag} +'기'"></option>
-                            </th:block>
-                        </select>
+                        <div class="form-login">
+                            <label>성별<em>*</em></label>
+                            <div class="join_gender">
+                                <label><input type="radio" name="gender" value="남자"/>남자</label>
+                                <label><input type="radio" name="gender" value="여자"/>여자</label>
+                            </div>
+                        </div>
+
+                        <div class="form-login">
+                            <label>연락처<em>*</em></label>
+                            <div class="join_tel">
+                                <input type="tel" name="phone1" id="phone1" placeholder="000" maxlength="4" required/>
+                                <p>-</p>
+                                <input type="tel" name="phone2" id="phone2" placeholder="0000" maxlength="4" required/>
+                                <p>-</p>
+                                <input type="tel" name="phone3" id="phone3" placeholder="0000" maxlength="4" required/>
+                                <input type="hidden" name="phone" id="phone"/>
+                            </div>
+                        </div>
+                        <div class="form-login">
+                            <label>주소<em>*</em></label>
+                            <input type="text" name="addr1" id="addr1" placeholder="기본 주소" class="" required />
+                            <input type="text" name="addr2" id="addr2" placeholder="상세 주소" class="" required />
+                            <div class="flex_between">
+                                <input type="text" name="postcode" id="postcode" placeholder="우편번호" class="join_input">
+                                <button type="button" id="post_btn" onclick="findAddr()" class="join_btn">우편번호 검색</button>
+                            </div>
+                        </div>
                         <button type="submit" class="button login_btn">회원가입</button>
                     </form>
                 </div>
@@ -55,25 +123,109 @@
     </div>
 </body>
 </html>
-
-<script th:inline="javascript">
-    var email_rule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-
-    function checkEmail() {
-        var email_id = $("#email_id").val();
-
-        if (!email_id) {
-            alert("이메일을 입력해주세요");
-            $("#email_id").focus();
+<script>
+    const email2_select = document.querySelector('#email2_select')
+    const email2 = document.querySelector('#email2')
+    email2_select.addEventListener('change', (event) => {
+        if(event.target.value !== "self") {
+            email2.value = event.target.value
+            email2.disabled = true
+        } else {
+            email2.value = ""
+            email2.disabled = false
+        }
+    })
+</script>
+<script>
+    function idCheck(){
+        if($("#id").val()==""){
+            alert("아이디를 입력하지 않았습니다.");
+            $("#id").focus();
             return false;
         }
 
-        var mail = email_id;
-        $("#mail").val(mail);
+        var params = {"id" : $("#id").val()};
+        $.ajax({
+            url:"/member/idCheckPro",	//아이디가 전송되어질 곳
+            type:"post",
+            data:JSON.stringify(params),
+            dataType:"json",
+            contentType:"application/json",
+            success : function(result) {
+                var idPass = result;
+                if(idPass == false){
+                    $("#idCk").val("no");
+                    $("#msg").addClass("no_check").html("사용할 수 없는 아이디입니다. 다시 입력하시기 바랍니다.").css("color", "red");
+                    $("#id").focus();
+                } else if(idPass == true){
+                    $("#idCk").val("yes");
+                    if($("#msg").hasClass("no_check")) {
+                        $("#msg").removeClass("no_check");
+                    }
+                    $("#msg").html("사용 가능한 아이디입니다.").css("color", "blue");
+                } else if(idPass==""){
+                    $("#msg").addClass("no_check").text("아이디가 확인되지 않았습니다. 다시 시도하시기 바랍니다.").css("color", "red");
+                }
+            }
+        });
+    }
 
-        if (!email_rule.test(mail)) {
-            alert("이메일을 형식에 맞게 입력해주세요.");
+    function joinCheck(f){
+        let phoneval =  $("#phone1").val() + $("#phone2").val() + $("#phone3").val()
+        $("#phone").val(phoneval)
+
+        let emailval =  $("#email1").val() +'@'+ $("#email2").val()
+        $("#email").val(emailval)
+
+        let birthval =  $("#birth1").val() +'년'+ $("#birth2").val() +'월'+ $("#birth3").val() +'일'
+        $("#birth").val(birthval)
+
+        if(f.pw.value!=f.pw2.value){
+            alert("비밀번호와 비밀번호 확인이 서로 다릅니다.");
+            f.pw.focus();
             return false;
         }
+        if(f.pw.value.length(8-16)){
+            alert("비밀번호는 최소 8자리에서 최대 16자리까지 숫자, 영문, 특수문자 각 1개 이상 포함해주세요.");
+            f.pw.focus();
+            return false;
+        }
+        if(f.idCk.value!="yes"){
+            alert("아이디 중복 체크를 하지 않으셨습니다.");
+            $("#id").focus();
+            return false;
+        }
+
+        let value = $("#pw").val();
+
+        let pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&.,])[A-Za-z\d$@$!%*#?&]{8,16}$"
+        if (!pattern.test(value)) {
+            alert("숫자, 영문, 특수문자 각 1개 이상 포함입니다.");
+            $("#pw").focus();
+            return false;
+        }
+
+
+    }
+
+</script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    function findAddr(){
+        new daum.Postcode({
+            oncomplete:function(data){
+                var roadAddr = data.roadAddress;
+                var jibunAddr = data.jibunAddress;
+                var bname = data.bname;
+                document.getElementById("postcode").value = data.zonecode;
+                if(roadAddr !== ''){
+                    document.getElementById("addr1").value = roadAddr;
+                } else if(jibunAddr !== ''){
+                    document.getElementById("addr1").value = jibunAddr;
+                }
+                document.getElementById("addr3").value = bname;
+                document.getElementById("addr2").focus();
+            }
+        }).open();
     }
 </script>

@@ -1,10 +1,8 @@
-package com.lms.domain.counsel.entity;
+package com.lms.domain.student.entity;
 
-import com.lms.domain.student.entity.Student;
+import com.lms.global.cosntant.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -12,66 +10,54 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Counsel {
+public class Student extends BaseEntity {
 
     @Id
     private Long no;
 
     @Column(nullable = true)
-    private String address;
+    private String cert;            //자격증
 
     @Column(nullable = true)
-    private String cert;
+    private String exp;             //경력
 
     @Column(nullable = true)
-    private String exp;
+    private String stack;           //기술스택
 
     @Column(nullable = true)
-    private String stack;
+    private String OA;              // Word/PPT/Excel
 
     @Column(nullable = true)
-    private String OA;
+    private String content;         // 상담내용
 
     @Column(nullable = true)
-    private String content;
+    private String satis;           // 전반적 만족도
 
     @Column(nullable = true)
-    private String satis;
+    private String edu_data;        // 학습자료
 
     @Column(nullable = true)
-    private String edu_data;
+    private String instructor;      // 담당 강사
 
     @Column(nullable = true)
-    private String instructor;
+    private String task;            // 과제 및 피드백
 
     @Column(nullable = true)
-    private String task;
+    private String env;             // 학습환경 및 장비
 
     @Column(nullable = true)
-    private String env;
+    private String goal;            // 최종목표
 
     @Column(nullable = true)
-    private String goal;
+    private String doc;             // 입사지원 서류관련 의견
 
     @Column(nullable = true)
-    private String doc;
+    private String personal;        // 성격 및 태도
 
     @Column(nullable = true)
-    private String personal;
+    private String opinion;         // 종합 의견
 
     @Column(nullable = true)
-    private String opinion;
+    private String etc;             // 기타
 
-    @Column(nullable = true)
-    private String etc;
-
-    @Column(nullable = true)
-    private String name;
-
-    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    @JoinColumn(name = "couno", referencedColumnName = "no")
-    private Student student;   // 학생
-
-    @Column(nullable = true)
-    private LocalDateTime date;
 }

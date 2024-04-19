@@ -228,17 +228,26 @@
 .login_box form {
     width: 90%;
 }
+.login_box input {
+    margin-top: 5px;
+}
 
 .login_box label {
-    font-size: 1.25em;
-    margin-bottom: 0.25em;
+    font-size: 110%;
     font-weight: bold;
+}
+.login_box p {
+    font-size: 85%;
+    margin: 3px 5px;
 }
 
 .form-login {
     margin: 2em 0;
 }
-
+.form-login em {
+    color: var(--c-sub2);
+    font-size: 90%;
+}
 .login_text {
     text-align: left;
     font-weight: bold;
@@ -247,12 +256,73 @@
 
 .login_btn {
     padding: 0.75em;
-    margin-top: 20px;
     font-weight: bold;
 }
+.join_input {
+    width: 65%;
+}
+.join_btn {
+    background-color: white;
+    border-radius: 5px;
+    font-size: 90%;
+    border: 1px solid;
+    line-height: 1.25;
+    margin-top: 5px;
+}
+
+.join_gender {
+    display: flex;
+    margin: 10px 5px;
+    align-items: center;
+}
+
+
+.join_gender input {
+    margin-right: 5px;
+}
+.join_gender label {
+    margin-right: 30px;
+}
+
+.join_email {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.join_email input {
+    width: 130px;
+}
+.join_email select {
+    margin: 5px 5px 0;
+}
+.join_email p {
+    margin: 0 5px;
+    font-size: 130%;
+}
+
+.join_tel {
+    display: flex;
+    align-items: center;
+}
+
+.join_tel input {
+    width: 80px;
+}
+#birth2{
+    margin-top: 5px;
+    width: 80px;
+
+}
+.join_tel p {
+    margin: 0 10px;
+    font-size: 150%;
+}
+
 
 /* admin-board */
 .admin-board h2 {
     margin-bottom: 1rem;
     font-size: 1.5rem;
 }
+

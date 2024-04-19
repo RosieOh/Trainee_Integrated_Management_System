@@ -1,54 +1,54 @@
-package com.lms.domain.counsel.service;
-
-import com.lms.domain.counsel.dto.CounselDTO;
-import com.lms.domain.counsel.entity.Counsel;
-import com.lms.domain.counsel.repository.CounselRepository;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
-import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-@Service
-@Log4j2
-@RequiredArgsConstructor
-@Transactional
-public class CounselServiceImpl implements CounselService {
-
-    private final ModelMapper modelMapper;
-    private final CounselRepository counselRepository;
-
-    @Override
-    public List<CounselDTO> counsel_List(CounselDTO counselDTO) {
-        List<Counsel> counselList = counselRepository.findAll();
-        List<CounselDTO> counselDTOList = counselList.stream().map(
-                         counsel -> modelMapper.map(counsel, CounselDTO.class))
-                .collect(Collectors.toList());
-        return counselDTOList;
-    }
-
-    @Override
-    public void counsel_Add(CounselDTO counselDTO) {
-        Counsel counsel = modelMapper.map(counselDTO, Counsel.class);
-        counselRepository.save(counsel);
-    }
-
-    @Override
-    public void counsel_Edit(CounselDTO counselDTO) {
-        Optional<Counsel> counsel = counselRepository.findById(counselDTO.getNo());
-        Counsel counsel1 = counsel.orElseThrow();
-        counselRepository.save(counsel1);
-    }
-
-    @Override
-    public CounselDTO counsel_Read(Long no) {
-        Optional<Counsel> result = counselRepository.findById(no);
-        Counsel counsel = result.orElseThrow();
-        CounselDTO counselDTO = modelMapper.map(counsel, CounselDTO.class);
-        return counselDTO;
-    }
-}
+//package com.lms.domain.student.service;
+//
+//import com.lms.domain.student.entity.Student;
+//import com.lms.domain.student.repository.StudentRepository;
+//import lombok.RequiredArgsConstructor;
+//import lombok.extern.log4j.Log4j2;
+//import org.modelmapper.ModelMapper;
+//import org.springframework.stereotype.Service;
+//import org.springframework.transaction.annotation.Transactional;
+//
+//import java.util.List;
+//import java.util.Optional;
+//import java.util.stream.Collectors;
+//
+//@Service
+//@Log4j2
+//@RequiredArgsConstructor
+//@Transactional
+//public class StudentServiceImpl implements StudentService {
+//
+//    private final ModelMapper modelMapper;
+//    private final StudentRepository studentRepository;
+//
+//    @Override
+//    public List<Student> student_list(Student student) {
+//        List<Student> studentList = studentRepository.findAll();
+////        List<CounselDTO> counselDTOList = studentList.stream().map(
+////                        student -> modelMapper.map(student, CounselDTO.class))
+////                .collect(Collectors.toList());
+//        return studentList;
+//    }
+//    @Override
+//    public Student student_read(Long no) {
+//        Student student = studentRepository.findById(no);
+////        Optional<Student> student = studentRepository.findById(no);
+////        CounselDTO counselDTO = modelMapper.map(student, CounselDTO.class);
+//        return student;
+//    }
+//
+//    @Override
+//    public void student_add(Student student) {
+////        Student student = modelMapper.map(counselDTO, Student.class);
+//        studentRepository.save(student);
+//    }
+//
+//    @Override
+//    public void student_edit(Student student) {
+////        Optional<Student> student = studentRepository.findById(counselDTO.getNo());
+////        Student student1 = student.orElseThrow();
+//        studentRepository.save(student);
+//    }
+//
+//
+//}

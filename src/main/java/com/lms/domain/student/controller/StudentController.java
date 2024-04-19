@@ -1,7 +1,7 @@
-package com.lms.domain.counsel.controller;
+package com.lms.domain.student.controller;
 
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class CounselController {
+public class StudentController {
 }

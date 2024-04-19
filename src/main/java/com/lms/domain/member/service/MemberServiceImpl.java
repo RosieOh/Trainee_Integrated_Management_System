@@ -1,5 +1,7 @@
 package com.lms.domain.member.service;
 
+import com.lms.domain.Course.dto.CourseDTO;
+import com.lms.domain.Course.entity.Course;
 import com.lms.domain.member.dto.MemberDTO;
 import com.lms.domain.member.dto.MemberVO;
 import com.lms.domain.member.entity.Member;
@@ -70,14 +72,6 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public MemberDTO email_read(String email) {
-        Member member = memberRepository.getEmail(email);
-        MemberDTO memberDTO = modelMapper.map(member, MemberDTO.class);
-        return memberDTO;
-    }
-
-
-    @Override
     public void member_add(MemberDTO memberDTO) {
         String password = passwordEncoder.encode(memberDTO.getPw());
         memberDTO.setPw(password);
@@ -85,12 +79,6 @@ public class MemberServiceImpl implements MemberService{
         memberDTO.setStatus(Status.ACTIVE);
         Member member = modelMapper.map(memberDTO, Member.class);
         memberRepository.save(member);
-    }
-
-    @Override
-    public Member Login_email(String email) {
-        Member member = memberRepository.getEmail(email);
-        return member;
     }
 
     @Override
@@ -117,11 +105,17 @@ public class MemberServiceImpl implements MemberService{
         memberRepository.save(member1);
     }
 
+    @Override
+    public MemberDTO login_id(String id) {
+        Optional<Member> member = memberRepository.id_read("id");
+        MemberDTO memberDTO = modelMapper.map(member, MemberDTO.class);
+        return memberDTO;
+    }
 
     @Override
-    public int login_pro(String email) {
+    public int login_pro(String id) {
         int pass = 0;
-        Member member = memberRepository.getEmail(email);
+        Member member = memberRepository.id_read2(id);
         LocalDateTime localDateTime = LocalDateTime.now().minusDays(30); // 현재 시점에서 30일 동안 반응이 없으면 휴면
         if (localDateTime.isAfter(member.getLoginAt())) {
             member.setStatus(Status.REST);
@@ -142,9 +136,9 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public boolean id_check(String email) {
+    public boolean id_check(String id) {
         boolean pass = true;
-        int cnt = memberRepository.countByEmail(email);
+        int cnt = memberRepository.countByEmail(id);
         if(cnt > 0) pass = false;
         return pass;
     }
