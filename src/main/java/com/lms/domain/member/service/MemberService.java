@@ -21,6 +21,8 @@ public interface MemberService {
     public void member_change_pw(MemberDTO memberDTO);
     public List<MemberDTO> memberVO_list(Integer cno);
     Member auth(String id);
+    public int loginPro(String id);
+
 
     // 고정 아이디 생성
     void createAdminMember();

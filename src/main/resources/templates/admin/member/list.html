@@ -18,11 +18,16 @@
     <div class="admin-board">
       <div class="main_title">
         <h1>회원관리</h1>
+<!--        <th:block th:if="${!#lists.isEmpty(memberVOList)}">-->
+<!--          <th:block th:each="member, about :${memberVOList}">-->
+<!--            <h3 th:text="${member.course.subject} + ' ' +  ${member.course.flag} + '기'"></h3>-->
+<!--          </th:block>-->
+<!--        </th:block>-->
       </div>
-        <div class="admin-title">
-          <div><i class="fas fa-user-circle"></i></div>
-          <div><h5>이름</h5></div>
-        </div>
+<!--        <div class="admin-title">-->
+<!--          <div><i class="fas fa-user-circle"></i></div>-->
+<!--          <div><h5>이름</h5></div>-->
+<!--        </div>-->
         <div class="admin-content flex">
           <div class="admin-content_box">
             <ul class="admin-content_in">
@@ -100,7 +105,9 @@
             <th:block th:if="${cno == null}">
               <tr th:each="member, about :${memberList}">
                 <td th:text="${member.course.subject} + ' ' +  ${member.course.flag} + '기'"></td>
-                <td th:text="${member.name}"></td>
+                <td>
+                  <a th:href="@{/admin/member_read(id=${member.getId()})}" th:text="${member.name}"></a>
+                </td>
                 <td th:text="${member.email}"></td>
                 <td th:text="${member.gender}"></td>
                 <td th:text="${member.birth}"></td>
@@ -119,7 +126,9 @@
                 </th:block>
                 <tr th:each="member, about :${memberVOList}">
                   <td th:text="${member.course.subject} + ' ' +  ${member.course.flag} + '기'"></td>
-                  <td th:text="${member.name}"></td>
+                  <td>
+                    <a th:href="@{/admin/member_read(id=${member.getId()})}" th:text="${member.name}"></a>
+                  </td>
                   <td th:text="${member.email}"></td>
                   <td th:text="${member.gender}"></td>
                   <td th:text="${member.birth}"></td>

@@ -33,35 +33,27 @@ public class AuthProvider implements AuthenticationProvider {
         log.info("-------------------  Auth Start ------------------");
 
         String id = (String) authentication.getPrincipal();
-        log.info("id ----------" + id);
         String pw = (String) authentication.getCredentials();
-        log.info("pw ----------" + pw);
 
         PasswordEncoder passwordEncoder = memberService.passwordEncoder();
         UsernamePasswordAuthenticationToken token;
-        log.info("memberToken ---------------------------------------- Start");
         Member memberToken = memberService.auth(id);
-        log.info("memberToken ---------------------------------------- End" + memberToken);
 
         if(memberToken != null && passwordEncoder.matches(pw, memberToken.getPw())) {
             List<GrantedAuthority> roles = new ArrayList<>();
             if (memberToken.getRole().equals(Role.ADMIN)) {
                 roles.add(new SimpleGrantedAuthority("ADMIN")); // ADMIN 권한 부여
-
             } else if (memberToken.getRole().equals(Role.TEACHER)) {
                 roles.add(new SimpleGrantedAuthority("MANAGER"));   // MANAGER 권한 부여
-
             } else if (memberToken.getRole().equals(Role.MANAGER)) {
-            roles.add(new SimpleGrantedAuthority("MANAGER"));   // MANAGER 권한 부여
-
+            roles.add(new SimpleGrantedAuthority("TEACHER"));   // TEACHER 권한 부여
             } else {
                 roles.add(new SimpleGrantedAuthority("STUDENT"));       // STUDENT 권한 부여
             }
             token = new UsernamePasswordAuthenticationToken(memberToken.getId(), null, roles);
-            log.info("-------------------  toekn End ------------------");
+            log.info("-------------------  Auth End ------------------");
             return token;
         } throw new BadCredentialsException("No such Member or Wrong Password.");
-
     }
 
     @Override

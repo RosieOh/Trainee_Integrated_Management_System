@@ -44,7 +44,7 @@
                 <td th:text="${course.train_time}"></td>
                 <td th:text="${course.instructor}"></td>
                 <td th:text="${course.manager}"></td>
-                  <form th:action="@{/course_delete(no=${course.no})}" method="post">
+                  <form th:action="@{/admin/course_delete(no=${course.no})}" method="post">
                       <td>
                           <select name="delete_type" id="delete_type" class="select-box">
                               <option value="y" th:selected="${course.delete_type} eq 'y'">공개</option>
@@ -61,7 +61,7 @@
         </div>
         <div class="course_box">
         <h2>강의추가</h2>
-          <form th:action="@{/coursePro}" method="post">
+          <form th:action="@{/admin/coursePro}" method="post">
             <table>
               <tbody>
                 <tr>

@@ -1,15 +1,14 @@
 package com.lms.domain.member.service;
 
-import com.lms.domain.Course.dto.CourseDTO;
 import com.lms.domain.Course.entity.Course;
 import com.lms.domain.Course.repository.CourseRepository;
 import com.lms.domain.member.dto.MemberDTO;
-import com.lms.domain.member.dto.MemberVO;
 import com.lms.domain.member.entity.Member;
 import com.lms.domain.member.repository.MemberRepository;
 import com.lms.global.cosntant.Role;
 import com.lms.global.cosntant.Status;
 import com.lms.global.cosntant.Subject;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
@@ -39,7 +38,7 @@ public class MemberServiceImpl implements MemberService{
             Course course = Course.builder()
                     .no(1)
                     .subject(Subject.EXCEPTION)
-                    .flag(1)
+                    .flag(0)
                     .build();
             courseRepository.save(course);
             // 관리자 계정 생성 및 초기 설정
@@ -163,9 +162,38 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
+    @Transactional
     public Member auth(String id) {
         Member member = memberRepository.findId(id);
         log.info("member ---------------------------------------- ???" + member);
         return member;
+    }
+
+    @Override
+    public int loginPro(String id) {
+        int pass = 0;
+        Member member = memberRepository.findId(id);
+        LocalDateTime local = LocalDateTime.now().minusDays(30);
+
+        if (member.getLoginAt() == null) {
+            pass = 4;
+        } else {
+            if (local.isAfter(member.getLoginAt())) {
+                member.setStatus(Status.REST);
+                memberRepository.save(member);
+                pass = 2;
+            } else {
+                if (member.getStatus().equals(Status.ACTIVE)) {
+                    member.setLoginAt(LocalDateTime.now());
+                    memberRepository.save(member);
+                    pass = 1;
+                } else if (member.getStatus().equals(Status.REST)) {
+                    pass = 2;
+                } else if (member.getStatus().equals(Status.OUT)) {
+                    pass = 3;
+                }
+            }
+        }
+        return pass;
     }
 }

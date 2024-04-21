@@ -4,7 +4,6 @@ package com.lms.domain;
 import com.lms.domain.Course.dto.CourseDTO;
 import com.lms.domain.Course.service.CourseService;
 import com.lms.domain.member.dto.MemberDTO;
-import com.lms.domain.member.repository.MemberRepository;
 import com.lms.domain.member.service.MemberService;
 import com.lms.global.cosntant.Role;
 import com.lms.global.cosntant.Status;
@@ -33,7 +32,7 @@ public class HomeController {
 
 
     @GetMapping("/")
-    public String home(Principal principal,Model model) {
+    public String home() {
         memberService.createAdminMember(); // 관리자 회원 생성 메서드 호출
         return "/admin/member/list";
     }
@@ -50,7 +49,7 @@ public class HomeController {
     }
 
     @PostMapping("/joinPro")
-    public String joinPro(Model model, MemberDTO memberDTO, @RequestParam("cno") Integer cno){
+    public String joinPro(MemberDTO memberDTO, @RequestParam("cno") Integer cno){
         CourseDTO course = new CourseDTO();
         course.setNo(cno);
         memberDTO.setCourse(course);
@@ -65,5 +64,30 @@ public class HomeController {
         return "user/member/login";
     }
 
-
+    @GetMapping("/status")
+    public String status(Model model, Principal principal){
+        String id = principal.getName();
+        int pass = memberService.loginPro(id);
+        if (pass == 1) {
+            model.addAttribute("msg", "환영합니다! 로그인되었습니다");
+            model.addAttribute("url", "/");
+            return "/user/alert";
+        } else if (pass == 2) {
+            model.addAttribute("msg", "해당 계정은 휴면계정입니다. 휴면을 풀어주세요.");
+            model.addAttribute("url", "/active");
+            return "/user/alert";
+        } else if (pass==3){
+            model.addAttribute("msg", "해당 계정은 탈퇴한 계정입니다.");
+            model.addAttribute("url", "/logout");
+            return "/user/alert";
+        } else if (pass==4){
+            model.addAttribute("msg", "처음으로 오신걸 환영합니다 ^^");
+            model.addAttribute("url", "/");
+            return "/user/alert";
+        }else {
+            model.addAttribute("msg", "로그인 정보가 맞지 않습니다.");
+            model.addAttribute("url", "/login");
+            return "/user/alert";
+        }
+    }
 }

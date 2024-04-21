@@ -1,0 +1,51 @@
+<!doctype html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+            content="minimum-scale=1.0, width=device-width, maximum-scale=1, ser-scalable=no"
+            name="viewport"
+    />
+    <title>천재IT교육센터</title>
+    <th:block th:replace="~{include/head :: head}"></th:block>
+  </head>
+  <body>
+  <div class="main admin">
+      <th:block th:replace="~{include/header :: header}"></th:block>
+      <th:block th:replace="~{include/adminbar :: adminbar}"></th:block>
+    <div class="admin-board">
+      <div class="main_title">
+        <h1>회원관리</h1>
+      </div>
+          <table>
+            <thead>
+                <tr>
+                  <th>클래스</th>
+                  <th>이름</th>
+                  <th>이메일</th>
+                  <th>성별</th>
+                  <th>생년월일</th>
+                  <th>연락처</th>
+                  <th>주소</th>
+                  <th>가입날짜</th>
+                </tr>
+            </thead>
+             <tbody>
+              <tr>
+                <td th:text="${member.name}"></td>
+                <td th:text="${member.course.subject} + ${member.course.flag}"></td>
+                <td th:text="${member.email}"></td>
+                <td th:text="${member.gender}"></td>
+                <td th:text="${member.birth}"></td>
+                <td th:text="${member.phone}"></td>
+                <td th:text="${member.addr1}"></td>
+                <td th:text="${#temporals.format(member.createdTime, 'yyyy-MM-dd hh:mm')}"></td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+      </div>
+  </body>
+</html>
