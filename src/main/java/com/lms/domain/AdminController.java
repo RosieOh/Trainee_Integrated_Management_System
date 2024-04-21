@@ -4,9 +4,9 @@ package com.lms.domain;
 import com.lms.domain.Course.dto.CourseDTO;
 import com.lms.domain.Course.service.CourseService;
 import com.lms.domain.member.dto.MemberDTO;
+import com.lms.domain.member.entity.Member;
 import com.lms.domain.member.service.MemberService;
-import com.lms.global.cosntant.Role;
-import com.lms.global.cosntant.Status;
+import com.lms.global.cosntant.Subject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -14,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.List;
@@ -29,34 +28,20 @@ public class AdminController {
     private final MemberService memberService;
     private final CourseService courseService;
 
-
-    @GetMapping("/")
-    public String home(Principal principal,Model model) {
-        memberService.createAdminMember(); // 관리자 회원 생성 메서드 호출
+    @GetMapping("/member")
+    public String board(Model model, Principal principal, Integer cno){
+        List<CourseDTO> course_big_List = courseService.course_subject_list(Subject.BIGDATA);
+        List<CourseDTO> course_full_List = courseService.course_subject_list(Subject.FULLSTACK);
+        List<CourseDTO> course_pm_List = courseService.course_subject_list(Subject.PM);
+        List<MemberDTO> memberList = memberService.member_list();
+        List<MemberDTO> memberVOList = memberService.memberVO_list(cno);
+        model.addAttribute("memberList",memberList);
+        model.addAttribute("memberVOList",memberVOList);
+        model.addAttribute("course_big_List",course_big_List);
+        model.addAttribute("course_full_List",course_full_List);
+        model.addAttribute("course_pm_List",course_pm_List);
+        model.addAttribute("cno",cno);
         return "admin/member/list";
-    }
-
-    @GetMapping("join")
-    public String join(Model model){
-        List<CourseDTO> courseDTOList = courseService.course_list();
-        model.addAttribute("courseDTOList", courseDTOList);
-        return "user/member/join";
-    }
-
-    @PostMapping("/joinPro")
-    public String joinPro(Model model, MemberDTO memberDTO, @RequestParam("cno") Integer cno){
-        log.info("memberDTO ㅡㅡㅡㅡㅡㅡㅡㅡㅡ" + memberDTO);
-
-        CourseDTO course = new CourseDTO();
-        course.setNo(cno);
-        log.info("courseDTO ㅡㅡㅡㅡㅡㅡㅡㅡㅡ" + course);
-        memberDTO.setCourse(course);
-        memberDTO.setStatus(Status.ACTIVE);
-        memberDTO.setRole(Role.STUDENT);
-        log.info("memberDTOInsert ㅡㅡㅡㅡㅡㅡㅡㅡㅡ" + memberDTO);
-
-        memberService.member_add(memberDTO);
-        return "redirect:/";
     }
 
     @GetMapping("/course")
@@ -69,31 +54,26 @@ public class AdminController {
     @PostMapping("/coursePro")
     public String coursePro(CourseDTO courseDTO){
         courseService.course_add(courseDTO);
-        return "redirect:/course";
+        return "redirect:/admin/course";
     }
 
-    @GetMapping("/memJoin")
-    public String memJoin(){
-        return "join(ex)";
+    @PostMapping("/course_delete")
+    public String course_delete(CourseDTO courseDTO) {
+        courseService.delete_type(courseDTO);
+        return "redirect:/admin/course";
     }
-
-
-    @GetMapping("/login")
-    public String login(){
-        return "user/member/login";
+    @GetMapping("/member_read")
+    public String member_read(Model model,String id){
+//        List<CourseDTO> course_big_List = courseService.course_subject_list(Subject.BIGDATA);
+//        List<CourseDTO> course_full_List = courseService.course_subject_list(Subject.FULLSTACK);
+//        List<CourseDTO> course_pm_List = courseService.course_subject_list(Subject.PM);
+//        model.addAttribute("course_big_List",course_big_List);
+//        model.addAttribute("course_full_List",course_full_List);
+//        model.addAttribute("course_pm_List",course_pm_List);
+        log.info("member_start -----------");
+        Member member = memberService.auth(id);
+        log.info("member -----------" + member);
+        model.addAttribute("member", member);
+        return "/admin/member/read";
     }
-
-    @GetMapping("/member")
-    public String board(Model model, Principal principal, Integer cno){
-        List<CourseDTO> courseDTOList = courseService.course_list();
-        List<MemberDTO> memberDTOList = memberService.member_list();
-        List<MemberDTO> memberVOList = memberService.memberVO_list(cno);
-        model.addAttribute("memberDTOList",memberDTOList);
-        model.addAttribute("memberVOList",memberVOList);
-        model.addAttribute("courseDTOList",courseDTOList);
-        log.info("courseDTOList ----------------" + courseDTOList);
-        return "admin/member/list";
-    }
-
-
 }

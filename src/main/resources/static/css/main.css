@@ -5,6 +5,7 @@
 }
 .admin {
     display: flex;
+    background-color: var(--c-main_back);
 }
 
 .container {
@@ -19,7 +20,7 @@
 .navbar {
     z-index: 999;
     width: 100%;
-    position: sticky;
+    position: fixed;
     top: 0;
     background-color: var(--c-main);
 }
@@ -68,9 +69,13 @@
 /* adminbar */
 
 .adminBar {
+    position: sticky;
+    top: 0;
+    left: 0;
     width: 75px;
     height: 100vh;
     background-color: var(--c-main);
+    padding-top: 67px;
 }
 
 .adminBar_box {
@@ -89,16 +94,16 @@
 
 /* admin Page */
 .main_title {
-    position: absolute;
+    position: fixed;
     z-index: 999;
     top: 13px;
     left: 87px;
-    font-size: 1.75em;
+    font-size: 1.75rem;
 }
 .admin-board {
     width: 100%;
     height: auto;
-
+    padding-top: 67px;
 }
 
 .admin-title {
@@ -169,7 +174,6 @@
 }
 
 .course_box {
-    margin: 0 auto;
     padding: 0 5rem 3rem;
     width: 90%;
 }
@@ -300,7 +304,6 @@
     margin: 0 5px;
     font-size: 130%;
 }
-
 .join_tel {
     display: flex;
     align-items: center;

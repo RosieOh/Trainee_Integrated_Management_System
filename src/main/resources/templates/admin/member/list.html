@@ -12,23 +12,27 @@
     <th:block th:replace="~{include/head :: head}"></th:block>
   </head>
   <body>
-  <th:block th:replace="~{include/header :: header}"></th:block>
-    <div class="main admin">
+  <div class="main admin">
+      <th:block th:replace="~{include/header :: header}"></th:block>
       <th:block th:replace="~{include/adminbar :: adminbar}"></th:block>
+    <div class="admin-board">
       <div class="main_title">
         <h1>회원관리</h1>
+<!--        <th:block th:if="${!#lists.isEmpty(memberVOList)}">-->
+<!--          <th:block th:each="member, about :${memberVOList}">-->
+<!--            <h3 th:text="${member.course.subject} + ' ' +  ${member.course.flag} + '기'"></h3>-->
+<!--          </th:block>-->
+<!--        </th:block>-->
       </div>
-      <div class="admin-board">
-        <div class="admin-title">
-          <div><i class="fas fa-user-circle"></i></div>
-          <div><h5>이름</h5>
-          </div>
-        </div>
+<!--        <div class="admin-title">-->
+<!--          <div><i class="fas fa-user-circle"></i></div>-->
+<!--          <div><h5>이름</h5></div>-->
+<!--        </div>-->
         <div class="admin-content flex">
           <div class="admin-content_box">
             <ul class="admin-content_in">
               <li class="nav-dropdown">
-                <a class="nav_link" th:href="@{/admin_member}">전체
+                <a class="nav_link" th:href="@{/admin/member}">전체
                 </a>
               </li>
             </ul>
@@ -40,7 +44,7 @@
                     <ul class="nav-dropdown_wrap">
                       <th:block th:each="course_big : ${course_big_List}">
                       <li>
-                        <a class="nav_link " th:href="@{/admin_member(cno=${course_big.getNo()})}" th:text="${course_big.getFlag()} + '기'"></a>
+                        <a class="nav_link " th:href="@{/admin/member(cno=${course_big.getNo()})}" th:text="${course_big.getFlag()} + '기'"></a>
                       </li>
                       </th:block>
                     </ul>
@@ -54,7 +58,7 @@
                 <ul class="nav-dropdown_wrap">
                   <th:block th:each="course_full : ${course_full_List}">
                     <li>
-                      <a class="nav_link " th:href="@{/admin_member(cno=${course_full.getNo()})}" th:text="${course_full.getFlag()} + '기'"></a>
+                      <a class="nav_link " th:href="@{/admin/member(cno=${course_full.getNo()})}" th:text="${course_full.getFlag()} + '기'"></a>
                     </li>
                   </th:block>
                 </ul>
@@ -68,7 +72,7 @@
                 <ul class="nav-dropdown_wrap">
                   <th:block th:each="course_pm : ${course_pm_List}">
                     <li>
-                      <a class="nav_link " th:href="@{/admin_member(cno=${course_pm.getNo()})}" th:text="${course_pm.getFlag()} + '기'"></a>
+                      <a class="nav_link " th:href="@{/admin/member(cno=${course_pm.getNo()})}" th:text="${course_pm.getFlag()} + '기'"></a>
                     </li>
                   </th:block>
                 </ul>
@@ -79,22 +83,31 @@
         <div>
           <table>
             <thead>
-            <tr>
-              <th>클래스</th>
-              <th>이름</th>
-              <th>이메일</th>
-              <th>성별</th>
-              <th>생년월일</th>
-              <th>연락처</th>
-              <th>주소</th>
-              <th>가입날짜</th>
-            </tr>
+                <tr>
+                  <th>클래스</th>
+                  <th>이름</th>
+                  <th>이메일</th>
+                  <th>성별</th>
+                  <th>생년월일</th>
+                  <th>연락처</th>
+                  <th>주소</th>
+                  <th>가입날짜</th>
+                </tr>
             </thead>
             <tbody>
+            <th:block th:if="${#lists.isEmpty(memberList)}">
+                <tr>
+                    <td colspan="8">
+                        <h4>현재 내용이 없습니다.</h4>
+                    </td>
+                </tr>
+            </th:block>
             <th:block th:if="${cno == null}">
               <tr th:each="member, about :${memberList}">
                 <td th:text="${member.course.subject} + ' ' +  ${member.course.flag} + '기'"></td>
-                <td th:text="${member.name}"></td>
+                <td>
+                  <a th:href="@{/admin/member_read(id=${member.getId()})}" th:text="${member.name}"></a>
+                </td>
                 <td th:text="${member.email}"></td>
                 <td th:text="${member.gender}"></td>
                 <td th:text="${member.birth}"></td>
@@ -104,9 +117,18 @@
               </tr>
             </th:block>
               <th:block th:if="${cno != null}">
+                <th:block th:if="${#lists.isEmpty(memberVOList)}">
+                  <tr>
+                    <td colspan="8">
+                      <h4>현재 내용이 없습니다.</h4>
+                    </td>
+                  </tr>
+                </th:block>
                 <tr th:each="member, about :${memberVOList}">
-<!--                  <td th:text="${member.course.subject} + ' ' +  ${member.course.flag} + '기'"></td>-->
-                  <td th:text="${member.name}"></td>
+                  <td th:text="${member.course.subject} + ' ' +  ${member.course.flag} + '기'"></td>
+                  <td>
+                    <a th:href="@{/admin/member_read(id=${member.getId()})}" th:text="${member.name}"></a>
+                  </td>
                   <td th:text="${member.email}"></td>
                   <td th:text="${member.gender}"></td>
                   <td th:text="${member.birth}"></td>

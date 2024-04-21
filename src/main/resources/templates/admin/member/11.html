@@ -1,0 +1,109 @@
+<!doctype html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+            content="minimum-scale=1.0, width=device-width, maximum-scale=1, ser-scalable=no"
+            name="viewport"
+    />
+    <title>천재IT교육센터</title>
+    <th:block th:replace="~{include/head :: head}"></th:block>
+  </head>
+  <body>
+  <div class="main admin">
+      <th:block th:replace="~{include/header :: header}"></th:block>
+      <th:block th:replace="~{include/adminbar :: adminbar}"></th:block>
+    <div class="admin-board">
+      <div class="main_title">
+        <h1>회원관리</h1>
+      </div>
+        <div class="admin-title">
+          <div><i class="fas fa-user-circle"></i></div>
+          <div><h5>이름</h5></div>
+        </div>
+<!--        <div class="admin-content flex">-->
+<!--          <div class="admin-content_box">-->
+<!--            <ul class="admin-content_in">-->
+<!--              <li class="nav-dropdown">-->
+<!--                <a class="nav_link" th:href="@{/admin/member}">전체-->
+<!--                </a>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--                <ul class="admin-content_in">-->
+<!--                  <li class="nav-dropdown">-->
+<!--                    <a class="nav_link" href="#">빅데이터-->
+<!--                      <div class="nav-dropdown_arrow">▼</div>-->
+<!--                    </a>-->
+<!--                    <ul class="nav-dropdown_wrap">-->
+<!--                      <th:block th:each="course_big : ${course_big_List}">-->
+<!--                      <li>-->
+<!--                        <a class="nav_link " th:href="@{/admin/member(cno=${course_big.getNo()})}" th:text="${course_big.getFlag()} + '기'"></a>-->
+<!--                      </li>-->
+<!--                      </th:block>-->
+<!--                    </ul>-->
+<!--                  </li>-->
+<!--                </ul>-->
+<!--            <ul class="admin-content_in">-->
+<!--              <li class="nav-dropdown">-->
+<!--                <a class="nav_link" href="#">풀스택-->
+<!--                  <div class="nav-dropdown_arrow">▼</div>-->
+<!--                </a>-->
+<!--                <ul class="nav-dropdown_wrap">-->
+<!--                  <th:block th:each="course_full : ${course_full_List}">-->
+<!--                    <li>-->
+<!--                      <a class="nav_link " th:href="@{/admin/member(cno=${course_full.getNo()})}" th:text="${course_full.getFlag()} + '기'"></a>-->
+<!--                    </li>-->
+<!--                  </th:block>-->
+<!--                </ul>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--            <ul class="admin-content_in">-->
+<!--              <li class="nav-dropdown">-->
+<!--                <a class="nav_link" href="#">PM-->
+<!--                  <div class="nav-dropdown_arrow">▼</div>-->
+<!--                </a>-->
+<!--                <ul class="nav-dropdown_wrap">-->
+<!--                  <th:block th:each="course_pm : ${course_pm_List}">-->
+<!--                    <li>-->
+<!--                      <a class="nav_link " th:href="@{/admin/member(cno=${course_pm.getNo()})}" th:text="${course_pm.getFlag()} + '기'"></a>-->
+<!--                    </li>-->
+<!--                  </th:block>-->
+<!--                </ul>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </div>-->
+<!--        <div>-->
+          <table>
+            <thead>
+                <tr>
+                  <th>클래스</th>
+                  <th>이름</th>
+                  <th>이메일</th>
+                  <th>성별</th>
+                  <th>생년월일</th>
+                  <th>연락처</th>
+                  <th>주소</th>
+                  <th>가입날짜</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr >
+                  <td th:text="${member.course.subject} + ' ' +  ${member.course.flag} + '기'"></td>
+                  <td th:text="${member.name}"></td>
+                  <td th:text="${member.email}"></td>
+                  <td th:text="${member.gender}"></td>
+                  <td th:text="${member.birth}"></td>
+                  <td th:text="${member.phone}"></td>
+                  <td th:text="${member.addr1}"></td>
+                  <td th:text="${#temporals.format(member.createdTime, 'yyyy-MM-dd hh:mm')}"></td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+<!--      </div>-->
+<!--    </div>-->
+  </body>
+</html>

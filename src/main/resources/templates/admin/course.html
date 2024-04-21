@@ -12,13 +12,13 @@
   <th:block th:replace="~{include/head :: head}"></th:block>
 </head>
 <body>
-<th:block th:replace="~{include/header :: header}"></th:block>
 <div class="main admin">
+    <th:block th:replace="~{include/header :: header}"></th:block>
   <th:block th:replace="~{include/adminbar :: adminbar}"></th:block>
-  <div class="main_title">
-    <h1>강의</h1>
-  </div>
   <div class="admin-board">
+      <div class="main_title">
+          <h1>강의</h1>
+      </div>
       <div class="admin-content">
         <div class="course_box">
           <h2>리스트</h2>
@@ -32,6 +32,7 @@
                 <th>훈련시간</th>
                 <th>대표강사</th>
                 <th>담당 매니저</th>
+                <th colspan="2">공개여부</th>
               </tr>
               </thead>
               <tbody>
@@ -43,13 +44,24 @@
                 <td th:text="${course.train_time}"></td>
                 <td th:text="${course.instructor}"></td>
                 <td th:text="${course.manager}"></td>
+                  <form th:action="@{/admin/course_delete(no=${course.no})}" method="post">
+                      <td>
+                          <select name="delete_type" id="delete_type" class="select-box">
+                              <option value="y" th:selected="${course.delete_type} eq 'y'">공개</option>
+                              <option value="n" th:selected="${course.delete_type} eq 'n'">비공개</option>
+                          </select>
+                      </td>
+                      <td>
+                        <button type="submit" class="" ><i class="fas fa-pencil-alt"></i>상태 변경</button>
+                      </td>
+                  </form>
               </tr>
             </tbody>
           </table>
         </div>
         <div class="course_box">
         <h2>강의추가</h2>
-          <form th:action="@{/coursePro}" method="post">
+          <form th:action="@{/admin/coursePro}" method="post">
             <table>
               <tbody>
                 <tr>
@@ -76,7 +88,8 @@
                       <input type="text" name="instructor"/>
                     </td>
                     <td>
-                      <input type="text" name="manager"/>
+                    <input type="text" name="manager"/>
+                    <input type="hidden" name="delete_type" value="n"/>
                     </td>
                 </tr>
               </tbody>

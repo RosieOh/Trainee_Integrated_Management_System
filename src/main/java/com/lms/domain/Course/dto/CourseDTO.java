@@ -4,6 +4,7 @@ import com.lms.global.cosntant.Subject;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
 
@@ -28,6 +29,8 @@ public class CourseDTO{
     private String instructor;        //대표강사
     
     private String manager;          //담당 매니저
+
+    private String delete_type;        // 공개여부
 
     private LocalDateTime createdTime;
 

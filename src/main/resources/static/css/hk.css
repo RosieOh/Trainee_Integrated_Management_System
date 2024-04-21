@@ -21,14 +21,14 @@
 }
 
 .user_title {
-    width: 75%;
+    width: 60%;
     margin: 0 auto;
     padding: 20px;
     background-color: #ffffff;
 }
 
 .user_tab{
-    width: 75%;
+    width: 60%;
     margin: 0 auto;
 }
 
@@ -43,7 +43,7 @@
 }
 .user_content {
     background-color: #ffffff;
-    width: 75%;
+    width: 60%;
     padding: 25px 40px 100px;
     margin : 0 auto;
 }
@@ -65,12 +65,15 @@
     line-height: 40px;
 }
 
-.nav-link {
-    padding: 11px;
+.nav-item2 {
+    width: 95px;
+    text-align: center;
+    line-height: 40px;
+    border-bottom: 3px solid #232323;
 }
 
-.nav-link.active {
-    border-bottom: 3px solid #232323;
+.nav-link {
+    padding: 11px;
 }
 
 .myinfo_line {

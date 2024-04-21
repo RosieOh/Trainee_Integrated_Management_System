@@ -4,7 +4,6 @@ package com.lms.domain;
 import com.lms.domain.Course.dto.CourseDTO;
 import com.lms.domain.Course.service.CourseService;
 import com.lms.domain.member.dto.MemberDTO;
-import com.lms.domain.member.repository.MemberRepository;
 import com.lms.domain.member.service.MemberService;
 import com.lms.global.cosntant.Role;
 import com.lms.global.cosntant.Status;
@@ -33,74 +32,63 @@ public class HomeController {
 
 
     @GetMapping("/")
-    public String home(Principal principal,Model model) {
+    public String home() {
         memberService.createAdminMember(); // 관리자 회원 생성 메서드 호출
-        return "admin/member/list";
+        return "/admin/member/list";
     }
 
     @GetMapping("join")
     public String join(Model model){
-        List<CourseDTO> courseDTOList = courseService.course_list();
-        model.addAttribute("courseDTOList", courseDTOList);
+        List<CourseDTO> course_big_List = courseService.course_join_list(Subject.BIGDATA);
+        List<CourseDTO> course_full_List = courseService.course_join_list(Subject.FULLSTACK);
+        List<CourseDTO> course_pm_List = courseService.course_join_list(Subject.PM);
+        model.addAttribute("course_big_List",course_big_List);
+        model.addAttribute("course_full_List",course_full_List);
+        model.addAttribute("course_pm_List",course_pm_List);
         return "user/member/join";
     }
 
     @PostMapping("/joinPro")
-    public String joinPro(Model model, MemberDTO memberDTO, @RequestParam("cno") Integer cno){
-        log.info("memberDTO ㅡㅡㅡㅡㅡㅡㅡㅡㅡ" + memberDTO);
-
+    public String joinPro(MemberDTO memberDTO, @RequestParam("cno") Integer cno){
         CourseDTO course = new CourseDTO();
         course.setNo(cno);
-        log.info("courseDTO ㅡㅡㅡㅡㅡㅡㅡㅡㅡ" + course);
         memberDTO.setCourse(course);
         memberDTO.setStatus(Status.ACTIVE);
         memberDTO.setRole(Role.STUDENT);
-        log.info("memberDTOInsert ㅡㅡㅡㅡㅡㅡㅡㅡㅡ" + memberDTO);
-
         memberService.member_add(memberDTO);
         return "redirect:/";
     }
-
-    @GetMapping("/course")
-    public String course(Model model){
-        List<CourseDTO> courseDTOList = courseService.course_list();
-        model.addAttribute("courseDTOList",courseDTOList);
-        return "admin/course";
-    }
-
-    @PostMapping("/coursePro")
-    public String coursePro(CourseDTO courseDTO){
-        courseService.course_add(courseDTO);
-        return "redirect:/course";
-    }
-
-    @GetMapping("/memJoin")
-    public String memJoin(){
-        return "join(ex)";
-    }
-
 
     @GetMapping("/login")
     public String login(){
         return "user/member/login";
     }
 
-    @GetMapping("/admin_member")
-    public String board(Model model, Principal principal, Integer cno){
-
-        List<CourseDTO> course_big_List = courseService.course_subject_list(Subject.BIGDATA);
-        List<CourseDTO> course_full_List = courseService.course_subject_list(Subject.FULLSTACK);
-        List<CourseDTO> course_pm_List = courseService.course_subject_list(Subject.PM);
-        List<MemberDTO> memberList = memberService.member_list();
-        List<MemberDTO> memberVOList = memberService.memberVO_list(cno);
-        model.addAttribute("memberList",memberList);
-        model.addAttribute("memberVOList",memberVOList);
-        model.addAttribute("course_big_List",course_big_List);
-        model.addAttribute("course_full_List",course_full_List);
-        model.addAttribute("course_pm_List",course_pm_List);
-        model.addAttribute("cno",cno);
-        log.info("memberList ----------------" + memberList);
-        return "admin/member/list";
+    @GetMapping("/status")
+    public String status(Model model, Principal principal){
+        String id = principal.getName();
+        int pass = memberService.loginPro(id);
+        if (pass == 1) {
+            model.addAttribute("msg", "환영합니다! 로그인되었습니다");
+            model.addAttribute("url", "/");
+            return "/user/alert";
+        } else if (pass == 2) {
+            model.addAttribute("msg", "해당 계정은 휴면계정입니다. 휴면을 풀어주세요.");
+            model.addAttribute("url", "/active");
+            return "/user/alert";
+        } else if (pass==3){
+            model.addAttribute("msg", "해당 계정은 탈퇴한 계정입니다.");
+            model.addAttribute("url", "/logout");
+            return "/user/alert";
+        } else if (pass==4){
+            model.addAttribute("msg", "처음으로 오신걸 환영합니다 ^^");
+            model.addAttribute("url", "/");
+            return "/user/alert";
+        }else {
+            model.addAttribute("msg", "로그인 정보가 맞지 않습니다.");
+            model.addAttribute("url", "/login");
+            return "/user/alert";
+        }
     }
 
     //로그인 했을 때 회원 화면 (기본 정보)
@@ -120,6 +108,7 @@ public class HomeController {
     //비밀번호변경
     @GetMapping("/pw2")
     public String pw_modify (Model model) { return "user/pw_modify"; }
+
 
 
 }
