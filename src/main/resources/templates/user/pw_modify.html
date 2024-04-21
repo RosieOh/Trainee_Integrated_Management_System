@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{include/layout}">
+
+<div layout:fragment="content">
+  <div class="user_tab">
+    <ul class="nav nav-tabs">
+      <li class="nav-item2">
+        <a class="nav-link" th:href="@{/index2}" >기본정보</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/index3}" >추가정보</a>
+      </li>
+    </ul>
+  </div>
+  <!--  <form th:action="@{/}" method="post" onsubmit="return pwModify(this)">-->
+  <div class="user_content">
+    <div class="pw_title">
+      <h2>비밀번호 변경</h2>
+      <p>새로운 비밀번호를 입력해주세요 <i class="far fa-smile"></i></p>
+    </div>
+    <div class="pw_modify_box">
+      <div class="user_info_box pw2">
+        <label for="pw">비밀번호</label>
+        <input type="password" name="pw" id="pw" placeholder="숫자, 영문, 특수문자 각 1개 이상 포함/최소 8자리에서 최대 16자리" required />
+      </div>
+      <div class="user_info_box pw">
+        <label for="pw">비밀번호 확인</label>
+        <input type="password" name="pw2" id="pw2" placeholder="비밀번호를 다시 입력해주세요." required />
+      </div>
+    </div>
+    <div class="myinfo_btn_group">
+      <button type="submit" class="btn_myInfo">변경</button>
+    </div>
+  </div>
+  <!--  </form>-->
+</div>
+
+<script>
+  function pwModify(f) {
+    if (f.pw.value != f.pw2.value) {
+      alert("비밀번호와 비밀번호 확인이 서로 다릅니다.");
+      f.pw.focus();
+      return false;
+    }
+    if (f.pw.value.length(8 - 16)) {
+      alert("비밀번호는 최소 8자리에서 최대 16자리까지 숫자, 영문, 특수문자 각 1개 이상 포함해주세요.");
+      f.pw.focus();
+      return false;
+    }
+    let value = $("#pw").val();
+
+    let pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&.,])[A-Za-z\d$@$!%*#?&]{8,16}$"
+    if (!pattern.test(value)) {
+      alert("숫자, 영문, 특수문자 각 1개 이상 포함입니다.");
+      $("#pw").focus();
+      return false;
+    }
+  }
+</script>

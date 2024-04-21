@@ -90,4 +90,25 @@ public class HomeController {
             return "/user/alert";
         }
     }
+
+    //로그인 했을 때 회원 화면 (기본 정보)
+    @GetMapping("/index2")
+    public String main2(Model model) {
+        return "user/index2";
+    }
+
+    //(추가 정보 입력)
+    @GetMapping("/index3")
+    public String main3(Model model) { return "user/index3"; }
+
+    // 본인확인
+    @GetMapping("/pw")
+    public String pw_confirm (Model model) { return "user/pw_validate"; }
+
+    //비밀번호변경
+    @GetMapping("/pw2")
+    public String pw_modify (Model model) { return "user/pw_modify"; }
+
+
+
 }
