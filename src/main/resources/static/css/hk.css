@@ -191,3 +191,40 @@
 .postcodeBtn {
     width: 45%;
 }
+
+
+/* 공지사상 수정하기 */
+.notice_seperate{
+    background-color: #fff;
+}
+.notice_container{
+    padding : 30px;
+
+}
+.notice_box{
+    padding-bottom: 15px;
+}
+
+.notice_box input{
+    height: 40px;
+}
+.file_box {
+    padding-bottom: 20px;
+}
+
+.file_box input {
+    height: 54px;
+    line-height: 17px;
+}
+
+.notice_btn{
+    margin: 20px auto;
+}
+
+.btnNotice {
+    width: 100%;
+}
+
+.NlistBtn {
+    float: right;
+}
