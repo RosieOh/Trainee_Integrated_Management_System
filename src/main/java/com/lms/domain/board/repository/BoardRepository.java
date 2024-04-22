@@ -1,5 +1,6 @@
 package com.lms.domain.board.repository;
 
+import com.lms.domain.board.dto.BoardDTO;
 import com.lms.domain.board.entity.Board;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,4 +24,7 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
     Page<Board> findByBoardType(String boardType, Pageable pageable);
 
+    //메인 인덱스에 최신 공지사항 5개 불러오기
+    @Query("select b from Board b order by b.createdTime desc LIMIT 5")
+    List<Board> newNoticeList();
 }

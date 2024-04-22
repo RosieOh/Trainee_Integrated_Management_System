@@ -37,13 +37,11 @@
 .user_index section article.profile .profile_img {
     width: 100%;
     height: 200px;
-    border-radius: 50%;
-    margin-bottom: 20px;
     display: flex;
     justify-content: center;
 }
 .user_index section article.profile .profile_img i {
-    font-size: 180px;
+    font-size: 170px;
 }
 .user_index section article.profile h1 {
     font-weight: bold;
@@ -64,16 +62,12 @@
     height: 32px;
     margin: 0px auto 20px;
     border-radius: 16px;
-    font-weight: bold;
     font-size: 13px;
     color: #fff;
-    line-height: 32px;
+    line-height: 35px;
     text-align: center;
 }
 
-.user_index section ul.contact {
-    margin-bottom: 25px;
-}
 .user_index section ul.contact li {
     width: 100%;
     padding: 10px 0px;
@@ -121,4 +115,41 @@ body .member1 section article.profile img {
 body .member1 section a.btnView {
     background: linear-gradient(45deg, #53ecec, #38cfe5);
     box-shadow: 5px 10px 20px rgba(71, 236, 236, 0.49);
+}
+
+/* 메인 공지사항 */
+.main_notice {
+    width: 60%;
+    padding: 30px 0px;
+    margin: 0px auto;
+}
+.main_notice h1 {
+    font-size: 1.5em;
+}
+.main_notice h1 span {
+    color: #b41010;
+}
+.main_table {
+    margin: 30px 0px;
+}
+.main_table thead tr:first-child {
+    background-color: var(--c-main);
+}
+.main_table tbody tr:last-child th {
+     border-width: 1px 0;
+}
+.main_table th {
+    height: 40px;
+}
+.main_table .num {
+    width: 7%;
+}
+.main_table .title {
+    width: 50%;
+}
+.main_table .create_time {
+    width: 28%;
+}
+.main_table .writer {
+    width: 15%;
 }
