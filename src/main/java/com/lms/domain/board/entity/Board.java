@@ -36,7 +36,7 @@ public class Board extends BaseEntity {
         this.writer = writer;
     }
 
-    public void change(String title, String content) {
+    public void change(String title, String content, Long fileId) {
         this.title = title;
         this.content = content;
         this.writer = writer;
