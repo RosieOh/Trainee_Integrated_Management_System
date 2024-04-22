@@ -52,28 +52,28 @@ public class NoticeController {
         return "admin/board/list";
     }
 
-    @GetMapping("/read")
-    public String readNotice(Long id, Model model, Principal principal) {
-        if (id != null) {
-            BoardDTO boardDTO = boardService.findById(id);
-            if (boardDTO != null) {
-                FileDTO fileDTO = fileService.getFile(boardDTO.getFileId());
-                String email = principal.getName();
-                Optional<Member> optionalMember = memberRepository.findByEmail2(email);
-                if (optionalMember.isPresent()) {
-                    Member member = optionalMember.get();
-                    String name = member.getName();
-                    model.addAttribute("name", name);
-                }
-                model.addAttribute("principal", principal);
-                model.addAttribute("fileList", fileDTO);
-                model.addAttribute("boardList", boardDTO);
-            } else {
-                log.info("fileDTO" + fileService);
-            }
-        }
-        return "notice/view";
-    }
+//    @GetMapping("/read")
+//    public String readNotice(Long id, Model model, Principal principal) {
+//        if (id != null) {
+//            BoardDTO boardDTO = boardService.findById(id);
+//            if (boardDTO != null) {
+//                FileDTO fileDTO = fileService.getFile(boardDTO.getFileId());
+//                String email = principal.getName();
+//                Optional<Member> optionalMember = memberRepository.findByEmail2(email);
+//                if (optionalMember.isPresent()) {
+//                    Member member = optionalMember.get();
+//                    String name = member.getName();
+//                    model.addAttribute("name", name);
+//                }
+//                model.addAttribute("principal", principal);
+//                model.addAttribute("fileList", fileDTO);
+//                model.addAttribute("boardList", boardDTO);
+//            } else {
+//                log.info("fileDTO" + fileService);
+//            }
+//        }
+//        return "notice/view";
+//    }
 
 
 
@@ -85,7 +85,7 @@ public class NoticeController {
     @PostMapping("/registerPro")
     public String registerpro(Model model, Board board) {
         boardRepository.save(board);
-        return "redirect:list";
+        return "redirect:/";
     }
 
     @PostMapping("/register")

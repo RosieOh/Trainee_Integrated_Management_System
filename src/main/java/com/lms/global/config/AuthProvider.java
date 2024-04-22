@@ -1,13 +1,10 @@
 package com.lms.global.config;
 
-import com.lms.domain.member.dto.MemberDTO;
 import com.lms.domain.member.entity.Member;
-import com.lms.domain.member.repository.MemberRepository;
 import com.lms.domain.member.service.MemberService;
 import com.lms.global.cosntant.Role;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,38 +25,33 @@ import java.util.List;
 public class AuthProvider implements AuthenticationProvider {
 
     private final MemberService memberService;
-    private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        log.info("-------------------  Auth Start ------------------");
+
         String id = (String) authentication.getPrincipal();
-        log.info("id ----------" + id);
         String pw = (String) authentication.getCredentials();
 
         PasswordEncoder passwordEncoder = memberService.passwordEncoder();
         UsernamePasswordAuthenticationToken token;
-        Member memberToken = memberRepository.findId(id);
-        log.info("memberToken ----------" + memberToken);
-
+        Member memberToken = memberService.auth(id);
 
         if(memberToken != null && passwordEncoder.matches(pw, memberToken.getPw())) {
             List<GrantedAuthority> roles = new ArrayList<>();
             if (memberToken.getRole().equals(Role.ADMIN)) {
                 roles.add(new SimpleGrantedAuthority("ADMIN")); // ADMIN 권한 부여
-
             } else if (memberToken.getRole().equals(Role.TEACHER)) {
                 roles.add(new SimpleGrantedAuthority("MANAGER"));   // MANAGER 권한 부여
-
             } else if (memberToken.getRole().equals(Role.MANAGER)) {
-            roles.add(new SimpleGrantedAuthority("MANAGER"));   // MANAGER 권한 부여
-
+            roles.add(new SimpleGrantedAuthority("TEACHER"));   // TEACHER 권한 부여
             } else {
                 roles.add(new SimpleGrantedAuthority("STUDENT"));       // STUDENT 권한 부여
             }
-            token = new UsernamePasswordAuthenticationToken(memberToken.getEmail(), null, roles);
-
+            token = new UsernamePasswordAuthenticationToken(memberToken.getId(), null, roles);
+            log.info("-------------------  Auth End ------------------");
             return token;
         } throw new BadCredentialsException("No such Member or Wrong Password.");
     }

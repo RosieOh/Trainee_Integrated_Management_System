@@ -4,9 +4,8 @@ package com.lms.domain;
 import com.lms.domain.Course.dto.CourseDTO;
 import com.lms.domain.Course.service.CourseService;
 import com.lms.domain.member.dto.MemberDTO;
+import com.lms.domain.member.entity.Member;
 import com.lms.domain.member.service.MemberService;
-import com.lms.global.cosntant.Role;
-import com.lms.global.cosntant.Status;
 import com.lms.global.cosntant.Subject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.List;
@@ -56,12 +54,26 @@ public class AdminController {
     @PostMapping("/coursePro")
     public String coursePro(CourseDTO courseDTO){
         courseService.course_add(courseDTO);
-        return "redirect:/course";
+        return "redirect:/admin/course";
     }
 
     @PostMapping("/course_delete")
     public String course_delete(CourseDTO courseDTO) {
         courseService.delete_type(courseDTO);
-        return "redirect:/course";
+        return "redirect:/admin/course";
+    }
+    @GetMapping("/member_read")
+    public String member_read(Model model,String id){
+//        List<CourseDTO> course_big_List = courseService.course_subject_list(Subject.BIGDATA);
+//        List<CourseDTO> course_full_List = courseService.course_subject_list(Subject.FULLSTACK);
+//        List<CourseDTO> course_pm_List = courseService.course_subject_list(Subject.PM);
+//        model.addAttribute("course_big_List",course_big_List);
+//        model.addAttribute("course_full_List",course_full_List);
+//        model.addAttribute("course_pm_List",course_pm_List);
+        log.info("member_start -----------");
+        Member member = memberService.auth(id);
+        log.info("member -----------" + member);
+        model.addAttribute("member", member);
+        return "/admin/member/read";
     }
 }

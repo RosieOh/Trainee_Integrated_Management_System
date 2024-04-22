@@ -4,5 +4,5 @@ import lombok.Getter;
 
 @Getter
 public enum Subject {
-    BIGDATA, FULLSTACK, PM
+    BIGDATA, FULLSTACK, PM, EXCEPTION
 }

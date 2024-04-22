@@ -4,7 +4,6 @@ package com.lms.domain;
 import com.lms.domain.Course.dto.CourseDTO;
 import com.lms.domain.Course.service.CourseService;
 import com.lms.domain.member.dto.MemberDTO;
-import com.lms.domain.member.repository.MemberRepository;
 import com.lms.domain.member.service.MemberService;
 import com.lms.global.cosntant.Role;
 import com.lms.global.cosntant.Status;
@@ -33,7 +32,7 @@ public class HomeController {
 
 
     @GetMapping("/")
-    public String home(Principal principal,Model model) {
+    public String home() {
         memberService.createAdminMember(); // 관리자 회원 생성 메서드 호출
         return "/admin/member/list";
     }
@@ -50,7 +49,7 @@ public class HomeController {
     }
 
     @PostMapping("/joinPro")
-    public String joinPro(Model model, MemberDTO memberDTO, @RequestParam("cno") Integer cno){
+    public String joinPro(MemberDTO memberDTO, @RequestParam("cno") Integer cno){
         CourseDTO course = new CourseDTO();
         course.setNo(cno);
         memberDTO.setCourse(course);
@@ -64,6 +63,52 @@ public class HomeController {
     public String login(){
         return "user/member/login";
     }
+
+    @GetMapping("/status")
+    public String status(Model model, Principal principal){
+        String id = principal.getName();
+        int pass = memberService.loginPro(id);
+        if (pass == 1) {
+            model.addAttribute("msg", "환영합니다! 로그인되었습니다");
+            model.addAttribute("url", "/");
+            return "/user/alert";
+        } else if (pass == 2) {
+            model.addAttribute("msg", "해당 계정은 휴면계정입니다. 휴면을 풀어주세요.");
+            model.addAttribute("url", "/active");
+            return "/user/alert";
+        } else if (pass==3){
+            model.addAttribute("msg", "해당 계정은 탈퇴한 계정입니다.");
+            model.addAttribute("url", "/logout");
+            return "/user/alert";
+        } else if (pass==4){
+            model.addAttribute("msg", "처음으로 오신걸 환영합니다 ^^");
+            model.addAttribute("url", "/");
+            return "/user/alert";
+        }else {
+            model.addAttribute("msg", "로그인 정보가 맞지 않습니다.");
+            model.addAttribute("url", "/login");
+            return "/user/alert";
+        }
+    }
+
+    //로그인 했을 때 회원 화면 (기본 정보)
+    @GetMapping("/index2")
+    public String main2(Model model) {
+        return "user/index2";
+    }
+
+    //(추가 정보 입력)
+    @GetMapping("/index3")
+    public String main3(Model model) { return "user/index3"; }
+
+    // 본인확인
+    @GetMapping("/pw")
+    public String pw_confirm (Model model) { return "user/pw_validate"; }
+
+    //비밀번호변경
+    @GetMapping("/pw2")
+    public String pw_modify (Model model) { return "user/pw_modify"; }
+
 
 
 }

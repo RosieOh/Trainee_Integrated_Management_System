@@ -10,7 +10,7 @@
 <body>
     <div class="main">
         <section class="container">
-            <div class="login_loca">
+            <div class="join_loca">
                 <div class="login_box">
                     <a th:href="@{/}"><h1>천재IT교육센터</h1></a>
                     <form th:action="@{/joinPro}" method="post" onsubmit="return joinCheck(this)">
@@ -30,7 +30,7 @@
                         <div class="form-login">
                             <label>아이디<em>*</em></label>
                             <div class="flex_between">
-                            <input type="text" name="login_id" id="id" class="join_input" placeholder="아이디를 입력해주세요." required />
+                            <input type="text" name="id" id="id" class="join_input" placeholder="아이디를 입력해주세요." required />
                             <button type="button" class="join_btn" onclick="idCheck()">아이디 중복 확인</button>
                             </div>
                             <input type="hidden" name="idCk" id="idCk" value="no">
@@ -191,7 +191,7 @@
     }
 
     function joinCheck(f){
-        let phoneval =  $("#phone1").val() + $("#phone2").val() + $("#phone3").val()
+        let phoneval =  $("#phone1").val() +'-'+ $("#phone2").val() +'-'+ $("#phone3").val()
         $("#phone").val(phoneval)
 
         if($("#email2").val() == "") {
@@ -201,7 +201,7 @@
             $("#email").val(emailval)
 
 
-        let birthval =  $("#birth1").val() +'년'+ $("#birth2").val() +'월'+ $("#birth3").val() +'일'
+        let birthval =  $("#birth1").val() +'.'+ $("#birth2").val() +'.'+ $("#birth3").val() +'.'
         $("#birth").val(birthval)
 
         if(f.pw.value!=f.pw2.value){

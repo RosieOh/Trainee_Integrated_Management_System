@@ -1,0 +1,196 @@
+.user_title h2 {
+    font-size: 30px;
+    padding: 5px 24px;
+}
+
+.user_main {
+    background-color: #F6F9FC;
+    height: 100vh;
+    padding: 0 70px;
+}
+
+.user_title {
+    width: 60%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+.user_tab{
+    width: 60%;
+    margin: 0 auto;
+}
+
+.user_img_box {
+    background-color: #F6F9FC;
+    padding-top: 100px;
+}
+
+.user_img {
+    display: block;
+    margin : 0 auto;
+}
+.user_content {
+    background-color: #ffffff;
+    width: 60%;
+    padding: 25px 40px 100px;
+    margin : 0 auto;
+}
+
+.nav.nav-tabs {
+    display: flex;
+    background-color: #ffffff;
+    border-bottom: 1px solid #d1d1d1;
+    padding-left: 20px;
+}
+
+.nav-item a {
+    font-weight: bold;
+}
+
+.nav-item {
+    width: 95px;
+    text-align: center;
+    line-height: 40px;
+}
+
+.nav-item2 {
+    width: 95px;
+    text-align: center;
+    line-height: 40px;
+    border-bottom: 3px solid #232323;
+}
+
+.nav-link {
+    padding: 11px;
+}
+
+.myinfo_line {
+    display: flex;
+}
+
+.myinfo_line select {
+    height: 40px;
+    margin-right: 10px;
+    margin-top: 5px;
+    padding: 10px 10px 10px;
+}
+
+.myinfo_line [type="radio"] {
+    height: 16px;
+    margin : 0px 10px 0px 10px;
+}
+
+.user_info_box label {
+    line-height: 15px;
+    padding-top: 20px;
+}
+
+.user_info_box input {
+    margin : 5px 0;
+    font-size: 13px;
+    color: #525354;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.user_info_box.infopw input{
+    width: 80%;
+}
+
+.user_info_box.infoemail input{
+    width: 30%;
+}
+
+.email_a {
+    line-height: 45px;
+}
+
+.user_info_box.infobirth input{
+    width: 7%;
+}
+
+.user_info_box.infotel input{
+    width: 7%;
+}
+
+.ro_input {
+    background-color: #e4e4e4;
+}
+
+.myinfo_btn_group {
+    margin : 0 auto;
+    width: fit-content;
+    padding-top: 40px;
+}
+
+.btn_pwChange {
+    padding: 12px 30px;
+    background-color: #99ccff;
+    border: none;
+    height: 40px;
+    margin: auto 0;
+    font-size: 13px;
+}
+
+.btn_myInfo {
+    padding : 11px 30px;
+    background-color : #99ccff;
+    border : none;
+}
+
+.btn_myInfo_out {
+    padding : 12px 30px;
+    background-color: #b41010;
+    color : #ffffff;
+    border : none;
+    font-size: 13px;
+}
+
+.pw_title {
+    margin : 0 auto;
+    width: fit-content;
+    padding: 30px;
+}
+
+.pw_title h2 {
+    text-align: center;
+}
+
+.pw_modify_box {
+    width: inherit;
+    margin: 0 auto;
+}
+
+.pw_box {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.pw_box input {
+    width: 25%;
+}
+
+.user_info_box.pw {
+    display: flex;
+}
+
+.user_info_box.pw2 {
+    display: flex;
+}
+
+.user_info_box.pw label {
+    padding-right: 20px;
+}
+
+.user_info_box.pw2 label {
+    padding-right: 55px;
+}
+
+.user_info_box.pw input {
+    width:70%;
+}
+
+.user_info_box.pw2 input {
+    width:70%;
+}

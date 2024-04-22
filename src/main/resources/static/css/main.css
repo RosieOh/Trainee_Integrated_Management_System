@@ -36,7 +36,7 @@
 
 .nav-content {
     line-height: 1.5;
-    padding: 1.25rem 1.5rem;
+    padding: 1.25rem 1.75rem;
     white-space: nowrap;
     display: flex;
     align-items: center;
@@ -144,7 +144,8 @@
 
 .nav-dropdown {
     display: block;
-    font-weight: bold;
+    font-weight: 100;
+    /*font-weight: bold;   -- 너무 굴게 나와서 바꿀게요!*/
 }
 
 .nav-dropdown_wrap {
@@ -174,6 +175,7 @@
 }
 
 .course_box {
+    margin: 0 auto;
     padding: 0 5rem 3rem;
     width: 90%;
 }
@@ -210,12 +212,13 @@
 }
 
 .login_loca {
-    margin: 92px auto;
+    margin: 17rem auto;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
 .login_box {
     background-color: var(--c-white);
     box-shadow: 0 0 14px -7px black;
@@ -251,6 +254,7 @@
 .form-login em {
     color: var(--c-sub2);
     font-size: 90%;
+    font-weight: 100;
 }
 .login_text {
     text-align: left;
@@ -262,6 +266,15 @@
     padding: 0.75em;
     font-weight: bold;
 }
+
+.join_loca {
+    margin: 5rem auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .join_input {
     width: 65%;
 }
@@ -301,7 +314,7 @@
     margin: 5px 5px 0;
 }
 .join_email p {
-    margin: 0 5px;
+    margin: 10px 5px 0;
     font-size: 130%;
 }
 .join_tel {
@@ -318,7 +331,7 @@
 
 }
 .join_tel p {
-    margin: 0 10px;
+    margin: 10px 10px 0;
     font-size: 150%;
 }
 
