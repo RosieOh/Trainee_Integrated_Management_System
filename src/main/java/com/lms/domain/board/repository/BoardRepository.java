@@ -2,6 +2,7 @@ package com.lms.domain.board.repository;
 
 import com.lms.domain.board.dto.BoardDTO;
 import com.lms.domain.board.entity.Board;
+import com.lms.domain.member.entity.Member;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

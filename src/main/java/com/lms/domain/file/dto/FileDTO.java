@@ -14,7 +14,7 @@ public class FileDTO {
     private String fileName;
 
     public File toEntity() {
-      File build = File.builder()
+        File build = File.builder()
                 .id(id)
                 .originFileName(originFileName)
                 .filePath(filePath)
@@ -30,5 +30,4 @@ public class FileDTO {
         this.filePath = filePath;
         this.fileName = fileName;
     }
-
 }
