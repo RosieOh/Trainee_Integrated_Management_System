@@ -42,7 +42,9 @@
     align-items: center;
     font-weight: 600;
     font-size: 18px;
+    color: black;
 }
+
 .nav-content:hover {
     color: var(--c-white);
     font-weight: bold;
@@ -56,6 +58,44 @@
 .nav_link {
     margin: 0 auto;
     text-align: center;
+}
+
+/* header-nav 드롭다운 */
+
+.header-dropdown_wrap {
+    display: none;
+    position: absolute;
+    background-color: var(--c-white);
+    right: 18px;
+    top: 67px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px -3px gray;
+}
+
+#nav-dropdown {
+    display: inline-block;
+    font-size: 12px;
+}
+
+.nav-dropdown:hover {
+    .header-dropdown_wrap {
+        display: block;
+    }
+    #nav-dropdown {
+        transition: 0.4s ease-in-out;
+        transform: rotateX(180deg);
+    }
+}
+
+.header-dropdown_wrap > .nav-content {
+    padding: 12px;
+    display: block;
+    text-align: right;
+}
+
+.header-dropdown_wrap > .nav-content:hover {
+    background-color: var(--c-back_lightgray);
+    color: black;
 }
 
 .border1 {
@@ -96,7 +136,7 @@
 .main_title {
     position: fixed;
     z-index: 999;
-    top: 13px;
+    top: 15px;
     left: 87px;
     font-size: 1.75rem;
 }
@@ -144,12 +184,13 @@
 
 .nav-dropdown {
     display: block;
-    font-weight: bold;
+    font-weight: 100;
+    /*font-weight: bold;   -- 너무 굴게 나와서 바꿀게요!*/
 }
 
 .nav-dropdown_wrap {
     display: none;
-    padding-left: 10px;
+    padding-left: 16px;
 }
 
 .nav-dropdown_wrap li {
@@ -174,6 +215,7 @@
 }
 
 .course_box {
+    margin: 0 auto;
     padding: 0 5rem 3rem;
     width: 90%;
 }
@@ -243,7 +285,7 @@
 }
 .login_box p {
     font-size: 85%;
-    margin: 3px 5px;
+    margin: 7px 5px;
 }
 
 .form-login {
@@ -261,7 +303,7 @@
 }
 
 .login_btn {
-    padding: 0.75em;
+    padding: 0.75rem;
     font-weight: bold;
 }
 

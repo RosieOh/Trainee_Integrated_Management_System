@@ -3,6 +3,7 @@
 @import "font.css";
 @import "main.css";
 @import "board.css";
+@import "rosieoh.css";
 
 :root {
   --c-main: #99ccff;
@@ -10,6 +11,7 @@
   --c-sub2: #6666ff;
   --c-hover: #66b3ff;
   --c-main_back: #EEF1F6;
+  --c-main_white: #F6F9FC;
   --c-back_lightgray: rgba(221, 221, 221, 1);
   --c-back_black: rgba(41, 41, 41, 1);
   --c-back_darkgray: rgba(74, 74, 74, 1);
@@ -18,11 +20,19 @@
   --c-white: white;
   --c-white_2: rgba(248, 248, 248, 1);
   --c-white_ob: rgba(255, 255, 255, 0.3);
-  --border_radius: 30px;
 
   /* 오태훈 추가 사항 */
   --footer_black: #292929;
   --card_section1_btn: #553BF3;
+
+  /* 색 추가 */
+  --c-red: #dc3545;
+  --c-orange: #fd7e14;
+  --c-yellow: #ffc107;
+  --c-green: #198754;
+  --c-blue: #0d6efd;
+  --c-indigo: #6610f2;
+  --c-purple: #6f42c1;
 }
 /* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
 

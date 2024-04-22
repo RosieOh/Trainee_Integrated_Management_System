@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 
 @Log4j2
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService{
 
@@ -85,6 +86,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
+    @Transactional
     public void member_edit(MemberDTO memberDTO) {
         Optional<Member> member = memberRepository.id_read(memberDTO.getId());
         Member member1 = member.orElseThrow();
@@ -93,8 +95,9 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public void state_edit(MemberDTO memberDTO) {
-        Optional<Member> member = memberRepository.id_read(memberDTO.getId());
+        Optional<Member> member = memberRepository.findById(memberDTO.getNo());
         Member member1 = member.orElseThrow();
+        member1.setStatus(memberDTO.getStatus());
         memberRepository.save(member1);
     }
 
@@ -162,7 +165,6 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    @Transactional
     public Member auth(String id) {
         Member member = memberRepository.findId(id);
         log.info("member ---------------------------------------- ???" + member);
