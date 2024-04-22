@@ -12,34 +12,38 @@
   <th:block th:replace="~{include/head :: head}"></th:block>
 </head>
 <body>
+<th:block th:replace="~{include/header :: header}"></th:block>
 <div class="main admin">
-  <th:block th:replace="~{include/header :: header}"></th:block>
+  <th:block th:replace="~{include/adminbar :: adminbar}"></th:block>
   <div class="main_title">
     <h1>공지사항</h1>
   </div>
-
   <div class="admin-board board_box">
       <div class="admin-content board_box">
         <div class="course_box board_box">
-          <div class="board_title">
-            <h2>공지사항 리스트</h2>
-          </div>
+          <div class="board_title"><h2>리스트</h2></div>
           <div class="board_table">
-            <table class="table_set">
+            <div class="row mt-3">
+              <form th:action="@{/notice/list}" method="get" class="col-md-8 offset-md-2">
+              </form>
+            </div>
+            <table class="board_ab_table">
               <thead>
               <tr>
                 <th>no</th>
                 <th>제목</th>
                 <th>내용</th>
+                <th>작성자</th>
                 <th>작성일</th>
               </tr>
               </thead>
               <tbody>
               <tr th:each="notice, about :${boardList}">
                 <td th:text="${about.count}"></td>
-                <td th:text="${notice.title}"></td>
+                <td><a th:href="|@{/notice/read(id=${notice.id})}|" class="text-decoration-none">[[${notice.title}]]</a></td>
                 <td th:text="${notice.content}"></td>
-                <td th:text="${notice.createdTime}"></td>
+                <td th:text="${notice.writer}"></td>
+                <td th:text="${#temporals.format(notice.createdTime, 'yyyy-MM-dd')}"></td>
               </tr>
               </tbody>
             </table>

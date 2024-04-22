@@ -6,6 +6,7 @@ import com.lms.domain.board.repository.BoardRepository;
 import com.lms.domain.board.service.BoardService;
 import com.lms.domain.file.dto.FileDTO;
 import com.lms.domain.file.service.FileService;
+import com.lms.domain.member.dto.MemberDTO;
 import com.lms.domain.member.entity.Member;
 import com.lms.domain.member.repository.MemberRepository;
 import com.lms.domain.member.service.MemberService;
@@ -23,11 +24,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.swing.*;
 import java.io.File;
 import java.nio.file.Files;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
+
+import static com.lms.domain.member.entity.QMember.member;
 
 @Slf4j
 @Controller
@@ -38,17 +42,26 @@ public class NoticeController {
     @Value("${upload.path}")
     private String uploadPath;
 
-    private final MemberService memberService;
     private final MemberRepository memberRepository;
     private final BoardService boardService;
+    private final MemberService memberService;
     private final BoardRepository boardRepository;
     private final FileService fileService;
 
     @GetMapping(value = {"/list", "/"})
-    public String noticeListAll(Model model) {
+    public String noticeListAll(Model model, Principal principal) {
         String boardType = "NOTICE";
-        List<Board> boardList = boardRepository.findAll();
+        List<BoardDTO> boardList = boardService.findByBoardType(boardType);
         model.addAttribute("boardList", boardList);
+        String email = principal.getName();
+        Optional<Member> optionalMember = memberRepository.findByEmail(email);
+        if(optionalMember.isPresent()) {
+            Member member = optionalMember.get();
+            String name = member.getName();
+            model.addAttribute("name", name);
+        }
+
+        model.addAttribute("principal", principal);
         return "admin/board/list";
     }
 
@@ -58,13 +71,11 @@ public class NoticeController {
             BoardDTO boardDTO = boardService.findById(id);
             if (boardDTO != null) {
                 FileDTO fileDTO = fileService.getFile(boardDTO.getFileId());
-//                String email = principal.getName();
-//                Optional<Member> optionalMember = memberRepository.findByEmail2(email);
-//                if (optionalMember.isPresent()) {
-//                    Member member = optionalMember.get();
-//                    String name = member.getName();
-//                    model.addAttribute("name", name);
-//                }
+                String loginId = principal.getName();
+                MemberDTO memberDTO = memberService.loginId(loginId);
+                if (memberDTO != null) {
+                }
+
                 model.addAttribute("principal", principal);
                 model.addAttribute("fileList", fileDTO);
                 model.addAttribute("boardList", boardDTO);
@@ -73,6 +84,7 @@ public class NoticeController {
             }
         }
         return "admin/board/read";
+
     }
 
 
@@ -80,12 +92,20 @@ public class NoticeController {
     @GetMapping("/register")
     public String registerForm(Model model) {
         return "admin/board/register";
+
     }
 
-    @PostMapping("/registerPro")
-    public String registerpro(Model model, Board board) {
-        boardRepository.save(board);
-        return "redirect:/";
+    @GetMapping("/register")
+    public String registerForm(Model model, Principal principal) {
+        String email = principal.getName();
+        Optional<Member> optionalMember = memberRepository.findByEmail(email);
+        if (optionalMember.isPresent()) {
+            Member member = optionalMember.get();
+            String name = member.getName();
+            log.info("==================name: " + name);
+            model.addAttribute("name", name);
+        }
+        return "admin/board/register";
     }
 
     @PostMapping("/register")

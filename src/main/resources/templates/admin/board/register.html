@@ -26,7 +26,12 @@
       <div class="admin-content">
         <div class="course_box">
           <h2>글쓰기</h2>
-          <form th:action="@{/notice/registerPro}" method="post">
+          <form th:action="@{/notice/register}" method="post"  enctype="multipart/form-data">
+            <div class="input-group mb-3" hidden>
+              <select name="boardType" id="boardType">
+                <option value="NOTICE" th:selected="${boardType == 'NOTICE'}">공지사항</option>
+              </select>
+            </div>
           <table>
               <tbody>
                 <tr>
@@ -44,8 +49,12 @@
                 <tr>
                   <th>작성자</th>
                   <td>
-                    <input type="text" name="writer"/>
+                    <input style="border: none;" type="text" name="writer" class="form-control" th:value="${name}" readonly>
                   </td>
+                </tr>
+                <tr>
+                  <th>첨부파일</th>
+                  <input type="file" class="form-control" name="file">
                 </tr>
             </tbody>
           </table>
