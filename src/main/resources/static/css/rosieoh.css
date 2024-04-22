@@ -1,0 +1,34 @@
+.board_ab_table {
+    background: #fff;
+    /*margin: 0px 70px;*/
+    border : 1px #a39485 solid;
+    font-size: 1.2em;
+    box-shadow: 0 2px 5px rgba(0,0,0,.25);
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.board_ab_table th {
+    font-weight: 100;
+    padding: 1em .5em;
+    vertical-align: middle;
+}
+
+.board_ab_table td {
+    padding: 1em .5em;
+    vertical-align: middle;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    background: #fff;
+}
+
+.board_box {
+    margin: 0 auto;
+}
+
+.border_check {
+    border-style: none;
+    border-width: 0px 0;
+}
+

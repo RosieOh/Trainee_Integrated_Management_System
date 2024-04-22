@@ -18,12 +18,13 @@
   <div class="main_title">
     <h1>공지사항</h1>
   </div>
-  <div class="admin-board">
-      <div class="admin-content">
-        <div class="course_box">
-          <h2>리스트</h2>
-          <table>
-            <thead>
+  <div class="admin-board board_box">
+      <div class="admin-content board_box">
+        <div class="course_box board_box">
+          <div class="board_title"><h2>리스트</h2></div>
+          <div class="board_table">
+            <table class="board_ab_table">
+              <thead>
               <tr>
                 <th>no</th>
                 <th>제목</th>
@@ -38,9 +39,10 @@
                 <td th:text="${notice.content}"></td>
                 <td th:text="${notice.createdTime}"></td>
               </tr>
-            </tbody>
-          </table>
-          <div class="button board_btn">
+              </tbody>
+            </table>
+          </div>
+          <div class="button board_btn board_register_btn">
             <a th:href="@{/notice/register}" class="">글쓰기</a>
           </div>
         </div>

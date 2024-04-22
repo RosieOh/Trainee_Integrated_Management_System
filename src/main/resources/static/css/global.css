@@ -3,6 +3,7 @@
 @import "font.css";
 @import "main.css";
 @import "board.css";
+@import "rosieoh.css";
 
 :root {
   --c-main: #99ccff;

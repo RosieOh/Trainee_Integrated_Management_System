@@ -19,10 +19,6 @@
       <div class="main_title">
         <h1>회원관리</h1>
       </div>
-<!--        <div class="admin-title">-->
-<!--          <div><i class="fas fa-user-circle"></i></div>-->
-<!--          <div><h5>이름</h5></div>-->
-<!--        </div>-->
         <div class="admin-content flex">
           <div class="admin-content_box">
             <ul class="admin-content_in">
@@ -76,7 +72,7 @@
           </div>
 
         <div>
-          <table>
+          <table class="board_ab_table">
             <thead>
                 <tr>
                   <th>클래스</th>
@@ -94,7 +90,7 @@
             <tbody>
             <th:block th:if="${#lists.isEmpty(memberList)}">
                 <tr>
-                    <td colspan="8">
+                    <td colspan="8" class="board_td">
                         <h4>현재 내용이 없습니다.</h4>
                     </td>
                 </tr>

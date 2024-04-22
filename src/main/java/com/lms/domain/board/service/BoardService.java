@@ -8,8 +8,6 @@ import java.util.List;
 public interface BoardService {
 
     public BoardDTO findById(Long id);
-
-
     public List<BoardDTO> findAll(BoardDTO boardDTO);
 
     // test
