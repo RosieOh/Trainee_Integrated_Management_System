@@ -6,7 +6,6 @@ import com.lms.domain.board.repository.BoardRepository;
 import com.lms.domain.board.service.BoardService;
 import com.lms.domain.file.dto.FileDTO;
 import com.lms.domain.file.service.FileService;
-import com.lms.domain.member.dto.MemberDTO;
 import com.lms.domain.member.entity.Member;
 import com.lms.domain.member.repository.MemberRepository;
 import com.lms.domain.member.service.MemberService;
@@ -24,14 +23,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.swing.*;
 import java.io.File;
 import java.nio.file.Files;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
-
-import static com.lms.domain.member.entity.QMember.member;
 
 @Slf4j
 @Controller
@@ -42,26 +38,17 @@ public class NoticeController {
     @Value("${upload.path}")
     private String uploadPath;
 
+    private final MemberService memberService;
     private final MemberRepository memberRepository;
     private final BoardService boardService;
-    private final MemberService memberService;
     private final BoardRepository boardRepository;
     private final FileService fileService;
 
     @GetMapping(value = {"/list", "/"})
-    public String noticeListAll(Model model, Principal principal) {
+    public String noticeListAll(Model model) {
         String boardType = "NOTICE";
-        List<BoardDTO> boardList = boardService.findByBoardType(boardType);
+        List<Board> boardList = boardRepository.findAll();
         model.addAttribute("boardList", boardList);
-        String email = principal.getName();
-        Optional<Member> optionalMember = memberRepository.findByEmail(email);
-        if(optionalMember.isPresent()) {
-            Member member = optionalMember.get();
-            String name = member.getName();
-            model.addAttribute("name", name);
-        }
-
-        model.addAttribute("principal", principal);
         return "admin/board/list";
     }
 
@@ -71,10 +58,10 @@ public class NoticeController {
             BoardDTO boardDTO = boardService.findById(id);
             if (boardDTO != null) {
                 FileDTO fileDTO = fileService.getFile(boardDTO.getFileId());
-                String loginId = principal.getName();
-                MemberDTO memberDTO = memberService.loginId(loginId);
-                if (memberDTO != null) {
-                }
+                String prin = principal.getName();
+                log.info(prin);
+                String name = memberRepository.findId(prin).getName();
+                model.addAttribute("name", name);
                 model.addAttribute("principal", principal);
                 model.addAttribute("fileList", fileDTO);
                 model.addAttribute("boardList", boardDTO);
@@ -85,16 +72,14 @@ public class NoticeController {
         return "admin/board/read";
     }
 
+
+
     @GetMapping("/register")
     public String registerForm(Model model, Principal principal) {
-        String email = principal.getName();
-        Optional<Member> optionalMember = memberRepository.findByEmail(email);
-        if (optionalMember.isPresent()) {
-            Member member = optionalMember.get();
-            String name = member.getName();
-            log.info("==================name: " + name);
-            model.addAttribute("name", name);
-        }
+        String id = principal.getName();
+        log.info(id);
+        String name = memberRepository.findId(id).getName();
+        model.addAttribute("name", name);
         return "admin/board/register";
     }
 
@@ -133,24 +118,54 @@ public class NoticeController {
             e.printStackTrace();
         }
         model.addAttribute("message", "글 작성이 완료되었습니다.");
-        model.addAttribute("searchUrl", "/notice/list");
-        return "redirect:/";
+        return "redirect:/notice/list";
     }
 
     @GetMapping("/modify")
     public String noticeEditForm(Model model, Long id) {
         BoardDTO boardDTO = boardService.getBoard(id);
         model.addAttribute("boardDTO", boardDTO);
-        return "notice/edit";
+        return "admin/board/edit";
     }
 
     @PostMapping("/modify/{id}")
-    public String noticeEdit(@PathVariable("id") Long id, BoardDTO boardDTO){
-        BoardDTO boardDTO1 = boardService.getBoard(id);
-        boardDTO1.setTitle(boardDTO.getTitle());
-        boardDTO1.setContent(boardDTO.getContent());
-//        boardDTO1.setFileId(boardDTO.getFileId());
-        boardService.modify(boardDTO1);
+    public String noticeEdit(@PathVariable("id") Long id, @Valid BoardDTO boardDTO,
+                             BindingResult bindingResult,
+                             RedirectAttributes redirectAttributes,
+                             Model model,
+                             @RequestParam("file") MultipartFile files){
+        try {
+            String originFilename = files.getOriginalFilename();
+            String filename = new MD5Generator(originFilename).toString();
+            String savePath = System.getProperty("user.dir") + "/files/";
+            if(!new File(savePath).exists()) {
+                try {
+                    new File(savePath).mkdirs();
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            String filePath = savePath + filename;
+
+            files.transferTo(new File(filePath));
+
+            FileDTO fileDTO = new FileDTO();
+            fileDTO.setOriginFileName(originFilename);
+            fileDTO.setFileName(filename);
+            fileDTO.setFilePath(filePath);
+
+            Long fileId = fileService.saveFile(fileDTO);
+
+            BoardDTO boardDTO1 = boardService.getBoard(id);
+            boardDTO1.setTitle(boardDTO.getTitle());
+            boardDTO1.setContent(boardDTO.getContent());
+            boardDTO1.setFileId(fileId);
+            boardService.modify(boardDTO1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return "redirect:/notice/read?id="+id;
     }
 
