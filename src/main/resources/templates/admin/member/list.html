@@ -1,138 +1,178 @@
 <!doctype html>
 <html
-  xmlns:th="http://www.thymeleaf.org"
+        xmlns:th="http://www.thymeleaf.org"
 >
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-            content="minimum-scale=1.0, width=device-width, maximum-scale=1, ser-scalable=no"
-            name="viewport"
-    />
-    <title>천재IT교육센터</title>
-    <th:block th:replace="~{include/head :: head}"></th:block>
-  </head>
-  <body>
-  <div class="main admin">
-      <th:block th:replace="~{include/header :: header}"></th:block>
-      <th:block th:replace="~{include/adminbar :: adminbar}"></th:block>
-    <div class="admin-board">
-      <div class="main_title">
-        <h1>회원관리</h1>
+<head>
+  <meta charset="UTF-8" />
+  <meta
+          content="minimum-scale=1.0, width=device-width, maximum-scale=1, ser-scalable=no"
+          name="viewport"
+  />
+  <title>천재IT교육센터</title>
+  <th:block th:replace="~{include/head :: head}"></th:block>
+</head>
+<body>
+<div class="main admin">
+  <th:block th:replace="~{include/header :: header}"></th:block>
+  <th:block th:replace="~{include/adminbar :: adminbar}"></th:block>
+  <div class="admin-board">
+    <div class="main_title">
+      <h1>회원관리</h1>
+    </div>
+    <div class="admin-content flex">
+      <div class="admin-content_box">
+        <ul class="admin-content_in">
+          <li class="nav-dropdown">
+            <a class="nav_link" th:href="@{/admin/member}">전체
+            </a>
+          </li>
+        </ul>
+        <ul class="admin-content_in">
+          <li class="nav-dropdown">
+            <a class="nav_link" href="#">빅데이터
+              <div class="nav-dropdown_arrow">▼</div>
+            </a>
+            <ul class="nav-dropdown_wrap">
+              <th:block th:each="course_big : ${course_big_List}">
+                <li>
+                  <a class="nav_link " th:href="@{/admin/member(cno=${course_big.getNo()})}" th:text="${course_big.getFlag()} + '기'"></a>
+                </li>
+              </th:block>
+            </ul>
+          </li>
+        </ul>
+        <ul class="admin-content_in">
+          <li class="nav-dropdown">
+            <a class="nav_link" href="#">풀스택
+              <div class="nav-dropdown_arrow">▼</div>
+            </a>
+            <ul class="nav-dropdown_wrap">
+              <th:block th:each="course_full : ${course_full_List}">
+                <li>
+                  <a class="nav_link " th:href="@{/admin/member(cno=${course_full.getNo()})}" th:text="${course_full.getFlag()} + '기'"></a>
+                </li>
+              </th:block>
+            </ul>
+          </li>
+        </ul>
+        <ul class="admin-content_in">
+          <li class="nav-dropdown">
+            <a class="nav_link" href="#">PM
+              <div class="nav-dropdown_arrow">▼</div>
+            </a>
+            <ul class="nav-dropdown_wrap">
+              <th:block th:each="course_pm : ${course_pm_List}">
+                <li>
+                  <a class="nav_link " th:href="@{/admin/member(cno=${course_pm.getNo()})}" th:text="${course_pm.getFlag()} + '기'"></a>
+                </li>
+              </th:block>
+            </ul>
+          </li>
+        </ul>
       </div>
-        <div class="admin-content flex">
-          <div class="admin-content_box">
-            <ul class="admin-content_in">
-              <li class="nav-dropdown">
-                <a class="nav_link" th:href="@{/admin/member}">전체
-                </a>
-              </li>
-            </ul>
-                <ul class="admin-content_in">
-                  <li class="nav-dropdown">
-                    <a class="nav_link" href="#">빅데이터
-                      <div class="nav-dropdown_arrow">▼</div>
-                    </a>
-                    <ul class="nav-dropdown_wrap">
-                      <th:block th:each="course_big : ${course_big_List}">
-                      <li>
-                        <a class="nav_link " th:href="@{/admin/member(cno=${course_big.getNo()})}" th:text="${course_big.getFlag()} + '기'"></a>
-                      </li>
-                      </th:block>
-                    </ul>
-                  </li>
-                </ul>
-            <ul class="admin-content_in">
-              <li class="nav-dropdown">
-                <a class="nav_link" href="#">풀스택
-                  <div class="nav-dropdown_arrow">▼</div>
-                </a>
-                <ul class="nav-dropdown_wrap">
-                  <th:block th:each="course_full : ${course_full_List}">
-                    <li>
-                      <a class="nav_link " th:href="@{/admin/member(cno=${course_full.getNo()})}" th:text="${course_full.getFlag()} + '기'"></a>
-                    </li>
-                  </th:block>
-                </ul>
-              </li>
-            </ul>
-            <ul class="admin-content_in">
-              <li class="nav-dropdown">
-                <a class="nav_link" href="#">PM
-                  <div class="nav-dropdown_arrow">▼</div>
-                </a>
-                <ul class="nav-dropdown_wrap">
-                  <th:block th:each="course_pm : ${course_pm_List}">
-                    <li>
-                      <a class="nav_link " th:href="@{/admin/member(cno=${course_pm.getNo()})}" th:text="${course_pm.getFlag()} + '기'"></a>
-                    </li>
-                  </th:block>
-                </ul>
-              </li>
-            </ul>
-          </div>
 
-        <div>
-          <table class="board_ab_table">
-            <thead>
-                <tr>
-                  <th class="board_th member_ab_common">클래스</th>
-                  <th class="board_th member_ab_common">이름</th>
-                  <th class="board_th member_ab_common">이메일</th>
-                  <th class="board_th member_ab_common">성별</th>
-                  <th class="board_th member_ab_common">생년월일</th>
-                  <th class="board_th member_ab_common">연락처</th>
-                  <th class="board_th member_ab_common">주소</th>
-                  <th class="board_th member_ab_common">가입날짜</th>
-                </tr>
-            </thead>
-            <tbody>
-            <th:block th:if="${#lists.isEmpty(memberList)}">
-                <tr>
-                    <td colspan="8" class="board_td">
-                        <h4>현재 내용이 없습니다.</h4>
-                    </td>
-                </tr>
-            </th:block>
-            <th:block th:if="${cno == null}">
-              <tr th:each="member, about :${memberList}">
-                <td th:text="${member.course.subject} + ' ' +  ${member.course.flag} + '기'"></td>
-                <td>
-                  <a th:href="@{/admin/member_read(id=${member.getId()})}" th:text="${member.name}"></a>
+      <div>
+        <table class="board_ab_table">
+          <thead>
+          <tr>
+            <th>클래스</th>
+            <th>이름</th>
+            <th>이메일</th>
+            <th>성별</th>
+            <th>생년월일</th>
+            <th>연락처</th>
+            <th>주소</th>
+            <th>가입날짜</th>
+            <th>상태</th>
+            <th>권한</th>
+          </tr>
+          </thead>
+          <tbody>
+          <th:block th:if="${#lists.isEmpty(memberList)}">
+            <tr>
+              <td colspan="8" class="board_td">
+                <h4>현재 내용이 없습니다.</h4>
+              </td>
+            </tr>
+          </th:block>
+          <th:block th:if="${cno == null}">
+            <tr th:each="member, about :${memberList}">
+              <td th:text="${member.course.subject} + ' ' +  ${member.course.flag} + '기'"></td>
+              <td>
+                <a th:href="@{/admin/member_read(id=${member.getId()} )}" th:text="${member.name}"></a>
+              </td>
+              <td th:text="${member.email}"></td>
+              <td th:text="${member.gender}"></td>
+              <td th:text="${member.birth}"></td>
+              <td th:text="${member.phone}"></td>
+              <td th:text="${member.addr1}"></td>
+              <td th:text="${#temporals.format(member.createdTime, 'yyyy-MM-dd hh:mm')}"></td>
+              <td>
+                <form th:action="@{/admin/change_status(id=${member.id} )}" method="post">
+                  <select name="status" class="select-box" >
+                    <option value="ACTIVE" th:selected="${member.status} eq 'ACTIVE'">활동</option>
+                    <option value="REST" th:selected="${member.status} eq 'REST'">휴면</option>
+                    <option value="OUT" th:selected="${member.status} eq 'OUT'">탈퇴</option>
+                  </select>
+                  <button type="submit" class="button" ><i class="fas fa-pencil-alt"></i>상태 변경</button>
+                </form>
+              </td>
+              <td>
+                <form th:action="@{/admin/change_role(id=${member.id} )}" method="post">
+                  <select name="role" class="select-box">
+                    <option value="TEACHER" th:selected="${member.status} eq 'TEACHER'">선생님</option>
+                    <option value="STUDENT" th:selected="${member.status} eq 'STUDENT'">학생</option>
+                  </select>
+                  <button type="submit" class="button" ><i class="fas fa-pencil-alt"></i>권한 변경</button>
+                </form>
+              </td>
+            </tr>
+          </th:block>
+          <th:block th:if="${cno != null}">
+            <th:block th:if="${#lists.isEmpty(memberVOList)}">
+              <tr>
+                <td colspan="8">
+                  <h4>현재 내용이 없습니다.</h4>
                 </td>
-                <td th:text="${member.email}"></td>
-                <td th:text="${member.gender}"></td>
-                <td th:text="${member.birth}"></td>
-                <td th:text="${member.phone}"></td>
-                <td th:text="${member.addr1}"></td>
-                <td th:text="${#temporals.format(member.createdTime, 'yyyy-MM-dd hh:mm')}"></td>
               </tr>
             </th:block>
-              <th:block th:if="${cno != null}">
-                <th:block th:if="${#lists.isEmpty(memberVOList)}">
-                  <tr>
-                    <td colspan="8">
-                      <h4>현재 내용이 없습니다.</h4>
-                    </td>
-                  </tr>
-                </th:block>
-                <tr th:each="member, about :${memberVOList}">
-                  <td th:text="${member.course.subject} + ' ' +  ${member.course.flag} + '기'"></td>
-                  <td>
-                    <a th:href="@{/admin/member_read(id=${member.getId()})}" th:text="${member.name}"></a>
-                  </td>
-                  <td th:text="${member.email}"></td>
-                  <td th:text="${member.gender}"></td>
-                  <td th:text="${member.birth}"></td>
-                  <td th:text="${member.phone}"></td>
-                  <td th:text="${member.addr1}"></td>
-                  <td th:text="${#temporals.format(member.createdTime, 'yyyy-MM-dd hh:mm')}"></td>
-                </tr>
-              </th:block>
-            </tbody>
-          </table>
-        </div>
-      </div>
+            <tr th:each="member, about :${memberVOList}">
+              <td th:text="${member.course.subject} + ' ' +  ${member.course.flag} + '기'"></td>
+              <td>
+                <a th:href="@{/admin/member_read(id=${member.id})}" th:text="${member.name}"></a>
+              </td>
+              <td th:text="${member.email}"></td>
+              <td th:text="${member.gender}"></td>
+              <td th:text="${member.birth}"></td>
+              <td th:text="${member.phone}"></td>
+              <td th:text="${member.addr1}"></td>
+              <td th:text="${#temporals.format(member.createdTime, 'yyyy-MM-dd hh:mm')}"></td>
+              <td>
+                <form th:action="@{/admin/change_status(id=${member.id })}" method="post">
+                  <select name="status" class="select-box" >
+                    <option value="ACTIVE" th:selected="${member.status} eq 'ACTIVE'">활동</option>
+                    <option value="REST" th:selected="${member.status} eq 'REST'">휴면</option>
+                    <option value="OUT" th:selected="${member.status} eq 'OUT'">탈퇴</option>
+                  </select>
+                  <button type="submit" class="button" ><i class="fas fa-pencil-alt"></i>상태 변경</button>
+                </form>
+              </td>
+              <td>
+                <form th:action="@{/admin/change_role(id=${member.id} )}" method="post">
+                  <select name="role" class="select-box">
+                    <option value="TEACHER" th:selected="${member.status} eq 'TEACHER'">선생님</option>
+                    <option value="STUDENT" th:selected="${member.status} eq 'STUDENT'">학생</option>
+                  </select>
+                  <button type="submit" class="button" ><i class="fas fa-pencil-alt"></i>권한 변경</button>
+                </form>
+              </td>
+            </tr>
+          </th:block>
+          </tbody>
+        </table>
       </div>
     </div>
-  </body>
+  </div>
+</div>
+</body>
 </html>

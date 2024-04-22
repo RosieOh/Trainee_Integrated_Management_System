@@ -11,30 +11,42 @@
   <th:block th:replace="~{include/header :: header}"></th:block>
     <div class="member1">
       <section class="user_info">
-        <nav class="menu">
-          <a href="#"><i class="fas fa-bars"></i></a>
-        </nav>
-
+<!--        <nav class="menu">-->
+<!--          <a href="#"><i class="fas fa-bars"></i></a>-->
+<!--        </nav>-->
         <article class="profile">
           <div class="profile_img"><i class="fas fa-user-circle"></i></div>
-
-          <h1>김천재</h1>
+          <h1 th:text="${username}"></h1>
           <h2>에듀테크 프로덕트 매니저(PM) 양성 과정 6기</h2>
-
           <a href="#" class="btnView">개인정보 수정</a>
         </article>
-
         <ul class="contact">
           <li>
             <i class="fas fa-envelope "></i>
-            <span>hadaboni80@naver.com</span>
+            <span>chunjaekim@naver.com</span>
           </li>
         </ul>
       </section>
       <section class="main_notice">
-        <h4>
-          공지사항
-        </h4>
+        <h1><span>NEW!   </span>  공지사항</h1>
+          <table class="main_table" >
+              <thead>
+              <tr>
+                  <th scope="col" class="num">#</th>
+                  <th scope="col" class="title">제목</th>
+                  <th scope="col" class="create_time">작성일</th>
+                  <th scope="col" class="writer">작성자</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr th:each="notice, about :${newNoticeList}">
+                  <th scope="row" th:text="${about.count}"></th>
+                  <td th:text="${notice.title}"></td>
+                  <td th:text="${notice.createdTime}"></td>
+                  <td th:text="${notice.writer}"></td>
+              </tr>
+              </tbody>
+          </table>
       </section>
     </div>
 </div>
