@@ -7,42 +7,34 @@
   <th:block th:replace="~{include/head :: head}"></th:block>
 </head>
 <body>
-<div class="main admin">
+<div class="main user_index">
   <th:block th:replace="~{include/header :: header}"></th:block>
-  <th:block th:replace="~{include/adminbar :: adminbar}"></th:block>
     <div class="member1">
-      <section>
+      <section class="user_info">
         <nav class="menu">
           <a href="#"><i class="fas fa-bars"></i></a>
-          <a href="#"><i class="far fa-sticky-note"></i></a>
         </nav>
 
         <article class="profile">
           <div class="profile_img"><i class="fas fa-user-circle"></i></div>
 
-          <h1>DCODELAB</h1>
-          <h2>UI/UX INTERACTIVE DEVELOPER</h2>
+          <h1>김천재</h1>
+          <h2>에듀테크 프로덕트 매니저(PM) 양성 과정 6기</h2>
 
-          <a href="#" class="btnView">VIEW MORE</a>
+          <a href="#" class="btnView">개인정보 수정</a>
         </article>
 
         <ul class="contact">
-          <li>
-            <i class="fab fa-facebook-f"></i>
-            <span>Visit My Facebook page.</span>
-          </li>
           <li>
             <i class="fas fa-envelope "></i>
             <span>hadaboni80@naver.com</span>
           </li>
         </ul>
-
-        <nav class="others">
-          <a href="member1.html" class="on"></a>
-          <a href="member2.html"></a>
-          <a href="member3.html"></a>
-          <a href="member4.html"></a>
-        </nav>
+      </section>
+      <section class="main_notice">
+        <h4>
+          공지사항
+        </h4>
       </section>
     </div>
 </div>
