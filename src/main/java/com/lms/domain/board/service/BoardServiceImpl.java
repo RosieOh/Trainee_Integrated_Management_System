@@ -116,4 +116,18 @@ public class BoardServiceImpl implements BoardService {
     public void remove(Long id) {
         boardRepository.deleteById(id);
     }
+
+    //메인 인덱스에 최신 공지사항 5개 불러오기
+    @Override
+    public List<BoardDTO> newNoticeList() {
+        List<Board> notices = boardRepository.newNoticeList();
+
+        // 엔티티 내용 출력
+        for (Board notice : notices) {
+            System.out.println("Notice: " + notice.toString());
+        }
+        List<BoardDTO> newNoticeList = notices.stream().map(board -> modelMapper.map(board, BoardDTO.class))
+                .collect(Collectors.toList());
+        return newNoticeList;
+    }
 }

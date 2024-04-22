@@ -73,15 +73,15 @@ public class HomeController {
             model.addAttribute("url", "/");
             return "/user/alert";
         } else if (pass == 2) {
-            model.addAttribute("msg", "해당 계정은 휴면계정입니다. 휴면을 풀어주세요.");
-            model.addAttribute("url", "/active");
+            model.addAttribute("msg", "해당 계정은 휴면계정입니다. 관리자에게 문의해주세요.");
+            model.addAttribute("url", "/logout");
             return "/user/alert";
         } else if (pass==3){
-            model.addAttribute("msg", "해당 계정은 탈퇴한 계정입니다.");
+            model.addAttribute("msg", "해당 계정은 탈퇴한 계정입니다. 관리자에게 문의해주세요.");
             model.addAttribute("url", "/logout");
             return "/user/alert";
         } else if (pass==4){
-            model.addAttribute("msg", "처음으로 오신걸 환영합니다 ^^");
+            model.addAttribute("msg", "처음 오신걸 환영합니다 ^^");
             model.addAttribute("url", "/");
             return "/user/alert";
         }else {
@@ -96,10 +96,6 @@ public class HomeController {
     public String main2(Model model) {
         return "user/index2";
     }
-
-    //(추가 정보 입력)
-    @GetMapping("/index3")
-    public String main3(Model model) { return "user/index3"; }
 
     // 본인확인
     @GetMapping("/pw")

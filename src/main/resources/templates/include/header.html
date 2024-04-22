@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en"
-  xmlns:th="http://www.thymeleaf.org">
+  xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
   <body>
     <th:block th:fragment="header">
       <nav id="navbar" class="navbar">
@@ -26,13 +28,20 @@
                 </li>
                 </th:block>
                 <th:block sec:authorize="isAuthenticated()">
-                <li class="nav-content">
-                <a class="nav_link " href="#"><i class="fas fa-user">
-                  <ul>
-                    <li></li>
-                    <li></li>
+                <li class="nav-content nav-dropdown">
+                <a class="nav_link " href="#"><i class="fas fa-user"></i><div id="nav-dropdown">▼</div></a>
+                  <ul class="header-dropdown_wrap" id="nav-dropdown_wrap">
+                    <li class="nav-content">
+                      <a class="nav_link " th:href="@{/index2}">
+                        회원정보 수정
+                      </a>
+                    </li>
+                    <li class="nav-content">
+                      <a class="nav_link " th:href="@{/logout}">
+                        로그아웃
+                      </a>
+                    </li>
                   </ul>
-                </i></a>
                 </li>
                 </th:block>
               </ul>
@@ -40,6 +49,41 @@
           </div>
         </div>
       </nav>
+      <th:block sec:authorize="hasAuthority('MANAGER') or hasAuthority('ADMIN')">
+        <nav class="adminBar">
+          <div class="adminBar_box">
+            <ul class="adminBar_content">
+              <li>
+                <a class="nav_link " th:href="@{/admin/member}"><i class="fas fa-user-edit"></i>
+                  <p>회원</p>
+                </a>
+              </li>
+              <li>
+                <a class="nav_link " th:href="@{/admin/course}"><i class="fas fa-sitemap"></i>
+                  <p>강의추가</p>
+                </a>
+              </li>
+              <li>
+                <a class="nav_link " th:href="@{/notice/list}"><i class="fas fa-clipboard"></i>
+                  <p>게시판</p>
+                </a>
+              </li>
+              <li>
+                <a class="nav_link " th:href="@{/}"><i class="fas fa-paste"></i>
+                  <p>미정</p>
+                </a>
+              </li>
+              <li>
+                <a class="nav_link " th:href="@{/}"><i class="fas fa-book"></i>
+                  <p>미정</p>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </th:block>
+
+
     </th:block>
   </body>
 </html>

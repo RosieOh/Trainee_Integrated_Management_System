@@ -1,0 +1,155 @@
+.user_index {
+    background-color: var(--c-main_back);
+    height: 100vh;
+}
+.user_info {
+    width: 340px;
+    padding: 30px;
+    background-color: #fff;
+    margin: 50px auto;
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.user_index section nav.menu {
+    width: 100%;
+}
+.user_index section nav.menu::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+.user_index section nav.menu a {
+    font-size: 20px;
+    color: #666;
+}
+.user_index section nav.menu a:nth-of-type(1) {
+    float: left;
+}
+.user_index section nav.menu a:nth-of-type(2) {
+    float: right;
+}
+
+.user_index section article.profile {
+    width: 100%;
+    text-align: center;
+}
+.user_index section article.profile .profile_img {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+}
+.user_index section article.profile .profile_img i {
+    font-size: 170px;
+}
+.user_index section article.profile h1 {
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 1;
+    color: #555;
+    margin-bottom: 5px;
+}
+.user_index section article.profile h2 {
+    font-weight: normal;
+    font-size: 13px;
+    color: #939393;
+    margin: 10px 0px 20px;
+}
+.user_index section a.btnView {
+    display: block;
+    width: 180px;
+    height: 32px;
+    margin: 0px auto 20px;
+    border-radius: 16px;
+    font-size: 13px;
+    color: #fff;
+    line-height: 35px;
+    text-align: center;
+}
+
+.user_index section ul.contact li {
+    width: 100%;
+    padding: 10px 0px;
+}
+.user_index section ul.contact li:last-child {
+    border-top: 1px solid #eee;
+}
+.user_index section ul.contact li i {
+    width: 20%;
+    text-align: center;
+    color: #555;
+    font-size: 15px;
+    text-shadow: 2px 2px 2px #ddd;
+}
+.user_index section ul.contact li span {
+    font-weight: normal;
+    font-size: 13px;
+    color: #555;
+    letter-spacing: 1px;
+}
+
+.user_index section nav.others {
+    width: 100%;
+    text-align: center;
+}
+.user_index section nav.others a {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 0px 10px;
+    opacity: 0.4;	/* 8단계 버튼 활성화하기 */
+    filter: saturate(0.7); /* 8단계 버튼 활성화하기 */
+}
+
+/* member1 */
+body .member1 {
+    display: flex;
+    width: 100%;
+    margin-top: 134px;
+}
+body .member1 section article.profile img {
+    box-shadow: 5px 15px 30px rgba(173, 216, 230, 0.8);
+}
+body .member1 section a.btnView {
+    background: linear-gradient(45deg, #53ecec, #38cfe5);
+    box-shadow: 5px 10px 20px rgba(71, 236, 236, 0.49);
+}
+
+/* 메인 공지사항 */
+.main_notice {
+    width: 60%;
+    padding: 30px 0px;
+    margin: 0px auto;
+}
+.main_notice h1 {
+    font-size: 1.5em;
+}
+.main_notice h1 span {
+    color: #b41010;
+}
+.main_table {
+    margin: 30px 0px;
+}
+.main_table thead tr:first-child {
+    background-color: var(--c-main);
+}
+.main_table tbody tr:last-child th {
+     border-width: 1px 0;
+}
+.main_table th {
+    height: 40px;
+}
+.main_table .num {
+    width: 7%;
+}
+.main_table .title {
+    width: 50%;
+}
+.main_table .create_time {
+    width: 28%;
+}
+.main_table .writer {
+    width: 15%;
+}

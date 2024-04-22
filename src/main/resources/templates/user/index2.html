@@ -4,102 +4,122 @@
       layout:decorate="~{include/layout}">
 
 <div layout:fragment="content">
+  <div class="user_title">
+    <h2>나의 정보</h2>
+  </div>
   <div class="user_tab">
-    <ul class="nav nav-tabs">
-      <li class="nav-item2">
-        <a class="nav-link" th:href="@{/index2}" >기본정보</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/index3}" >추가정보</a>
-      </li>
-    </ul>
+    <div class="user_tab_title"><a  th:href="@{/index2}" >기본정보</a></div>
+    <div class="user_tab_title"><span>추가정보</span></div>
   </div>
 <!--  <form th:action="@{/}" method="post" onsubmit="return modify(this)">-->
   <div class="user_content">
-    <div>
-      <img src="" alt="">
-    </div>
-    <div class="user_info_box">
-      <label for="id" >아이디</label>
-      <input type="text" id="id" name="name" class="ro_input" value="beubeu95" readonly>
-    </div>
-    <div class="user_info_box infopw">
-      <label for="pw" >비밀번호</label>
-      <div class="myinfo_line">
-        <input type="text"  id="pw" name="pw"  value="******" readonly>
-        <a th:href="@{/pw}" class="btn_pwChange">비밀번호 변경</a>
+    <div class="user_content_seperate">
+      <div class="user_info_container">
+        <div class="user_info_box">
+          <label for="id">아이디</label>
+          <input type="text" id="id" name="name" class="ro_input" value="beubeu95" readonly>
+        </div>
+        <div class="user_info_box infopw">
+          <label for="pw" >비밀번호</label>
+          <div class="myinfo_line">
+            <input type="text"  id="pw" name="pw"  value="******" readonly>
+            <a th:href="@{/pw}" class="btn_pwChange">비밀번호 변경</a>
+          </div>
+        </div>
+        <div class="user_info_box infoemail">
+          <label for="email">이메일</label>
+          <div class="myinfo_line">
+            <input type="text" name="email1" id="email1" value="gusrud95" />
+            <p class="email_a">@&nbsp;</p>
+            <input type="text" name="email2" id="email2" placeholder="chunjae.co.kr"/>
+            <select id="email2_select">
+              <option value="self">직접입력</option>
+              <option value="naver.com">naver.com</option>
+              <option value="google.com">google.com</option>
+              <option value="kakao.com">kakao.com</option>
+              <option value="daum.net">daum.net</option>
+              <option value="hanmail.net">hanmail.net</option>
+            </select>
+            <input type="hidden" id="email" name="email" />
+          </div>
+        </div>
+        <div class="user_info_box infobirth">
+          <label for="phone">생일</label>
+          <div class="myinfo_line">
+            <input type="number" name="birth1" id="birth1" placeholder="1995" maxlength="4" />
+            <p></p>
+            <select name="birth2" id="birth2" >
+              <option value="" selected>8월</option>
+              <option value="01">1월</option>
+              <option value="02">2월</option>
+              <option value="03">3월</option>
+              <option value="04">4월</option>
+              <option value="05">5월</option>
+              <option value="06">6월</option>
+              <option value="07">7월</option>
+              <option value="08">8월</option>
+              <option value="09">9월</option>
+              <option value="10">10월</option>
+              <option value="11">11월</option>
+              <option value="12">12월</option>
+            </select>
+            <p></p>
+            <input type="number" name="birth3" id="birth3" placeholder="10" maxlength="2" />
+            <input type="hidden" name="birth" id="birth"/>
+          </div>
+        </div>
+        <div class="user_info_box">
+          <label for="gender">성별</label>
+          <div class="myinfo_line">
+            <label><input type="radio" name="gender" id="gender" value="남자"/>남자</label>
+            <label><input type="radio" name="gender" value="여자"/>여자</label>
+          </div>
+        </div>
+        <div class="user_info_box infotel">
+          <label for="phone">연락처</label>
+          <div class="myinfo_line">
+            <input type="tel" name="phone1" id="phone1" placeholder="010" maxlength="4" />
+            <p class="email_a">-&nbsp;</p>
+            <input type="tel" name="phone2" id="phone2" placeholder="1234" maxlength="4" />
+            <p class="email_a">-&nbsp;</p>
+            <input type="tel" name="phone3" id="phone3" placeholder="1234" maxlength="4" />
+            <input type="hidden" name="phone" id="phone"/>
+          </div>
+        </div>
+        <div class="user_info_box">
+          <label for="phone">주소</label>
+          <input type="text" name="postcode" id="postcode" placeholder="01325" class="postcodeBtn">
+          <button type="button" id="post_btn" onclick="findAddr()" class="btn_myInfo">우편번호 검색</button>
+        </div>
+        <div class="user_info_box">
+          <input type="text" name="addr1" id="addr1" placeholder="강원도 춘천시 퇴계동 913-7" class="" />
+        </div>
+        <div class="user_info_box">
+          <input type="text" name="addr2" id="addr2" placeholder="3층" class=""/>
+        </div>
       </div>
-    </div>
-    <div class="user_info_box infoemail">
-      <label for="email">이메일</label>
-      <div class="myinfo_line">
-        <input type="text" name="email1" id="email1" value="gusrud95" />
-        <p class="email_a">@&nbsp;</p>
-        <input type="text" name="email2" id="email2" placeholder="chunjae.co.kr"/>
-        <select id="email2_select">
-          <option value="self">직접입력</option>
-          <option value="naver.com">naver.com</option>
-          <option value="google.com">google.com</option>
-          <option value="kakao.com">kakao.com</option>
-          <option value="daum.net">daum.net</option>
-          <option value="hanmail.net">hanmail.net</option>
-        </select>
-        <input type="hidden" id="email" name="email" />
+      <div class="user_info_container">
+        <div class="user_info_box">
+          <label for="stack" >기술스택</label>
+          <input type="text" id="stack" name="stack">
+        </div>
+        <div class="user_info_box">
+          <label for="exp" >경력</label>
+          <input type="text" id="exp" name="exp">
+        </div>
+        <div class="user_info_box">
+          <label for="cert" >자격증</label>
+          <input type="text" id="cert" name="cert">
+        </div>
+        <div class="user_info_box">
+          <label for="smoke" >흡연</label>
+          <input type="text" id="smoke" name="smoke">
+        </div>
+        <div class="user_info_box">
+          <label for="sick" >질병</label>
+          <input type="text" id="sick" name="sick">
+        </div>
       </div>
-    </div>
-    <div class="user_info_box infobirth">
-      <label for="phone">생일</label>
-      <div class="myinfo_line">
-        <input type="number" name="birth1" id="birth1" placeholder="1995" maxlength="4" />
-        <p></p>
-        <select name="birth2" id="birth2" >
-          <option value="" selected>8월</option>
-          <option value="01">1월</option>
-          <option value="02">2월</option>
-          <option value="03">3월</option>
-          <option value="04">4월</option>
-          <option value="05">5월</option>
-          <option value="06">6월</option>
-          <option value="07">7월</option>
-          <option value="08">8월</option>
-          <option value="09">9월</option>
-          <option value="10">10월</option>
-          <option value="11">11월</option>
-          <option value="12">12월</option>
-        </select>
-        <p></p>
-        <input type="number" name="birth3" id="birth3" placeholder="10" maxlength="2" />
-        <input type="hidden" name="birth" id="birth"/>
-      </div>
-    </div>
-    <div class="user_info_box">
-      <label for="gender">성별</label>
-      <div class="myinfo_line">
-        <label><input type="radio" name="gender" id="gender" value="남자"/>남자</label>
-        <label><input type="radio" name="gender" value="여자"/>여자</label>
-      </div>
-    </div>
-    <div class="user_info_box infotel">
-      <label for="phone">연락처</label>
-      <div class="myinfo_line">
-        <input type="tel" name="phone1" id="phone1" placeholder="010" maxlength="4" />
-        <p class="email_a">-&nbsp;</p>
-        <input type="tel" name="phone2" id="phone2" placeholder="1234" maxlength="4" />
-        <p class="email_a">-&nbsp;</p>
-        <input type="tel" name="phone3" id="phone3" placeholder="1234" maxlength="4" />
-        <input type="hidden" name="phone" id="phone"/>
-      </div>
-    </div>
-    <div class="user_info_box">
-      <label for="phone">주소</label>
-      <input type="text" name="postcode" id="postcode" placeholder="01325" class="join_input">
-      <button type="button" id="post_btn" onclick="findAddr()" class="btn_myInfo">우편번호 검색</button>
-    </div>
-    <div class="user_info_box">
-      <input type="text" name="addr1" id="addr1" placeholder="강원도 춘천시 퇴계동 913-7" class="" />
-    </div>
-    <div class="user_info_box">
-      <input type="text" name="addr2" id="addr2" placeholder="3층" class=""/>
     </div>
     <div class="myinfo_btn_group">
       <button type="submit" class="btn_myInfo">회원정보수정</button>
