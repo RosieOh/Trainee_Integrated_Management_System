@@ -36,14 +36,6 @@ public class BoardServiceImpl implements BoardService {
         noticeBoard.setContent("내용");
         noticeBoard.setBoardType(BoardType.NOTICE.toString());
         board.add(noticeBoard);
-
-        Board modifyBoard = new Board();
-        modifyBoard.setTitle("수정요청");
-        modifyBoard.setContent("내용");
-        modifyBoard.setBoardType(BoardType.MODIFY.toString());
-        board.add(modifyBoard);
-
-
         // 생성된 게시판들을 저장
         boardRepository.saveAll(board);
     }
@@ -80,9 +72,13 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public List<BoardDTO> findByBoardType(String boardType) {
         List<Board> lst = boardRepository.findByBoardType(boardType);
+        if (lst != null && !lst.isEmpty()) {
             List<BoardDTO> boardList = lst.stream().map(board -> modelMapper.map(board, BoardDTO.class))
                     .collect(Collectors.toList());
             return boardList;
+        } else {
+            return Collections.emptyList();
+        }
     }
 
     @Override

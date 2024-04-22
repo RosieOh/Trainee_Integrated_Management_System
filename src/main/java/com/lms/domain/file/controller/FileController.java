@@ -24,9 +24,6 @@ public class FileController {
         // 파일 경로 설정
         Path filePath = Paths.get(FILE_DIRECTORY).resolve(fileName);
         Resource resource = new UrlResource(filePath.toUri());
-        log.info("어디어디? " + filePath);
-        log.info("어디어디?2 " + resource);
-
         // 파일이 존재하는지 확인
         if(resource.exists() && resource.isReadable()) {
             // 다운로드를 헤더 설정

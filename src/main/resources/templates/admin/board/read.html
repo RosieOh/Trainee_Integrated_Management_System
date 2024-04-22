@@ -28,6 +28,7 @@
                 <th>no</th>
                 <th>제목</th>
                 <th>내용</th>
+                <th>작성자</th>
                 <th>작성일</th>
               </tr>
               </thead>
@@ -35,8 +36,9 @@
               <tr th:each="notice, about :${boardList}">
                 <td th:text="${about.count}"></td>
                 <td th:text="${notice.title}"></td>
+                <td th:text="${name}"></td>
                 <td th:text="${notice.content}"></td>
-                <td th:text="${notice.regDate}"></td>
+                <td th:text="${notice.createdDate}"></td>
               </tr>
             </tbody>
           </table>

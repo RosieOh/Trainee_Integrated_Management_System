@@ -32,4 +32,12 @@ public class File {
         this.filePath = filePath;
         this.fileName = fileName;
     }
+
+    public void change(Long id, String fileName, String filePath, String originFileName) {
+        this.id = id;
+        this.fileName = fileName;
+        this.filePath = filePath;
+        this.originFileName = originFileName;
+    }
+
 }
