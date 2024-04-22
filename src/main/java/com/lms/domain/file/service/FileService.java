@@ -4,12 +4,22 @@ import com.lms.domain.file.dto.FileDTO;
 import com.lms.domain.file.entity.File;
 import com.lms.domain.file.repository.FileRepository;
 import jakarta.transaction.Transactional;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
+@Transactional
 public class FileService {
 
+    @Autowired
     private FileRepository fileRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     public FileService(FileRepository fileRepository) {
         this.fileRepository = fileRepository;
@@ -23,7 +33,6 @@ public class FileService {
     @Transactional
     public FileDTO getFile(Long id) {
         File file = fileRepository.findById(id).get();
-
         FileDTO fileDTO = FileDTO.builder()
                 .id(id)
                 .originFileName(file.getOriginFileName())
@@ -32,5 +41,4 @@ public class FileService {
                 .build();
         return fileDTO;
     }
-
 }

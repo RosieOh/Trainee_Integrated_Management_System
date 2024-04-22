@@ -52,40 +52,35 @@ public class NoticeController {
         return "admin/board/list";
     }
 
-//    @GetMapping("/read")
-//    public String readNotice(Long id, Model model, Principal principal) {
-//        if (id != null) {
-//            BoardDTO boardDTO = boardService.findById(id);
-//            if (boardDTO != null) {
-//                FileDTO fileDTO = fileService.getFile(boardDTO.getFileId());
-//                String email = principal.getName();
-//                Optional<Member> optionalMember = memberRepository.findByEmail2(email);
-//                if (optionalMember.isPresent()) {
-//                    Member member = optionalMember.get();
-//                    String name = member.getName();
-//                    model.addAttribute("name", name);
-//                }
-//                model.addAttribute("principal", principal);
-//                model.addAttribute("fileList", fileDTO);
-//                model.addAttribute("boardList", boardDTO);
-//            } else {
-//                log.info("fileDTO" + fileService);
-//            }
-//        }
-//        return "notice/view";
-//    }
+    @GetMapping("/read")
+    public String readNotice(Long id, Model model, Principal principal) {
+        if (id != null) {
+            BoardDTO boardDTO = boardService.findById(id);
+            if (boardDTO != null) {
+                FileDTO fileDTO = fileService.getFile(boardDTO.getFileId());
+                String prin = principal.getName();
+                log.info(prin);
+                String name = memberRepository.findId(prin).getName();
+                model.addAttribute("name", name);
+                model.addAttribute("principal", principal);
+                model.addAttribute("fileList", fileDTO);
+                model.addAttribute("boardList", boardDTO);
+            } else {
+                log.info("fileDTO" + fileService);
+            }
+        }
+        return "admin/board/read";
+    }
 
 
 
     @GetMapping("/register")
-    public String registerForm(Model model) {
+    public String registerForm(Model model, Principal principal) {
+        String id = principal.getName();
+        log.info(id);
+        String name = memberRepository.findId(id).getName();
+        model.addAttribute("name", name);
         return "admin/board/register";
-    }
-
-    @PostMapping("/registerPro")
-    public String registerpro(Model model, Board board) {
-        boardRepository.save(board);
-        return "redirect:/";
     }
 
     @PostMapping("/register")
@@ -123,24 +118,54 @@ public class NoticeController {
             e.printStackTrace();
         }
         model.addAttribute("message", "글 작성이 완료되었습니다.");
-        model.addAttribute("searchUrl", "/notice/list");
-        return "notice/message";
+        return "redirect:/notice/list";
     }
 
     @GetMapping("/modify")
     public String noticeEditForm(Model model, Long id) {
         BoardDTO boardDTO = boardService.getBoard(id);
         model.addAttribute("boardDTO", boardDTO);
-        return "notice/edit";
+        return "admin/board/edit";
     }
 
     @PostMapping("/modify/{id}")
-    public String noticeEdit(@PathVariable("id") Long id, BoardDTO boardDTO){
-        BoardDTO boardDTO1 = boardService.getBoard(id);
-        boardDTO1.setTitle(boardDTO.getTitle());
-        boardDTO1.setContent(boardDTO.getContent());
-//        boardDTO1.setFileId(boardDTO.getFileId());
-        boardService.modify(boardDTO1);
+    public String noticeEdit(@PathVariable("id") Long id, @Valid BoardDTO boardDTO,
+                             BindingResult bindingResult,
+                             RedirectAttributes redirectAttributes,
+                             Model model,
+                             @RequestParam("file") MultipartFile files){
+        try {
+            String originFilename = files.getOriginalFilename();
+            String filename = new MD5Generator(originFilename).toString();
+            String savePath = System.getProperty("user.dir") + "/files/";
+            if(!new File(savePath).exists()) {
+                try {
+                    new File(savePath).mkdirs();
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            String filePath = savePath + filename;
+
+            files.transferTo(new File(filePath));
+
+            FileDTO fileDTO = new FileDTO();
+            fileDTO.setOriginFileName(originFilename);
+            fileDTO.setFileName(filename);
+            fileDTO.setFilePath(filePath);
+
+            Long fileId = fileService.saveFile(fileDTO);
+
+            BoardDTO boardDTO1 = boardService.getBoard(id);
+            boardDTO1.setTitle(boardDTO.getTitle());
+            boardDTO1.setContent(boardDTO.getContent());
+            boardDTO1.setFileId(fileId);
+            boardService.modify(boardDTO1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return "redirect:/notice/read?id="+id;
     }
 
