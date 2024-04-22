@@ -4,6 +4,8 @@ import com.lms.domain.Course.dto.CourseDTO;
 import com.lms.domain.Course.service.CourseService;
 import com.lms.domain.member.dto.MemberDTO;
 import com.lms.domain.member.service.MemberService;
+import com.lms.global.cosntant.Role;
+import com.lms.global.cosntant.Status;
 import com.lms.global.cosntant.Subject;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -46,30 +48,6 @@ public class MemberController {
         return "member/active";
     }
 
-    @GetMapping("status")
-    public String status(Model model, Principal principal) {
-
-        String email = principal.getName();
-        int pass = memberService.login_pro(email);
-        if (pass == 1) {
-            model.addAttribute("msg", "환영합니다! 로그인 되었습니다!");
-            model.addAttribute("url", "/");
-            return "member/alert";
-        } else if (pass == 2) {
-            model.addAttribute("msg", "해당 계정은 휴면계정입니다. 휴면을 해제해주세요.");
-            model.addAttribute("url", "/active");
-            return "member/alert";
-        } else if (pass == 3) {
-            model.addAttribute("msg", "해당 계정은 탈퇴한 계정입니다.");
-            model.addAttribute("url", "/logout");
-            return "member/alert";
-        } else {
-            model.addAttribute("msg", "로그인 정보가 맞지 않습니다.");
-            model.addAttribute("url", "/member/login");
-            return "member/alert";
-        }
-    }
-
     @GetMapping("join")
     public String joinForm(Model model) {
         return "member/join";
@@ -96,6 +74,8 @@ public class MemberController {
         model.addAttribute("member", member);
         return "11";
     }
+
+
 //
 //    @PostMapping("joinPro")
 //    public String join(Model model, MemberDTO memberDTO) {

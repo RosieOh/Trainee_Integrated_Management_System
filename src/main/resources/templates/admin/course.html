@@ -44,17 +44,15 @@
                 <td th:text="${course.train_time}"></td>
                 <td th:text="${course.instructor}"></td>
                 <td th:text="${course.manager}"></td>
-                  <form th:action="@{/admin/course_delete(no=${course.no})}" method="post">
-                      <td>
+                  <td>
+                      <form th:action="@{/admin/course_delete(no=${course.no})}" method="post">
                           <select name="delete_type" id="delete_type" class="select-box">
                               <option value="y" th:selected="${course.delete_type} eq 'y'">공개</option>
                               <option value="n" th:selected="${course.delete_type} eq 'n'">비공개</option>
                           </select>
-                      </td>
-                      <td>
-                        <button type="submit" class="" ><i class="fas fa-pencil-alt"></i>상태 변경</button>
-                      </td>
-                  </form>
+                          <button type="submit" class="button" ><i class="fas fa-pencil-alt"></i>상태 변경</button>
+                      </form>
+                  </td>
               </tr>
             </tbody>
           </table>

@@ -26,13 +26,20 @@
                 </li>
                 </th:block>
                 <th:block sec:authorize="isAuthenticated()">
-                <li class="nav-content">
-                <a class="nav_link " href="#"><i class="fas fa-user">
-                  <ul>
-                    <li></li>
-                    <li></li>
+                <li class="nav-content nav-dropdown">
+                <a class="nav_link " href="#"><i class="fas fa-user"></i><div id="nav-dropdown">▼</div></a>
+                  <ul class="header-dropdown_wrap" id="nav-dropdown_wrap">
+                    <li class="nav-content">
+                      <a class="nav_link " th:href="@{/index2}">
+                        회원정보 수정
+                      </a>
+                    </li>
+                    <li class="nav-content">
+                      <a class="nav_link " th:href="@{/logout}">
+                        로그아웃
+                      </a>
+                    </li>
                   </ul>
-                </i></a>
                 </li>
                 </th:block>
               </ul>
@@ -40,6 +47,9 @@
           </div>
         </div>
       </nav>
+
+
+
     </th:block>
   </body>
 </html>

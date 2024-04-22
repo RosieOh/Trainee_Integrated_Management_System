@@ -6,7 +6,10 @@ import com.lms.domain.Course.service.CourseService;
 import com.lms.domain.member.dto.MemberDTO;
 import com.lms.domain.member.entity.Member;
 import com.lms.domain.member.service.MemberService;
+import com.lms.global.cosntant.Role;
+import com.lms.global.cosntant.Status;
 import com.lms.global.cosntant.Subject;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -62,6 +65,7 @@ public class AdminController {
         courseService.delete_type(courseDTO);
         return "redirect:/admin/course";
     }
+
     @GetMapping("/member_read")
     public String member_read(Model model,String id){
 //        List<CourseDTO> course_big_List = courseService.course_subject_list(Subject.BIGDATA);
@@ -76,4 +80,21 @@ public class AdminController {
         model.addAttribute("member", member);
         return "/admin/member/read";
     }
+
+    @PostMapping("/change_status")
+    public String out1(String id, Model model, Status status){
+        MemberDTO memberDTO = memberService.loginId(id);
+        memberDTO.setStatus(status);
+        memberService.state_edit(memberDTO);
+        return "redirect:/";
+    }
+
+    @PostMapping("/change_role")
+    public String role1(String id, Model model, Role role){
+        MemberDTO memberDTO = memberService.loginId(id);
+        memberDTO.setRole(role);
+        memberService.member_edit(memberDTO);
+        return "redirect:/";
+    }
+
 }

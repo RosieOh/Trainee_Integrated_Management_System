@@ -18,11 +18,6 @@
     <div class="admin-board">
       <div class="main_title">
         <h1>회원관리</h1>
-<!--        <th:block th:if="${!#lists.isEmpty(memberVOList)}">-->
-<!--          <th:block th:each="member, about :${memberVOList}">-->
-<!--            <h3 th:text="${member.course.subject} + ' ' +  ${member.course.flag} + '기'"></h3>-->
-<!--          </th:block>-->
-<!--        </th:block>-->
       </div>
 <!--        <div class="admin-title">-->
 <!--          <div><i class="fas fa-user-circle"></i></div>-->
@@ -92,6 +87,8 @@
                   <th>연락처</th>
                   <th>주소</th>
                   <th>가입날짜</th>
+                  <th>상태</th>
+                  <th>권한</th>
                 </tr>
             </thead>
             <tbody>
@@ -106,7 +103,7 @@
               <tr th:each="member, about :${memberList}">
                 <td th:text="${member.course.subject} + ' ' +  ${member.course.flag} + '기'"></td>
                 <td>
-                  <a th:href="@{/admin/member_read(id=${member.getId()})}" th:text="${member.name}"></a>
+                  <a th:href="@{/admin/member_read(id=${member.getId()} )}" th:text="${member.name}"></a>
                 </td>
                 <td th:text="${member.email}"></td>
                 <td th:text="${member.gender}"></td>
@@ -114,6 +111,25 @@
                 <td th:text="${member.phone}"></td>
                 <td th:text="${member.addr1}"></td>
                 <td th:text="${#temporals.format(member.createdTime, 'yyyy-MM-dd hh:mm')}"></td>
+                <td>
+                  <form th:action="@{/admin/change_status(id=${member.id} )}" method="post">
+                    <select name="status" class="select-box" >
+                      <option value="ACTIVE" th:selected="${member.status} eq 'ACTIVE'">활동</option>
+                      <option value="REST" th:selected="${member.status} eq 'REST'">휴면</option>
+                      <option value="OUT" th:selected="${member.status} eq 'OUT'">탈퇴</option>
+                    </select>
+                    <button type="submit" class="button" ><i class="fas fa-pencil-alt"></i>상태 변경</button>
+                  </form>
+                </td>
+                <td>
+                  <form th:action="@{/admin/change_role(id=${member.id} )}" method="post">
+                    <select name="role" class="select-box">
+                      <option value="TEACHER" th:selected="${member.status} eq 'TEACHER'">선생님</option>
+                      <option value="STUDENT" th:selected="${member.status} eq 'STUDENT'">학생</option>
+                    </select>
+                    <button type="submit" class="button" ><i class="fas fa-pencil-alt"></i>권한 변경</button>
+                  </form>
+                </td>
               </tr>
             </th:block>
               <th:block th:if="${cno != null}">
@@ -127,7 +143,7 @@
                 <tr th:each="member, about :${memberVOList}">
                   <td th:text="${member.course.subject} + ' ' +  ${member.course.flag} + '기'"></td>
                   <td>
-                    <a th:href="@{/admin/member_read(id=${member.getId()})}" th:text="${member.name}"></a>
+                    <a th:href="@{/admin/member_read(id=${member.id})}" th:text="${member.name}"></a>
                   </td>
                   <td th:text="${member.email}"></td>
                   <td th:text="${member.gender}"></td>
@@ -135,6 +151,25 @@
                   <td th:text="${member.phone}"></td>
                   <td th:text="${member.addr1}"></td>
                   <td th:text="${#temporals.format(member.createdTime, 'yyyy-MM-dd hh:mm')}"></td>
+                  <td>
+                    <form th:action="@{/admin/change_status(id=${member.id })}" method="post">
+                      <select name="status" class="select-box" >
+                        <option value="ACTIVE" th:selected="${member.status} eq 'ACTIVE'">활동</option>
+                        <option value="REST" th:selected="${member.status} eq 'REST'">휴면</option>
+                        <option value="OUT" th:selected="${member.status} eq 'OUT'">탈퇴</option>
+                      </select>
+                      <button type="submit" class="button" ><i class="fas fa-pencil-alt"></i>상태 변경</button>
+                    </form>
+                  </td>
+                  <td>
+                    <form th:action="@{/admin/change_role(id=${member.id} )}" method="post">
+                      <select name="role" class="select-box">
+                        <option value="TEACHER" th:selected="${member.status} eq 'TEACHER'">선생님</option>
+                        <option value="STUDENT" th:selected="${member.status} eq 'STUDENT'">학생</option>
+                      </select>
+                      <button type="submit" class="button" ><i class="fas fa-pencil-alt"></i>권한 변경</button>
+                    </form>
+                  </td>
                 </tr>
               </th:block>
             </tbody>
