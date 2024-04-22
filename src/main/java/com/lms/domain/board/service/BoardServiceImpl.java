@@ -87,7 +87,6 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public void register(BoardDTO boardDTO) {
-
         Board board = Board.builder()
                 .id(boardDTO.getId())
                 .title(boardDTO.getTitle())

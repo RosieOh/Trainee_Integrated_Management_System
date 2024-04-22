@@ -36,8 +36,8 @@ public class BoardDTO {
     @Size(max = 50)
     private String writer;
 
-    private LocalDateTime regDate;
-    private LocalDateTime modDate;
+    private LocalDateTime createdTime;
+    private LocalDateTime modifiedTime;
     private List<String> fileNames;
 
     public Long getId() {
