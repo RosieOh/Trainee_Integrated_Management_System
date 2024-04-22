@@ -3,7 +3,6 @@
 }
 
 .user_main {
-    background-color: #F6F9FC;
     height: 100vh;
     padding: 0 70px;
 }
@@ -38,8 +37,6 @@
 }
 
 .user_img_box {
-    background-color: #F6F9FC;
-    padding-top: 100px;
 }
 
 .user_img {
