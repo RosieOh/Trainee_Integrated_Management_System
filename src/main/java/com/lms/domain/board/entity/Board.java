@@ -52,3 +52,4 @@ public class Board extends BaseEntity {
         this.fileId = fileId;
     }
 }
+

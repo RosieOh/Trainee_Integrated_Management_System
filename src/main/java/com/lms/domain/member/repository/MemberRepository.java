@@ -22,4 +22,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query("select l from Member l where l.course.no = :cno")
     List<Member> voList2(Integer cno);
 
+    @Query("select m from Member m where m.email = :email")
+    Optional<Member> findByEmail(String email);
+
 }

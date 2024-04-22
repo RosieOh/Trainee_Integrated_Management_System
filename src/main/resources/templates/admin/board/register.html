@@ -10,49 +10,72 @@
   />
   <title>천재IT교육센터</title>
   <th:block th:replace="~{include/head :: head}"></th:block>
-  <style>
-    th {
-      width: 70px;
-    }
-  </style>
+  <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+  <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 </head>
 <body>
-<th:block th:replace="~{include/header :: header}"></th:block>
 <div class="main admin">
-  <div class="main_title">
-    <h1>공지사항</h1>
-  </div>
+  <th:block th:replace="~{include/header :: header}"></th:block>
   <div class="admin-board">
-      <div class="admin-content">
-        <div class="course_box">
-          <h2>글쓰기</h2>
-          <form th:action="@{/notice/registerPro}" method="post">
-          <table>
-              <tbody>
-                <tr>
-                  <th>제목</th>
-                  <td>
-                    <input type="text" name="title"/>
-                  </td>
-                </tr>
-                <tr>
-                  <th>내용</th>
-                  <td>
-                    <textarea name="content"></textarea>
-                  </td>
-                </tr>
-                <tr>
-                  <th>작성자</th>
-                  <td>
-                    <input type="text" name="writer"/>
-                  </td>
-                </tr>
-            </tbody>
-          </table>
-            <div class="board_btn">
-              <button type="submit" class="button">등록</button>
+    <div class="admin-content">
+      <div class="course_box ">
+        <h2>공지사항 작성</h2>
+        <div class="main_title">
+          <h1>공지사항</h1>
+        </div>
+          <form th:action="@{/notice/register}" method="post"  enctype="multipart/form-data">
+            <div class="notice_seperate">
+              <div class="notice_container" >
+                <div class="notice_box">
+                  <label for="titleNotice">제목</label>
+                  <input type="text" class="form-control" name="title" id="titleNotice"/>
+                </div>
+
+                <div class="notice_box">
+                  <label for="writerNotice">작성자</label>
+                  <input type="text" class="ro_input" id="writerNotice" name="writer" th:value="${name}" readonly>
+                </div>
+
+                <div class="file_box">
+                  <label for="fileNotice">첨부파일</label>
+                  <input type="file" class="form-control" name="file" id="fileNotice">
+                </div>
+
+                <div id="editor">
+                  <textarea class="input"  style="width: 1320px; height: 500px;" id="myTextarea" type="text" name="content" required ></textarea>
+                </div>
+                <script th:inline="javascript">
+                  const Editor = toastui.Editor;
+                  const textarea = document.querySelector('#myTextarea');
+
+                  // 숨겨진 textarea 대신에 에디터를 생성할 div 요소를 만듭니다.
+                  const editorDiv = document.createElement('div');
+                  editorDiv.id = 'editor';
+                  textarea.parentNode.insertBefore(editorDiv, textarea);
+                  textarea.style.display = 'none';  // 숨겨진 textarea
+
+                  const editor = new Editor({
+                    el: editorDiv,
+                    height: '500px',
+                    initialEditType: 'markdown',
+                    previewStyle: 'vertical',
+                    initialValue: textarea.value  // 초기값을 textarea의 값으로 설정
+                  });
+
+                  // 에디터의 내용이 변경될 때마다 textarea에 값을 업데이트합니다.
+                  editor.on('change', () => {
+                    textarea.value = editor.getMarkdown();
+                  });
+                </script>
+
+                <div class="notice_btn">
+                  <button type="submit" class="btn btnNotice">등록</button>
+                </div>
+              </div>
             </div>
           </form>
+
+
         </div>
       </div>
   </div>

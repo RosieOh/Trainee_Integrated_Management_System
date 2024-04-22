@@ -151,3 +151,13 @@
 .main_table .writer {
     width: 15%;
 }
+
+/* 공지사항 read */
+.back_white {
+    width: 80%;
+}
+
+.noti_read  {
+    display: flex;
+    justify-content: center;
+}
