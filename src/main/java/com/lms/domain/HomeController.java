@@ -97,10 +97,6 @@ public class HomeController {
         return "user/index2";
     }
 
-    //(추가 정보 입력)
-    @GetMapping("/index3")
-    public String main3(Model model) { return "user/index3"; }
-
     // 본인확인
     @GetMapping("/pw")
     public String pw_confirm (Model model) { return "user/pw_validate"; }
