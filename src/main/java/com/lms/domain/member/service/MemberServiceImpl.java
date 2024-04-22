@@ -176,6 +176,8 @@ public class MemberServiceImpl implements MemberService{
         LocalDateTime local = LocalDateTime.now().minusDays(30);
 
         if (member.getLoginAt() == null) {
+            member.setLoginAt(LocalDateTime.now());
+            memberRepository.save(member);
             pass = 4;
         } else {
             if (local.isAfter(member.getLoginAt())) {

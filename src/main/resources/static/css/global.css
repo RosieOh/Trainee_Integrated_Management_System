@@ -1,5 +1,6 @@
 @charset "UTF-8";
 /* abc 순으로 기입 */
+@import "font.css";
 @import "main.css";
 @import "board.css";
 
@@ -31,6 +32,7 @@
   word-wrap: break-word;
   word-break: keep-all;
   box-sizing: border-box;
+  font-family: 'JalnanGothic';
 }
 
 body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, p, blockquote, label {
