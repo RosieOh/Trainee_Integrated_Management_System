@@ -49,9 +49,7 @@ public class MemberController {
     }
 
     @GetMapping("join")
-    public String joinForm(Model model) {
-        return "member/join";
-    }
+    public String joinForm(Model model) { return "member/join";}
 
     @PostMapping("/idCheckPro")
     public ResponseEntity idCheck(@RequestBody MemberDTO memberDTO) throws Exception {
