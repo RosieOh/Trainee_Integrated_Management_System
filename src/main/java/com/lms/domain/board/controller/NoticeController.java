@@ -44,7 +44,7 @@ public class NoticeController {
     private final BoardRepository boardRepository;
     private final FileService fileService;
 
-    @GetMapping(value = {"/list", "/"})
+    @GetMapping(value = {"/list"})
     public String noticeListAll(Model model) {
         String boardType = "NOTICE";
         List<Board> boardList = boardRepository.findAll();

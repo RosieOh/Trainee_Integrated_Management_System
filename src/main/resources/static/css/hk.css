@@ -4,37 +4,57 @@
 
 .user_main {
     height: 100vh;
-    padding: 0 70px;
+    width: 100%;
 }
 
 .user_title {
-    width: 80%;
+    width: 100%;
     margin: 0 auto;
-    padding :27px 30px;
-    background-color: #ffffff;
+    padding: 27px;
+    text-align: center;
 }
 
 .user_tab{
+    width: 40%;
+    display: flex;
+    justify-content: flex-start;
+    margin: 0 auto;
+}
+.user_tab2{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+
+
+
+.file_input {
+    display: flex;
+    height: 86px;
+}
+.file_input input{
+    border: none;
+    display: none;
+}
+.user_tab2 .user_tab_title {
+    text-align: center;
+    width: 10%;
+}
+.user_group {
+    background-color: white;
     width: 80%;
     margin: 0 auto;
-    background-color: #ffffff;
-    display: flex;
-    justify-content: space-around;
-    padding: 0 40px;
-    border-bottom: 1px solid #d1d1d1;
 }
-
 .user_tab_title{
-    width: 40%;
+    width: 18%;
 }
 
-.user_tab_title a{
+.user_tab_border{
     border-bottom: 3px solid #232323;
 }
 
-.user_tab_title span{
-    border-bottom: 3px solid #232323;
-}
 
 .user_img_box {
 }
@@ -49,10 +69,10 @@
 }
 
 .user_content {
-    background-color: #ffffff;
-    width: 80%;
-    padding: 25px 40px;
-    margin : 0 auto;
+    width: 100%;
+    padding: 25px 0;
+    margin: 0 auto;
+    border-top: 1px solid #d1d1d1;
 }
 
 .user_content_seperate {
@@ -89,11 +109,10 @@
 }
 
 .user_info_box input {
-    margin : 5px 0;
+    margin: 5px 0;
     font-size: 13px;
     color: #525354;
     height: 40px;
-    margin-right: 10px;
 }
 
 .user_info_box.infopw input{
@@ -191,6 +210,198 @@
 .postcodeBtn {
     width: 45%;
 }
+
+/* 회원 마이페이지 */
+
+.admin_title h2 {
+    font-size: 30px;
+}
+
+.admin_main {
+    height: 100vh;
+    width: 100%;
+}
+
+.admin_title {
+    width: 80%;
+    margin: 0 auto;
+    padding :27px 30px;
+    background-color: #ffffff;
+}
+
+.admin_tab{
+    width: 80%;
+    margin: 0 auto;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-around;
+    padding: 0 40px;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+.admin_tab_title{
+    width: 40%;
+}
+
+.admin_tab_title a{
+    border-bottom: 3px solid #232323;
+}
+
+.admin_tab_title span{
+    border-bottom: 3px solid #232323;
+}
+
+.admin_img_box {
+}
+
+.admin_img {
+    display: block;
+    margin : 0 auto;
+}
+
+.admin_info_container {
+    width: 30%;
+}
+
+.admin_content {
+    background-color: #ffffff;
+    width: 80%;
+    padding: 25px 40px;
+    margin : 0 auto;
+}
+
+.admin_content_seperate {
+    display: flex;
+    justify-content: space-around;
+}
+
+.nav.nav-tabs {
+    display: flex;
+    background-color: #ffffff;
+    border-bottom: 1px solid #d1d1d1;
+    padding-left: 20px;
+}
+
+.myinfo_line {
+    display: flex;
+}
+
+.myinfo_line select {
+    height: 40px;
+    margin-right: 10px;
+    margin-top: 5px;
+    padding: 10px 10px 10px;
+}
+
+.myinfo_line [type="radio"] {
+    height: 16px;
+    margin : 0px 10px 0px 10px;
+}
+
+.admin_info_box label {
+    line-height: 15px;
+    padding-top: 20px;
+}
+
+.admin_info_box input {
+    margin: 5px 0;
+    font-size: 13px;
+    color: #525354;
+    height: 40px;
+}
+
+.admin_info_box.infopw input{
+    width: 60%;
+}
+
+.email_a {
+    line-height: 45px;
+}
+
+.ro_input {
+    background-color: #e4e4e4;
+}
+
+.myinfo_btn_group {
+    margin : 0 auto;
+    width: fit-content;
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+
+.btn_pwChange {
+    padding: 12px 13px;
+    background-color: #99ccff;
+    border: none;
+    height: 40px;
+    margin: auto 0;
+    font-size: 13px;
+}
+
+.btn_myInfo {
+    padding : 11px 30px;
+    background-color : #99ccff;
+    border : none;
+}
+
+.btn_myInfo_out {
+    padding : 12px 30px;
+    background-color: #b41010;
+    color : #ffffff;
+    border : none;
+    font-size: 13px;
+}
+
+.pw_title {
+    margin : 0 auto;
+    width: fit-content;
+    padding: 30px;
+}
+
+.pw_title h2 {
+    text-align: center;
+}
+
+.pw_modify_box {
+    width: inherit;
+    margin: 0 auto;
+}
+
+.pw_box {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.pw_box input {
+    width: 25%;
+}
+
+.admin_info_box.pw {
+    display: flex;
+    justify-content: space-around;
+}
+
+.admin_info_box.pw2 {
+    display: flex;
+    justify-content: space-around;
+}
+
+.admin_info_box.pw label {
+    padding-right: 20px;
+}
+
+.admin_info_box.pw2 label {
+    padding-right: 55px;
+}
+
+.admin_info_box.pw input {
+    width:70%;
+}
+
+.admin_info_box.pw2 input {
+    width:70%;
+}
+
 
 
 /* 공지사상 수정하기 */

@@ -1,50 +1,305 @@
-<!doctype html>
-<html
-  xmlns:th="http://www.thymeleaf.org"
->
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-            content="minimum-scale=1.0, width=device-width, maximum-scale=1, ser-scalable=no"
-            name="viewport"
-    />
-    <title>천재IT교육센터</title>
-    <th:block th:replace="~{include/head :: head}"></th:block>
-  </head>
-  <body>
-  <div class="main admin">
-      <th:block th:replace="~{include/header :: header}"></th:block>
-    <div class="admin-board">
-      <div class="main_title">
-        <h1>회원관리</h1>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{include/layout}">
+
+<div layout:fragment="content">
+  <div class="admin-content">
+
+  <div class="main_title">
+    <h1>천재교육 IT</h1>
+  </div>
+  <div class="admin_img_box"><img th:src="@{/images/Character.png}" alt="" class="admin_img"></div>
+  <div class="admin_main">
+  <div class="admin_title">
+    <h2>회원 정보 <span th:text="'  >'+${member.name}"></span></h2>
+  </div>
+<!--  <div class="admin_tab">-->
+<!--    <div class="admin_tab_title"><span>기본정보</span></div>-->
+<!--    <div class="admin_tab_title"><span>추가정보</span></div>-->
+<!--  </div>-->
+<!--  <form th:action="@{/}" method="post" onsubmit="return modify(this)">-->
+  <div class="admin_content">
+    <div class="admin_content_seperate">
+      <div class="admin_info_container">
+        <div class="admin_info_box">
+          <label for="id">아이디</label>
+          <input type="text" id="id" name="id" class="ro_input" th:value="${member.id }" readonly />
+          <input type="hidden"  name="no" class="ro_input" th:value="${member.no }" readonly />
+        </div>
+        <div class="admin_info_box infopw">
+          <label >비밀번호</label>
+          <div class="myinfo_line">
+            <a th:href="@{/pw}" class="btn_pwChange">비밀번호 변경</a>
+          </div>
+        </div>
+        <div class="admin_info_box infobirth">
+          <label for="name">이름</label>
+          <div class="myinfo_line">
+            <input type="text" name="name" id="name" class="ro_input" th:value="${member.name }"  readonly />
+          </div>
+        </div>
+        <div class="admin_info_box infobirth">
+          <label for="birth">생일</label>
+          <div class="myinfo_line">
+            <input type="text" name="birth" id="birth" class="ro_input" th:value="${member.birth }"  readonly />
+          </div>
+        </div>
+        <div class="admin_info_box">
+          <label for="gender">성별</label>
+          <div class="myinfo_line">
+            <input type="text" name="gender" id="gender" class="ro_input" th:value="${member.gender }"  readonly />
+          </div>
+        </div>
+        <div class="admin_info_box infoemail">
+          <label for="email">이메일</label>
+          <div class="myinfo_line">
+            <input type="text" name="email" id="email" th:value="${member.email }"  />
+          </div>
+        </div>
+        <div class="admin_info_box infotel">
+          <label for="phone">연락처</label>
+          <div class="myinfo_line">
+            <input type="text" name="phone" id="phone" th:value="${member.phone }"  />
+          </div>
+        </div>
+        <div class="admin_info_box">
+          <label for="phone">주소</label>
+          <input type="text" name="addr1" id="addr1" th:value="${member.addr1 }"  />
+        </div>
+        <div class="admin_info_box">
+          <input type="text" name="addr2" id="addr2" th:value="${member.addr2 }"  />
+        </div>
+        <div class="admin_info_box">
+          <input type="text" name="postcode" id="postcode" th:value="${member.postcode }" class="postcodeBtn">
+          <button type="button" id="post_btn" onclick="findAddr()" class="btn_myInfo">우편번호 검색</button>
+        </div>
+        <div class="admin_info_box file_input">
+          <label for="picture" ><i class="fas fa-file"></i> 사진</label>
+          <input type="file" id="picture" name="picture" class="border_none">
+        </div>
+        <div class="admin_info_box file_input">
+          <label for="portfolio" ><i class="fas fa-file"></i> 포트폴리오</label>
+          <input type="file" id="portfolio" name="portfolio" class="border_none">
+        </div>
+        <div class="admin_info_box file_input">
+          <label for="cv" ><i class="fas fa-file"></i> 자기소개서</label>
+          <input type="file" id="cv" name="cv" class="border_none">
+        </div>
+        <div class="admin_info_box file_input">
+          <label for="resume" ><i class="fas fa-file"></i> 이력서</label>
+          <input type="file" id="resume" name="resume" class="border_none">
+        </div>
       </div>
-          <table>
-            <thead>
-                <tr>
-                  <th>클래스</th>
-                  <th>이름</th>
-                  <th>이메일</th>
-                  <th>성별</th>
-                  <th>생년월일</th>
-                  <th>연락처</th>
-                  <th>주소</th>
-                  <th>가입날짜</th>
-                </tr>
-            </thead>
-             <tbody>
-              <tr>
-                <td th:text="${member.name}"></td>
-                <td th:text="${member.course.subject} + ${member.course.flag}"></td>
-                <td th:text="${member.email}"></td>
-                <td th:text="${member.gender}"></td>
-                <td th:text="${member.birth}"></td>
-                <td th:text="${member.phone}"></td>
-                <td th:text="${member.addr1}"></td>
-                <td th:text="${#temporals.format(member.createdTime, 'yyyy-MM-dd hh:mm')}"></td>
-              </tr>
-            </tbody>
-          </table>
+      <div class="admin_info_container">
+        <div class="admin_info_box">
+          <label for="stack" >기술스택</label>
+          <input type="text" th:value="${studentDTO.stack}" id="stack" name="stack">
+          <input type="hidden" name="no" th:value="${studentDTO.no}">
+        </div>
+        <div class="admin_info_box">
+          <label for="cert" >자격증</label>
+          <input type="text" th:value="${studentDTO.cert}" id="cert" name="cert">
+        </div>
+        <div class="admin_info_box">
+          <label for="workshop" >워크샵</label>
+          <input type="text" th:value="${studentDTO.workshop}" id="workshop" name="workshop">
+        </div>
+        <div class="admin_info_box">
+          <label for="univ" >대학교</label>
+          <input type="text" th:value="${studentDTO.univ}" id="univ" name="univ">
+        </div>
+        <div class="admin_info_box">
+          <label for="major" >학과</label>
+          <input type="text" th:value="${studentDTO.major}" id="major" name="major">
+        </div>
+        <div class="admin_info_box">
+          <label for="hope" >희망부서</label>
+          <input type="text" th:value="${studentDTO.hope}" id="hope" name="hope">
+        </div>
+        <div class="admin_info_box">
+          <label for="job_program" >국취참여여부</label>
+          <input type="text" th:value="${studentDTO.job_program}" id="job_program" name="job_program">
+        </div>
+        <div class="admin_info_box">
+          <label for="fund" >지원센터</label>
+          <input type="text" th:value="${studentDTO.fund}" id="fund" name="fund">
+        </div>
+        <div class="admin_info_box">
+          <label for="exp" >경력</label>
+          <input type="text" th:value="${studentDTO.exp}" id="exp" name="exp">
+          <input type="hidden" name="no" th:value="${studentDTO.no}">
+        </div>
+        <div class="admin_info_box">
+          <label for="OA" >Word/PPT/Excel</label>
+          <input type="text" th:value="${studentDTO.OA}" id="OA" name="OA">
+        </div>
+        <div class="admin_info_box">
+          <label for="satis" >전반적 만족도</label>
+          <input type="text" th:value="${studentDTO.satis}" id="satis" name="satis">
+        </div>
+        <div class="admin_info_box">
+          <label for="instructor" >담당 강사</label>
+          <input type="text" th:value="${studentDTO.instructor}" id="instructor" name="instructor">
+        </div>
+        <div class="admin_info_box">
+          <label for="task" >과제 및 피드백</label>
+          <input type="text" th:value="${studentDTO.task}" id="task" name="task">
+        </div>
+        <div class="admin_info_box">
+          <label for="env" >학습환경 및 장비</label>
+          <input type="text" th:value="${studentDTO.env}" id="env" name="env">
+        </div>
+        <div class="admin_info_box">
+          <label for="goal" >최종목표</label>
+          <input type="text" th:value="${studentDTO.goal}" id="goal" name="goal">
+        </div>
+        <div class="admin_info_box">
+          <label for="doc" >입사지원 서류관련 의견</label>
+          <input type="text" th:value="${studentDTO.doc}" id="doc" name="doc">
+        </div>
+      </div>
+      <div class="admin_info_container">
+        <div class="admin_info_box">
+          <label for="personal" >성격 및 태도</label>
+          <input type="text" th:value="${studentDTO.personal}" id="personal" name="personal">
+        </div>
+        <div class="admin_info_box">
+          <label for="score" >벌점</label>
+          <input type="text" th:value="${studentDTO.score}" id="score" name="score">
+        </div>
+        <div class="admin_info_box">
+          <label for="score_date" >벌점 날짜</label>
+          <input type="text" th:value="${studentDTO.score_date}" id="score_date" name="score_date">
+        </div>
+        <div class="admin_info_box">
+          <label for="accident" >사고</label>
+          <input type="text" th:value="${studentDTO.accident}" id="accident" name="accident">
+        </div>
+        <div class="admin_info_box">
+          <label for="reason" >사유</label>
+          <input type="text" th:value="${studentDTO.reason}" id="reason" name="reason">
+        </div>
+        <div class="admin_info_box">
+          <label for="education" >교육 수료</label>
+          <input type="text" th:value="${studentDTO.education}" id="education" name="education">
+        </div>
+        <div class="admin_info_box">
+          <label for="edu_cert" >수료증번호</label>
+          <input type="text" th:value="${studentDTO.edu_cert}" id="edu_cert" name="edu_cert">
+        </div>
+        <div class="admin_info_box">
+          <label for="complete" >수료여부</label>
+          <input type="text" th:value="${studentDTO.complete}" id="complete" name="complete">
+        </div>
+        <div class="admin_info_box">
+          <label for="depart" >부서</label>
+          <input type="text" th:value="${studentDTO.depart}" id="depart" name="depart">
+        </div>
+        <div class="admin_info_box">
+          <label for="early" >조기인턴유무</label>
+          <input type="text" th:value="${studentDTO.early}" id="early" name="early">
+        </div>
+        <div class="admin_info_box">
+          <label for="other" >타기업 취업</label>
+          <input type="text" th:value="${studentDTO.other}" id="other" name="other">
+        </div>
+        <div class="admin_info_box">
+          <label for="smoke" >흡연</label>
+          <input type="text" th:value="${studentDTO.smoke}" id="smoke" name="smoke">
+        </div>
+        <div class="admin_info_box">
+          <label for="disease" >질병</label>
+          <input type="text" th:value="${studentDTO.disease}" id="disease" name="disease">
+        </div>
+        <div class="admin_info_box">
+          <label for="opinion" >종합 의견</label>
+          <input type="text" th:value="${studentDTO.opinion}" id="opinion" name="opinion">
+        </div>
+        <div class="admin_info_box">
+          <label for="content" >상담내용</label>
+          <input type="text" th:value="${studentDTO.content}" id="content" name="content">
+        </div>
+        <div class="admin_info_box">
+          <label for="etc" >기타</label>
+          <input type="text" th:value="${studentDTO.etc}" id="etc" name="etc">
+        </div>
       </div>
       </div>
-  </body>
-</html>
+    <div class="myinfo_btn_group">
+      <button type="submit" class="btn_myInfo">회원정보수정</button>
+      <a th:href="@{/static}" class="btn_myInfo_out">회원탈퇴</a>
+    </div>
+  </div>
+<!--  </form>-->
+</div>
+</div>
+</div>
+
+
+
+<script>
+  const email2_select = document.querySelector('#email2_select')
+  const email2 = document.querySelector('#email2')
+  email2_select.addEventListener('change', (event) => {
+    if(event.target.value !== "self") {
+      email2.value = event.target.value
+      email2.disabled = true
+    } else {
+      email2.value = ""
+      email2.disabled = false
+    }
+  })
+</script>
+<script>
+  function modify(f){
+    let phoneval =  $("#phone1").val() + $("#phone2").val() + $("#phone3").val()
+    $("#phone").val(phoneval)
+
+    let emailval =  $("#email1").val() +'@'+ $("#email2").val()
+    $("#email").val(emailval)
+
+    let birthval =  $("#birth1").val() +'년'+ $("#birth2").val() +'월'+ $("#birth3").val() +'일'
+    $("#birth").val(birthval)
+
+    if(f.pw.value!=f.pw2.value){
+      alert("비밀번호와 비밀번호 확인이 서로 다릅니다.");
+      f.pw.focus();
+      return false;
+    }
+    if(f.pw.value.length(8-16)){
+      alert("비밀번호는 최소 8자리에서 최대 16자리까지 숫자, 영문, 특수문자 각 1개 이상 포함해주세요.");
+      f.pw.focus();
+      return false;
+    }
+
+    let value = $("#pw").val();
+
+    let pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&.,])[A-Za-z\d$@$!%*#?&]{8,16}$"
+    if (!pattern.test(value)) {
+      alert("숫자, 영문, 특수문자 각 1개 이상 포함입니다.");
+      $("#pw").focus();
+      return false;
+    }
+  }
+</script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+  function findAddr(){
+    new daum.Postcode({
+      oncomplete:function(data){
+        var roadAddr = data.roadAddress;
+        var jibunAddr = data.jibunAddress;
+        var bname = data.bname;
+        document.getElementById("postcode").value = data.zonecode;
+        if(roadAddr !== ''){
+          document.getElementById("addr1").value = roadAddr;
+        } else if(jibunAddr !== ''){
+          document.getElementById("addr1").value = jibunAddr;
+        }
+        document.getElementById("addr3").value = bname;
+        document.getElementById("addr2").focus();
+      }
+    }).open();
+  }
+</script>

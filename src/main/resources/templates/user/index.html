@@ -1,27 +1,53 @@
-<!doctype html>
-<html
-  xmlns:th="http://www.thymeleaf.org"
->
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-            content="minimum-scale=1.0, width=device-width, maximum-scale=1, ser-scalable=no"
-            name="viewport"
-    />
-    <title>천재IT교육센터</title>
-    <th:block th:replace="~{include/head :: head}"></th:block>
-  </head>
-  <body>
-    <div class="main" >
-      <h2>Main Start</h2>
-      <div style="display: block">
-      <a th:href="@{/course}">강의추가</a>
-      <a th:href="@{/join}">작동 회원가입</a>
-      <a th:href="@{/memJoin}">회원가입</a>
-      <a th:href="@{/login}">로그인</a>
-      <a th:href="@{/member(cno=1)}">회원관리</a>
-      <a th:href="@{/templates/admin/board/list}">게시판</a>
-      </div>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{include/layout}">
+
+<div layout:fragment="content">
+    <div class="main_title">
+        <h1>천재교육 IT</h1>
     </div>
-  </body>
-</html>
+    <div class="admin-content index user_index">
+
+        <section class="user_info">
+            <!--        <nav class="menu">-->
+            <!--          <a href="#"><i class="fas fa-bars"></i></a>-->
+            <!--        </nav>-->
+            <article class="profile">
+                <div class="profile_img"><i class="fas fa-user-circle"></i></div>
+                    <h2 th:text="${member.name }"></h2>
+                     <h2 th:text="${member.course.subject } + ' ' + ${member.course.flag} +'기'"></h2>
+<!--                    <h2 th:if="${member.course.subject == 'EXCEPTION'}">[[${member.course.flag}]]</h2>-->
+<!--                    <h2 th:if="${member.course.subject == 'BIGDATA'}">프로젝트 기반 빅데이터 서비스 개발자 양성 [[${member.course.flag}]]기</h2>-->
+<!--                    <h2 th:if="${member.course.subject == 'FULLSTACK'}">에듀테크 풀스택 개발자 양성(Java) [[${member.course.flag}]]기</h2>-->
+<!--                    <h2 th:if="${member.course.subject == 'PM'}">에듀테크 상품서비스 PM(프로덕트매니저) 양성 [[${member.course.flag}]]기</h2>-->
+                <a th:href="@{/member/mypage}" class="btnView">개인정보 수정</a>
+            </article>
+            <ul class="contact">
+                <li>
+                    <i class="fas fa-envelope "></i>
+                    <span th:text="${member.email }"></span>
+                </li>
+            </ul>
+        </section>
+        <section class="main_notice">
+            <h1><span>NEW!   </span>  공지사항</h1>
+            <table class="main_table" >
+                <thead>
+                <tr>
+                    <th scope="col" class="num">No</th>
+                    <th scope="col" class="title">제목</th>
+                    <th scope="col" class="create_time">작성일</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="notice, about :${noticeList}">
+                    <th scope="row" th:text="${about.count}"></th>
+                    <td th:text="${notice.title}"></td>
+                    <td th:text="${#temporals.format(notice.createdTime, 'yyyy-MM-dd hh:mm')}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</div>
