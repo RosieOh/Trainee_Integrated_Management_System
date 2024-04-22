@@ -1,6 +1,5 @@
 .user_title h2 {
     font-size: 30px;
-    padding: 5px 24px;
 }
 
 .user_main {
@@ -10,15 +9,32 @@
 }
 
 .user_title {
-    width: 60%;
+    width: 80%;
     margin: 0 auto;
-    padding: 20px;
+    padding :27px 30px;
     background-color: #ffffff;
 }
 
 .user_tab{
-    width: 60%;
+    width: 80%;
     margin: 0 auto;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-around;
+    padding: 0 40px;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+.user_tab_title{
+    width: 40%;
+}
+
+.user_tab_title a{
+    border-bottom: 3px solid #232323;
+}
+
+.user_tab_title span{
+    border-bottom: 3px solid #232323;
 }
 
 .user_img_box {
@@ -30,11 +46,21 @@
     display: block;
     margin : 0 auto;
 }
+
+.user_info_container {
+    width: 40%;
+}
+
 .user_content {
     background-color: #ffffff;
-    width: 60%;
-    padding: 25px 40px 100px;
+    width: 80%;
+    padding: 25px 40px;
     margin : 0 auto;
+}
+
+.user_content_seperate {
+    display: flex;
+    justify-content: space-around;
 }
 
 .nav.nav-tabs {
@@ -42,27 +68,6 @@
     background-color: #ffffff;
     border-bottom: 1px solid #d1d1d1;
     padding-left: 20px;
-}
-
-.nav-item a {
-    font-weight: bold;
-}
-
-.nav-item {
-    width: 95px;
-    text-align: center;
-    line-height: 40px;
-}
-
-.nav-item2 {
-    width: 95px;
-    text-align: center;
-    line-height: 40px;
-    border-bottom: 3px solid #232323;
-}
-
-.nav-link {
-    padding: 11px;
 }
 
 .myinfo_line {
@@ -95,23 +100,11 @@
 }
 
 .user_info_box.infopw input{
-    width: 80%;
-}
-
-.user_info_box.infoemail input{
-    width: 30%;
+    width: 60%;
 }
 
 .email_a {
     line-height: 45px;
-}
-
-.user_info_box.infobirth input{
-    width: 7%;
-}
-
-.user_info_box.infotel input{
-    width: 7%;
 }
 
 .ro_input {
@@ -121,11 +114,12 @@
 .myinfo_btn_group {
     margin : 0 auto;
     width: fit-content;
-    padding-top: 40px;
+    padding-top: 60px;
+    padding-bottom: 40px;
 }
 
 .btn_pwChange {
-    padding: 12px 30px;
+    padding: 12px 13px;
     background-color: #99ccff;
     border: none;
     height: 40px;
@@ -173,10 +167,12 @@
 
 .user_info_box.pw {
     display: flex;
+    justify-content: space-around;
 }
 
 .user_info_box.pw2 {
     display: flex;
+    justify-content: space-around;
 }
 
 .user_info_box.pw label {
@@ -193,4 +189,8 @@
 
 .user_info_box.pw2 input {
     width:70%;
+}
+
+.postcodeBtn {
+    width: 45%;
 }
