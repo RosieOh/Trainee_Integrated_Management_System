@@ -11,7 +11,7 @@ public interface MemberService {
     public List<MemberDTO> member_list();
     public PasswordEncoder passwordEncoder();
     public void member_add(MemberDTO memberDTO);
-//    public MemberDTO member_read(String id);
+    //    public MemberDTO member_read(String id);
     public void member_edit(MemberDTO memberDTO);
     public MemberDTO loginId(String id);
     public boolean id_check(String id);

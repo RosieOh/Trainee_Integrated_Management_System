@@ -12,8 +12,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
@@ -70,7 +68,7 @@ public class MemberServiceImpl implements MemberService{
     public List<MemberDTO> member_list() {
         List<Member> memberList = memberRepository.findAll();
         List<MemberDTO> memberDTOList = memberList.stream().map(
-                member -> modelMapper.map(member,MemberDTO.class))
+                        member -> modelMapper.map(member,MemberDTO.class))
                 .collect(Collectors.toList());
         return memberDTOList;
     }
