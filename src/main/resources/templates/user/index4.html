@@ -16,14 +16,14 @@
 <!--        </nav>-->
         <article class="profile">
           <div class="profile_img"><i class="fas fa-user-circle"></i></div>
-          <h1 th:text="${username}"></h1>
-          <h2>에듀테크 프로덕트 매니저(PM) 양성 과정 6기</h2>
-          <a href="#" class="btnView">개인정보 수정</a>
+          <h1 th:text="${memberDTO.name}"></h1>
+          <h2 th:text="${courseName}"></h2>
+          <a th:href="@{/index2}" class="btnView">개인정보 수정</a>
         </article>
         <ul class="contact">
           <li>
             <i class="fas fa-envelope "></i>
-            <span>chunjaekim@naver.com</span>
+            <span th:text="${memberDTO.email}"></span>
           </li>
         </ul>
       </section>
@@ -41,8 +41,8 @@
               <tbody>
               <tr th:each="notice, about :${newNoticeList}">
                   <th scope="row" th:text="${about.count}"></th>
-                  <td th:text="${notice.title}"></td>
-                  <td th:text="${notice.createdTime}"></td>
+                  <td><a th:href="|@{/notice/read(id=${notice.id})}|" class="text-decoration-none">[[${notice.title}]]</a></td>
+                  <td th:text="${#temporals.format(notice.createdTime, 'yyyy-MM-dd')}"></td>
                   <td th:text="${notice.writer}"></td>
               </tr>
               </tbody>
