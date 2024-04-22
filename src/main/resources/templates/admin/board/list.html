@@ -12,18 +12,18 @@
   <th:block th:replace="~{include/head :: head}"></th:block>
 </head>
 <body>
-<th:block th:replace="~{include/header :: header}"></th:block>
 <div class="main admin">
-  <th:block th:replace="~{include/adminbar :: adminbar}"></th:block>
+  <th:block th:replace="~{include/header :: header}"></th:block>
   <div class="main_title">
     <h1>공지사항</h1>
   </div>
+
   <div class="admin-board board_box">
       <div class="admin-content board_box">
         <div class="course_box board_box">
           <div class="board_title"><h2>리스트</h2></div>
           <div class="board_table">
-            <table class="board_ab_table">
+            <table class="table_set">
               <thead>
               <tr>
                 <th>no</th>
