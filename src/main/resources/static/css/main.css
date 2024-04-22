@@ -144,7 +144,8 @@
 
 .nav-dropdown {
     display: block;
-    font-weight: bold;
+    font-weight: 100;
+    /*font-weight: bold;   -- 너무 굴게 나와서 바꿀게요!*/
 }
 
 .nav-dropdown_wrap {
@@ -174,6 +175,7 @@
 }
 
 .course_box {
+    margin: 0 auto;
     padding: 0 5rem 3rem;
     width: 90%;
 }

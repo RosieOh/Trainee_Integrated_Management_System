@@ -85,7 +85,7 @@ public class NoticeController {
     @PostMapping("/registerPro")
     public String registerpro(Model model, Board board) {
         boardRepository.save(board);
-        return "redirect:list";
+        return "redirect:/";
     }
 
     @PostMapping("/register")
