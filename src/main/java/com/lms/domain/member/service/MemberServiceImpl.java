@@ -76,6 +76,13 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
+    public MemberDTO member_read(Long no) {
+        Optional<Member> member = memberRepository.findById(no);
+        MemberDTO memberDTO = modelMapper.map(member, MemberDTO.class);
+        return memberDTO;
+    }
+
+    @Override
     public void member_add(MemberDTO memberDTO) {
         String password = passwordEncoder.encode(memberDTO.getPw());
         memberDTO.setPw(password);
@@ -97,9 +104,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public MemberDTO loginId(String id) {
         Optional<Member> mem = memberRepository.id_read(id);
-        log.info("mem start -----------" + mem);
         MemberDTO memberDTO = modelMapper.map(mem, MemberDTO.class);
-        log.info("memberDTO start -----------" + memberDTO);
         return memberDTO;
     }
 

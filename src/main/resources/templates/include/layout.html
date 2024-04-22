@@ -11,19 +11,11 @@
   <th:block th:replace="~{include/head :: head}"></th:block>
 </head>
 <body>
-  <div class="main admin">
-  <div th:replace="include/header::header"></div>
-    <div class="main_title">
-      <h1>회원정보</h1>
-    </div>
-    <div class="admin-board">
-      <div class="admin-content">
-        <div class="user_img_box"><img th:src="@{/images/Character2.png}" alt="" class="user_img"></div>
-          <div class="user_main">
-           <div layout:fragment="content"></div>
-        </div>
+  <div class="main">
+    <th:block th:replace="~{include/header :: header}"></th:block>
+      <div class="admin-board">
+         <div layout:fragment="content"></div>
       </div>
-    </div>
   </div>
 </body>
 </html>

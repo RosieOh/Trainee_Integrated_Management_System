@@ -1,14 +1,13 @@
 package com.lms.domain.student.service;
 
-import com.lms.domain.student.dto.CounselDTO;
-import com.lms.domain.student.entity.Student;
+import com.lms.domain.student.dto.StudentDTO;
 
 import java.util.List;
 
 public interface StudentService {
 
-    public List<Student> student_list(Student student);
-    public Student student_read(Long no);
-    public void student_add(Student student);
-    public void student_edit(Student student);
+    public List<StudentDTO> student_list();
+    public StudentDTO student_read(Long no);
+    public void student_add(StudentDTO studentDTO);
+    public void student_edit(StudentDTO studentDTO);
 }

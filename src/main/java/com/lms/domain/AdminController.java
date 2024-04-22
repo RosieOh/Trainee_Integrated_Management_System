@@ -6,6 +6,8 @@ import com.lms.domain.Course.service.CourseService;
 import com.lms.domain.member.dto.MemberDTO;
 import com.lms.domain.member.entity.Member;
 import com.lms.domain.member.service.MemberService;
+import com.lms.domain.student.dto.StudentDTO;
+import com.lms.domain.student.service.StudentService;
 import com.lms.global.cosntant.Role;
 import com.lms.global.cosntant.Status;
 import com.lms.global.cosntant.Subject;
@@ -30,6 +32,7 @@ public class AdminController {
 
     private final MemberService memberService;
     private final CourseService courseService;
+    private final StudentService studentService;
 
     @GetMapping("/member")
     public String board(Model model, Principal principal, Integer cno){
@@ -67,17 +70,13 @@ public class AdminController {
     }
 
     @GetMapping("/member_read")
-    public String member_read(Model model,String id){
-//        List<CourseDTO> course_big_List = courseService.course_subject_list(Subject.BIGDATA);
-//        List<CourseDTO> course_full_List = courseService.course_subject_list(Subject.FULLSTACK);
-//        List<CourseDTO> course_pm_List = courseService.course_subject_list(Subject.PM);
-//        model.addAttribute("course_big_List",course_big_List);
-//        model.addAttribute("course_full_List",course_full_List);
-//        model.addAttribute("course_pm_List",course_pm_List);
-        log.info("member_start -----------");
-        Member member = memberService.auth(id);
-        log.info("member -----------" + member);
+    public String member_read(Model model,Long no){
+        MemberDTO member = memberService.member_read(no);
+        StudentDTO studentDTO = studentService.student_read(no);
+        log.info("member ------------" + member);
+        log.info("studentDTO ------------" + studentDTO);
         model.addAttribute("member", member);
+        model.addAttribute("studentDTO", studentDTO);
         return "/admin/member/read";
     }
 
@@ -86,7 +85,7 @@ public class AdminController {
         MemberDTO memberDTO = memberService.loginId(id);
         memberDTO.setStatus(status);
         memberService.member_edit(memberDTO);
-        return "redirect:/";
+        return "redirect:/member/index";
     }
 
     @PostMapping("/change_role")
@@ -94,7 +93,7 @@ public class AdminController {
         MemberDTO memberDTO = memberService.loginId(id);
         memberDTO.setRole(role);
         memberService.member_edit(memberDTO);
-        return "redirect:/";
+        return "redirect:/member/index";
     }
 
 }

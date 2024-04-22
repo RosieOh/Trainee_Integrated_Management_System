@@ -2,11 +2,10 @@
 
 .main {
     overflow: hidden;
-}
-.admin {
     display: flex;
     background-color: var(--c-main_back);
 }
+
 
 .container {
     position: relative;
@@ -144,6 +143,7 @@
     width: 100%;
     height: 100vh;
     padding-top: 67px;
+    overflow-y: scroll;
 }
 .admin-board h2 {
     margin-bottom: 1rem;
@@ -160,6 +160,9 @@
     padding: 0 1rem;
 }
 
+.admin_title span {
+    font-size: 75%;
+}
 .admin-title .fas {
     font-size: 4rem;
 }
@@ -178,8 +181,12 @@
     width: 170px;
     font-size: 18px;
     padding-left: 0.75rem;
-    border: 1px solid black;
+    border: none;
     display: inline-block;
+    background-color: white;
+    border-radius: 5px;
+    margin-right: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,.25);
 }
 
 .admin-content_in {

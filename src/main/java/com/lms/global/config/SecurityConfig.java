@@ -31,10 +31,10 @@ public class SecurityConfig {
             .authorizeHttpRequests((authorizeRequests) -> {authorizeRequests.requestMatchers(new AntPathRequestMatcher("**")).permitAll();})
                 .authorizeHttpRequests((authorizeRequests) -> {authorizeRequests.requestMatchers(new AntPathRequestMatcher("/")).permitAll();})
             .formLogin((formLogin) -> formLogin
-                        .loginPage("/login")
-                        .failureUrl("/login")
+                        .loginPage("/")
+                        .failureUrl("/")
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/status")
+                        .defaultSuccessUrl("/member/status")
                         .usernameParameter("id")
                         .passwordParameter("pw"))
 
