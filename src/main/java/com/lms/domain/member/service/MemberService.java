@@ -20,7 +20,6 @@ public interface MemberService {
     Member auth(String id);
     public int loginPro(String id);
 
-
     // 고정 아이디 생성
     void createAdminMember();
 
