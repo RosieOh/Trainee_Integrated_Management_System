@@ -12,22 +12,22 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+
 @Log4j2
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService{
 
     private final ModelMapper modelMapper;
-
     private final MemberRepository memberRepository;
     private final CourseRepository courseRepository;
     private final PasswordEncoder passwordEncoder;
@@ -88,54 +88,19 @@ public class MemberServiceImpl implements MemberService{
     @Override
     @Transactional
     public void member_edit(MemberDTO memberDTO) {
-        Optional<Member> member = memberRepository.id_read(memberDTO.getId());
-        Member member1 = member.orElseThrow();
-        memberRepository.save(member1);
-    }
-
-    @Override
-    public void state_edit(MemberDTO memberDTO) {
-        Optional<Member> member = memberRepository.findById(memberDTO.getNo());
-        Member member1 = member.orElseThrow();
-        member1.setStatus(memberDTO.getStatus());
-        memberRepository.save(member1);
-    }
-
-    @Override
-    public void role_edit(MemberDTO memberDTO) {
-        Optional<Member> member = memberRepository.id_read(memberDTO.getId());
-        Member member1 = member.orElseThrow();
-        memberRepository.save(member1);
+//        Optional<Member> member = memberRepository.id_read(memberDTO.getId());
+//        Member member1 = member.orElseThrow();
+        Member member = modelMapper.map(memberDTO, Member.class);
+        memberRepository.save(member);
     }
 
     @Override
     public MemberDTO loginId(String id) {
-        Optional<Member> member = memberRepository.id_read("id");
-        MemberDTO memberDTO = modelMapper.map(member, MemberDTO.class);
+        Optional<Member> mem = memberRepository.id_read(id);
+        log.info("mem start -----------" + mem);
+        MemberDTO memberDTO = modelMapper.map(mem, MemberDTO.class);
+        log.info("memberDTO start -----------" + memberDTO);
         return memberDTO;
-    }
-
-    @Override
-    public int login_pro(String id) {
-        int pass = 0;
-        Member member = memberRepository.findId(id);
-        LocalDateTime localDateTime = LocalDateTime.now().minusDays(30); // 현재 시점에서 30일 동안 반응이 없으면 휴면
-        if (localDateTime.isAfter(member.getLoginAt())) {
-            member.setStatus(Status.REST);
-            memberRepository.save(member);
-            pass = 2;
-        } else {
-            if (member.getStatus().equals(Status.ACTIVE)) {
-                member.setLoginAt(LocalDateTime.now());
-                memberRepository.save(member);
-                pass = 2;
-            } else if (member.getStatus().equals(Status.REST)) {
-                pass = 2;
-            } else if (member.getStatus().equals(Status.OUT)) {
-                pass = 3;
-            }
-        }
-        return pass;
     }
 
     @Override
@@ -167,7 +132,6 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public Member auth(String id) {
         Member member = memberRepository.findId(id);
-        log.info("member ---------------------------------------- ???" + member);
         return member;
     }
 
@@ -176,7 +140,6 @@ public class MemberServiceImpl implements MemberService{
         int pass = 0;
         Member member = memberRepository.findId(id);
         LocalDateTime local = LocalDateTime.now().minusDays(30);
-
         if (member.getLoginAt() == null) {
             member.setLoginAt(LocalDateTime.now());
             memberRepository.save(member);

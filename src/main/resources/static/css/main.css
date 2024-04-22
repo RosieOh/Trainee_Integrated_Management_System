@@ -142,8 +142,12 @@
 }
 .admin-board {
     width: 100%;
-    height: auto;
+    height: 100vh;
     padding-top: 67px;
+}
+.admin-board h2 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
 }
 
 .admin-title {
@@ -216,10 +220,28 @@
 
 .course_box {
     margin: 0 auto;
-    padding: 0 5rem 3rem;
     width: 90%;
 }
 
+.course_add {
+    font-size: 1.5rem;
+    height: 80px;
+}
+.course_add i {
+    font-size: 110%;
+}
+.course_add:hover {
+    cursor: pointer;
+    background-color: var(--c-main_back);
+}
+.course_input {
+    display: none;
+    text-align: center;
+}
+
+.course_input input, select {
+    text-align: center;
+}
 
 /* gotop */
 .gotop {
@@ -376,9 +398,13 @@
 }
 
 
-/* admin-board */
-.admin-board h2 {
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
+
+.inline_form {
+    display: flex;
+}
+.inline_form select {
+    height: auto;
+    width: 50%;
+    margin-right: 10px;
 }
 

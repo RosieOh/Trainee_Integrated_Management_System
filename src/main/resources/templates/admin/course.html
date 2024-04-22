@@ -8,21 +8,20 @@
           content="minimum-scale=1.0, width=device-width, maximum-scale=1, ser-scalable=no"
           name="viewport"
   />
-  <title>천재IT교육센터</title>
+  <title>강의 리스트</title>
   <th:block th:replace="~{include/head :: head}"></th:block>
 </head>
 <body>
 <div class="main admin">
     <th:block th:replace="~{include/header :: header}"></th:block>
-  <th:block th:replace="~{include/adminbar :: adminbar}"></th:block>
-  <div class="admin-board">
       <div class="main_title">
           <h1>강의</h1>
       </div>
+    <div class="admin-board">
       <div class="admin-content">
         <div class="course_box ">
-          <h2>리스트</h2>
-          <table class="board_ab_table">
+          <h2>강의 리스트</h2>
+          <table class="table_set">
             <thead>
               <tr>
                 <th class="board_th">과정</th>
@@ -45,60 +44,66 @@
                 <td th:text="${course.instructor}"></td>
                 <td th:text="${course.manager}"></td>
                   <td>
-                      <form th:action="@{/admin/course_delete(no=${course.no})}" method="post">
+                      <form th:action="@{/admin/course_delete(no=${course.no})}" method="post" class="inline_form">
                           <select name="delete_type" id="delete_type" class="select-box">
                               <option value="y" th:selected="${course.delete_type} eq 'y'">공개</option>
                               <option value="n" th:selected="${course.delete_type} eq 'n'">비공개</option>
                           </select>
-                          <button type="submit" class="button" ><i class="fas fa-pencil-alt"></i>상태 변경</button>
+                          <button type="submit" class="inline_form_btn select_btn" >상태 변경<i class="fas fa-pencil-alt"></i></button>
                       </form>
                   </td>
               </tr>
             </tbody>
-          </table>
-        </div>
-        <div class="course_box">
-        <h2>강의추가</h2>
-          <form th:action="@{/admin/coursePro}" method="post">
-            <table>
               <tbody>
-                <tr class="board_box border_check">
-                    <td class="board_box border_check">
-                      <select name="subject" >
-                        <option value="BIGDATA"> 빅데이터 </option>
-                        <option value="FULLSTACK"> 풀스택 </option>
-                        <option value="PM"> PM </option>
-                      </select>
-                    </td>
-                    <td class="border_check">
-                      <input type="number" name="flag"/>
-                    </td>
-                    <td class="border_check">
-                      <input type="text" name="start_date"/>
-                    </td>
-                    <td class="border_check">
-                      <input type="text" name="end_date"/>
-                    </td>
-                    <td class="border_check">
-                      <input type="text" name="train_time"/>
-                    </td>
-                    <td class="border_check">
-                      <input type="text" name="instructor"/>
-                    </td>
-                    <td class="border_check">
-                    <input type="text" name="manager"/>
-                    <input type="hidden" name="delete_type" value="n"/>
-                    </td>
-                </tr>
+              <tr class="course_add">
+                  <td colspan="8"> <i class="far fa-plus-square"></i> 강의추가하기</td>
+              </tr>
+              <tr class="board_box course_input">
+                  <form th:action="@{/admin/coursePro}" method="post">
+                      <td class="board_box ">
+                          <select name="subject" >
+                              <option value="BIGDATA"> 빅데이터 </option>
+                              <option value="FULLSTACK"> 풀스택 </option>
+                              <option value="PM"> PM </option>
+                          </select>
+                      </td>
+                      <td >
+                          <input type="number" name="flag" placeholder="1" required/>
+                      </td>
+                      <td >
+                          <input type="text" name="start_date" placeholder="개강날짜" required/>
+                      </td>
+                      <td >
+                          <input type="text" name="end_date" placeholder="종료날짜" required/>
+                      </td>
+                      <td >
+                          <input type="text" name="train_time" placeholder="기간" required/>
+                      </td>
+                      <td >
+                          <input type="text" name="instructor" placeholder="강사이름" required/>
+                      </td>
+                      <td >
+                          <input type="text" name="manager" placeholder="담당매니저" required/>
+                          <input type="hidden" name="delete_type" value="n"/>
+                      </td>
+                      <td >
+                          <button type="submit" class="form_button select_btn">강의등록</button>
+                      </td>
+                  </form>
+              </tr>
               </tbody>
-            </table>
-          <div class="board_btn">
-             <button type="submit" class="button ">등록</button>
-          </div>
-          </form>
+          </table>
         </div>
       </div>
   </div>
 </div>
 </body>
 </html>
+<script>
+    let course_add = document.querySelector('.course_add')
+    let course_input = document.querySelector('.course_input')
+    course_add.addEventListener('click', function (){
+        this.style.display = "none";
+        course_input.style.display = "table-row";
+    })
+</script>

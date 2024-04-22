@@ -22,4 +22,7 @@ public interface BoardService {
     public BoardDTO getBoard(Long id);
 
     public List<BoardDTO> findByBoardType(String boardType);
+
+    //메인 인덱스에 최신 공지사항 5개 불러오기
+    public List<BoardDTO> newNoticeList();
 }

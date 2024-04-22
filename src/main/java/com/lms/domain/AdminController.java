@@ -85,7 +85,7 @@ public class AdminController {
     public String out1(String id, Model model, Status status){
         MemberDTO memberDTO = memberService.loginId(id);
         memberDTO.setStatus(status);
-        memberService.state_edit(memberDTO);
+        memberService.member_edit(memberDTO);
         return "redirect:/";
     }
 

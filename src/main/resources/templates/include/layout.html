@@ -9,13 +9,21 @@
   />
   <title>천재IT교육센터</title>
   <th:block th:replace="~{include/head :: head}"></th:block>
-  <link rel="stylesheet" th:href="@{/static/css/hk.css}">
 </head>
 <body>
-<div th:replace="include/header::header"></div>
-<div class="user_img_box"><img th:src="@{/images/Character2.png}" alt="" class="user_img"></div>
-<div class="user_main">
-  <div layout:fragment="content"></div>
-</div>
+  <div class="main admin">
+  <div th:replace="include/header::header"></div>
+    <div class="main_title">
+      <h1>회원정보</h1>
+    </div>
+    <div class="admin-board">
+      <div class="admin-content">
+        <div class="user_img_box"><img th:src="@{/images/Character2.png}" alt="" class="user_img"></div>
+          <div class="user_main">
+           <div layout:fragment="content"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

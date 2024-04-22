@@ -1,0 +1,61 @@
+<!doctype html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+  <meta charset="UTF-8" />
+  <meta
+          content="minimum-scale=1.0, width=device-width, maximum-scale=1, ser-scalable=no"
+          name="viewport"
+  />
+  <title>천재IT교육센터</title>
+  <th:block th:replace="~{include/head :: head}"></th:block>
+  <style>
+    th {
+      width: 70px;
+    }
+  </style>
+</head>
+<body>
+<th:block th:replace="~{include/header :: header}"></th:block>
+<div class="main admin">
+  <div class="main_title">
+    <h1>공지사항</h1>
+  </div>
+  <div class="admin-board">
+      <div class="admin-content">
+        <div class="course_box">
+          <h2>글쓰기</h2>
+          <form th:action="@{/notice/registerPro}" method="post">
+          <table>
+              <tbody>
+                <tr>
+                  <th>제목</th>
+                  <td>
+                    <input type="text" name="title"/>
+                  </td>
+                </tr>
+                <tr>
+                  <th>내용</th>
+                  <td>
+                    <textarea name="content"></textarea>
+                  </td>
+                </tr>
+                <tr>
+                  <th>작성자</th>
+                  <td>
+                    <input type="text" name="writer"/>
+                  </td>
+                </tr>
+            </tbody>
+          </table>
+            <div class="board_btn">
+              <button type="submit" class="button">등록</button>
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>
+</div>
+</body>
+</html>
