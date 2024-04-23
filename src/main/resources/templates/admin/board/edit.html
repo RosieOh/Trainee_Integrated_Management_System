@@ -49,7 +49,6 @@
                                 const Editor = toastui.Editor;
                                 const textarea = document.querySelector('#myTextarea');
 
-                                // 숨겨진 textarea 대신에 에디터를 생성할 div 요소를 만듭니다.
                                 const editorDiv = document.createElement('div');
                                 editorDiv.id = 'editor';
                                 textarea.parentNode.insertBefore(editorDiv, textarea);
@@ -63,7 +62,6 @@
                                     initialValue: textarea.value  // 초기값을 textarea의 값으로 설정
                                 });
 
-                                // 에디터의 내용이 변경될 때마다 textarea에 값을 업데이트합니다.
                                 editor.on('change', () => {
                                     textarea.value = editor.getMarkdown();
                                 });
