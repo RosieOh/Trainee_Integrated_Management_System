@@ -4,6 +4,13 @@
       layout:decorate="~{include/layout}">
 
 <div layout:fragment="content">
+  <script th:inline="javascript">
+    let msg = [[${msg}]]
+    console.log(msg)
+    if(msg != null){
+      alert(msg);
+    }
+  </script>
   <div class="main_title">
     <h1>회원관리</h1>
   </div>
@@ -95,10 +102,10 @@
             <td th:text="${#temporals.format(member.createdTime, 'yyyy-MM-dd hh:mm')}"></td>
             <td>
               <form th:action="@{/admin/change_status(id=${member.id} )}" method="post" class="inline_form">
-                <select name="status" class="select-box" >
-                  <option value="ACTIVE" th:selected="${member.status } eq 'ACTIVE'">활동</option>
-                  <option value="REST" th:selected="${member.status } eq 'REST'">휴면</option>
-                  <option value="OUT" th:selected="${member.status } eq 'OUT'">탈퇴</option>
+                <select name="status" id="delete_type" class="select-box" >
+                  <option value="ACTIVE" th:selected="${#strings.equals(member.status, 'ACTIVE')}">활동</option>
+                  <option value="REST" th:selected="${#strings.equals(member.status, 'REST')}">휴면</option>
+                  <option value="OUT" th:selected="${#strings.equals(member.status, 'OUT')}">탈퇴</option>
                 </select>
                 <button type="submit" class="inline_form_btn select_btn" >상태 변경<i class="fas fa-pencil-alt"></i></button>
               </form>
@@ -106,8 +113,10 @@
             <td>
               <form th:action="@{/admin/change_role(id=${member.id} )}" method="post" class="inline_form">
                 <select name="role" class="select-box">
-                  <option value="TEACHER" th:selected="${member.role } eq 'TEACHER'">선생님</option>
-                  <option value="STUDENT" th:selected="${member.role } eq 'STUDENT'">학생</option>
+                  <option value="ADMIN" th:selected="${#strings.equals(member.role, 'ADMIN')}">관리자</option>
+                  <option value="MANAGER" th:selected="${#strings.equals(member.role, 'MANAGER')}">매니저</option>
+                  <option value="TEACHER" th:selected="${#strings.equals(member.role, 'TEACHER')}">선생님</option>
+                  <option value="STUDENT" th:selected="${#strings.equals(member.role, 'STUDENT')}">학생</option>
                 </select>
                 <button type="submit" class="inline_form_btn select_btn" >권한 변경 <i class="fas fa-pencil-alt"></i></button>
               </form>
@@ -135,9 +144,9 @@
             <td>
               <form th:action="@{/admin/change_status(id=${membervo.id })}" method="post" class="inline_form">
                 <select name="status" class="select-box" >
-                  <option value="ACTIVE" th:selected="${membervo.status} eq 'ACTIVE'">활동</option>
-                  <option value="REST" th:selected="${membervo.status} eq 'REST'">휴면</option>
-                  <option value="OUT" th:selected="${membervo.status} eq 'OUT'">탈퇴</option>
+                  <option value="ACTIVE" th:selected="${#strings.equals(membervo.status, 'ACTIVE')}">활동</option>
+                  <option value="REST" th:selected="${#strings.equals(membervo.status, 'REST')}">휴면</option>
+                  <option value="OUT" th:selected="${#strings.equals(membervo.status, 'OUT')}">탈퇴</option>
                 </select>
                 <button type="submit" class="inline_form_btn select_btn" >상태 변경<i class="fas fa-pencil-alt"></i></button>
               </form>
@@ -145,8 +154,10 @@
             <td>
               <form th:action="@{/admin/change_role(id=${membervo.id} )}" method="post" class="inline_form">
                 <select name="role" class="select-box">
-                  <option value="TEACHER" th:selected="${membervo.role} eq 'TEACHER'">선생님</option>
-                  <option value="STUDENT" th:selected="${membervo.role} eq 'STUDENT'">학생</option>
+                  <option value="ADMIN" th:selected="${#strings.equals(membervo.role, 'ADMIN')}">관리자</option>
+                  <option value="MANAGER" th:selected="${#strings.equals(membervo.role, 'MANAGER')}">매니저</option>
+                  <option value="TEACHER" th:selected="${#strings.equals(membervo.role, 'TEACHER')}">선생님</option>
+                  <option value="STUDENT" th:selected="${#strings.equals(membervo.role, 'STUDENT')}">학생</option>
                 </select>
                 <button type="submit" class="inline_form_btn select_btn" >권한 변경 <i class="fas fa-pencil-alt"></i></button>
               </form>
@@ -157,4 +168,5 @@
       </table>
     </div>
   </div>
+
 </div>

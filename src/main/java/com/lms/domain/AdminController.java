@@ -11,6 +11,7 @@ import com.lms.domain.student.service.StudentService;
 import com.lms.global.cosntant.Role;
 import com.lms.global.cosntant.Status;
 import com.lms.global.cosntant.Subject;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -76,11 +77,9 @@ public class AdminController {
     public String member_read(Model model,Long no){
         MemberDTO member = memberService.member_read(no);
         StudentDTO studentDTO = studentService.student_read(no);
-        log.info("member ------------" + member);
-        log.info("studentDTO ------------" + studentDTO);
         model.addAttribute("member", member);
         model.addAttribute("studentDTO", studentDTO);
-        return "/admin/member/read";
+        return "admin/member/read";
     }
 
     @PostMapping("/change_status")
@@ -88,7 +87,8 @@ public class AdminController {
         MemberDTO memberDTO = memberService.loginId(id);
         memberDTO.setStatus(status);
         memberService.member_edit(memberDTO);
-        return "redirect:/member/index";
+        Integer cno = memberDTO.getCourse().getNo();
+        return "redirect:/admin/member?cno="+cno;
     }
 
     @PostMapping("/change_role")
@@ -96,7 +96,8 @@ public class AdminController {
         MemberDTO memberDTO = memberService.loginId(id);
         memberDTO.setRole(role);
         memberService.member_edit(memberDTO);
-        return "redirect:/member/index";
+        Integer cno = memberDTO.getCourse().getNo();
+        return "redirect:/admin/member?cno="+ cno;
     }
 
     @PostMapping("pw_reset")
@@ -107,4 +108,11 @@ public class AdminController {
         return  "redirect:/admin/member_read?no="+no;
     }
 
+
+    @PostMapping("student_edit")
+    public String student_edit(StudentDTO studentDTO){
+        studentService.student_edit(studentDTO);
+        Long no = studentDTO.getNo();
+        return  "redirect:/admin/member_read?no="+ no;
+    }
 }

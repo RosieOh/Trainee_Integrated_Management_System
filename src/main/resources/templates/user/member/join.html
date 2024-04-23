@@ -193,16 +193,22 @@
     }
 
     function joinCheck(f){
+        if($("#phone1").val() == "" || $("#phone2").val() == "" || $("#phone3").val() == "") {
+            return false
+        }
+
         let phoneval =  $("#phone1").val() +'-'+ $("#phone2").val() +'-'+ $("#phone3").val()
         $("#phone").val(phoneval)
 
-        if($("#email2").val() == "") {
+        if($("#email2").val() == "" || $("#email1").val() == "") {
             return false
         }
-            let emailval = $("#email1").val() + '@' + $("#email2").val()
-            $("#email").val(emailval)
+        let emailval = $("#email1").val() + '@' + $("#email2").val()
+        $("#email").val(emailval)
 
-
+        if($("#birth1").val() == "" || $("#birth2").val() == "" || $("#birth3").val() == "") {
+            return false
+        }
         let birthval =  $("#birth1").val() +'.'+ $("#birth2").val() +'.'+ $("#birth3").val() +'.'
         $("#birth").val(birthval)
 
@@ -211,11 +217,13 @@
             f.pw.focus();
             return false;
         }
+
         if(f.pw.value.length(8-16)){
             alert("비밀번호는 최소 8자리에서 최대 16자리까지 숫자, 영문, 특수문자 각 1개 이상 포함해주세요.");
             f.pw.focus();
             return false;
         }
+
         if(f.idCk.value!="yes"){
             alert("아이디 중복 체크를 하지 않으셨습니다.");
             $("#id").focus();
@@ -230,8 +238,6 @@
             $("#pw").focus();
             return false;
         }
-
-
     }
 
 </script>

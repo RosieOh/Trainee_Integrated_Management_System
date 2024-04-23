@@ -1,5 +1,6 @@
 package com.lms.domain.member.controller;
 
+import com.lms.domain.Course.dto.CourseDTO;
 import com.lms.domain.board.dto.BoardDTO;
 import com.lms.domain.board.service.BoardService;
 import com.lms.domain.member.dto.MemberDTO;
@@ -94,10 +95,18 @@ public class MemberController {
         return "user/member/mypage2";
     }
 
+    @PostMapping("member_edit")
+    public String member_edit(MemberDTO memberDTO, Integer cno){
+        CourseDTO course = new CourseDTO();
+        course.setNo(cno);
+        memberDTO.setCourse(course);
+        memberService.member_edit(memberDTO);
+        return "redirect:/member/mypage";
+    }
+
     @PostMapping("student_add")
     public String student_add(StudentDTO studentDTO){
         studentService.student_edit(studentDTO);
-        log.info("studentDTO --------------" + studentDTO);
         return "redirect:/member/mypage2";
     }
 }

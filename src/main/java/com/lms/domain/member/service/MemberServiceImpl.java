@@ -102,8 +102,6 @@ public class MemberServiceImpl implements MemberService{
     @Override
     @Transactional
     public void member_edit(MemberDTO memberDTO) {
-//        Optional<Member> member = memberRepository.id_read(memberDTO.getId());
-//        Member member1 = member.orElseThrow();
         Member member = modelMapper.map(memberDTO, Member.class);
         memberRepository.save(member);
     }
