@@ -1,14 +1,17 @@
 .user_index {
     background-color: var(--c-main_back);
-    height: 1000px;
+    width: 100%;
+    height: calc(100vh - 67px);
 }
 .user_info {
-    width: 340px;
+    width: 25% ;
     padding: 30px;
     background-color: #fff;
     margin: 50px auto;
     box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
+    height: fit-content;
+    min-width: min-content;
 }
 
 .user_index section nav.menu {
@@ -41,7 +44,7 @@
     justify-content: center;
 }
 .user_index section article.profile .profile_img i {
-    font-size: 170px;
+    font-size: 160px;
 }
 .user_index section article.profile h1 {
     font-weight: bold;
@@ -104,13 +107,13 @@
 }
 
 /* index */
-.index {
+.user_index {
     display: flex;
 }
-.index section article.profile img {
+.user_index section article.profile img {
     box-shadow: 5px 15px 30px rgba(173, 216, 230, 0.8);
 }
-.index section a.btnView {
+.user_index section a.btnView {
     background: linear-gradient(45deg, #53ecec, #38cfe5);
     box-shadow: 5px 10px 20px rgba(71, 236, 236, 0.49);
 }

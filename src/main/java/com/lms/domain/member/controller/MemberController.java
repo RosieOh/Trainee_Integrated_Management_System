@@ -35,10 +35,24 @@ public class MemberController {
     @GetMapping("/index")
     public String index(Principal principal, Model model) {
         String id = principal.getName();
-        MemberDTO member = memberService.loginId(id);
-        List<BoardDTO> noticeList = boardService.newNoticeList();
-        model.addAttribute("member", member);
-        model.addAttribute("noticeList", noticeList);
+        MemberDTO memberDTO = memberService.loginId(id);
+        model.addAttribute("memberDTO",memberDTO);
+
+        String courseName ="관리자";
+        log.info(memberDTO.getCourse().getSubject());
+        if (memberDTO.getCourse().getSubject() == Subject.BIGDATA) {
+            courseName = "프로젝트 기반 빅데이터 서비스 개발자 양성 " + memberDTO.getCourse().getFlag()+"기";
+        } else if ( memberDTO.getCourse().getSubject() == Subject.FULLSTACK) {
+            courseName = "에듀테크 풀스택 개발자 양성(Java) " + memberDTO.getCourse().getFlag()+"기";
+        } else {
+            courseName = "에듀테크 상품서비스 PM(프로덕트매니저) 양성 " + memberDTO.getCourse().getFlag()+"기";
+        }
+        model.addAttribute("courseName",courseName);
+
+        List<BoardDTO> newNoticeList = boardService.newNoticeList();
+        model.addAttribute("memberDTO", memberDTO);
+        model.addAttribute("newNoticeList", newNoticeList);
+
         return "user/index";
     }
 

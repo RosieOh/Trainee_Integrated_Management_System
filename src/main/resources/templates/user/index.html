@@ -7,47 +7,44 @@
     <div class="main_title">
         <h1>천재교육 IT</h1>
     </div>
-    <div class="admin-content index user_index">
-
-        <section class="user_info">
-            <!--        <nav class="menu">-->
-            <!--          <a href="#"><i class="fas fa-bars"></i></a>-->
-            <!--        </nav>-->
-            <article class="profile">
-                <div class="profile_img"><i class="fas fa-user-circle"></i></div>
-                    <h2 th:text="${member.name }"></h2>
-                     <h2 th:text="${member.course.subject } + ' ' + ${member.course.flag} +'기'"></h2>
-<!--                    <h2 th:if="${member.course.subject == 'EXCEPTION'}">[[${member.course.flag}]]</h2>-->
-<!--                    <h2 th:if="${member.course.subject == 'BIGDATA'}">프로젝트 기반 빅데이터 서비스 개발자 양성 [[${member.course.flag}]]기</h2>-->
-<!--                    <h2 th:if="${member.course.subject == 'FULLSTACK'}">에듀테크 풀스택 개발자 양성(Java) [[${member.course.flag}]]기</h2>-->
-<!--                    <h2 th:if="${member.course.subject == 'PM'}">에듀테크 상품서비스 PM(프로덕트매니저) 양성 [[${member.course.flag}]]기</h2>-->
-                <a th:href="@{/member/mypage}" class="btnView">개인정보 수정</a>
-            </article>
-            <ul class="contact">
-                <li>
-                    <i class="fas fa-envelope "></i>
-                    <span th:text="${member.email }"></span>
-                </li>
-            </ul>
-        </section>
-        <section class="main_notice">
-            <h1><span>NEW!   </span>  공지사항</h1>
-            <table class="main_table" >
-                <thead>
-                <tr>
-                    <th scope="col" class="num">No</th>
-                    <th scope="col" class="title">제목</th>
-                    <th scope="col" class="create_time">작성일</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="notice, about :${noticeList}">
-                    <th scope="row" th:text="${about.count}"></th>
-                    <td th:text="${notice.title}"></td>
-                    <td th:text="${#temporals.format(notice.createdTime, 'yyyy-MM-dd hh:mm')}"></td>
-                </tr>
-                </tbody>
-            </table>
-        </section>
+    <div class="main user_index">
+            <section class="user_info">
+                <!--        <nav class="menu">-->
+                <!--          <a href="#"><i class="fas fa-bars"></i></a>-->
+                <!--        </nav>-->
+                <article class="profile">
+                    <div class="profile_img"><i class="fas fa-user-circle"></i></div>
+                    <h1 th:text="${memberDTO.name}"></h1>
+                    <h2 th:text="${courseName}"></h2>
+                    <a th:href="@{/member/mypage}" class="btnView">개인정보 수정</a>
+                </article>
+                <ul class="contact">
+                    <li>
+                        <i class="fas fa-envelope "></i>
+                        <span th:text="${memberDTO.email}"></span>
+                    </li>
+                </ul>
+            </section>
+            <section class="main_notice">
+                <h1><span>NEW!   </span>  공지사항</h1>
+                <table class="main_table" >
+                    <thead>
+                    <tr>
+                        <th scope="col" class="num">#</th>
+                        <th scope="col" class="title">제목</th>
+                        <th scope="col" class="create_time">작성일</th>
+                        <th scope="col" class="writer">작성자</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="notice, about :${newNoticeList}">
+                        <th scope="row" th:text="${about.count}"></th>
+                        <td><a th:href="|@{/notice/read(id=${notice.id})}|" class="text-decoration-none">[[${notice.title}]]</a></td>
+                        <td th:text="${#temporals.format(notice.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
+                        <td th:text="${notice.writer}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
     </div>
 </div>
