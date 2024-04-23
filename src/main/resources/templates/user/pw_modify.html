@@ -4,6 +4,7 @@
       layout:decorate="~{include/layout}">
 
 <div layout:fragment="content">
+  <!--  <form th:action="@{/}" method="post" onsubmit="return pwModify(this)">-->
   <div class="user_content">
     <div class="pw_title">
       <h2>비밀번호 변경</h2>
@@ -23,7 +24,7 @@
       <button type="submit" class="btn_myInfo">변경</button>
     </div>
   </div>
-</div>
+  <!--  </form>-->
 
 <script>
   function pwModify(f) {
@@ -47,3 +48,4 @@
     }
   }
 </script>
+</div>

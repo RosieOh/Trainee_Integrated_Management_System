@@ -32,7 +32,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorizeRequests) -> {authorizeRequests.requestMatchers(new AntPathRequestMatcher("/")).permitAll();})
             .formLogin((formLogin) -> formLogin
                         .loginPage("/")
-                        .failureUrl("/")
+                        .failureUrl("/?error=true")
                         .loginProcessingUrl("/login")
                         .defaultSuccessUrl("/member/status")
                         .usernameParameter("id")

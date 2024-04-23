@@ -192,7 +192,9 @@
 .admin-content_in {
     margin: 1rem 0 3rem;
 }
-
+.table_group {
+    width: 80%;
+}
 .nav-dropdown {
     display: block;
     font-weight: 100;

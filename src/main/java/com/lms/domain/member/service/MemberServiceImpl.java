@@ -5,6 +5,9 @@ import com.lms.domain.Course.repository.CourseRepository;
 import com.lms.domain.member.dto.MemberDTO;
 import com.lms.domain.member.entity.Member;
 import com.lms.domain.member.repository.MemberRepository;
+import com.lms.domain.student.entity.Student;
+import com.lms.domain.student.repository.StudentRepository;
+import com.lms.domain.student.service.StudentService;
 import com.lms.global.cosntant.Role;
 import com.lms.global.cosntant.Status;
 import com.lms.global.cosntant.Subject;
@@ -28,6 +31,7 @@ public class MemberServiceImpl implements MemberService{
     private final ModelMapper modelMapper;
     private final MemberRepository memberRepository;
     private final CourseRepository courseRepository;
+    private final StudentRepository studentRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -52,6 +56,11 @@ public class MemberServiceImpl implements MemberService{
                     .course(course)
                     .build();
             memberRepository.save(admin);
+            Member member = memberRepository.findId(admin.getId());
+            Student student = Student.builder()
+                    .no(member.getNo())
+                    .build();
+            studentRepository.save(student);
             log.info("Admin 계정이 생성되었습니다.");
         } else {
             log.info("Admin 계정이 이미 존재합니다.");
@@ -122,6 +131,15 @@ public class MemberServiceImpl implements MemberService{
         memberRepository.save(member);
     }
 
+    @Override
+    public void pw_reset(Long no) {
+        Optional<Member> member = memberRepository.findById(no);
+        MemberDTO memberDTO = modelMapper.map(member, MemberDTO.class);
+        String password = passwordEncoder.encode("1234");
+        memberDTO.setPw(password);
+        Member member1 = modelMapper.map(memberDTO, Member.class);
+        memberRepository.save(member1);
+    }
 
     @Override
     public List<MemberDTO> memberVO_list(Integer cno) {

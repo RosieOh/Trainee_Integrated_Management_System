@@ -14,10 +14,13 @@ import com.lms.global.cosntant.Subject;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
@@ -94,6 +97,14 @@ public class AdminController {
         memberDTO.setRole(role);
         memberService.member_edit(memberDTO);
         return "redirect:/member/index";
+    }
+
+    @PostMapping("pw_reset")
+    public String pw_reset(@RequestBody Long no){
+        log.info("pw_reset start --------------");
+        log.info("no --------------" + no);
+        memberService.pw_reset(no);
+        return  "redirect:/admin/member_read?no="+no;
     }
 
 }
