@@ -130,4 +130,5 @@ public class BoardServiceImpl implements BoardService {
                 .collect(Collectors.toList());
         return newNoticeList;
     }
+
 }
