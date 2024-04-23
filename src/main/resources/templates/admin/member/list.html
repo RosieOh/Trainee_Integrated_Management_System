@@ -91,7 +91,10 @@
         </th:block>
         <th:block th:if="${cno == null}">
           <tr th:each="member, about :${memberList}">
-            <td th:text="${member.course.subject} + ' ' +  ${member.course.flag} + '기'"></td>
+            <td th:if="${#strings.equals(member.course.subject, 'BIGDATA')}">빅데이터 [[${member.course.flag}]]기</td>
+            <td th:if="${#strings.equals(member.course.subject, 'FULLSTACK')}">풀스택 [[${member.course.flag}]]기</td>
+            <td th:if="${#strings.equals(member.course.subject, 'PM')}">PM [[${member.course.flag}]]기</td>
+            <td th:if="${#strings.equals(member.course.subject, 'EXCEPTION')}">예외</td>
             <td>
               <a th:href="@{/admin/member_read(no=${member.getNo() } )}">[[${member.name }]]  <i class='fas fa-sign-in-alt'></i> </a>
             </td>

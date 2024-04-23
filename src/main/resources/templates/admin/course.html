@@ -25,7 +25,10 @@
                 </thead>
                 <tbody>
                 <tr th:each="course, about :${courseDTOList}">
-                    <td th:text="${course.subject}"></td>
+                    <td th:if="${#strings.equals(course.subject, 'BIGDATA')}">빅데이터</td>
+                    <td th:if="${#strings.equals(course.subject, 'EXCEPTION')}">예외</td>
+                    <td th:if="${#strings.equals(course.subject, 'FULLSTACK')}">풀스택</td>
+                    <td th:if="${#strings.equals(course.subject, 'PM')}">PM</td>
                     <td th:text="${course.flag} + '기'"></td>
                     <td th:text="${course.start_date}"></td>
                     <td th:text="${course.end_date}"></td>
