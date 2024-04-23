@@ -26,4 +26,7 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     //메인 인덱스에 최신 공지사항 5개 불러오기
     @Query("select b from Board b order by b.createdTime desc LIMIT 5")
     List<Board> newNoticeList();
+
+    @Query("select b from Board b order by b.createdTime desc")
+    List<Board> findAll();
 }

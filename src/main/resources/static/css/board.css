@@ -17,7 +17,7 @@
 .board_detail tbody input {width:100%;}
 .board_detail tbody th {text-align:left; background:#f7f7f7; color:#3b3a3a; vertical-align:middle; text-align: center;}
 .board_detail tbody th, .board_detail tbody td {padding:10px 15px; border-bottom:1px solid #ccc; font-size: 20px;}
-.board_detail tbody textarea {width:100%; min-height:170px}
+.board_detail tbody textarea {width:100%; min-height:500px}
 
 .btn {margin:5px; padding:5px 11px; color:#fff !important; display:inline-block; background-color:#7D7F82; vertical-align:middle; border-radius:0 !important; cursor:pointer; border:none;}
 .btn:hover {background: #6b9ab8;}
