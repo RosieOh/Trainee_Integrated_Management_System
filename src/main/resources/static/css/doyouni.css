@@ -157,10 +157,19 @@
 
 /* 공지사항 read */
 .back_white {
-    width: 80%;
+    width: 50%;
 }
 
 .noti_read  {
     display: flex;
     justify-content: center;
+}
+
+.btn_myInfo.list {
+    color: #fff;
+}
+
+.btn_myInfo.out {
+    color: #fff;
+    background-color: #b41010;
 }
