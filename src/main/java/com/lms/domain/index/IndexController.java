@@ -1,7 +1,6 @@
 package com.lms.domain.index;
 
 import com.lms.domain.board.dto.BoardDTO;
-import com.lms.domain.board.repository.BoardRepository;
 import com.lms.domain.board.service.BoardService;
 import com.lms.domain.member.dto.MemberDTO;
 import com.lms.domain.member.service.MemberService;
@@ -13,8 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.lms.domain.board.entity.Board;
-
 
 import java.security.Principal;
 import java.util.List;

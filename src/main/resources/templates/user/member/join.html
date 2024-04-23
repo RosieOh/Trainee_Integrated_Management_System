@@ -38,16 +38,16 @@
                         </div>
                         <div class="form-login">
                             <label>이름<em>*</em></label>
-                            <input type="text" name="name" placeholder="한글로 공백없이 입력해주세요." required/>
+                            <input type="text" name="name" placeholder="한글로 공백없이 입력해주세요." maxlength="4" required/>
                         </div>
                         <div class="form-login">
                             <label>비밀번호<em>*</em></label>
-                            <input type="password" name="pw" placeholder="비밀번호를 입력해주세요." required />
+                            <input type="password" name="pw" placeholder="비밀번호를 입력해주세요." maxlength="16" required />
                             <p class="info mb-0">비밀번호는 최소 8자리에서 최대 16자리 <br> 숫자, 영문, 특수문자 각 1개 이상 포함</p>
                         </div>
                         <div class="form-login">
                             <label>비밀번호 확인<em>*</em></label>
-                            <input type="password" name="pw2" placeholder="비밀번호를 다시 입력해주세요." required />
+                            <input type="password" name="pw2" placeholder="비밀번호를 다시 입력해주세요." maxlength="16" required />
                         </div>
                         <div class="form-login">
                             <label>이메일<em>*</em></label>
@@ -69,7 +69,7 @@
                         <div class="form-login">
                             <label>생일<em>*</em></label>
                             <div class="join_tel">
-                                <input type="number" class="number" name="birth1" id="birth1" placeholder="YYYY" maxlength="4" min="1940" max="2030" required />
+                                <input type="number" class="number" name="birth1" id="birth1" placeholder="YYYY" maxlength="4" min="1940" max="2030" oninput="lengthChk(this)" required />
                                 <p></p>
                                 <select name="birth2" id="birth2" >
                                     <option value="" selected>MM</option>
@@ -87,7 +87,7 @@
                                     <option value="12">12월</option>
                                 </select>
                                 <p></p>
-                                <input type="number" class="number" name="birth3" id="birth3" placeholder="DD" maxlength="2" min="1" max="31" required />
+                                <input type="number" class="number" name="birth3" id="birth3" placeholder="DD" maxlength="2" min="1" max="31" oninput="lengthChk(this)" required />
                                 <input type="hidden" name="birth" id="birth"/>
                             </div>
                         </div>
@@ -102,11 +102,11 @@
                         <div class="form-login">
                             <label>연락처<em>*</em></label>
                             <div class="join_tel">
-                                <input type="number" class="number" id="phone1" placeholder="000" maxlength="4" required/>
+                                <input type="number" class="number" id="phone1" placeholder="000" maxlength="4" oninput="lengthChk(this)" required/>
                                 <p>-</p>
-                                <input type="number" class="number" id="phone2" placeholder="0000" maxlength="4" required/>
+                                <input type="number" class="number" id="phone2" placeholder="0000" maxlength="4" oninput="lengthChk(this)" required/>
                                 <p>-</p>
-                                <input type="number" class="number" id="phone3" placeholder="0000" maxlength="4" th:maxlength="4" required/>
+                                <input type="number" class="number" id="phone3" placeholder="0000" maxlength="4" oninput="lengthChk(this)" required/>
                                 <input type="hidden" name="phone" id="phone"/>
                             </div>
                         </div>
@@ -143,17 +143,19 @@
 
 </script>
     <script>
-    var number = document.querySelector('.number');
-        number.onkeydown = function(e) {
+     let number = document.querySelector('.number');
+     number.onkeydown = function(e) {
         if(!((e.keyCode > 95 && e.keyCode < 106)
             || (e.keyCode > 47 && e.keyCode < 58)
             || e.keyCode == 8)) {
             return false;
         }
-        if(number.val().length > 4) {
-            return false;
-        }
 
+    }
+    function lengthChk(e) {
+        if (e.value.length > e.maxLength){
+            e.value = e.value.slice(0, e.maxLength);
+        }
     }
 </script>
 <script>

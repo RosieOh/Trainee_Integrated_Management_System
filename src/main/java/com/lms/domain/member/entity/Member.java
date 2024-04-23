@@ -1,18 +1,13 @@
 package com.lms.domain.member.entity;
 
 import com.lms.domain.Course.entity.Course;
-import com.lms.domain.member.dto.MemberDTO;
 import com.lms.global.cosntant.BaseEntity;
 import com.lms.global.cosntant.Role;
 import com.lms.global.cosntant.Status;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
-import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Getter

@@ -16,6 +16,7 @@ public interface MemberService {
     public MemberDTO loginId(String id);
     public boolean id_check(String id);
     public void member_change_pw(MemberDTO memberDTO);
+    public void pw_reset(Long no);
     public List<MemberDTO> memberVO_list(Integer cno);
     Member auth(String id);
     public int loginPro(String id);

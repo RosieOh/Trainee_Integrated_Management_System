@@ -18,7 +18,6 @@
           <div class="user_tab_title"><a th:href="@{/member/mypage}"><span class="user_tab_border">기본정보</span></a></div>
           <div class="user_tab_title"><a th:href="@{/member/mypage2}"><span >추가정보</span></a></div>
         </div>
-        <!--  <form th:action="@{/}" method="post" onsubmit="return modify(this)">-->
         <div class="user_content">
           <div class="user_content_seperate">
             <div class="user_info_container">
@@ -27,10 +26,16 @@
                 <input type="text" id="id" name="id" class="ro_input" th:value="${member.id }" readonly />
                 <input type="hidden"  name="no" class="ro_input" th:value="${member.no }" readonly />
               </div>
-              <div class="user_info_box infopw">
-                <label>비밀번호</label>
+<!--              <div class="user_info_box infopw">-->
+<!--                <label>비밀번호</label>-->
+<!--                <div class="myinfo_line">-->
+<!--                  <a th:href="@{/pw}" class="btn_pwChange">비밀번호 변경</a>-->
+<!--                </div>-->
+<!--              </div>-->
+              <div class="user_info_box infobirth">
+                <label for="name">이름</label>
                 <div class="myinfo_line">
-                  <a th:href="@{/pw}" class="btn_pwChange">비밀번호 변경</a>
+                  <input type="text" name="name" id="name" class="ro_input" th:value="${member.name }"  readonly />
                 </div>
               </div>
               <div class="user_info_box infobirth">
@@ -75,7 +80,6 @@
             <a th:href="@{/static}" class="btn_myInfo_out">회원탈퇴</a>
           </div>
         </div>
-        <!--  </form>-->
       </div>
       </div>
     </div>

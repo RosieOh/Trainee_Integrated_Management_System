@@ -1,7 +1,6 @@
 package com.lms.domain.member.dto;
 
 import com.lms.domain.Course.dto.CourseDTO;
-import com.lms.domain.Course.entity.Course;
 import com.lms.global.cosntant.Role;
 import com.lms.global.cosntant.Status;
 import jakarta.persistence.*;
