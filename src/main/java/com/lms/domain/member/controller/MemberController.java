@@ -92,17 +92,15 @@ public class MemberController {
         return "redirect:/member/mypage2";
     }
 
-
-
-//
-//    @PostMapping("joinPro")
-//    public String join(Model model, MemberDTO memberDTO) {
-//        memberService.memberInsert(memberDTO);
-//        model.addAttribute("msg", "천재IT교육센터에 오신 것을 환영합니다!");
-//        model.addAttribute("url", "/");
-//        return "member/alert";
+//    @PostMapping("changePw")
+//    public String changePassword(Model model, String pw, String id) {
+//        MemberDTO memberDTO = memberService.getEmail(email);
+//        memberDTO.setPw(pw);
+//        memberService.memberChangePw(memberDTO);
+//        model.addAttribute("url", 2);
+//        return "/alert";
 //    }
-//
+
 
 
 //    @GetMapping("remove")
@@ -115,14 +113,7 @@ public class MemberController {
 //        return "/alert";
 //    }
 //
-//    @PostMapping("changePw")
-//    public String changePassword(Model model, String pw, String email) {
-//        MemberDTO memberDTO = memberService.getEmail(email);
-//        memberDTO.setPw(pw);
-//        memberService.memberChangePw(memberDTO);
-//        model.addAttribute("url", 2);
-//        return "/alert";
-//    }
+
 
 
 }
