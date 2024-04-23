@@ -36,7 +36,7 @@
               <td th:text="${about.count}"></td>
               <td><a th:href="|@{/notice/read(id=${notice.id})}|" class="text-decoration-none">[[${notice.title}]]</a></td>
               <td th:text="${notice.writer}"></td>
-              <td th:text="${#temporals.format(notice.createdTime, 'yyyy-MM-dd')}"></td>
+              <td th:text="${#temporals.format(notice.createdTime, 'yyyy-MM-dd hh:mm')}"></td>
             </tr>
             </tbody>
           </table>

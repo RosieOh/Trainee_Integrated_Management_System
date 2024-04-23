@@ -41,9 +41,17 @@
               <th scope="row">작성자</th>
               <td th:text="${name}"></td>
               <th scope="row">작성일</th>
-              <td th:text="${#temporals.format(boardList.createdTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+              <td th:text="${#temporals.format(boardList.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
               <th scope="row">첨부파일</th>
-              <td><a th:href="@{'/download/' + ${boardList.fileId}}"><i class="fas fa-window-maximize">   </i>[[${fileList.originFileName}]]</a></td>
+              <td>
+                <a th:if="${fileList.originFileName != null}" th:href="@{'/download/' + ${boardList.fileId}}">
+                  <i class="fas fa-window-maximize"></i>[[${fileList.originFileName}]]
+                </a>
+                <th:block th:if="${fileList.originFileName == null}">
+                  <span>파일 없음</span>
+                </th:block>
+              </td>
+
             </tr>
             <tr>
               <td colspan="7" class="view_text">
