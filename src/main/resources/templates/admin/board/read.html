@@ -44,12 +44,9 @@
               <td th:text="${#temporals.format(boardList.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
               <th scope="row">첨부파일</th>
               <td>
-                <a th:if="${fileList.originFileName != null}" th:href="@{'/download/' + ${boardList.fileId}}">
+                <a th:href="@{'/download/' + ${boardList.fileId}}">
                   <i class="fas fa-window-maximize"></i>[[${fileList.originFileName}]]
                 </a>
-                <th:block th:if="${fileList.originFileName == null}">
-                  <span>파일 없음</span>
-                </th:block>
               </td>
 
             </tr>
@@ -69,7 +66,7 @@
           </th:block>
           <th:block sec:authorize="hasAuthority('STUDENT') or hasAuthority('TEACHER')">
             <div class="myinfo_btn_group">
-              <a class="btn_myInfo" th:href="@{/index4}" >목록</a>
+              <a class="btn_myInfo" th:href="@{/member/index}" >목록</a>
             </div>
           </th:block>
 
