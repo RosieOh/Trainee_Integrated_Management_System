@@ -31,7 +31,7 @@ public class Course extends BaseEntity {
     private String end_date;        //종료일
 
     @Column(nullable = true)
-    private String train_time;      //훈련시간
+    private String train_time;      // 수료도(80%)
 
     @Column(nullable = true)
     private String instructor;      //대표강사

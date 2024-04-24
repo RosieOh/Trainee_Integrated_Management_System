@@ -19,9 +19,37 @@
 <!--                <li class="nav-content">-->
 <!--                 <a class="nav_link " th:href="@{/}"><i class="fas fa-bell"></i></a>-->
 <!--                </li>-->
-<!--                <li class="nav-content">-->
-<!--                  <a class="nav_link " th:href="@{/}"><i class="fas fa-th"></i></a>-->
-<!--                </li>-->
+                <li class="nav-content header-dropdown">
+                  <a class="nav_link " href="#"><i class="fas fa-th"></i></a>
+                    <div class="header-dropdown_wrap">
+                        <ul class="header-dropdown_in">
+                            <li class="nav-content">
+                                <a class="nav_link " th:href="@{/member/index}">
+                                    <i class="fas fa-clipboard-list"></i>
+                                    <p>공지사항(미정)</p>
+                                </a>
+                            </li>
+                            <li class="nav-content">
+                                <a class="nav_link " th:href="@{/member/index}">
+                                    <i class="fas fa-users"></i>
+                                    <p>클래스(미정)</p>
+                                </a>
+                            </li>
+                            <li class="nav-content">
+                                <a class="nav_link " th:href="@{/member/index}">
+                                    <i class="far fa-calendar-alt"></i>
+                                    <p>(미정)</p>
+                                </a>
+                            </li>
+                            <li class="nav-content">
+                                <a class="nav_link " th:href="@{/member/index}">
+                                    <i class="fas fa-chair"></i>
+                                    <p>(미정)</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
                 <th:block sec:authorize="isAnonymous()">
                 <li class="nav-content">
                 <a th:href="@{/}" class="nav_link ">로그인</a>
@@ -30,7 +58,7 @@
                 <th:block sec:authorize="isAuthenticated()">
                 <li class="nav-content nav-dropdown">
                 <a class="nav_link " href="#"><i class="fas fa-user"></i><div id="nav-dropdown">▼</div></a>
-                  <ul class="header-dropdown_wrap" id="nav-dropdown_wrap">
+                  <ul class="user-dropdown_wrap" id="nav-dropdown_wrap">
                     <li class="nav-content">
                       <a class="nav_link " th:href="@{/member/mypage}">
                         회원정보 수정
@@ -83,7 +111,22 @@
         </nav>
       </th:block>
 
+        <script>
+            $(document).ready(function () {
+                $(".header-dropdown ")
+                    .off("click")
+                    .on("click", function () {
+                        $(this).find(".header-dropdown_wrap").slideToggle();
 
+                    });
+            });
+
+            let dropdown = document.querySelector(".header-dropdown");
+            dropdown.addEventListener("click", function(){
+                this._toggleClass('o')
+            })
+
+        </script>
     </th:block>
   </body>
 </html>
