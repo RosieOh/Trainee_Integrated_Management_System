@@ -1,0 +1,9 @@
+cloud:
+  aws:
+    s3:
+      bucket: <버킷이름>
+    stack.auto: false
+    region.static: ap-northeast-2
+    credentials:
+      accessKey: AKIAWZMQVI3ZVBJBSMWW
+      secretKey: 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
