@@ -27,6 +27,8 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     @Query("select b from Board b order by b.createdTime desc LIMIT 5")
     List<Board> newNoticeList();
 
-    @Query("select b from Board b order by b.createdTime desc")
+    //고정게시글 상위 조회  + 최신 작성순
+    @Query("select b from Board b order by b.pinned desc, b.createdTime desc")
     List<Board> findAll();
+
 }

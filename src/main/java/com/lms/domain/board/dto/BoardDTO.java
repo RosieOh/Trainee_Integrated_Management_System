@@ -39,6 +39,8 @@ public class BoardDTO {
     private LocalDateTime createdTime;
     private LocalDateTime modifiedTime;
     private List<String> fileNames;
+    private boolean pinned; //게시글 고정 여부
+    private boolean privated; //비밀글 여부
 
     public Long getId() {
         return id;

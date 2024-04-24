@@ -183,31 +183,31 @@ tr:last-child td {
 }
 
 
-[type="checkbox"] {
-  appearance: none;
-  border: max(2px, 0.1em) solid var(--c-back_gray);
-  border-radius: 50%;
-  width: 1rem;
-  height: 1rem;
-  transition: border 0.1s ease-in-out;
-  padding: 0;
-}
+/*[type="checkbox"] {*/
+/*  appearance: none;*/
+/*  border: max(2px, 0.1em) solid var(--c-back_gray);*/
+/*  border-radius: 50%;*/
+/*  width: 1rem;*/
+/*  height: 1rem;*/
+/*  transition: border 0.1s ease-in-out;*/
+/*  padding: 0;*/
+/*}*/
 
-[type="checkbox"]:checked {
-  border: 0.3em solid var(--c-main);
-}
+/*[type="checkbox"]:checked {*/
+/*  border: 0.3em solid var(--c-main);*/
+/*}*/
 
-[type="checkbox"]:hover {
-  box-shadow: 0 0 0 max(4px, 0.2em) var(--c-back_lightgray);
-  cursor: pointer;
-}
+/*[type="checkbox"]:hover {*/
+/*  box-shadow: 0 0 0 max(4px, 0.2em) var(--c-back_lightgray);*/
+/*  cursor: pointer;*/
+/*}*/
 
-[type="checkbox"]:disabled {
-  background-color: var(--c-back_gray);
-  box-shadow: none;
-  opacity: 0.7;
-  cursor: not-allowed;
-}
+/*[type="checkbox"]:disabled {*/
+/*  background-color: var(--c-back_gray);*/
+/*  box-shadow: none;*/
+/*  opacity: 0.7;*/
+/*  cursor: not-allowed;*/
+/*}*/
 
 /* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
 

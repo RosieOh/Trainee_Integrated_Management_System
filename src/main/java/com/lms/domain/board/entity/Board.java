@@ -30,17 +30,26 @@ public class Board extends BaseEntity {
 
     private String writer;
 
+    //게시글 고정 여부
+    @Column(columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private boolean pinned;
+    //비밀글 여부
+    @Column(columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private boolean privated;
+
     public void create(String title, String content, String writer) {
         this.title = title;
         this.content = content;
         this.writer = writer;
     }
 
-    public void change(String title, String content) {
+    public void change(String title, String content, boolean pinned, boolean privated) {
         this.title = title;
         this.content = content;
         this.writer = writer;
         this.fileId = fileId;
+        this.pinned = pinned;
+        this.privated = privated;
     }
 
     @Builder

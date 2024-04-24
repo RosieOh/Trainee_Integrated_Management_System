@@ -33,10 +33,11 @@
             </thead>
             <tbody>
             <tr th:each="notice, about :${boardList}">
-              <td th:text="${about.count}"></td>
-              <td><a th:href="|@{/notice/read(id=${notice.id})}|" class="text-decoration-none">[[${notice.title}]]</a></td>
-              <td th:text="${notice.writer}"></td>
-              <td th:text="${#temporals.format(notice.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
+                <td th:if="${notice.pinned == true}" ><p class="board_pin">필독</p></td>
+                <td th:if="${notice.pinned != true}" th:text="${about.count - pinnedCount}"></td>
+                <td><a th:href="|@{/notice/read(id=${notice.id})}|" class="text-decoration-none">[[${notice.title}]]</a></td>
+                <td th:text="${notice.writer}"></td>
+                <td th:text="${#temporals.format(notice.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
             </tr>
             </tbody>
           </table>

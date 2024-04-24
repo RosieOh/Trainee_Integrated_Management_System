@@ -58,6 +58,7 @@ public class BoardServiceImpl implements BoardService {
                     .content(boardDTO.getContent())
                     .boardType(boardDTO.getBoardType())
                     .fileId(boardDTO.getFileId())
+                    .pinned(boardDTO.isPinned())
                     .build();
             boardDTOList.add(boardDTO);
         }
@@ -83,6 +84,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public void register(BoardDTO boardDTO) {
+        log.info(boardDTO.getBoardType());
         Board board = Board.builder()
                 .id(boardDTO.getId())
                 .title(boardDTO.getTitle())
@@ -90,6 +92,8 @@ public class BoardServiceImpl implements BoardService {
                 .boardType(boardDTO.getBoardType())
                 .writer(boardDTO.getWriter())
                 .fileId(boardDTO.getFileId())
+                .pinned(boardDTO.isPinned())
+                .privated(boardDTO.isPrivated())
                 .build();
         boardRepository.save(board);
     }
@@ -97,7 +101,7 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public void modify(BoardDTO boardDTO) {
         Board board = modelMapper.map(boardDTO, Board.class);
-        board.change(boardDTO.getTitle(), boardDTO.getContent());
+        board.change(boardDTO.getTitle(), boardDTO.getContent(), boardDTO.isPinned(), boardDTO.isPrivated());
         boardRepository.save(board);
     }
 
@@ -131,4 +135,14 @@ public class BoardServiceImpl implements BoardService {
         return newNoticeList;
     }
 
+    @Override
+    public int countPinned(List<Board> boardList) {
+        int pinnedCount =0;
+        for (Board board : boardList) {
+            if (board.isPinned()) {
+                pinnedCount++;
+            }
+        }
+        return pinnedCount;
+    }
 }

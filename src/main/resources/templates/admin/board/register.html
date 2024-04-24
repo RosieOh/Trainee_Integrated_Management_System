@@ -28,7 +28,7 @@
               <div class="notice_container" >
                 <div class="notice_box">
                   <label for="titleNotice">제목</label>
-                  <input type="text" class="form-control" name="title" id="titleNotice"/>
+                  <input type="text" class="form-control" name="title" id="titleNotice" required/>
                 </div>
 
                 <div class="notice_box">
@@ -37,8 +37,22 @@
                 </div>
 
                 <div class="file_box">
-                  <label for="fileNotice">첨부파일</label>
-                  <input type="file" class="form-control" name="file" id="fileNotice">
+                  <div class="file_box_div">
+                    <label for="fileNotice">첨부파일</label>
+                    <input type="file" class="form-control" name="file" id="fileNotice">
+                  </div>
+
+                  <div class="board_checkbox_container">
+                    <div>
+                      <label for="pinnedBoard">상단 고정</label>
+                      <input type="checkbox" id="pinnedBoard" class="board_checkbox" name="pinned">
+                    </div>
+                    <div>
+                      <label for="privateBoard">비밀글</label>
+                      <input type="checkbox" id="privateBoard" class="board_checkbox" name="privated">
+                    </div>
+                  </div>
+
                 </div>
 
                 <div id="editor">

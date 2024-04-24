@@ -48,7 +48,10 @@ public class NoticeController {
     public String noticeListAll(Model model) {
         String boardType = "NOTICE";
         List<Board> boardList = boardRepository.findAll();
+        int pinnedCount = boardService.countPinned(boardList);
+
         model.addAttribute("boardList", boardList);
+        model.addAttribute("pinnedCount", pinnedCount);
         return "admin/board/list";
     }
 
@@ -160,6 +163,8 @@ public class NoticeController {
             BoardDTO boardDTO1 = boardService.getBoard(id);
             boardDTO1.setTitle(boardDTO.getTitle());
             boardDTO1.setContent(boardDTO.getContent());
+            boardDTO1.setPinned(boardDTO.isPinned());
+            boardDTO1.setPrivated(boardDTO.isPrivated());
             boardDTO1.setFileId(fileId);
             boardService.modify(boardDTO1);
         } catch (Exception e) {

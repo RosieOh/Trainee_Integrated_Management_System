@@ -22,7 +22,7 @@
         <h1>공지사항</h1>
       </div>
 
-      <div class="admin-board">
+      <div class="board_container">
       <div class="admin-content noti_read">
         <div class="container back_white">
           <table class="board_detail">
@@ -32,7 +32,7 @@
               <col style="width: 25%"/>
               <col style="width: 15%"/>
               <col style="width: 35%"/>
-              <col style="width: 15%"/>
+              <col style="width: 25%"/>
               <col style="width: 35%"/>
             </colgroup>
             <tbody>
@@ -46,12 +46,14 @@
               <th scope="row">작성일</th>
               <td th:text="${#temporals.format(boardList.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
               <th scope="row">첨부파일</th>
-              <td>
+              <td th:if="${fileList.originFileName == ''}">
+                파일 없음
+              </td>
+              <td th:if="${fileList.originFileName != ''}">
                 <a th:href="@{'/download/' + ${boardList.fileId}}">
                   <i class="fas fa-window-maximize"></i>[[${fileList.originFileName}]]
                 </a>
               </td>
-
             </tr>
             <tr>
               <td colspan="7" class="view_text">
@@ -62,14 +64,14 @@
           </table>
           <th:block sec:authorize="hasAuthority('MANAGER') or hasAuthority('ADMIN')">
             <div class="myinfo_btn_group">
-              <a class="btn_myInfo" href="javascript:void(0);" onclick="history.back();">목록</a>
+              <a class="btn_myInfo" th:href="@{/notice/list}">목록</a>
               <a class="btn_myInfo out" th:href="@{/notice/remove(id=${boardList.id})}">삭제</a>
               <a class="btn_myInfo" th:href="@{/notice/modify(id=${boardList.id})}">수정</a>
             </div>
           </th:block>
           <th:block sec:authorize="hasAuthority('STUDENT') or hasAuthority('TEACHER')">
             <div class="myinfo_btn_group">
-              <a class="btn_myInfo" href="javascript:void(0);" onclick="history.back();">목록</a>
+              <a class="btn_myInfo" th:href="@{/member/index}">목록</a>
             </div>
           </th:block>
 
