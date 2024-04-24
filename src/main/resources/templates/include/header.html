@@ -13,15 +13,6 @@
             </div>
             <div class="navbar-menu " id="navigation">
               <ul class="nav-wrap">
-<!--                <li class="nav-content">-->
-<!--                 <a class="nav_link " th:href="@{/}"><i class="fas fa-window-maximize"></i></a>-->
-<!--                </li>-->
-<!--                <li class="nav-content">-->
-<!--                 <a class="nav_link " th:href="@{/}"><i class="fas fa-bell"></i></a>-->
-<!--                </li>-->
-<!--                <li class="nav-content">-->
-<!--                  <a class="nav_link " th:href="@{/}"><i class="fas fa-th"></i></a>-->
-<!--                </li>-->
                 <th:block sec:authorize="isAnonymous()">
                 <li class="nav-content">
                 <a th:href="@{/}" class="nav_link ">로그인</a>

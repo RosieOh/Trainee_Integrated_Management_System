@@ -2,29 +2,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <body>
     <th:block th:fragment="footer">
-      <script th:src="@{/static/js/slick.js}"></script>
-      <th:block th:replace="~{user/sign/sign :: sign}"></th:block>
-      <a href="#" class="gotop" id="gotop">▲</a>
-      <div class="bottom_banner">
-        <section class="container_side ">
-          <div class="image_content direct_column">
-            <picture>
-              <source srcset="../../../static/images/picture/common2/common2_mobile/bottom_banner1.svg" media="(max-width: 450px)">
-              <img th:src="@{/picture/common2/bottom_banner1.png}" alt="">
-            </picture>
-            <div class="flex">
-              <picture>
-                <source srcset="../../../static/images/picture/common2/common2_mobile/bottom_banner_btn.svg" media="(max-width: 450px)">
-                <img th:src="@{/picture/common2/bottom_banner2.svg}" alt="" id="ban_btn" class="bottom_button">
-              </picture>
-              <picture>
-                <source srcset="../../../static/images/picture/common2/common2_mobile/bottom_banner2.png" media="(max-width: 450px)">
-                <img src="" alt="" >
-              </picture>
-            </div>
-          </div>
-        </section>
-      </div>
       <footer class="ft" id="ft">
         <section class="container_side m2">
           <div class="ft_wrap">
@@ -44,23 +21,12 @@
               </p>
             </div>
             <div class="cp_img_wrap">
-              <a href="https://www.chunjae.co.kr/" class="cp_img"><img class="ft_logo" th:src="@{/picture/common2/chunjaelogo.svg}" alt="천재교육 logo"></a>
-              <a href="https://chunjaetext.co.kr/" class="cp_img"><img class="ft_logo" th:src="@{/picture/common2/chunjaebooklogo.svg}" alt="천재교과서 logo"></a>
-              <a href="https://www.moel.go.kr/" class="cp_img"><img class="ft_logo" th:src="@{/picture/common2/hirecenter_logo.svg}" alt="고용노동부 logo"></a>
+              <a href="https://www.chunjae.co.kr/" class="cp_img"><img class="ft_logo" th:src="@{/images/footer/chunjaelogo.svg}" alt="천재교육 logo"></a>
+              <a href="https://chunjaetext.co.kr/" class="cp_img"><img class="ft_logo" th:src="@{/images/footer/chunjaebooklogo.svg}" alt="천재교과서 logo"></a>
+              <a href="https://www.moel.go.kr/" class="cp_img"><img class="ft_logo" th:src="@{/images/footer/hirecenter_logo.svg}" alt="고용노동부 logo"></a>
             </div>
           </div>
         </section>
-      <script th:inline="javascript">
-        (function(){var w=window;
-          if(w.ChannelIO){return w.console.error("ChannelIO script included twice.");}
-          var ch=function(){ch.c(arguments);};ch.q=[];ch.c=function(args){ch.q.push(args);};w.ChannelIO=ch;
-          function l(){if(w.ChannelIOInitialized){return;}w.ChannelIOInitialized=true;var s=document.createElement("script");s.type="text/javascript";s.async=true;s.src="https://cdn.channel.io/plugin/ch-plugin-web.js";
-            var x=document.getElementsByTagName("script")[0];if(x.parentNode){x.parentNode.insertBefore(s,x);}}if(document.readyState==="complete"){l();}else{w.addEventListener("DOMContentLoaded",l);w.addEventListener("load",l);}})();
-
-        ChannelIO('boot', {
-          "pluginKey": "ebc8aaee-afda-484d-a633-5d8a0dff7fb3"
-        });
-      </script>
       </footer>
     </th:block>
   </body>
