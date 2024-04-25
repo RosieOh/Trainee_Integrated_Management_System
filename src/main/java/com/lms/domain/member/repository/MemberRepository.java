@@ -1,6 +1,12 @@
 package com.lms.domain.member.repository;
+import com.lms.domain.member.dto.MemberVO;
 import com.lms.domain.member.entity.Member;
+import com.lms.domain.member.entity.SpecificationMember;
+import com.lms.global.util.SearchRepo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -8,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface MemberRepository extends JpaRepository<Member, Long> {
+public interface MemberRepository extends JpaRepository<Member, Long>, SearchRepo , JpaSpecificationExecutor<Member> {
 
     @Query("select m from Member m where m.id = :id")
     Optional<Member> id_read(@Param("id") String id);
@@ -24,5 +30,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query("select m from Member m where m.email = :email")
     Optional<Member> findByEmail(String email);
+
+    Page <Member> findByNameContaining(String keyword,  Pageable pageable);
 
 }

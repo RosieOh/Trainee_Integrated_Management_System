@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+  <body>
+  <div th:fragment="search(pageLink)">
+      <form id="search-form" role="search" method="get">
+          <input type="text" name="keyword" placeholder="이름 입력">
+          <button type="submit" class="btn sb">검색</button>
+      </form>
+      <script th:inline="javascript">
+          $(document).ready(function() {
+              let pageLink = /*[[@{${pageLink}}]]*/ '';
+              $("#search-form").attr("action", pageLink);
+          });
+      </script>
+  </div>
+
+  </body>
+</html>

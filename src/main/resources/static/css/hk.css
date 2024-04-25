@@ -404,38 +404,67 @@
 
 
 
-/* 공지사상 수정하기 */
-.notice_seperate{
-    background-color: #fff;
-}
-.notice_container{
-    padding : 30px;
-
-}
-.notice_box{
-    padding-bottom: 15px;
+/* 검색 박스 */
+.selectSearch {
+    display: flex;
+    justify-content: flex-end;
 }
 
-.notice_box input{
+.selectSearch select {
+    width: 15%;
+    margin: 5px;
     height: 40px;
-}
-.file_box {
-    padding-bottom: 20px;
+    padding: 5px;
 }
 
-.file_box input {
-    height: 54px;
-    line-height: 17px;
+.admin-content.memlist {
+    display: flex;
+    justify-content: space-around;
 }
 
-.notice_btn{
-    margin: 20px auto;
+#search-form {
+    display: flex;
 }
 
-.btnNotice {
-    width: 100%;
+#search-form input{
+    height: 40px;
+    margin-top: 5px;
+    margin-left: 5px;
 }
 
-.NlistBtn {
-    float: right;
+.btn.sb {
+    padding: 10px 20px;
 }
+
+.flag_big {
+    display: none;
+}
+
+.flag_full {
+    display: none;
+}
+
+.flag_pm {
+    display: none;
+}
+
+/* 페이징 버튼 */
+.paging_btn {
+    margin: 30px auto;
+    width: fit-content;
+}
+
+.pageBtn {
+    color: #868686;
+    background-color: #ffffff;
+    padding: 7px 7px;
+    border-radius: 5px;
+}
+
+.pageNowBtn {
+    color: #fff;
+    background-color: #99ccff;
+    padding: 7px 8px;
+    border-radius: 5px;
+}
+

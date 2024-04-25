@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<body>
+  <div th:fragment="pagination(pageLink)" class="paging_btn">
+      <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+              <a th:if="${page != nowPage}" th:text="${page}" th:onclick="goToPage('[[${page-1}]]')" class="pageBtn"></a>
+              <a th:if="${page == nowPage}" th:text="${page}" class="pageNowBtn"></a>
+          <script th:inline="javascript">
+              function goToPage(page) {
+                  var keyword = /*[[${param.keyword} != null ? ${param.keyword} : '']]*/ '';
+                  var pageLink = /*[[${pageLink}]]*/ '';
+                  var url = pageLink + '?page=' + page;
+                  if(keyword !== '') {
+                      url += '&keyword=' + encodeURIComponent(keyword);
+                  }
+                  window.location.href = url;
+              }
+          </script>
+      </th:block>
+  </div>
+</body>
+</html>
+
+
+
