@@ -1,3 +1,9 @@
+/*게시판의 헤더*/
+.header_board {
+    display: flex;
+    align-items: baseline;
+    flex-direction: row;
+}
 .user_index {
     background-color: var(--c-main_back);
     width: 100%;

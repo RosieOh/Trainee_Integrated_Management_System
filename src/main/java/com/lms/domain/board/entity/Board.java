@@ -1,5 +1,6 @@
 package com.lms.domain.board.entity;
 
+import com.lms.domain.Course.entity.Course;
 import com.lms.global.cosntant.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -22,8 +23,16 @@ public class Board extends BaseEntity {
     @Column(length = 2000, nullable = false)
     private String content;
 
-
+    //공지사항의 타입 - NOTCE는 전체 공지사항
     private String boardType;
+
+    //기수 - 0일 경우에는 전체 공지사항
+    @Column(nullable = false, columnDefinition = "INT DEFAULT 0")
+    private int flag;
+
+    //강의에 따른 공지사항
+    @Column(nullable = false, columnDefinition = "BIGINT DEFAULT 0")
+    private Long cno;      // 강의 분류
 
     @Column
     private Long fileId;

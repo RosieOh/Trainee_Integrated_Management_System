@@ -47,21 +47,13 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public List<BoardDTO> findAll(BoardDTO boardDTO) {
+    public List<BoardDTO> findNoticeAll() {
         List<Board> boardList = boardRepository.findAll();
-        List<BoardDTO> boardDTOList = new ArrayList<>();
+        List<BoardDTO> boardDTOList = boardList.stream()
+                .filter(board -> board.getCno() == 0)
+                .map(board -> modelMapper.map(board, BoardDTO.class))
+                .collect(Collectors.toList());
 
-        for(Board board1 : boardList) {
-            Board board = Board.builder()
-                    .id(boardDTO.getId())
-                    .title(boardDTO.getTitle())
-                    .content(boardDTO.getContent())
-                    .boardType(boardDTO.getBoardType())
-                    .fileId(boardDTO.getFileId())
-                    .pinned(boardDTO.isPinned())
-                    .build();
-            boardDTOList.add(boardDTO);
-        }
         return boardDTOList;
     }
 
@@ -94,6 +86,7 @@ public class BoardServiceImpl implements BoardService {
                 .fileId(boardDTO.getFileId())
                 .pinned(boardDTO.isPinned())
                 .privated(boardDTO.isPrivated())
+                .cno(boardDTO.getCno())
                 .build();
         boardRepository.save(board);
     }
@@ -128,21 +121,45 @@ public class BoardServiceImpl implements BoardService {
 
         // 엔티티 내용 출력
         for (Board notice : notices) {
-            System.out.println("Notice: " + notice.toString());
+            log.info("Notice: " + notice.getTitle());
         }
-        List<BoardDTO> newNoticeList = notices.stream().map(board -> modelMapper.map(board, BoardDTO.class))
+        List<BoardDTO> newNoticeList = notices.stream()
+                .filter(board -> board.getCno() == 0)
+                .map(board -> modelMapper.map(board, BoardDTO.class))
                 .collect(Collectors.toList());
         return newNoticeList;
     }
 
     @Override
-    public int countPinned(List<Board> boardList) {
+    public int countPinned(List<BoardDTO> boardDTOList) {
         int pinnedCount =0;
-        for (Board board : boardList) {
+        for (BoardDTO board : boardDTOList) {
             if (board.isPinned()) {
                 pinnedCount++;
             }
         }
         return pinnedCount;
+    }
+
+    //----------------------------클래스 공지사항-----------------------
+
+    @Override
+    public List<BoardDTO> classNoticeAll(Long cno) {
+        List<Board> boardList = boardRepository.findAll();
+        if (cno == 1) {
+            List<BoardDTO> boardDTOList = boardList.stream()
+                    .filter(board -> board.getCno() != 0)
+                    .map(board -> modelMapper.map(board, BoardDTO.class))
+                    .collect(Collectors.toList());
+            return boardDTOList;
+
+        } else {
+            List<BoardDTO> boardDTOList = boardList.stream()
+                    .filter(board -> board.getCno() == cno)
+                    .map(board -> modelMapper.map(board, BoardDTO.class))
+                    .collect(Collectors.toList());
+            return boardDTOList;
+        }
+
     }
 }

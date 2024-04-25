@@ -39,15 +39,12 @@ public class NoticeController {
     private String uploadPath;
 
     private final MemberService memberService;
-    private final MemberRepository memberRepository;
     private final BoardService boardService;
-    private final BoardRepository boardRepository;
     private final FileService fileService;
 
     @GetMapping(value = {"/list"})
     public String noticeListAll(Model model) {
-        String boardType = "NOTICE";
-        List<Board> boardList = boardRepository.findAll();
+        List<BoardDTO> boardList = boardService.findNoticeAll();
         int pinnedCount = boardService.countPinned(boardList);
 
         model.addAttribute("boardList", boardList);
@@ -61,9 +58,9 @@ public class NoticeController {
             BoardDTO boardDTO = boardService.findById(id);
             if (boardDTO != null) {
                 FileDTO fileDTO = fileService.getFile(boardDTO.getFileId());
-                String prin = principal.getName();
-                log.info(prin);
-                String name = memberRepository.findId(prin).getName();
+                //String prin = principal.getName();
+                //String name = memberRepository.findId(prin).getName();
+                String name = memberService.getMemberName(principal);
                 model.addAttribute("name", name);
                 model.addAttribute("principal", principal);
                 model.addAttribute("fileList", fileDTO);
@@ -79,9 +76,7 @@ public class NoticeController {
 
     @GetMapping("/register")
     public String registerForm(Model model, Principal principal) {
-        String id = principal.getName();
-        log.info(id);
-        String name = memberRepository.findId(id).getName();
+        String name = memberService.getMemberName(principal);
         model.addAttribute("name", name);
         return "admin/board/register";
     }
@@ -116,6 +111,7 @@ public class NoticeController {
             Long fileId = fileService.saveFile(fileDTO);
             boardDTO.setFileId(fileId);
             boardDTO.setWriter(boardDTO.getWriter());
+            boardDTO.setBoardType("NOTICE");
             boardService.register(boardDTO);
         } catch (Exception e) {
             e.printStackTrace();
@@ -127,6 +123,9 @@ public class NoticeController {
     @GetMapping("/modify")
     public String noticeEditForm(Model model, Long id) {
         BoardDTO boardDTO = boardService.getBoard(id);
+        FileDTO fileDTO = fileService.getFile(boardDTO.getFileId());
+
+        model.addAttribute("fileList", fileDTO);
         model.addAttribute("boardDTO", boardDTO);
         return "admin/board/edit";
     }
@@ -136,41 +135,85 @@ public class NoticeController {
                              BindingResult bindingResult,
                              RedirectAttributes redirectAttributes,
                              Model model,
-                             @RequestParam("file") MultipartFile files){
+                             @RequestParam(value = "file", required = false) MultipartFile files){
+//        try {
+//            String originFilename = files.getOriginalFilename();
+//            String filename = new MD5Generator(originFilename).toString();
+//            String savePath = System.getProperty("user.dir") + "/files/";
+//            if(!new File(savePath).exists()) {
+//                try {
+//                    new File(savePath).mkdirs();
+//                }
+//                catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            String filePath = savePath + filename;
+//
+//            files.transferTo(new File(filePath));
+//
+//            FileDTO fileDTO = new FileDTO();
+//            fileDTO.setOriginFileName(originFilename);
+//            fileDTO.setFileName(filename);
+//            fileDTO.setFilePath(filePath);
+//
+//            Long fileId = fileService.saveFile(fileDTO);
+//
+//            BoardDTO boardDTO1 = boardService.getBoard(id);
+//            boardDTO1.setTitle(boardDTO.getTitle());
+//            boardDTO1.setContent(boardDTO.getContent());
+//            boardDTO1.setPinned(boardDTO.isPinned());
+//            boardDTO1.setPrivated(boardDTO.isPrivated());
+//            boardDTO1.setFileId(fileId);
+//            boardService.modify(boardDTO1);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         try {
-            String originFilename = files.getOriginalFilename();
-            String filename = new MD5Generator(originFilename).toString();
-            String savePath = System.getProperty("user.dir") + "/files/";
-            if(!new File(savePath).exists()) {
-                try {
-                    new File(savePath).mkdirs();
+            // 파일이 존재하는 경우에만 파일을 업로드하고 처리
+            if (files != null && !files.isEmpty()) {
+                String originFilename = files.getOriginalFilename();
+                String filename = new MD5Generator(originFilename).toString();
+                String savePath = System.getProperty("user.dir") + "/files/";
+                if (!new File(savePath).exists()) {
+                    try {
+                        new File(savePath).mkdirs();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
+                String filePath = savePath + filename;
+
+                files.transferTo(new File(filePath));
+
+                // 새로운 파일 정보를 생성하여 저장
+                FileDTO fileDTO = new FileDTO();
+                fileDTO.setOriginFileName(originFilename);
+                fileDTO.setFileName(filename);
+                fileDTO.setFilePath(filePath);
+
+                Long fileId = fileService.saveFile(fileDTO);
+
+                // 기존 게시글 정보를 가져와서 새로운 파일 정보를 적용하여 수정
+                BoardDTO boardDTO1 = boardService.getBoard(id);
+                boardDTO1.setTitle(boardDTO.getTitle());
+                boardDTO1.setContent(boardDTO.getContent());
+                boardDTO1.setPinned(boardDTO.isPinned());
+                boardDTO1.setPrivated(boardDTO.isPrivated());
+                boardDTO1.setFileId(fileId);
+                boardService.modify(boardDTO1);
+            } else {
+                // 파일이 없는 경우에는 그대로 기존 파일을 유지하고 수정
+                BoardDTO boardDTO1 = boardService.getBoard(id);
+                boardDTO1.setTitle(boardDTO.getTitle());
+                boardDTO1.setContent(boardDTO.getContent());
+                boardDTO1.setPinned(boardDTO.isPinned());
+                boardDTO1.setPrivated(boardDTO.isPrivated());
+                boardService.modify(boardDTO1);
             }
-            String filePath = savePath + filename;
-
-            files.transferTo(new File(filePath));
-
-            FileDTO fileDTO = new FileDTO();
-            fileDTO.setOriginFileName(originFilename);
-            fileDTO.setFileName(filename);
-            fileDTO.setFilePath(filePath);
-
-            Long fileId = fileService.saveFile(fileDTO);
-
-            BoardDTO boardDTO1 = boardService.getBoard(id);
-            boardDTO1.setTitle(boardDTO.getTitle());
-            boardDTO1.setContent(boardDTO.getContent());
-            boardDTO1.setPinned(boardDTO.isPinned());
-            boardDTO1.setPrivated(boardDTO.isPrivated());
-            boardDTO1.setFileId(fileId);
-            boardService.modify(boardDTO1);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return "redirect:/notice/read?id="+id;
     }
 
@@ -198,4 +241,16 @@ public class NoticeController {
             }
         }
     }
+
+//    --------------------------------------클래스 공지사항 --------------------------
+    @GetMapping(value = {"/class/list"})
+    public String classNoticeAll(Model model, Long cno) {
+        List<BoardDTO> boardList = boardService.classNoticeAll(cno);
+        int pinnedCount = boardService.countPinned(boardList);
+
+        model.addAttribute("boardList", boardList);
+        model.addAttribute("pinnedCount", pinnedCount);
+        return "user/class/notice/list";
+    }
+
 }

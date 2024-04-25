@@ -1,5 +1,6 @@
 package com.lms.domain.board.dto;
 
+import com.lms.domain.Course.dto.CourseDTO;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -28,6 +29,10 @@ public class BoardDTO {
     @NotEmpty
     @Size(max = 50)
     private String boardType;
+    private int flag;               //기수
+
+    //강의에 따른 공지사항
+    private Long cno;      // 강의 분류
 
     @NotNull
     private Long fileId;
