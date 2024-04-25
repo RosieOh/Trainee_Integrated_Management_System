@@ -23,7 +23,7 @@
         <div class="main_title">
           <h1>공지사항</h1>
         </div>
-          <form th:action="@{/notice/register}" method="post"  enctype="multipart/form-data">
+          <form th:action="@{/notice/register}" method="post" onsubmit="uploadImage()"  enctype="multipart/form-data">
             <div class="notice_seperate">
               <div class="notice_container" >
                 <div class="notice_box">
@@ -68,14 +68,28 @@
                   });
                 </script>
 
+                <script th:inline="javascript">
+                  function uploadImage() {
+                    var file = $('#fileNotice')[0].files[0];
+                    var formData = new FormData();
+                    formData.append('file', file);
+
+                    $.ajax({
+                      type: 'POST',
+                      url: '/upload',
+                      data: formData,
+                      processData: false,
+                      contentType: false
+                    })
+                  }
+                </script>
+
                 <div class="notice_btn">
                   <button type="submit" class="btn btnNotice">등록</button>
                 </div>
               </div>
             </div>
           </form>
-
-
         </div>
       </div>
   </div>
