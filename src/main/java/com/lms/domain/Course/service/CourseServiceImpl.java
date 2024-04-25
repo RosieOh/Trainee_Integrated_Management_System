@@ -54,9 +54,8 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void course_edit(CourseDTO courseDTO) {
-        Optional<Course> course = courseRepository.findById(courseDTO.getNo());
-        Course course1 = course.orElseThrow();
-        courseRepository.save(course1);
+        Course course = modelMapper.map(courseDTO, Course.class);
+        courseRepository.save(course);
     }
 
     @Override

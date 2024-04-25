@@ -30,6 +30,7 @@ public class Board extends BaseEntity {
 
     private String writer;
 
+
     public void create(String title, String content, String writer) {
         this.title = title;
         this.content = content;

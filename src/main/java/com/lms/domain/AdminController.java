@@ -4,19 +4,15 @@ package com.lms.domain;
 import com.lms.domain.Course.dto.CourseDTO;
 import com.lms.domain.Course.service.CourseService;
 import com.lms.domain.member.dto.MemberDTO;
-import com.lms.domain.member.entity.Member;
 import com.lms.domain.member.service.MemberService;
 import com.lms.domain.student.dto.StudentDTO;
 import com.lms.domain.student.service.StudentService;
 import com.lms.global.cosntant.Role;
 import com.lms.global.cosntant.Status;
 import com.lms.global.cosntant.Subject;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,25 +50,52 @@ public class AdminController {
         return "admin/member/list";
     }
 
+    // 강의 시스템 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+    // 강의 리스트
     @GetMapping("/course")
     public String course(Model model){
         List<CourseDTO> courseDTOList = courseService.course_list();
         model.addAttribute("courseDTOList",courseDTOList);
-        return "admin/course";
+        return "admin/course/list";
     }
 
+    // 강의 등록
     @PostMapping("/coursePro")
     public String coursePro(CourseDTO courseDTO){
         courseService.course_add(courseDTO);
         return "redirect:/admin/course";
     }
 
+    // 강의 공개여부
     @PostMapping("/course_delete")
     public String course_delete(CourseDTO courseDTO) {
         courseService.delete_type(courseDTO);
         return "redirect:/admin/course";
     }
 
+    // 강의 변경 페이지
+    @GetMapping("/course_edit")
+    public String course_edit(Model model, Integer no){
+        CourseDTO courseDTO = courseService.course_read(no);
+        model.addAttribute("courseDTO",courseDTO);
+        return "admin/course/edit";
+    }
+
+    // 강의 수정하기
+    @PostMapping("/course_edit")
+    public String course_editPro(Model model, CourseDTO courseDTO){
+        log.info("courseDTO -----------" + courseDTO);
+        courseService.course_edit(courseDTO);
+        return "redirect:/admin/course";
+    }
+
+
+
+
+    // 회원관리 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+    // 회원 상세보기
     @GetMapping("/member_read")
     public String member_read(Model model,Long no){
         MemberDTO member = memberService.member_read(no);
@@ -82,6 +105,7 @@ public class AdminController {
         return "admin/member/read";
     }
 
+    // 회원 상태변경
     @PostMapping("/change_status")
     public String out1(String id, Model model, Status status){
         MemberDTO memberDTO = memberService.loginId(id);
@@ -91,6 +115,7 @@ public class AdminController {
         return "redirect:/admin/member?cno="+cno;
     }
 
+    // 회원 권한변경
     @PostMapping("/change_role")
     public String role1(String id, Model model, Role role){
         MemberDTO memberDTO = memberService.loginId(id);
@@ -100,6 +125,7 @@ public class AdminController {
         return "redirect:/admin/member?cno="+ cno;
     }
 
+    // 비밀번호 초기화(진행중)
     @PostMapping("pw_reset")
     public String pw_reset(@RequestBody Long no){
         log.info("pw_reset start --------------");
@@ -108,7 +134,7 @@ public class AdminController {
         return  "redirect:/admin/member_read?no="+no;
     }
 
-
+    // 회원 추가사항 변경
     @PostMapping("student_edit")
     public String student_edit(StudentDTO studentDTO){
         studentService.student_edit(studentDTO);

@@ -17,12 +17,13 @@
                     <th style="width: 15%">수료도(80%)</th>
                     <th>대표강사</th>
                     <th>담당 매니저</th>
-                    <th colspan="2">공개여부</th>
+                    <th style="width: 15%">공개여부</th>
+                    <th style="width: 5%"></th>
                 </tr>
                 </thead>
                 <tbody>
                     <tr class="course_add">
-                        <td colspan="9"> <i class="far fa-plus-square"></i> 강의추가하기</td>
+                        <td colspan="10"> <i class="far fa-plus-square"></i> 강의추가하기</td>
                     </tr>
                     <form th:action="@{/admin/coursePro}" method="post" onsubmit="return formCheck()">
                         <tr class="board_box course_input">
@@ -109,9 +110,10 @@
                             <input type="text" name="manager" placeholder="담당매니저" required/>
                             <input type="hidden" name="delete_type" value="n"/>
                         </td>
-                        <td >
+                        <td>
                             <button type="submit" class="form_button select_btn">강의등록</button>
                         </td>
+                        <td></td>
                       </tr>
                   </form>
                 </tbody>
@@ -121,14 +123,12 @@
                     <td th:if="${#strings.equals(course.subject, 'EXCEPTION')}">예외</td>
                     <td th:if="${#strings.equals(course.subject, 'FULLSTACK')}">풀스택</td>
                     <td th:if="${#strings.equals(course.subject, 'PM')}">PM</td>
-                    <form th:action="@{/admin/course_edit}" method="post">
-                        <td th:text="${course.flag} + ' 기'"></td>
-                        <td th:text="${course.start_date}"></td>
-                        <td th:text="${course.end_date}"></td>
-                        <td th:text="${course.train_time}"></td>
-                        <td th:text="${course.instructor}"></td>
-                        <td th:text="${course.manager}"></td>
-                    </form>
+                    <td th:text="${course.flag} + ' 기'"></td>
+                    <td th:text="${course.start_date}"></td>
+                    <td th:text="${course.end_date}"></td>
+                    <td th:text="${course.train_time}"></td>
+                    <td th:text="${course.instructor}"></td>
+                    <td th:text="${course.manager}"></td>
                     <td >
                         <form th:action="@{/admin/course_delete(no=${course.no})}" method="post" class="inline_form">
                             <select name="delete_type" id="delete_type" class="select-box">
@@ -137,6 +137,9 @@
                             </select>
                             <button type="submit" class="inline_form_btn select_btn" >상태 변경<i class="fas fa-pencil-alt"></i></button>
                         </form>
+                    </td>
+                    <td>
+                        <a th:href="@{/admin/course_edit(no=${course.getNo()})}" class="inline_form_btn select_btn" >수정하기<i class="fas fa-pencil-alt"></i></a>
                     </td>
                 </tr>
                 </tbody>
@@ -171,6 +174,15 @@
     <script>
         function formCheck(){
 
+            // 시작날짜
+            if($("#start_date1").val() == "" || $("#start_date2").val() == "" || $("#start_date3").val() == "") {
+                alert("시작날짜가 정확하지 않습니다.")
+                return false
+            }
+
+            let start_date =  $("#start_date1").val() +'.'+ $("#start_date2").val() +'.'+ $("#start_date3").val()
+            $("#start_date").val(start_date)
+
             if($("#start_date1").val() > $("#end_date1").val()){
                 alert("종료날짜 연도에 문제가 있습니다.")
                 return false
@@ -185,13 +197,6 @@
                 return false
             }
 
-            // 시작날짜
-            if($("#start_date1").val() == "" || $("#start_date2").val() == "" || $("#start_date3").val() == "") {
-                alert("시작날짜가 정확하지 않습니다.")
-                return false
-            }
-            let start_date =  $("#start_date1").val() +'.'+ $("#start_date2").val() +'.'+ $("#start_date3").val()
-            $("#start_date").val(start_date)
 
 
 
@@ -214,4 +219,16 @@
             $("#train_time").val(train_time)
         }
     </script>
+    <script>
+        $(document).ready(function(){
+            $(".change_input").prop('readonly', true)
+
+        })
+    </script>
+    <script>
+        function inputa(e){
+            $(".inputCh").attr('readonly', false)
+        }
+    </script>
+
 </div>

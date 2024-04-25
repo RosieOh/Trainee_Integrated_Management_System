@@ -430,12 +430,10 @@
 
 .notice_btn{
     margin: 20px auto;
+    float: right;
 }
 
 .btnNotice {
     width: 100%;
 }
 
-.NlistBtn {
-    float: right;
-}
