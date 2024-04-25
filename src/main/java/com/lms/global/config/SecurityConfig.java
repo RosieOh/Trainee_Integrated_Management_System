@@ -28,8 +28,12 @@ public class SecurityConfig {
         log.info("-------------------  filter Chain Start ------------------");
 
         http.csrf(AbstractHttpConfigurer::disable)
-            .authorizeHttpRequests((authorizeRequests) -> {authorizeRequests.requestMatchers(new AntPathRequestMatcher("**")).permitAll();})
-                .authorizeHttpRequests((authorizeRequests) -> {authorizeRequests.requestMatchers(new AntPathRequestMatcher("/")).permitAll();})
+                .authorizeHttpRequests((authorizeRequests) -> {authorizeRequests
+                        .requestMatchers(new AntPathRequestMatcher("/")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/member/**")).authenticated()
+                        .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasAuthority("ADMIN")
+                        .anyRequest().permitAll();
+                })
             .formLogin((formLogin) -> formLogin
                         .loginPage("/")
                         .failureUrl("/?error=true")

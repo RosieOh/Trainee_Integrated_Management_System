@@ -10,10 +10,7 @@
     <div class="admin_title">
       <h2>회원 정보 <span th:text="'  >'+${member.name}"></span></h2>
     </div>
-  <!--  <div class="admin_tab">-->
-  <!--    <div class="admin_tab_title"><span>기본정보</span></div>-->
-  <!--    <div class="admin_tab_title"><span>추가정보</span></div>-->
-  <!--  </div>-->
+
   <form th:action="@{/admin/student_edit}" method="post" >
     <div class="admin_content">
       <div class="admin_content_seperate">
@@ -77,10 +74,6 @@
             <input type="file" id="portfolio" name="portfolio" class="border_none">
           </div>
           <div class="admin_info_box file_input">
-            <label for="cv" ><i class="fas fa-file"></i> 자기소개서</label>
-            <input type="file" id="cv" name="cv" class="border_none">
-          </div>
-          <div class="admin_info_box file_input">
             <label for="resume" ><i class="fas fa-file"></i> 이력서</label>
             <input type="file" id="resume" name="resume" class="border_none">
           </div>
@@ -97,10 +90,6 @@
             <input type="text" th:value="${studentDTO.cert}" id="cert" name="cert">
           </div>
           <div class="admin_info_box">
-            <label for="workshop" >워크샵</label>
-            <input type="text" th:value="${studentDTO.workshop}" id="workshop" name="workshop">
-          </div>
-          <div class="admin_info_box">
             <label for="univ" >대학교</label>
             <input type="text" th:value="${studentDTO.univ}" id="univ" name="univ">
           </div>
@@ -109,7 +98,7 @@
             <input type="text" th:value="${studentDTO.major}" id="major" name="major">
           </div>
           <div class="admin_info_box">
-            <label for="hope" >희망부서</label>
+            <label for="hope" >희망 진로분야</label>
             <input type="text" th:value="${studentDTO.hope}" id="hope" name="hope">
           </div>
           <div class="admin_info_box">

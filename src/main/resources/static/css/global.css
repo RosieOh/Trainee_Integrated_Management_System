@@ -15,6 +15,8 @@
 
   --c-main_back: #EEF1F6;
   --c-main_white: #F6F9FC;
+  --c-font_gray: #525354;
+
   --c-back_lightgray: rgba(221, 221, 221, 1);
   --c-back_black: rgba(41, 41, 41, 1);
   --c-back_darkgray: rgba(74, 74, 74, 1);
@@ -118,7 +120,9 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
-
+input[type=file]::file-selector-button {
+  display: none;
+}
 textarea {
   padding: 10px 10px;
 }

@@ -17,13 +17,7 @@ public class StudentDTO{
     
     private String cert;            //자격증
 
-    
-    private String workshop;            //워크샵
 
-    
-    private String cv;            //자기소개서
-
-    
     private String resume;            //이력서
 
     
@@ -42,7 +36,7 @@ public class StudentDTO{
     private String picture;            //사진
 
     
-    private String hope;            //희망부서
+    private String hope;            //희망 진로분야
 
     
     private String portfolio;            //포트폴리오

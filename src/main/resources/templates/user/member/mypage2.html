@@ -1,165 +1,94 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{include/layout}">
+  <!DOCTYPE html>
+  <html xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{include/layout}">
 
-<div layout:fragment="content">
-  <div class="admin-content">
-    <div class="main_title">
-      <h1>천재교육 IT</h1>
-    </div>
-    <div class="user_img_box"><img th:src="@{/images/Character.png}" alt="" class="user_img"></div>
-    <div class="user_main">
-      <div class="user_group">
+  <div layout:fragment="content">
+    <div class="admin-content">
+      <div class="user_img_box"><img th:src="@{/images/Character.png}" alt="" class="user_img"></div>
+      <div class="user_main">
+        <div class="user_group">
         <div class="user_title">
           <h2>나의 정보</h2>
         </div>
-        <div class="user_tab2">
+        <div class="user_tab">
           <div class="user_tab_title"><a th:href="@{/member/mypage}"><span >기본정보</span></a></div>
           <div class="user_tab_title"><a th:href="@{/member/mypage2}"><span class="user_tab_border">추가정보</span></a></div>
         </div>
-          <form th:action="@{/member/student_add}" method="post" >
-        <div class="user_content">
-          <div class="user_content_seperate">
-            <div class="user_info_container">
-                <div class="user_info_box">
-                  <label for="stack" >기술스택</label>
-                  <input type="text" th:value="${studentDTO.stack}" id="stack" name="stack">
-                  <input type="hidden" name="no" th:value="${studentDTO.no}">
-                </div>
-                <div class="user_info_box">
+          <form th:action="@{/member/student_add}" method="post" onsubmit="return Job_check(this)">
+            <div class="user_content">
+              <div class="user_content_seperate">
+                <div class="user_info_container">
+                  <div class="user_info_box">
+                    <label for="stack" >기술스택</label>
+                    <input type="text" th:value="${studentDTO.stack}" id="stack" name="stack">
+                    <input type="hidden" name="no" th:value="${studentDTO.no}">
+                  </div>
+                  <div class="user_info_box">
                     <label for="cert" >자격증</label>
                     <input type="text" th:value="${studentDTO.cert}" id="cert" name="cert">
-                </div>
-                <div class="user_info_box">
-                    <label for="workshop" >워크샵</label>
-                    <input type="text" th:value="${studentDTO.workshop}" id="workshop" name="workshop">
-                </div>
-                <div class="user_info_box">
+                  </div>
+                  <div class="user_info_box">
                     <label for="univ" >대학교</label>
                     <input type="text" th:value="${studentDTO.univ}" id="univ" name="univ">
-                </div>
-                <div class="user_info_box">
+                  </div>
+                  <div class="user_info_box">
                     <label for="major" >학과</label>
                     <input type="text" th:value="${studentDTO.major}" id="major" name="major">
-                </div>
-                <div class="user_info_box">
-                    <label for="hope" >희망부서</label>
+                  </div>
+                  <div class="user_info_box">
+                    <label for="hope" >희망 진로분야</label>
                     <input type="text" th:value="${studentDTO.hope}" id="hope" name="hope">
+                  </div>
+                  <div class="user_info_box">
+                    <label for="job_program" >국취참여여부</label>
+                    <div class="job_box">
+                      <select id="job_program_select">
+                        <option value="참여중" th:selected="${studentDTO.job_program} eq '참여중'">참여중</option>
+                        <option value="기참여" th:selected="${studentDTO.job_program} eq '기참여'">기참여</option>
+                        <option value="self" th:selected="${studentDTO.job_program} != '참여중' or '기참여'">미참여</option>
+                      </select>
+                      <input type="text" name="job_program" id="job_program" required />
+                    </div>
+                  </div>
+                  <div class="user_info_box">
+                    <label for="fund" >지원센터</label>
+                    <input type="text" th:value="${studentDTO.fund}" id="fund" name="fund">
+                  </div>
+                  <div class="file_input">
+                    <label for="picture" ><i class="fas fa-file"></i> 사진</label>
+                    <input type="file" id="picture" name="picture" class="">
+                  </div>
+                  <div class="file_input">
+                    <label for="portfolio" ><i class="fas fa-file"></i> 포트폴리오</label>
+                    <input type="file" id="portfolio" name="portfolio" class="border_none">
+                  </div>
+                  <div class="file_input">
+                    <label for="resume" ><i class="fas fa-file"></i> 이력서</label>
+                    <input type="file" id="resume" name="resume" class="border_none">
+                  </div>
                 </div>
-            </div>
-              <div class="user_info_container">
-                  <div class="user_info_box">
-                      <label for="job_program" >국취참여여부</label>
-                      <input type="text" th:value="${studentDTO.job_program}" id="job_program" name="job_program">
-                  </div>
-                  <div class="user_info_box">
-                      <label for="fund" >지원센터</label>
-                      <input type="text" th:value="${studentDTO.fund}" id="fund" name="fund">
-                  </div>
-
-                  <div class="user_info_box file_input">
-                      <label for="picture" ><i class="fas fa-file"></i> 사진</label>
-                      <input type="file" id="picture" name="picture" class="border_none">
-                  </div>
-                  <div class="user_info_box file_input">
-                      <label for="portfolio" ><i class="fas fa-file"></i> 포트폴리오</label>
-                      <input type="file" id="portfolio" name="portfolio" class="border_none">
-                  </div>
-                  <div class="user_info_box file_input">
-                      <label for="cv" ><i class="fas fa-file"></i> 자기소개서</label>
-                      <input type="file" id="cv" name="cv" class="border_none">
-                  </div>
-                  <div class="user_info_box file_input">
-                      <label for="resume" ><i class="fas fa-file"></i> 이력서</label>
-                      <input type="file" id="resume" name="resume" class="border_none">
-                  </div>
               </div>
-        </div>
-        </div>
-          <div class="myinfo_btn_group">
-              <button type="submit" class="btn_myInfo">입력</button>
-          </div>
+            </div>
+            <div class="myinfo_btn_group">
+              <button type="submit" class="btn_myInfo">정보 수정</button>
+            </div>
           </form>
       </div>
+      </div>
     </div>
-  </div>
-</div>
-
-
-
-<script>
-  const email2_select = document.querySelector('#email2_select')
-  const email2 = document.querySelector('#email2')
-  email2_select.addEventListener('change', (event) => {
-    if(event.target.value !== "self") {
-      email2.value = event.target.value
-      email2.disabled = true
-    } else {
-      email2.value = ""
-      email2.disabled = false
-    }
-  })
-</script>
-<script>
-  function modify(f){
-    let phoneval =  $("#phone1").val() + $("#phone2").val() + $("#phone3").val()
-    $("#phone").val(phoneval)
-
-    let emailval =  $("#email1").val() +'@'+ $("#email2").val()
-    $("#email").val(emailval)
-
-    let birthval =  $("#birth1").val() +'년'+ $("#birth2").val() +'월'+ $("#birth3").val() +'일'
-    $("#birth").val(birthval)
-
-    if(f.pw.value!=f.pw2.value){
-      alert("비밀번호와 비밀번호 확인이 서로 다릅니다.");
-      f.pw.focus();
-      return false;
-    }
-    if(f.pw.value.length(8-16)){
-      alert("비밀번호는 최소 8자리에서 최대 16자리까지 숫자, 영문, 특수문자 각 1개 이상 포함해주세요.");
-      f.pw.focus();
-      return false;
-    }
-
-    let value = $("#pw").val();
-
-    let pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&.,])[A-Za-z\d$@$!%*#?&]{8,16}$"
-    if (!pattern.test(value)) {
-      alert("숫자, 영문, 특수문자 각 1개 이상 포함입니다.");
-      $("#pw").focus();
-      return false;
-    }
-  }
-</script>
-<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
-  function findAddr(){
-    new daum.Postcode({
-      oncomplete:function(data){
-        var roadAddr = data.roadAddress;
-        var jibunAddr = data.jibunAddress;
-        var bname = data.bname;
-        document.getElementById("postcode").value = data.zonecode;
-        if(roadAddr !== ''){
-          document.getElementById("addr1").value = roadAddr;
-        } else if(jibunAddr !== ''){
-          document.getElementById("addr1").value = jibunAddr;
+    <script>
+      const job_program_select = document.querySelector('#job_program_select')
+      const job_program = document.querySelector('#job_program')
+      job_program_select.addEventListener('change', (event) => {
+        if(event.target.value !== "self") {
+          job_program.value = event.target.value
+          job_program.disabled = true
+        } else {
+          job_program.value = "미참여 사유 : ";
+          job_program.disabled = false
         }
-        document.getElementById("addr3").value = bname;
-        document.getElementById("addr2").focus();
-      }
-    }).open();
-  }
-</script>
+      })
 
-
-
-
-
-
-
-
-
-
+    </script>
+</div>

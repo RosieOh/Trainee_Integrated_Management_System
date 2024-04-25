@@ -41,8 +41,7 @@ table i {
     width: 100%;
     background-color: var(--c-main_back);
     padding: 0.5rem 0.5rem 0.5rem;
-    box-shadow: 0 5px 10px 0px gray;
-    border-top: 1px solid black;
+    box-shadow: 0 5px 10px 0 black;
 }
 
 .ft_wrap {
