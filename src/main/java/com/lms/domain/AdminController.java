@@ -55,7 +55,7 @@ public class AdminController {
 
 
     @GetMapping("/memList")
-    public String memberList(Model model, Integer cno, @PageableDefault(page=0, size=10, sort="name", direction= Sort.Direction.ASC)Pageable pageable,
+    public String memberList(HttpServletRequest request, Model model, Integer cno, @PageableDefault(page=0, size=5, sort="name", direction= Sort.Direction.ASC)Pageable pageable,
                              @RequestParam(required = false) String keyword, @RequestParam(required = false)Subject subject, @RequestParam(required = false)Integer flag, @RequestParam(required = false)Role role) {
         List<CourseDTO> course_big_List = courseService.course_subject_list(Subject.BIGDATA);
         List<CourseDTO> course_full_List = courseService.course_subject_list(Subject.FULLSTACK);
@@ -103,15 +103,25 @@ public class AdminController {
                 }
             }
         }
+        int startPage, endPage;
+        int totalPage = list.getTotalPages();
+        int nowPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
 
-        int nowPage = list.getPageable().getPageNumber()+1;
-        int startPage = Math.max(nowPage-4, 1);
-        int endPage = Math.min(nowPage+5, list.getTotalPages());
+        if(nowPage<=1){
+            startPage = 1;
+        } else {
+            startPage = ((nowPage - 1) / 5) * 5 + 1;
+        }
+        endPage = startPage + 5 - 1;
+        if(endPage > totalPage) {
+            endPage = totalPage-1;
+        }
 
         model.addAttribute("list", list);
         model.addAttribute("nowPage", nowPage);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
+        model.addAttribute("totalPage", totalPage);
 
         return "admin/member/list2";
     }
