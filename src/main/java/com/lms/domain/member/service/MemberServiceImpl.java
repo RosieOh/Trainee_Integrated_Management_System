@@ -67,6 +67,14 @@ public class MemberServiceImpl implements MemberService{
         }
     }
 
+    @Override
+    public List<MemberDTO> member_all_list() {
+        List<Member> memberList = memberRepository.findAll();
+        List<MemberDTO> memberDTOList = memberList.stream().map(
+                        member -> modelMapper.map(member,MemberDTO.class))
+                .collect(Collectors.toList());
+        return memberDTOList;
+    }
 
     @Override
     public PasswordEncoder passwordEncoder() {
@@ -75,13 +83,20 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public List<MemberDTO> member_list() {
-        List<Member> memberList = memberRepository.findAll();
+        List<Member> memberList = memberRepository.member_list();
         List<MemberDTO> memberDTOList = memberList.stream().map(
                         member -> modelMapper.map(member,MemberDTO.class))
                 .collect(Collectors.toList());
         return memberDTOList;
     }
-
+    @Override
+    public List<MemberDTO> memberVO_list(Integer cno) {
+        List<Member> memberList = memberRepository.voList2(cno);
+        List<MemberDTO> memberDTOList = memberList.stream().map(
+                        member -> modelMapper.map(member,MemberDTO.class))
+                .collect(Collectors.toList());
+        return memberDTOList;
+    }
     @Override
     public MemberDTO member_read(Long no) {
         Optional<Member> member = memberRepository.findById(no);
@@ -139,14 +154,7 @@ public class MemberServiceImpl implements MemberService{
         memberRepository.save(member1);
     }
 
-    @Override
-    public List<MemberDTO> memberVO_list(Integer cno) {
-        List<Member> memberList = memberRepository.voList2(cno);
-        List<MemberDTO> memberDTOList = memberList.stream().map(
-                        member -> modelMapper.map(member,MemberDTO.class))
-                .collect(Collectors.toList());
-        return memberDTOList;
-    }
+
 
     @Override
     public Member auth(String id) {

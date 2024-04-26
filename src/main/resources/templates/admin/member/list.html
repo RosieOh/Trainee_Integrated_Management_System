@@ -60,21 +60,21 @@
       <table class="table_set">
         <thead>
         <tr>
-          <th>클래스</th>
-          <th>이름</th>
-          <th>이메일</th>
-          <th>성별</th>
-          <th>생년월일</th>
-          <th>연락처</th>
-          <th>가입날짜</th>
-          <th>상태</th>
-          <th>권한</th>
+          <th style="width: 8%">클래스</th>
+          <th style="width: 5%">이름</th>
+          <th style="width: 5%">성별</th>
+          <th style="width: 5%">생년월일</th>
+          <th style="">이메일</th>
+          <th style="">연락처</th>
+          <th style="">가입날짜</th>
+          <th style="">상태</th>
+          <th style="">권한</th>
         </tr>
         </thead>
         <tbody>
         <th:block th:if="${#lists.isEmpty(memberList)}">
           <tr>
-            <td colspan="8" class="board_td">
+            <td colspan="9" class="board_td">
               <h4>현재 내용이 없습니다.</h4>
             </td>
           </tr>
@@ -88,9 +88,9 @@
             <td>
               <a th:href="@{/admin/member_read(no=${member.getNo() } )}">[[${member.name }]]  <i class='fas fa-sign-in-alt'></i> </a>
             </td>
-            <td th:text="${member.email}"></td>
             <td th:text="${member.gender}"></td>
             <td th:text="${member.birth}"></td>
+            <td th:text="${member.email}"></td>
             <td th:text="${member.phone}"></td>
             <td th:text="${#temporals.format(member.createdTime, 'yyyy-MM-dd hh:mm')}"></td>
             <td>
@@ -106,8 +106,6 @@
             <td>
               <form th:action="@{/admin/change_role(id=${member.id} )}" method="post" class="inline_form">
                 <select name="role" class="select-box">
-                  <option value="ADMIN" th:selected="${#strings.equals(member.role, 'ADMIN')}">관리자</option>
-                  <option value="MANAGER" th:selected="${#strings.equals(member.role, 'MANAGER')}">매니저</option>
                   <option value="TEACHER" th:selected="${#strings.equals(member.role, 'TEACHER')}">선생님</option>
                   <option value="STUDENT" th:selected="${#strings.equals(member.role, 'STUDENT')}">학생</option>
                 </select>
@@ -119,8 +117,8 @@
         <th:block th:if="${cno != null}">
           <th:block th:if="${#lists.isEmpty(memberVOList)}">
             <tr>
-              <td colspan="8">
-                <h4>현재 내용이 없습니다.</h4>
+              <td colspan="9">
+                <h4>현재 수강생이 없습니다.</h4>
               </td>
             </tr>
           </th:block>
@@ -147,8 +145,6 @@
             <td>
               <form th:action="@{/admin/change_role(id=${membervo.id} )}" method="post" class="inline_form">
                 <select name="role" class="select-box">
-                  <option value="ADMIN" th:selected="${#strings.equals(membervo.role, 'ADMIN')}">관리자</option>
-                  <option value="MANAGER" th:selected="${#strings.equals(membervo.role, 'MANAGER')}">매니저</option>
                   <option value="TEACHER" th:selected="${#strings.equals(membervo.role, 'TEACHER')}">선생님</option>
                   <option value="STUDENT" th:selected="${#strings.equals(membervo.role, 'STUDENT')}">학생</option>
                 </select>

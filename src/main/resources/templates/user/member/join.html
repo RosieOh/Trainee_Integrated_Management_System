@@ -17,13 +17,13 @@
                         <div class="form-login">
                             <select name="cno" >
                                 <th:block th:each="course_big : ${course_big_List}">
-                                    <option th:value="${course_big.getNo()}" th:text="'프로젝트 기반 빅데이터 서비스 개발자 양성'+''+ ${course_big.flag} + '기'"></option>
+                                    <option th:value="${course_big.getNo()}" th:text="'프로젝트 기반 빅데이터 서비스 개발자 양성'+' '+ ${course_big.flag} + '기'"></option>
                                 </th:block>
                                 <th:block th:each="course_full : ${course_full_List}">
-                                    <option th:value="${course_full.getNo()}" th:text="'에듀테크 풀스택 개발자 양성(Java)'+''+ ${course_full.flag} + '기'"></option>
+                                    <option th:value="${course_full.getNo()}" th:text="'에듀테크 풀스택 개발자 양성(Java)'+' '+ ${course_full.flag} + '기'"></option>
                                 </th:block>
                                 <th:block th:each="course_pm : ${course_pm_List}">
-                                    <option th:value="${course_pm.getNo()}" th:text="'에듀테크 상품서비스 PM(프로덕트매니저) 양성'+''+ ${course_pm.flag} + '기'"></option>
+                                    <option th:value="${course_pm.getNo()}" th:text="'에듀테크 상품서비스 PM(프로덕트매니저) 양성'+' '+ ${course_pm.flag} + '기'"></option>
                                 </th:block>
                             </select>
                         </div>

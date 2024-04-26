@@ -251,7 +251,7 @@
     margin: 1rem 0 3rem;
 }
 .table_group {
-    width: 80%;
+    width: 100%;
 }
 .nav-dropdown {
     display: block;
@@ -285,7 +285,7 @@
     }
 }
 
-.course_box {
+.admin_box {
     margin: 0 auto;
     width: 90%;
 }
@@ -350,7 +350,7 @@
 .main_login {
     background-color: #F6F9FC;
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     overflow-y: scroll;
 }
 
@@ -483,7 +483,6 @@
 
 
 .inline_form {
-    display: flex;
 }
 .inline_form select {
     height: auto;

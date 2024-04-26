@@ -34,13 +34,27 @@ public class AdminController {
     private final CourseService courseService;
     private final StudentService studentService;
 
+    // 회원관리 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+
+    // 회원 리스트(관리자)
+    @GetMapping("/admin_member")
+    public String admin_member(Model model, Principal principal){
+        List<MemberDTO> memberList = memberService.member_list();
+        model.addAttribute("memberList",memberList);
+        return "admin/member/admin_member";
+    }
+
+
+    // 회원 리스트(매니저)
     @GetMapping("/member")
-    public String board(Model model, Principal principal, Integer cno){
+    public String member_list(Model model, Integer cno){
         List<CourseDTO> course_big_List = courseService.course_subject_list(Subject.BIGDATA);
         List<CourseDTO> course_full_List = courseService.course_subject_list(Subject.FULLSTACK);
         List<CourseDTO> course_pm_List = courseService.course_subject_list(Subject.PM);
         List<MemberDTO> memberList = memberService.member_list();
         List<MemberDTO> memberVOList = memberService.memberVO_list(cno);
+        List<StudentDTO> studentDTOList = studentService.student_list();
         model.addAttribute("memberList",memberList);
         model.addAttribute("memberVOList",memberVOList);
         model.addAttribute("course_big_List",course_big_List);
@@ -50,50 +64,6 @@ public class AdminController {
         return "admin/member/list";
     }
 
-    // 강의 시스템 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-
-    // 강의 리스트
-    @GetMapping("/course")
-    public String course(Model model){
-        List<CourseDTO> courseDTOList = courseService.course_list();
-        model.addAttribute("courseDTOList",courseDTOList);
-        return "admin/course/list";
-    }
-
-    // 강의 등록
-    @PostMapping("/coursePro")
-    public String coursePro(CourseDTO courseDTO){
-        courseService.course_add(courseDTO);
-        return "redirect:/admin/course";
-    }
-
-    // 강의 공개여부
-    @PostMapping("/course_delete")
-    public String course_delete(CourseDTO courseDTO) {
-        courseService.delete_type(courseDTO);
-        return "redirect:/admin/course";
-    }
-
-    // 강의 변경 페이지
-    @GetMapping("/course_edit")
-    public String course_edit(Model model, Integer no){
-        CourseDTO courseDTO = courseService.course_read(no);
-        model.addAttribute("courseDTO",courseDTO);
-        return "admin/course/edit";
-    }
-
-    // 강의 수정하기
-    @PostMapping("/course_edit")
-    public String course_editPro(Model model, CourseDTO courseDTO){
-        log.info("courseDTO -----------" + courseDTO);
-        courseService.course_edit(courseDTO);
-        return "redirect:/admin/course";
-    }
-
-
-
-
-    // 회원관리 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
     // 회원 상세보기
     @GetMapping("/member_read")
@@ -141,4 +111,51 @@ public class AdminController {
         Long no = studentDTO.getNo();
         return  "redirect:/admin/member_read?no="+ no;
     }
+
+
+
+    // 강의 시스템 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+    // 강의 리스트
+    @GetMapping("/course")
+    public String course(Model model){
+        List<CourseDTO> courseDTOList = courseService.course_list();
+        model.addAttribute("courseDTOList",courseDTOList);
+        return "admin/course/list";
+    }
+
+    // 강의 등록
+    @PostMapping("/coursePro")
+    public String coursePro(CourseDTO courseDTO){
+        courseService.course_add(courseDTO);
+        return "redirect:/admin/course";
+    }
+
+    // 강의 공개여부
+    @PostMapping("/course_delete")
+    public String course_delete(CourseDTO courseDTO) {
+        courseService.delete_type(courseDTO);
+        return "redirect:/admin/course";
+    }
+
+    // 강의 변경 페이지
+    @GetMapping("/course_edit")
+    public String course_edit(Model model, Integer no){
+        CourseDTO courseDTO = courseService.course_read(no);
+        model.addAttribute("courseDTO",courseDTO);
+        return "admin/course/edit";
+    }
+
+    // 강의 수정하기
+    @PostMapping("/course_edit")
+    public String course_editPro(Model model, CourseDTO courseDTO){
+        log.info("courseDTO -----------" + courseDTO);
+        courseService.course_edit(courseDTO);
+        return "redirect:/admin/course";
+    }
+
+
+
+
+
 }
