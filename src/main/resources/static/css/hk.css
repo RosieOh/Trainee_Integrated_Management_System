@@ -405,12 +405,8 @@
 
 
 /* 검색 박스 */
-.selectSearch {
-    display: flex;
-    justify-content: flex-end;
-}
 
-.selectSearch select {
+.custom-select {
     width: 15%;
     margin: 5px;
     height: 40px;
@@ -424,9 +420,11 @@
 
 #search-form {
     display: flex;
+    justify-content: flex-end;
 }
 
 #search-form input{
+    width: 20%;
     height: 40px;
     margin-top: 5px;
     margin-left: 5px;

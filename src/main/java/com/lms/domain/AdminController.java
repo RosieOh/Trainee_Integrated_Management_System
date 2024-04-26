@@ -11,26 +11,16 @@ import com.lms.domain.student.service.StudentService;
 import com.lms.global.cosntant.Role;
 import com.lms.global.cosntant.Status;
 import com.lms.global.cosntant.Subject;
-import com.lms.global.util.PageDTO;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -65,25 +55,53 @@ public class AdminController {
 
 
     @GetMapping("/memList")
-    public String memberList(Model model,  Integer cno, @PageableDefault(page=0, size=10, sort="name", direction= Sort.Direction.ASC)Pageable pageable,
-                             String keyword) {
-
+    public String memberList(Model model, Integer cno, @PageableDefault(page=0, size=10, sort="name", direction= Sort.Direction.ASC)Pageable pageable,
+                             @RequestParam(required = false) String keyword, @RequestParam(required = false)Subject subject, @RequestParam(required = false)Integer flag, @RequestParam(required = false)Role role) {
         List<CourseDTO> course_big_List = courseService.course_subject_list(Subject.BIGDATA);
         List<CourseDTO> course_full_List = courseService.course_subject_list(Subject.FULLSTACK);
         List<CourseDTO> course_pm_List = courseService.course_subject_list(Subject.PM);
         List<MemberDTO> memberVOList = memberService.memberVO_list(cno);
+        Subject[] subjects = {Subject.BIGDATA, Subject.FULLSTACK, Subject.PM};
+        Role[] roles = {Role.STUDENT, Role.TEACHER};
+        model.addAttribute("subjects", subjects);
+        model.addAttribute("roles", roles);
+        model.addAttribute("subjects", subjects);
         model.addAttribute("memberVOList",memberVOList);
         model.addAttribute("course_big_List",course_big_List);
         model.addAttribute("course_full_List",course_full_List);
         model.addAttribute("course_pm_List",course_pm_List);
         model.addAttribute("cno",cno);
 
-        Page<Member> list = null;
+        Page<Member> list;
 
-        if(keyword == null) {
-            list = memberService.memberList(pageable);
+        if(keyword != null ) {
+            if( flag != null && subject != null ) {
+                if (role != null) {
+                    list = memberService.findByKeywordAndFlagAndSubjectAndRole(keyword, flag, subject, role, pageable);
+                } else {
+                    list = memberService.findByKeywordAndFlagAndSubjectAndRole(keyword, flag, subject, null, pageable);
+                }
+            } else {
+                if (role != null) {
+                    list = memberService.findByKeywordAndFlagAndSubjectAndRole(keyword, null, null, role, pageable);
+                } else {
+                    list = memberService.findByKeywordAndFlagAndSubjectAndRole(keyword, null, null, null, pageable);
+                }
+            }
         } else {
-            list = memberService.search(keyword, pageable);
+            if (flag != null && subject != null) {
+                if (role != null) {
+                    list = memberService.findByKeywordAndFlagAndSubjectAndRole("", flag, subject, role, pageable);
+                } else {
+                    list = memberService.findByKeywordAndFlagAndSubjectAndRole("", flag, subject, null, pageable);
+                }
+            } else {
+                if (role != null) {
+                    list = memberService.findByKeywordAndFlagAndSubjectAndRole("", null, null, role, pageable);
+                } else {
+                    list = memberService.memberList(pageable);
+                }
+            }
         }
 
         int nowPage = list.getPageable().getPageNumber()+1;

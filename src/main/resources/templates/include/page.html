@@ -11,10 +11,22 @@
           <script th:inline="javascript">
               function goToPage(page) {
                   var keyword = /*[[${param.keyword} != null ? ${param.keyword} : '']]*/ '';
+                  var subject =  document.getElementById('subject').value;
+                  var flag =  document.getElementById('flag').value;
+                  var role =  document.getElementById('role').value;
                   var pageLink = /*[[${pageLink}]]*/ '';
                   var url = pageLink + '?page=' + page;
                   if(keyword !== '') {
                       url += '&keyword=' + encodeURIComponent(keyword);
+                  }
+                  if(subject !== '') {
+                      url += '&subject=' + encodeURIComponent(subject);
+                  }
+                  if(flag !== '') {
+                      url += '&flag=' + encodeURIComponent(flag);
+                  }
+                  if(keyword !== '') {
+                      role += '&role=' + encodeURIComponent(role);
                   }
                   window.location.href = url;
               }

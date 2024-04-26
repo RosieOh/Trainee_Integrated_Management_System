@@ -4,23 +4,18 @@ import com.lms.domain.Course.entity.Course;
 import com.lms.domain.Course.repository.CourseRepository;
 import com.lms.domain.member.dto.MemberDTO;
 import com.lms.domain.member.entity.Member;
-import com.lms.domain.member.entity.SpecificationMember;
 import com.lms.domain.member.repository.MemberRepository;
 import com.lms.domain.student.entity.Student;
 import com.lms.domain.student.repository.StudentRepository;
-import com.lms.domain.student.service.StudentService;
 import com.lms.global.cosntant.Role;
 import com.lms.global.cosntant.Status;
 import com.lms.global.cosntant.Subject;
-import com.lms.global.util.PageDTO;
-import com.lms.global.util.SearchRepo;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
@@ -190,10 +185,8 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    @Transactional
-    public Page<Member> search(String keyword, Pageable pageable) {
-        Page <Member> memList = memberRepository.findByNameContaining(keyword ,pageable);
-        return memList;
+    public Page<Member> findByKeywordAndFlagAndSubjectAndRole(String keyword, Integer flag, Subject subject, Role role, Pageable pageable) {
+        return memberRepository.findByKeywordAndFlagAndSubjectAndRole(keyword,flag, subject,role,pageable);
     }
 
     @Override

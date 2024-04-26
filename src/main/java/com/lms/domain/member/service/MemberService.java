@@ -2,7 +2,8 @@ package com.lms.domain.member.service;
 
 import com.lms.domain.member.dto.MemberDTO;
 import com.lms.domain.member.entity.Member;
-import com.lms.global.util.PageDTO;
+import com.lms.global.cosntant.Role;
+import com.lms.global.cosntant.Subject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,6 +28,7 @@ public interface MemberService {
     // 고정 아이디 생성
     void createAdminMember();
 
-    Page <Member> search(String keyword, Pageable pageable);
+    //검색 및 페이징처리
+    Page<Member> findByKeywordAndFlagAndSubjectAndRole(String keyword, Integer flag, Subject subject, Role role, Pageable pageable);
     Page<Member> memberList(Pageable pageable);
 }

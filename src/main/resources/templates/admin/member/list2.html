@@ -16,75 +16,7 @@
   </div>
   <div class="admin-content memlist">
     <div class="table_group">
-      <div class="selectSearch">
-          <select name="" id="subject" required>
-            <option value="all">==전체과정==</option>
-            <option value="big">빅데이터</option>
-            <option value="full">풀스택</option>
-            <option value="pm">PM</option>
-          </select>
-          <select class="custom-select" id="flag" name="">
-              <option value="all">==전체기수==</option>
-              <th:block th:each="course_big : ${course_big_List}">
-                  <option th:value="${course_big.getNo()}" th:text="${course_big.flag} + '기'" class="flag_big"></option>
-              </th:block>
-              <th:block th:each="course_full : ${course_full_List}">
-                  <option th:value="${course_full.getNo()}" th:text=" ${course_full.flag} + '기'" class="flag_full"></option>
-              </th:block>
-              <th:block th:each="course_pm : ${course_pm_List}">
-                  <option th:value="${course_pm.getNo()}" th:text=" ${course_pm.flag} + '기'" class="flag_pm"></option>
-              </th:block>
-          </select>
-          <script>
-              document.getElementById('subject').addEventListener('change', function() {
-                  var subject = this.value;
-                  var optionsBig = document.querySelectorAll('.flag_big');
-                  var optionsFull = document.querySelectorAll('.flag_full');
-                  var optionsPm = document.querySelectorAll('.flag_pm');
-
-                  if (subject === 'big') {
-                      optionsFull.forEach(function(option) {
-                          option.style.display = 'none';
-                      });
-                      optionsPm.forEach(function(option) {
-                          option.style.display = 'none';
-                      });
-                      optionsBig.forEach(function(option) {
-                          option.style.display = 'block';
-                      });
-                  } else if (subject === 'full') {
-                      optionsBig.forEach(function(option) {
-                          option.style.display = 'none';
-                      });
-                      optionsPm.forEach(function(option) {
-                          option.style.display = 'none';
-                      });
-                      optionsFull.forEach(function(option) {
-                          option.style.display = 'block';
-                      });
-                  } else if (subject === 'pm') {
-                      optionsFull.forEach(function(option) {
-                          option.style.display = 'none';
-                      });
-                      optionsBig.forEach(function(option) {
-                          option.style.display = 'none';
-                      });
-                      optionsPm.forEach(function(option) {
-                          option.style.display = 'block';
-                      });
-                  }
-              });
-          </script>
-
-          <select name="" id="role">
-              <option value="all">==전체회원==</option>
-              <option value="teacher">강사</option>
-              <option value="student">학생</option>
-          </select>
-          <div th:replace="/include/search :: search('/admin/memList')"></div>
-
-
-      </div>
+      <div th:replace="/include/search :: search('/admin/memList')"></div>
 
       <table class="table_set">
         <thead>

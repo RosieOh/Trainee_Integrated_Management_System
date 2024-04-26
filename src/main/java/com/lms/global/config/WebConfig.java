@@ -1,6 +1,5 @@
 package com.lms.global.config;
 
-import com.lms.global.util.SearchRepoImpl;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
