@@ -124,6 +124,8 @@ public class NoticeController {
     @GetMapping("/modify")
     public String noticeEditForm(Model model, Long id) {
         BoardDTO boardDTO = boardService.getBoard(id);
+        FileDTO fileDTO = fileService.getFile(boardDTO.getFileId());
+        model.addAttribute("fileList", fileDTO);
         model.addAttribute("boardDTO", boardDTO);
         return "admin/board/edit";
     }
