@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{include/layout}">
+
+<div layout:fragment="content">
+    <div class="admin-content">
+        <div class="course_box ">
+            <h2>강의 리스트</h2>
+            <table class="table_set">
+                <thead>
+                <tr>
+                    <th style="width: 8%">과정</th>
+                    <th style="width: 5%">기수</th>
+                    <th style="width: 15%">시작일</th>
+                    <th style="width: 15%">종료일</th>
+                    <th style="width: 15%">수료도(80%)</th>
+                    <th>대표강사</th>
+                    <th>담당 매니저</th>
+                    <th style="width: 20%">공개여부</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                    <form th:action="@{/admin/course_edit}" method="post" onsubmit="return formCheck()">
+                        <tr class="board_box course_input">
+                            <td th:if="${#strings.equals(courseDTO.subject, 'BIGDATA')}" class="board_box ">빅데이터</td>
+                            <td th:if="${#strings.equals(courseDTO.subject, 'EXCEPTION')}" class="board_box ">예외</td>
+                            <td th:if="${#strings.equals(courseDTO.subject, 'FULLSTACK')}" class="board_box ">풀스택</td>
+                            <td th:if="${#strings.equals(courseDTO.subject, 'PM')}" class="board_box ">PM</td>
+                            <input type="hidden" name="subject" th:value="${courseDTO.subject}" readonly/>
+                            <input type="hidden" name="no" th:value="${courseDTO.no}" readonly/>
+                            <td>
+                                <input type="number" name="flag" th:value="${courseDTO.flag}" required/>
+                            </td>
+                            <td >
+                                <div class="course_cal">
+                                    <input type="number" class="number" id="start_date1" placeholder="YYYY" maxlength="4" min="1940" max="2030" oninput="lengthChk(this)" required />
+                                    <select id="start_date2" >
+                                        <option value="" disabled selected>MM</option>
+                                        <option value="01">1월</option>
+                                        <option value="02">2월</option>
+                                        <option value="03">3월</option>
+                                        <option value="04">4월</option>
+                                        <option value="05">5월</option>
+                                        <option value="06">6월</option>
+                                        <option value="07">7월</option>
+                                        <option value="08">8월</option>
+                                        <option value="09">9월</option>
+                                        <option value="10">10월</option>
+                                        <option value="11">11월</option>
+                                        <option value="12">12월</option>
+                                    </select>
+                                    <input type="number" class="number" id="start_date3" placeholder="DD" maxlength="2" min="1" max="31" oninput="lengthChk(this)" required />
+                                    <input type="hidden" name="start_date" id="start_date"/>
+                                </div>
+                            </td>
+                            <td >
+                                <div class="course_cal">
+                                    <input type="number" class="number" id="end_date1" placeholder="YYYY" maxlength="4" min="1940" max="2030" oninput="lengthChk(this)" required />
+                                    <select id="end_date2" >
+                                        <option value="" disabled selected>MM</option>
+                                        <option value="01">1월</option>
+                                        <option value="02">2월</option>
+                                        <option value="03">3월</option>
+                                        <option value="04">4월</option>
+                                        <option value="05">5월</option>
+                                        <option value="06">6월</option>
+                                        <option value="07">7월</option>
+                                        <option value="08">8월</option>
+                                        <option value="09">9월</option>
+                                        <option value="10">10월</option>
+                                        <option value="11">11월</option>
+                                        <option value="12">12월</option>
+                                    </select>
+                                    <input type="number" class="number" id="end_date3" placeholder="DD" maxlength="2" min="1" max="31" oninput="lengthChk(this)" required />
+                                    <input type="hidden" name="end_date" id="end_date"/>
+                                </div>
+                            </td>
+                            <td >
+                                <div class="course_cal">
+                                    <input type="number" class="number" id="train_time1" placeholder="YYYY" maxlength="4" min="1940" max="2040" oninput="lengthChk(this)" required />
+                                    <select id="train_time2" >
+                                        <option value="" disabled selected>MM</option>
+                                        <option value="01">1월</option>
+                                        <option value="02">2월</option>
+                                        <option value="03">3월</option>
+                                        <option value="04">4월</option>
+                                        <option value="05">5월</option>
+                                        <option value="06">6월</option>
+                                        <option value="07">7월</option>
+                                        <option value="08">8월</option>
+                                        <option value="09">9월</option>
+                                        <option value="10">10월</option>
+                                        <option value="11">11월</option>
+                                        <option value="12">12월</option>
+                                    </select>
+                                    <input type="number" class="number" id="train_time3" placeholder="DD" maxlength="2" min="1" max="31" oninput="lengthChk(this)" required />
+                                    <input type="hidden" name="train_time" id="train_time"/>
+                                </div>
+                            </td>
+                            <td >
+                                <input type="text" name="instructor" th:value="${courseDTO.instructor}" required/>
+                            </td>
+                            <td >
+                                <input type="text" name="manager" th:value="${courseDTO.manager}" required/>
+                            </td>
+                            <td>
+                                <select name="delete_type" id="delete_type" class="select-box">
+                                    <option value="y" th:selected="${courseDTO.delete_type} eq 'y'">공개</option>
+                                    <option value="n" th:selected="${courseDTO.delete_type} eq 'n'">비공개</option>
+                                </select>
+                            </td>
+                            <td >
+                                <button type="submit" class="form_button select_btn">수정하기</button>
+                            </td>
+                      </tr>
+                    <tr class="board_box">
+                        <td></td>
+                        <td>기존</td>
+                        <td th:text="${courseDTO.start_date}"></td>
+                        <td th:text="${courseDTO.end_date}">
+                        <td th:text="${courseDTO.train_time}">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </form>
+                </tbody>
+            </table>
+            <div class="board_btn button_board cancel_btn">
+                <a th:href="@{/admin/course}" class="">뒤로가기</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        let course_input = document.querySelector('.course_input')
+        course_input.style.display = "table-row";
+    </script>
+    <script>
+        let number = document.querySelector('.number');
+        number.onkeydown = function(e) {
+            if(!((e.keyCode > 95 && e.keyCode < 106)
+                || (e.keyCode > 47 && e.keyCode < 58)
+                || e.keyCode == 8
+                || e.keyCode == 9)) {
+                return false;
+            }
+
+        }
+        function lengthChk(e) {
+            if (e.value.length > e.maxLength){
+                e.value = e.value.slice(0, e.maxLength);
+            }
+        }
+    </script>
+    <script>
+        function formCheck(){
+
+            // 시작날짜
+            if($("#start_date1").val() == "" || $("#start_date2").val() == "" || $("#start_date3").val() == "") {
+                alert("시작날짜가 정확하지 않습니다.")
+                return false
+            }
+
+            let start_date =  $("#start_date1").val() +'.'+ $("#start_date2").val() +'.'+ $("#start_date3").val()
+            $("#start_date").val(start_date)
+
+            if($("#start_date1").val() > $("#end_date1").val()){
+                alert("종료날짜 연도에 문제가 있습니다.")
+                return false
+            }
+
+            if(($("#start_date1").val() == $("#end_date1").val()) && ($("#start_date2").val() > $("#end_date2").val())){
+                alert("종료날짜 월에 문제가 있습니다.")
+                return false
+            }
+            if(($("#start_date1").val() == $("#end_date1").val()) && ($("#start_date2").val() == $("#end_date2").val()) && ($("#start_date3").val() >= $("#end_date3").val())){
+                alert("종료날짜 일자에 문제가 있습니다.")
+                return false
+            }
+
+
+
+
+            // 종료날짜
+            if($("#end_date1").val() == "" || $("#end_date2").val() == "" || $("#end_date3").val() == "") {
+                alert("종료날짜가 정확하지 않습니다.")
+                return false
+            }
+            let end_date =  $("#end_date1").val() +'.'+ $("#end_date2").val() +'.'+ $("#end_date3").val()
+            $("#end_date").val(end_date)
+
+
+
+            // 수료도 80%
+            if($("#train_time1").val() == "" || $("#train_time2").val() == "" || $("#train_time3").val() == "") {
+                alert("수료도가 정확하지 않습니다.")
+                return false
+            }
+            let train_time =  $("#train_time1").val() +'.'+ $("#train_time2").val() +'.'+ $("#train_time3").val()
+            $("#train_time").val(train_time)
+        }
+    </script>
+    <script>
+        $(document).ready(function(){
+            $(".change_input").prop('readonly', true)
+
+        })
+    </script>
+    <script>
+        function inputa(e){
+            $(".inputCh").attr('readonly', false)
+        }
+    </script>
+
+</div>

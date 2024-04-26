@@ -15,6 +15,8 @@
 
   --c-main_back: #EEF1F6;
   --c-main_white: #F6F9FC;
+  --c-font_gray: #525354;
+
   --c-back_lightgray: rgba(221, 221, 221, 1);
   --c-back_black: rgba(41, 41, 41, 1);
   --c-back_darkgray: rgba(74, 74, 74, 1);
@@ -118,7 +120,9 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
-
+input[type=file]::file-selector-button {
+  display: none;
+}
 textarea {
   padding: 10px 10px;
 }
@@ -296,6 +300,15 @@ tr:last-child td {
   font-weight: bold;
   font-size: 1.5rem;
 }
+.button_board {
+text-align: center;
+border-radius: 5px;
+border: none;
+width: 10%;
+font-weight: bold;
+font-size: 1.5rem;
+padding: 5px 0;
+}
 
 .button:hover {
   background-color: var(--c-hover);
@@ -344,8 +357,7 @@ tr:last-child td {
 }
 
 .board_btn {
-  margin-top: 1rem;
-  width: 250px;
+  margin: 20px auto;
   float: right;
 }
 
@@ -369,6 +381,7 @@ tr:last-child td {
 
 .select_btn:hover {
   background-color: var(--c-hover);
+  color: white;
 }
 
 .cancel_btn {
@@ -377,4 +390,5 @@ tr:last-child td {
 
 .cancel_btn:hover {
   background-color: var(--c-red-hover);
+  color: white;
 }
