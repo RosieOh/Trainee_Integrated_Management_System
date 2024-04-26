@@ -18,7 +18,7 @@
     <th:block th:replace="~{include/header :: header}"></th:block>
     <div class="admin-board">
         <div class="admin-content">
-            <div class="course_box ">
+            <div class="admin_box ">
                 <h2>공지사항 수정</h2>
                 <div class="main_title">
                     <h1>공지사항</h1>
@@ -37,9 +37,28 @@
                             </div>
 
                             <div class="file_box">
-                                <label for="fileNotice">첨부파일</label>
-                                <input type="file" class="form-control" name="file" id="fileNotice">
+                                <div class="file_box_div">
+                                    <label for="fileNotice">첨부파일</label>
+                                    <th:block th:if="${fileList.originFileName == ''}">
+                                        <input type="file" class="form-control" name="file" id="fileNotice">
+                                    </th:block>
+                                    <th:block th:if="${fileList.originFileName != '' }">
+                                        <input type="text" class="form-control" name="file" th:value="${fileList.originFileName}" readonly>
+                                    </th:block>
+                                </div>
+                                <div class="board_checkbox_container">
+                                    <div>
+                                        <label for="pinnedNotice">상단 고정</label>
+                                        <input type="checkbox" id="pinnedNotice" class="board_checkbox" name="pinned" th:checked="${boardDTO.pinned}">
+                                    </div>
+                                    <div>
+                                        <label for="privateBoard">비밀글</label>
+                                        <input type="checkbox" id="privateBoard" class="board_checkbox" name="privated" th:checked="${boardDTO.privated}">
+                                    </div>
+                                </div>
+
                             </div>
+
 
 
                             <div id="editor">

@@ -13,7 +13,7 @@
           <a th:if="${page != nowPage}" th:text="${page}" th:page="${page}" th:onclick="goToPage('[[${page}]]')" class="pageBtn"></a>
           <a th:if="${page == nowPage}" th:text="${page}" class="pageNowBtn"></a>
           <th:block th:if="${endPage < totalPage}">
-              <a th:if="${endPage < totalPage && page%5 ==0 }" th:onclick="goToPage('[[${page+1}]]')" class="nextBtn">»</a>
+              <a th:if="${endPage < totalPage && page%5 ==0 && endPage != 1 }" th:onclick="goToPage('[[${page+1}]]')" class="nextBtn">»</a>
           </th:block>
       </th:block>
 
@@ -34,7 +34,7 @@
               if(flag !== '') {
                   url += '&flag=' + encodeURIComponent(flag);
               }
-              if(keyword !== '') {
+              if(role !== '') {
                   role += '&role=' + encodeURIComponent(role);
               }
               window.location.href = url;

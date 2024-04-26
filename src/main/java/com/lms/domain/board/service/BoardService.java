@@ -8,7 +8,8 @@ import java.util.List;
 public interface BoardService {
 
     public BoardDTO findById(Long id);
-    public List<BoardDTO> findAll(BoardDTO boardDTO);
+    //public List<BoardDTO> findAll(BoardDTO boardDTO);
+    List<BoardDTO> findNoticeAll();
 
     // test
     public List<Board> boardList();
@@ -26,5 +27,9 @@ public interface BoardService {
     //메인 인덱스에 최신 공지사항 5개 불러오기
     public List<BoardDTO> newNoticeList();
 
+    public int countPinned(List<BoardDTO> boardDTOList);
+
+    //-------------------클래스 공지사항---------------------------
+    List<BoardDTO> classNoticeAll(Long cno); //클래스 별 공지사항 리스트
 
 }

@@ -3,8 +3,6 @@ package com.lms.domain;
 
 import com.lms.domain.Course.dto.CourseDTO;
 import com.lms.domain.Course.service.CourseService;
-import com.lms.domain.board.dto.BoardDTO;
-import com.lms.domain.board.service.BoardService;
 import com.lms.domain.member.dto.MemberDTO;
 import com.lms.domain.member.service.MemberService;
 import com.lms.domain.student.dto.StudentDTO;

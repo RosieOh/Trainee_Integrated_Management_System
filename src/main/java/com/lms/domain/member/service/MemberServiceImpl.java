@@ -18,6 +18,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +29,7 @@ import java.util.stream.Collectors;
 @Log4j2
 @Service
 @RequiredArgsConstructor
-public class MemberServiceImpl implements MemberService{
+public class MemberServiceImpl implements MemberService {
 
     private final ModelMapper modelMapper;
     private final MemberRepository memberRepository;
@@ -68,6 +70,14 @@ public class MemberServiceImpl implements MemberService{
         }
     }
 
+    @Override
+    public List<MemberDTO> member_all_list() {
+        List<Member> memberList = memberRepository.findAll();
+        List<MemberDTO> memberDTOList = memberList.stream().map(
+                        member -> modelMapper.map(member, MemberDTO.class))
+                .collect(Collectors.toList());
+        return memberDTOList;
+    }
 
     @Override
     public PasswordEncoder passwordEncoder() {
@@ -76,9 +86,18 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public List<MemberDTO> member_list() {
-        List<Member> memberList = memberRepository.findAll();
+        List<Member> memberList = memberRepository.member_list();
         List<MemberDTO> memberDTOList = memberList.stream().map(
-                        member -> modelMapper.map(member,MemberDTO.class))
+                        member -> modelMapper.map(member, MemberDTO.class))
+                .collect(Collectors.toList());
+        return memberDTOList;
+    }
+
+    @Override
+    public List<MemberDTO> memberVO_list(Integer cno) {
+        List<Member> memberList = memberRepository.voList2(cno);
+        List<MemberDTO> memberDTOList = memberList.stream().map(
+                        member -> modelMapper.map(member, MemberDTO.class))
                 .collect(Collectors.toList());
         return memberDTOList;
     }
@@ -118,7 +137,7 @@ public class MemberServiceImpl implements MemberService{
     public boolean id_check(String id) {
         boolean pass = true;
         int cnt = memberRepository.countId(id);
-        if(cnt > 0) pass = false;
+        if (cnt > 0) pass = false;
         return pass;
     }
 
@@ -140,14 +159,6 @@ public class MemberServiceImpl implements MemberService{
         memberRepository.save(member1);
     }
 
-    @Override
-    public List<MemberDTO> memberVO_list(Integer cno) {
-        List<Member> memberList = memberRepository.voList2(cno);
-        List<MemberDTO> memberDTOList = memberList.stream().map(
-                        member -> modelMapper.map(member,MemberDTO.class))
-                .collect(Collectors.toList());
-        return memberDTOList;
-    }
 
     @Override
     public Member auth(String id) {
@@ -186,11 +197,17 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public Page<Member> findByKeywordAndFlagAndSubjectAndRole(String keyword, Integer flag, Subject subject, Role role, Pageable pageable) {
-        return memberRepository.findByKeywordAndFlagAndSubjectAndRole(keyword,flag, subject,role,pageable);
+        return memberRepository.findByKeywordAndFlagAndSubjectAndRole(keyword, flag, subject, role, pageable);
     }
 
     @Override
     public Page<Member> memberList(Pageable pageable) {
         return memberRepository.findAll(pageable);
+    }
+
+    @Override
+    public String getMemberName(Principal principal) {
+        String name = memberRepository.findId(principal.getName()).getName();
+        return name;
     }
 }

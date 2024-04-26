@@ -17,13 +17,13 @@
                         <div class="form-login">
                             <select name="cno" >
                                 <th:block th:each="course_big : ${course_big_List}">
-                                    <option th:value="${course_big.getNo()}" th:text="'프로젝트 기반 빅데이터 서비스 개발자 양성'+''+ ${course_big.flag} + '기'"></option>
+                                    <option th:value="${course_big.getNo()}" th:text="'프로젝트 기반 빅데이터 서비스 개발자 양성'+' '+ ${course_big.flag} + '기'"></option>
                                 </th:block>
                                 <th:block th:each="course_full : ${course_full_List}">
-                                    <option th:value="${course_full.getNo()}" th:text="'에듀테크 풀스택 개발자 양성(Java)'+''+ ${course_full.flag} + '기'"></option>
+                                    <option th:value="${course_full.getNo()}" th:text="'에듀테크 풀스택 개발자 양성(Java)'+' '+ ${course_full.flag} + '기'"></option>
                                 </th:block>
                                 <th:block th:each="course_pm : ${course_pm_List}">
-                                    <option th:value="${course_pm.getNo()}" th:text="'에듀테크 상품서비스 PM(프로덕트매니저) 양성'+''+ ${course_pm.flag} + '기'"></option>
+                                    <option th:value="${course_pm.getNo()}" th:text="'에듀테크 상품서비스 PM(프로덕트매니저) 양성'+' '+ ${course_pm.flag} + '기'"></option>
                                 </th:block>
                             </select>
                         </div>
@@ -69,10 +69,10 @@
                         <div class="form-login">
                             <label>생일<em>*</em></label>
                             <div class="join_tel">
-                                <input type="number" class="number" name="birth1" id="birth1" placeholder="YYYY" maxlength="4" min="1940" max="2030" oninput="lengthChk(this)" required />
+                                <input type="number" class="number" name="birth1" id="birth1" placeholder="YYYY" maxlength="4" min="1940" max="2040" oninput="lengthChk(this)" required />
                                 <p></p>
                                 <select name="birth2" id="birth2" >
-                                    <option value="" selected>MM</option>
+                                    <option value="" disabled selected>MM</option>
                                     <option value="01">1월</option>
                                     <option value="02">2월</option>
                                     <option value="03">3월</option>
@@ -101,19 +101,11 @@
 
                         <div class="form-login">
                             <label>연락처<em>*</em></label>
-                            <div class="join_tel">
-                                <input type="number" class="number" id="phone1" placeholder="000" maxlength="4" oninput="lengthChk(this)" required/>
-                                <p>-</p>
-                                <input type="number" class="number" id="phone2" placeholder="0000" maxlength="4" oninput="lengthChk(this)" required/>
-                                <p>-</p>
-                                <input type="number" class="number" id="phone3" placeholder="0000" maxlength="4" oninput="lengthChk(this)" required/>
-                                <input type="hidden" name="phone" id="phone"/>
-                            </div>
+                            <input type="number" class="number" id="phone" name="phone" placeholder="-없이 숫자만 입력해주세요." maxlength="11" oninput="lengthChk(this)" required/>
                         </div>
                         <div class="form-login">
                             <label>주소<em>*</em></label>
                             <input type="text" name="addr1" id="addr1" placeholder="기본 주소" class="" required />
-                            <input type="text" name="addr2" id="addr2" placeholder="상세 주소" class="" required />
                             <div class="flex_between">
                                 <input type="text" name="postcode" id="postcode" placeholder="우편번호" class="join_input">
                                 <button type="button" id="post_btn" onclick="findAddr()" class="join_btn">우편번호 검색</button>
@@ -143,15 +135,15 @@
 
 </script>
     <script>
-     let number = document.querySelector('.number');
-     number.onkeydown = function(e) {
-        if(!((e.keyCode > 95 && e.keyCode < 106)
-            || (e.keyCode > 47 && e.keyCode < 58)
-            || e.keyCode == 8)) {
-            return false;
+        let number = document.querySelector('.number');
+        number.onkeydown = function(e) {
+            if(!((e.keyCode > 95 && e.keyCode < 106)
+                || (e.keyCode > 47 && e.keyCode < 58)
+                || e.keyCode == 8
+                || e.keyCode == 9)) {
+                return false;
+            }
         }
-
-    }
     function lengthChk(e) {
         if (e.value.length > e.maxLength){
             e.value = e.value.slice(0, e.maxLength);
@@ -193,23 +185,23 @@
     }
 
     function joinCheck(f){
-        if($("#phone1").val() == "" || $("#phone2").val() == "" || $("#phone3").val() == "") {
+        if($("#phone").val() == "" || $("#phone").val().length < 11) {
+            alert("전화번호를 모두 적어주세요.")
             return false
         }
 
-        let phoneval =  $("#phone1").val() +'-'+ $("#phone2").val() +'-'+ $("#phone3").val()
-        $("#phone").val(phoneval)
-
         if($("#email2").val() == "" || $("#email1").val() == "") {
+            alert("이메일을 적어주세요.")
             return false
         }
         let emailval = $("#email1").val() + '@' + $("#email2").val()
         $("#email").val(emailval)
 
         if($("#birth1").val() == "" || $("#birth2").val() == "" || $("#birth3").val() == "") {
+            alert("생일을 입력해주세요.")
             return false
         }
-        let birthval =  $("#birth1").val() +'.'+ $("#birth2").val() +'.'+ $("#birth3").val() +'.'
+        let birthval =  $("#birth1").val() +'.'+ $("#birth2").val() +'.'+ $("#birth3").val()
         $("#birth").val(birthval)
 
         if(f.pw.value!=f.pw2.value){
@@ -256,7 +248,6 @@
                     document.getElementById("addr1").value = jibunAddr;
                 }
                 document.getElementById("addr3").value = bname;
-                document.getElementById("addr2").focus();
             }
         }).open();
     }

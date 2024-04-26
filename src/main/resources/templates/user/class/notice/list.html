@@ -1,0 +1,55 @@
+<!doctype html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+  <meta charset="UTF-8" />
+  <meta
+          content="minimum-scale=1.0, width=device-width, maximum-scale=1, ser-scalable=no"
+          name="viewport"
+  />
+  <title>천재IT교육센터</title>
+  <th:block th:replace="~{include/head :: head}"></th:block>
+</head>
+<body>
+<div class="main admin">
+  <th:block th:replace="~{include/header :: header}"></th:block>
+  <div class="admin-board">
+    <div class="admin-content">
+      <div class="course_box ">
+        <h2>클래스 공지</h2>
+        <div class="main_title">
+          <h1>공지사항</h1>
+        </div>
+
+        <table class="table_set">
+            <thead>
+            <tr>
+              <th>no</th>
+              <th>제목</th>
+              <th>작성자</th>
+              <th>작성일</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="notice, about :${boardList}">
+                <!-- pinned가 1이면 필독 아니면 그냥 숫자 -->
+                <td th:if="${notice.pinned == true}" ><p class="board_pin">필독</p></td>
+                <td th:if="${notice.pinned != true}" th:text="${about.count - pinnedCount}"></td>
+                <!-- privated가 1이면 비밀글 아니면 공개글-->
+                <td th:if="${notice.privated == true}"><a th:href="|@{/notice/read(id=${notice.id})}|" class="text-decoration-none"><i class="fas fa-lock">   </i>  [[${notice.title}]]</a></td>
+                <td th:if="${notice.privated != true}"><a th:href="|@{/notice/read(id=${notice.id})}|" class="text-decoration-none">[[${notice.title}]]</a></td>
+                <td th:text="${notice.writer}"></td>
+                <td th:text="${#temporals.format(notice.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
+            </tr>
+            </tbody>
+          </table>
+        <div class="notice_btn">
+          <a th:href="@{/notice/register}" class="btn NlistBtn">글쓰기</a>
+        </div>
+      </div>
+  </div>
+</div>
+</div>
+</body>
+</html>

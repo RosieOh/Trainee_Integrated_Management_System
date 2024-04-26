@@ -5,9 +5,6 @@
 
   <div layout:fragment="content">
     <div class="admin-content">
-      <div class="main_title">
-        <h1>천재교육 IT</h1>
-      </div>
       <div class="user_img_box"><img th:src="@{/images/Character.png}" alt="" class="user_img"></div>
       <div class="user_main">
         <div class="user_group">
@@ -26,7 +23,7 @@
                 <label for="id">아이디</label>
                 <input type="text" id="id" name="id" class="ro_input" th:value="${member.id }" readonly />
                 <input type="hidden"  name="no" class="ro_input" th:value="${member.no }" readonly />
-                <input type="text"  name="cno" class="ro_input" th:value="${member.course.no }" readonly />
+                <input type="hidden"  name="cno" class="ro_input" th:value="${member.course.no }" readonly />
                 <input type="hidden"  name="status" class="ro_input" th:value="${member.status }" readonly />
                 <input type="hidden"  name="role" class="ro_input" th:value="${member.role }" readonly />
                 <input type="hidden"  name="loginAt" class="ro_input" th:value="${member.loginAt }" readonly />
@@ -73,9 +70,6 @@
                 <input type="text" name="addr1" id="addr1" th:value="${member.addr1 }"  />
               </div>
               <div class="user_info_box">
-                <input type="text" name="addr2" id="addr2" th:value="${member.addr2 }"  />
-              </div>
-              <div class="user_info_box">
                 <input type="text" name="postcode" id="postcode" th:value="${member.postcode }" class="postcodeBtn">
                 <button type="button" id="post_btn" onclick="findAddr()" class="btn_myInfo">우편번호 검색</button>
               </div>
@@ -89,23 +83,6 @@
       </div>
       </div>
     </div>
-  </div>
-
-
-
-  <script>
-    const email2_select = document.querySelector('#email2_select')
-    const email2 = document.querySelector('#email2')
-    email2_select.addEventListener('change', (event) => {
-      if(event.target.value !== "self") {
-        email2.value = event.target.value
-        email2.disabled = true
-      } else {
-        email2.value = ""
-        email2.disabled = false
-      }
-    })
-  </script>
   <script>
     function modify(f){
       let phoneval =  $("#phone1").val() + $("#phone2").val() + $("#phone3").val()
@@ -158,3 +135,4 @@
       }).open();
     }
   </script>
+</div>
