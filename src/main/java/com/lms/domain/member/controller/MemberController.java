@@ -46,6 +46,9 @@ public class MemberController {
         model.addAttribute("courseName",courseName);
 
         List<BoardDTO> newNoticeList = boardService.newNoticeList();
+        int pinnedCount = boardService.countPinned(newNoticeList);
+
+        model.addAttribute("pinnedCount", pinnedCount);
         model.addAttribute("memberDTO", memberDTO);
         model.addAttribute("newNoticeList", newNoticeList);
 

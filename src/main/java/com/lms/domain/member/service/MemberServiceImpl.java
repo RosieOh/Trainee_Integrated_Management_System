@@ -17,6 +17,8 @@ import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -189,5 +191,11 @@ public class MemberServiceImpl implements MemberService{
             }
         }
         return pass;
+    }
+
+    @Override
+    public String getMemberName(Principal principal) {
+        String name = memberRepository.findId(principal.getName()).getName();
+        return name;
     }
 }

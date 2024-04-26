@@ -4,6 +4,7 @@ import com.lms.domain.member.dto.MemberDTO;
 import com.lms.domain.member.entity.Member;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.security.Principal;
 import java.util.List;
 
 public interface MemberService {
@@ -25,4 +26,6 @@ public interface MemberService {
     // 고정 아이디 생성
     void createAdminMember();
 
+    //이름 가져오기
+    public String getMemberName(Principal principal);
 }
