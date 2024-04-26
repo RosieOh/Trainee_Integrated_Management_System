@@ -49,22 +49,22 @@ public class AdminController {
 
 
     // 회원 리스트(매니저)
-    @GetMapping("/member")
-    public String member_list(Model model, Integer cno){
-        List<CourseDTO> course_big_List = courseService.course_subject_list(Subject.BIGDATA);
-        List<CourseDTO> course_full_List = courseService.course_subject_list(Subject.FULLSTACK);
-        List<CourseDTO> course_pm_List = courseService.course_subject_list(Subject.PM);
-        List<MemberDTO> memberList = memberService.member_list();
-        List<MemberDTO> memberVOList = memberService.memberVO_list(cno);
-        List<StudentDTO> studentDTOList = studentService.student_list();
-        model.addAttribute("memberList",memberList);
-        model.addAttribute("memberVOList",memberVOList);
-        model.addAttribute("course_big_List",course_big_List);
-        model.addAttribute("course_full_List",course_full_List);
-        model.addAttribute("course_pm_List",course_pm_List);
-        model.addAttribute("cno",cno);
-        return "admin/member/list";
-    }
+//    @GetMapping("/member")
+//    public String member_list(Model model, Integer cno){
+//        List<CourseDTO> course_big_List = courseService.course_subject_list(Subject.BIGDATA);
+//        List<CourseDTO> course_full_List = courseService.course_subject_list(Subject.FULLSTACK);
+//        List<CourseDTO> course_pm_List = courseService.course_subject_list(Subject.PM);
+//        List<MemberDTO> memberList = memberService.member_list();
+//        List<MemberDTO> memberVOList = memberService.memberVO_list(cno);
+//        List<StudentDTO> studentDTOList = studentService.student_list();
+//        model.addAttribute("memberList",memberList);
+//        model.addAttribute("memberVOList",memberVOList);
+//        model.addAttribute("course_big_List",course_big_List);
+//        model.addAttribute("course_full_List",course_full_List);
+//        model.addAttribute("course_pm_List",course_pm_List);
+//        model.addAttribute("cno",cno);
+//        return "admin/member/list";
+//    }
 
 
     // 회원 상세보기
@@ -114,8 +114,8 @@ public class AdminController {
         return  "redirect:/admin/member_read?no="+ no;
     }
 
-    @GetMapping("/memList")
-    public String memberList(HttpServletRequest request, Model model, Integer cno, @PageableDefault(page=0, size=5, sort="name", direction= Sort.Direction.ASC)Pageable pageable,
+    @GetMapping("/member")
+    public String memberList(HttpServletRequest request, Model model, Integer cno, @PageableDefault(page=0, size=20, sort="name", direction= Sort.Direction.ASC)Pageable pageable,
                              @RequestParam(required = false) String keyword, @RequestParam(required = false)Subject subject, @RequestParam(required = false)Integer flag, @RequestParam(required = false)Role role) {
         List<CourseDTO> course_big_List = courseService.course_subject_list(Subject.BIGDATA);
         List<CourseDTO> course_full_List = courseService.course_subject_list(Subject.FULLSTACK);
@@ -177,13 +177,13 @@ public class AdminController {
             endPage = totalPage-1;
         }
 
-        model.addAttribute("list", list);
+        model.addAttribute("memberList", list);
         model.addAttribute("nowPage", nowPage);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
         model.addAttribute("totalPage", totalPage);
 
-        return "admin/member/list2";
+        return "admin/member/list";
     }
 
 
