@@ -23,12 +23,6 @@ public class Student extends BaseEntity {
     private String cert;            //자격증
 
     @Column(nullable = true)
-    private String workshop;            //워크샵
-
-    @Column(nullable = true)
-    private String cv;            //자기소개서
-
-    @Column(nullable = true)
     private String resume;            //이력서
 
     @Column(nullable = true)
@@ -47,7 +41,7 @@ public class Student extends BaseEntity {
     private String picture;            //사진
 
     @Column(nullable = true)
-    private String hope;            //희망부서
+    private String hope;            //희망 진로분야
 
     @Column(nullable = true)
     private String portfolio;            //포트폴리오

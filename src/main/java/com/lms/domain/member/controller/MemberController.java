@@ -64,18 +64,18 @@ public class MemberController {
             model.addAttribute("url", "/member/index");
             return "user/alert";
         } else if (pass == 2) {
-            model.addAttribute("msg", "해당 계정은 휴면계정입니다. 관리자에게 문의해주세요.");
+            model.addAttribute("msg", "해당 학생은 수강철회하였습니다. 관리자에게 문의해주세요.");
             model.addAttribute("url", "/logout");
             return "user/alert";
         } else if (pass==3){
-            model.addAttribute("msg", "해당 계정은 탈퇴한 계정입니다. 관리자에게 문의해주세요.");
+            model.addAttribute("msg", "해당 학생은 중도포기하였습니다. 관리자에게 문의해주세요.");
             model.addAttribute("url", "/logout");
             return "user/alert";
         } else if (pass==4){
             model.addAttribute("msg", "처음 오신걸 환영합니다 ^^");
             model.addAttribute("url", "/member/mypage2");
             return "user/alert";
-        }else {
+        } else {
             model.addAttribute("msg", "로그인 정보가 맞지 않습니다.");
             model.addAttribute("url", "/login");
             return "user/alert";
