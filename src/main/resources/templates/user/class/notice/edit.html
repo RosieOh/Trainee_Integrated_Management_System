@@ -20,9 +20,7 @@
         <div class="admin-content">
             <div class="course_box ">
                 <h2>공지사항 수정</h2>
-                <div class="main_title">
-                    <h1>공지사항</h1>
-                </div>
+
                 <form th:action="@{/notice/modify/{id}(id=${boardDTO.id})}" method="post" enctype="multipart/form-data">
                     <div class="notice_seperate">
                         <div class="notice_container" >
