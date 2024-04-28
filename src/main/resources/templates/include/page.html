@@ -11,7 +11,6 @@
               <a  th:onclick="goToPage('[[${page-2}]]')" class="nextBtn">&laquo;</a>
           </th:block>
           <a th:text="${page}" th:page="${page}" th:onclick="goToPage('[[${page-1}]]')" class="pageBtn"></a>
-<!--          <a th:if="${page == pageDTO.pageNow}" th:text="${page}" class="pageNowBtn"></a>-->
           <th:block th:if="${pageDTO.pageLast < pageDTO.pageTotal && page%5 ==0}">
               <a th:onclick="goToPage('[[${page}]]')" class="nextBtn">»</a>
           </th:block>
