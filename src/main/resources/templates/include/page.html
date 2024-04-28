@@ -4,6 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <body>
+
   <div th:fragment="pagination(pageLink)" class="paging_btn">
 
       <th:block th:each="page : ${#numbers.sequence(pageDTO.getPageStart(), pageDTO.getPageLast())}">
@@ -42,14 +43,14 @@
 
           }
           window.onload = function() {
-              // URL에서 page 매개변수 값을 가져오기
               var urlParams = new URLSearchParams(window.location.search);
               var pageValue = urlParams.get('page');
 
-              // 가져온 값이 있고 숫자일 경우 해당 페이지 버튼을 활성화
               if (pageValue !== null && !isNaN(pageValue)) {
                   var page = parseInt(pageValue);
                   addActiveClass(page);
+              } else {
+                  addActiveClass(0);
               }
           };
 
@@ -59,7 +60,116 @@
 
               for (var i = 0; i < pageButtons.length; i++) {
                   pageButtons[i].classList.remove('active');
-                  if (pageButtons[i].getAttribute('page') == nextPage) {
+                  if (parseInt(pageButtons[i].getAttribute('page')) === nextPage) {
+                      pageButtons[i].classList.add('active');
+                  }
+              }
+          }
+      </script>
+  </div>
+
+
+  <div th:fragment="paginationNoti(pageLink)" class="paging_btn">
+
+      <th:block th:each="page : ${#numbers.sequence(pageDTO.getPageStart(), pageDTO.getPageLast())}">
+          <th:block th:if="${pageDTO.pageNow >= 5 && page%5 ==1}">
+              <a th:onclick="goToPage('[[${page-2}]]')" class="nextBtn">&laquo;</a>
+          </th:block>
+          <a th:text="${page}" th:page="${page}" th:onclick="goToPage('[[${page-1}]]')" class="pageBtn"></a>
+          <th:block th:if="${pageDTO.pageLast < pageDTO.pageTotal && page%5 ==0}">
+              <a th:onclick="goToPage('[[${page}]]')" class="nextBtn">»</a>
+          </th:block>
+      </th:block>
+
+      <script th:inline="javascript">
+          function goToPage(page) {
+              var keyword = /*[[${param.keyword} != null ? ${param.keyword} : '']]*/ '';
+              var cno =  /*[[${param.cno} != null ? ${param.cno} : '']]*/ '';
+              var pageLink = /*[[${pageLink}]]*/ '';
+              pageLink += '?page=' + page
+              ;
+              if(keyword !== '') {
+                  pageLink += '&keyword=' + encodeURIComponent(keyword);
+              }
+              if(cno !== '') {
+                  pageLink += '&cno=' + encodeURIComponent(cno);
+              }
+              window.location.href = pageLink;
+
+
+          }
+          window.onload = function() {
+              var urlParams = new URLSearchParams(window.location.search);
+              var pageValue = urlParams.get('page');
+
+              if (pageValue !== null && !isNaN(pageValue)) {
+                  var page = parseInt(pageValue);
+                  addActiveClass(page);
+              } else {
+                  addActiveClass(0);
+              }
+          };
+
+          function addActiveClass(page) {
+              var pageButtons = document.querySelectorAll('.pageBtn');
+              var nextPage = page + 1;
+
+              for (var i = 0; i < pageButtons.length; i++) {
+                  pageButtons[i].classList.remove('active');
+                  if (parseInt(pageButtons[i].getAttribute('page')) === nextPage) {
+                      pageButtons[i].classList.add('active');
+                  }
+              }
+          }
+      </script>
+  </div>
+
+
+  <div th:fragment="paginationClassNoti(pageLink)" class="paging_btn">
+
+      <th:block th:each="page : ${#numbers.sequence(pageDTO.getPageStart(), pageDTO.getPageLast())}">
+          <th:block th:if="${pageDTO.pageNow >= 5 && page%5 ==1}">
+              <a th:onclick="goToPage('[[${page-2}]]')" class="nextBtn">&laquo;</a>
+          </th:block>
+          <a th:text="${page}" th:page="${page}" th:onclick="goToPage('[[${page-1}]]')" class="pageBtn"></a>
+          <th:block th:if="${pageDTO.pageLast < pageDTO.pageTotal && page%5 ==0}">
+              <a th:onclick="goToPage('[[${page}]]')" class="nextBtn">»</a>
+          </th:block>
+      </th:block>
+
+      <script th:inline="javascript">
+          function goToPage(page) {
+              var keyword = /*[[${param.keyword} != null ? ${param.keyword} : '']]*/ '';
+              var cno = /*[[${param.keyword} != null ? ${param.keyword} : '']]*/ '';
+              var pageLink = /*[[${pageLink}]]*/ '';
+              pageLink += '?page=' + page + '?cno=' +cno;
+              if(keyword !== '') {
+                  pageLink += '&keyword=' + encodeURIComponent(keyword);
+              }
+              if(cno !== '') {
+                  pageLink += '&cno=' + encodeURIComponent(cno);
+              }
+              window.location.href = pageLink;
+          }
+          window.onload = function() {
+              var urlParams = new URLSearchParams(window.location.search);
+              var pageValue = urlParams.get('page');
+
+              if (pageValue !== null && !isNaN(pageValue)) {
+                  var page = parseInt(pageValue);
+                  addActiveClass(page);
+              } else {
+                  addActiveClass(0);
+              }
+          };
+
+          function addActiveClass(page) {
+              var pageButtons = document.querySelectorAll('.pageBtn');
+              var nextPage = page + 1;
+
+              for (var i = 0; i < pageButtons.length; i++) {
+                  pageButtons[i].classList.remove('active');
+                  if (parseInt(pageButtons[i].getAttribute('page')) === nextPage) {
                       pageButtons[i].classList.add('active');
                   }
               }

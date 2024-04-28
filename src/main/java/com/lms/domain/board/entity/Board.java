@@ -42,6 +42,7 @@ public class Board extends BaseEntity {
     //게시글 고정 여부
     @Column(columnDefinition = "BOOLEAN DEFAULT FALSE")
     private boolean pinned;
+
     //비밀글 여부
     @Column(columnDefinition = "BOOLEAN DEFAULT FALSE")
     private boolean privated;

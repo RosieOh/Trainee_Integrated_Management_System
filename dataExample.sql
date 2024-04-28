@@ -1,8 +1,9 @@
 USE chunjaeitlms;
-SELECT * FROM member;
-SELECT * FROM course;
-INSERT INTO member (email, gender, id, NAME, phone, ROLE, STATUS, cno) VALUES ('asdf@edu.com','여자','user1', '김이름1', '010-1234-1233', 'STUDENT', 'ACTIVE', 2);
 
+/* 회원 더미데이터 */
+SELECT * FROM member;
+
+INSERT INTO member (email, gender, id, NAME, phone, ROLE, STATUS, cno) VALUES ('asdf@edu.com','여자','user1', '김이름1', '010-1234-1233', 'STUDENT', 'ACTIVE', 2);
 INSERT INTO member (email, gender, id, NAME, phone, ROLE, STATUS, cno) VALUES ('asdf@edu.com','여자','user2', '김이름2', '010-1234-1233', 'STUDENT', 'ACTIVE', 3);
 INSERT INTO member (email, gender, id, NAME, phone, ROLE, STATUS, cno) VALUES ('asdf@edu.com','여자','user3', '김이름3', '010-1234-1233', 'STUDENT', 'ACTIVE', 4);
 INSERT INTO member (email, gender, id, NAME, phone, ROLE, STATUS, cno) VALUES ('asdf@edu.com','여자','user4', '김이름4', '010-1234-1233', 'STUDENT', 'ACTIVE', 5);
@@ -136,13 +137,162 @@ INSERT INTO member (email, gender, id, NAME, phone, ROLE, STATUS, cno) VALUES ('
 INSERT INTO member (email, gender, id, NAME, phone, ROLE, STATUS, cno) VALUES ('asdf@edu.com','여자','user129', '김이름129', '010-1234-1233', 'STUDENT', 'ACTIVE', 2);
 INSERT INTO member (email, gender, id, NAME, phone, ROLE, STATUS, cno) VALUES ('asdf@edu.com','여자','user130', '김이름130', '010-1234-1233', 'STUDENT', 'ACTIVE', 3);
 
-INSERT INTO member (email, gender, id, NAME, phone, ROLE, STATUS, cno) VALUES ('asdf@edu.com','여자','user21', '김이름21', '010-1234-1233', 'STUDENT', 'ACTIVE', 6);
-INSERT INTO member (email, gender, id, NAME, phone, ROLE, STATUS, cno) VALUES ('asdf@edu.com','여자','user22', '김이름22', '010-1234-1233', 'STUDENT', 'ACTIVE', 7);
-INSERT INTO member (email, gender, id, NAME, phone, ROLE, STATUS, cno) VALUES ('asdf@edu.com','여자','user23', '김이름23', '010-1234-1233', 'STUDENT', 'ACTIVE', 2);
-INSERT INTO member (email, gender, id, NAME, phone, ROLE, STATUS, cno) VALUES ('asdf@edu.com','여자','user24', '김이름24', '010-1234-1233', 'STUDENT', 'ACTIVE', 3);
-INSERT INTO member (email, gender, id, NAME, phone, ROLE, STATUS, cno) VALUES ('asdf@edu.com','여자','user25', '김이름25', '010-1234-1233', 'STUDENT', 'ACTIVE', 4);
-INSERT INTO member (email, gender, id, NAME, phone, ROLE, STATUS, cno) VALUES ('asdf@edu.com','여자','user26', '김이름26', '010-1234-1233', 'STUDENT', 'ACTIVE', 5);
-INSERT INTO member (email, gender, id, NAME, phone, ROLE, STATUS, cno) VALUES ('asdf@edu.com','여자','user27', '김이름27', '010-1234-1233', 'STUDENT', 'ACTIVE', 6);
-INSERT INTO member (email, gender, id, NAME, phone, ROLE, STATUS, cno) VALUES ('asdf@edu.com','여자','user28', '김이름28', '010-1234-1233', 'STUDENT', 'ACTIVE', 7);
-INSERT INTO member (email, gender, id, NAME, phone, ROLE, STATUS, cno) VALUES ('asdf@edu.com','여자','user29', '김이름29', '010-1234-1233', 'STUDENT', 'ACTIVE', 2);
-INSERT INTO member (email, gender, id, NAME, phone, ROLE, STATUS, cno) VALUES ('asdf@edu.com','여자','user30', '김이름30', '010-1234-1233', 'STUDENT', 'ACTIVE', 3);
+
+/*공지사항 더미데이터 */
+SELECT * FROM board;
+update board SET created_time = '2024-04-28 21:15:26.348127'; 
+update board SET modified_time = '2024-04-28 21:19:26.348127'; 
+
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 1, '공지사항1 입니다.', 1, '공지사항1', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 2, '공지사항2 입니다.', 2, '공지사항2', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 3, '공지사항3 입니다.', 1, '공지사항3', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 4, '공지사항4 입니다.', 2, '공지사항4', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 5, '공지사항5 입니다.', 1, '공지사항5', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 6, '공지사항6 입니다.', 2, '공지사항6', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 7, '공지사항7 입니다.', 1, '공지사항7', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 1, '공지사항8 입니다.', 2, '공지사항8', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 2, '공지사항9 입니다.', 1, '공지사항9', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 3, '공지사항10 입니다.', 2, '공지사항10', '관리자');
+
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 1, '공지사항11 입니다.', 1, '공지사항11', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 2, '공지사항12 입니다.', 2, '공지사항12', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 3, '공지사항13 입니다.', 1, '공지사항13', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 4, '공지사항14 입니다.', 2, '공지사항14', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 5, '공지사항15 입니다.', 1, '공지사항15', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 6, '공지사항16 입니다.', 2, '공지사항16', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 7, '공지사항17 입니다.', 1, '공지사항17', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 1, '공지사항18 입니다.', 2, '공지사항18', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 2, '공지사항19 입니다.', 1, '공지사항19', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 3, '공지사항20 입니다.', 2, '공지사항20', '관리자');
+
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 1, '공지사항21 입니다.', 1, '공지사항21', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 2, '공지사항22 입니다.', 2, '공지사항22', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 3, '공지사항23 입니다.', 1, '공지사항23', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 4, '공지사항24 입니다.', 2, '공지사항24', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 5, '공지사항25 입니다.', 1, '공지사항25', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 6, '공지사항26 입니다.', 2, '공지사항26', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 7, '공지사항27 입니다.', 1, '공지사항27', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 1, '공지사항28 입니다.', 2, '공지사항28', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 2, '공지사항29 입니다.', 1, '공지사항29', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 3, '공지사항30 입니다.', 2, '공지사항30', '관리자');
+
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 1, '공지사항31 입니다.', 1, '공지사항31', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 2, '공지사항32 입니다.', 2, '공지사항32', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 3, '공지사항33 입니다.', 1, '공지사항33', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 4, '공지사항34 입니다.', 2, '공지사항34', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 5, '공지사항35 입니다.', 1, '공지사항35', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 6, '공지사항36 입니다.', 2, '공지사항36', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 7, '공지사항37 입니다.', 1, '공지사항37', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 1, '공지사항38 입니다.', 2, '공지사항38', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 2, '공지사항39 입니다.', 1, '공지사항39', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 3, '공지사항40 입니다.', 2, '공지사항40', '관리자');
+
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 1, '공지사항41 입니다.', 1, '공지사항41', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 2, '공지사항42 입니다.', 2, '공지사항42', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 3, '공지사항43 입니다.', 1, '공지사항43', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 4, '공지사항44 입니다.', 2, '공지사항44', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 5, '공지사항45 입니다.', 1, '공지사항45', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 6, '공지사항46 입니다.', 2, '공지사항46', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 7, '공지사항47 입니다.', 1, '공지사항47', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 1, '공지사항48 입니다.', 2, '공지사항48', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 2, '공지사항49 입니다.', 1, '공지사항49', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 3, '공지사항50 입니다.', 2, '공지사항50', '관리자');
+
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 1, '공지사항51 입니다.', 1, '공지사항51', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 2, '공지사항52 입니다.', 2, '공지사항52', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 3, '공지사항53 입니다.', 1, '공지사항53', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 4, '공지사항54 입니다.', 2, '공지사항54', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 5, '공지사항55 입니다.', 1, '공지사항55', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 6, '공지사항56 입니다.', 2, '공지사항56', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 7, '공지사항57 입니다.', 1, '공지사항57', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 1, '공지사항58 입니다.', 2, '공지사항58', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 2, '공지사항59 입니다.', 1, '공지사항59', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 3, '공지사항60 입니다.', 2, '공지사항60', '관리자');
+
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 1, '공지사항61 입니다.', 1, '공지사항61', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 2, '공지사항62 입니다.', 2, '공지사항62', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 3, '공지사항63 입니다.', 1, '공지사항63', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 4, '공지사항64 입니다.', 2, '공지사항64', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 5, '공지사항65 입니다.', 1, '공지사항65', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 6, '공지사항66 입니다.', 2, '공지사항66', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 7, '공지사항67 입니다.', 1, '공지사항67', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 1, '공지사항68 입니다.', 2, '공지사항68', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 2, '공지사항69 입니다.', 1, '공지사항69', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 3, '공지사항70 입니다.', 2, '공지사항70', '관리자');
+
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 1, '공지사항71 입니다.', 1, '공지사항71', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 2, '공지사항72 입니다.', 2, '공지사항72', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 3, '공지사항73 입니다.', 1, '공지사항73', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 4, '공지사항74 입니다.', 2, '공지사항74', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 5, '공지사항75 입니다.', 1, '공지사항75', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 6, '공지사항76 입니다.', 2, '공지사항76', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 7, '공지사항77 입니다.', 1, '공지사항77', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 1, '공지사항78 입니다.', 2, '공지사항78', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 2, '공지사항79 입니다.', 1, '공지사항79', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 3, '공지사항80 입니다.', 2, '공지사항70', '관리자');
+
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 1, '공지사항81 입니다.', 1, '공지사항81', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 2, '공지사항82 입니다.', 2, '공지사항82', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 3, '공지사항83 입니다.', 1, '공지사항83', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 4, '공지사항84 입니다.', 2, '공지사항84', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 5, '공지사항85 입니다.', 1, '공지사항85', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 6, '공지사항86 입니다.', 2, '공지사항86', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 7, '공지사항87 입니다.', 1, '공지사항87', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 1, '공지사항88 입니다.', 2, '공지사항88', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 2, '공지사항89 입니다.', 1, '공지사항89', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 3, '공지사항90 입니다.', 2, '공지사항90', '관리자');
+
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 1, '공지사항91 입니다.', 1, '공지사항91', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 2, '공지사항92 입니다.', 2, '공지사항92', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 3, '공지사항93 입니다.', 1, '공지사항93', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 4, '공지사항94 입니다.', 2, '공지사항94', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 5, '공지사항95 입니다.', 1, '공지사항95', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 6, '공지사항96 입니다.', 2, '공지사항96', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 7, '공지사항97 입니다.', 1, '공지사항97', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 1, '공지사항98 입니다.', 2, '공지사항98', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 2, '공지사항99 입니다.', 1, '공지사항99', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 3, '공지사항100 입니다.', 2, '공지사항100', '관리자');
+
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 1, '공지사항101 입니다.', 1, '공지사항101', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 2, '공지사항102 입니다.', 2, '공지사항102', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 3, '공지사항103 입니다.', 1, '공지사항103', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 4, '공지사항104 입니다.', 2, '공지사항104', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 5, '공지사항105 입니다.', 1, '공지사항105', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 6, '공지사항106 입니다.', 2, '공지사항106', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 7, '공지사항107 입니다.', 1, '공지사항107', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 1, '공지사항108 입니다.', 2, '공지사항108', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 2, '공지사항109 입니다.', 1, '공지사항109', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 3, '공지사항110 입니다.', 2, '공지사항110', '관리자');
+
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 1, '공지사항111 입니다.', 1, '공지사항111', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 2, '공지사항112 입니다.', 2, '공지사항112', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 3, '공지사항113 입니다.', 1, '공지사항113', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 4, '공지사항114 입니다.', 2, '공지사항114', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 5, '공지사항115 입니다.', 1, '공지사항115', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 6, '공지사항116 입니다.', 2, '공지사항116', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 7, '공지사항117 입니다.', 1, '공지사항117', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 1, '공지사항118 입니다.', 2, '공지사항118', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 2, '공지사항119 입니다.', 1, '공지사항119', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 3, '공지사항120 입니다.', 2, '공지사항120', '관리자');
+
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 1, '공지사항121 입니다.', 1, '공지사항121', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 2, '공지사항122 입니다.', 2, '공지사항122', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 3, '공지사항123 입니다.', 1, '공지사항123', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 4, '공지사항124 입니다.', 2, '공지사항124', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 5, '공지사항125 입니다.', 1, '공지사항125', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 6, '공지사항126 입니다.', 2, '공지사항126', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 7, '공지사항127 입니다.', 1, '공지사항127', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 1, '공지사항128 입니다.', 2, '공지사항128', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 2, '공지사항129 입니다.', 1, '공지사항129', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 3, '공지사항130 입니다.', 2, '공지사항130', '관리자');
+
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 0, '공지사항131 입니다.', 0, '공지사항131', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 0, '공지사항132 입니다.', 0, '공지사항132', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 0, '공지사항133 입니다.', 0, '공지사항133', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 0, '공지사항134 입니다.', 0, '공지사항134', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 0, '공지사항135 입니다.', 0, '공지사항135', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 0, '공지사항136 입니다.', 0, '공지사항136', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 0, '공지사항137 입니다.', 0, '공지사항137', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 0, '공지사항138 입니다.', 0, '공지사항138', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 0, '공지사항139 입니다.', 0, '공지사항139', '관리자');
+INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 0, '공지사항140 입니다.', 0, '공지사항140', '관리자');

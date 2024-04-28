@@ -42,9 +42,38 @@ public class AdminController {
 
     // 회원 리스트(관리자)
     @GetMapping("/admin_member")
-    public String admin_member(Model model, Principal principal){
-        List<MemberDTO> memberList = memberService.member_list();
-        model.addAttribute("memberList",memberList);
+    public String admin_member(Model model, Principal principal,HttpServletRequest request, @PageableDefault(page=0, size=20, sort="name", direction= Sort.Direction.ASC)Pageable pageable,
+                               @RequestParam(required = false) String keyword, @RequestParam(required = false)Subject subject, @RequestParam(required = false)Integer flag, @RequestParam(required = false)Role role){
+
+//        List<MemberDTO> memberList = memberService.member_list();
+//        model.addAttribute("memberList",memberList);
+
+        List<CourseDTO> course_big_List = courseService.course_subject_list(Subject.BIGDATA);
+        List<CourseDTO> course_full_List = courseService.course_subject_list(Subject.FULLSTACK);
+        List<CourseDTO> course_pm_List = courseService.course_subject_list(Subject.PM);
+        Subject[] subjects = {Subject.BIGDATA, Subject.FULLSTACK, Subject.PM};
+        Role[] roles = {Role.STUDENT, Role.TEACHER};
+
+        model.addAttribute("course_big_List",course_big_List);
+        model.addAttribute("course_full_List",course_full_List);
+        model.addAttribute("course_pm_List",course_pm_List);
+        model.addAttribute("subjects", subjects);
+        model.addAttribute("roles", roles);
+
+        Page<Member> members = memberService.searchMembers(keyword, flag, subject, role, pageable);
+        model.addAttribute("memberList", members);
+
+        int pageNow = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+
+        PageDTO<Member, MemberDTO> pageDTO = new PageDTO<>();
+        pageDTO.setPageNow(pageNow);
+        pageDTO.setPostTotal(members.getTotalElements());
+        pageDTO.setPageTotal(members.getTotalPages());
+        pageDTO.build(members);
+        pageDTO.entity2dto(members, MemberDTO.class);
+
+        model.addAttribute("pageDTO", pageDTO);
+
         return "admin/member/admin_member";
     }
 
@@ -76,11 +105,7 @@ public class AdminController {
         pageDTO.setPageTotal(members.getTotalPages());
         pageDTO.build(members);
         pageDTO.entity2dto(members, MemberDTO.class);
-        log.info("============총 개수"+ members.getTotalElements());
-        log.info("============첫번째"+ pageDTO.getPageStart());
-        log.info("===========마지막"+pageDTO.getPageLast());
-        log.info("=========총"+pageDTO.getPageTotal());
-        log.info("페이지나우"+pageNow);
+
         model.addAttribute("pageDTO", pageDTO);
 
         return "admin/member/list";
@@ -135,47 +160,45 @@ public class AdminController {
     }
 
 
+    // 강의 시스템 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
+    // 강의 리스트
+    @GetMapping("/course")
+    public String course(Model model){
+        List<CourseDTO> courseDTOList = courseService.course_list();
+        model.addAttribute("courseDTOList",courseDTOList);
+        return "admin/course/list";
+    }
 
-        // 강의 시스템 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+    // 강의 등록
+    @PostMapping("/coursePro")
+    public String coursePro(CourseDTO courseDTO){
+        courseService.course_add(courseDTO);
+        return "redirect:/admin/course";
+    }
 
-        // 강의 리스트
-        @GetMapping("/course")
-        public String course(Model model){
-            List<CourseDTO> courseDTOList = courseService.course_list();
-            model.addAttribute("courseDTOList",courseDTOList);
-            return "admin/course/list";
-        }
+    // 강의 공개여부
+    @PostMapping("/course_delete")
+    public String course_delete(CourseDTO courseDTO) {
+        courseService.delete_type(courseDTO);
+        return "redirect:/admin/course";
+    }
 
-        // 강의 등록
-        @PostMapping("/coursePro")
-        public String coursePro(CourseDTO courseDTO){
-            courseService.course_add(courseDTO);
-            return "redirect:/admin/course";
-        }
+    // 강의 변경 페이지
+    @GetMapping("/course_edit")
+    public String course_edit(Model model, Integer no){
+        CourseDTO courseDTO = courseService.course_read(no);
+        model.addAttribute("courseDTO",courseDTO);
+        return "admin/course/edit";
+    }
 
-        // 강의 공개여부
-        @PostMapping("/course_delete")
-        public String course_delete(CourseDTO courseDTO) {
-            courseService.delete_type(courseDTO);
-            return "redirect:/admin/course";
-        }
-
-        // 강의 변경 페이지
-        @GetMapping("/course_edit")
-        public String course_edit(Model model, Integer no){
-            CourseDTO courseDTO = courseService.course_read(no);
-            model.addAttribute("courseDTO",courseDTO);
-            return "admin/course/edit";
-        }
-
-        // 강의 수정하기
-        @PostMapping("/course_edit")
-        public String course_editPro(Model model, CourseDTO courseDTO){
-            log.info("courseDTO -----------" + courseDTO);
-            courseService.course_edit(courseDTO);
-            return "redirect:/admin/course";
-        }
+    // 강의 수정하기
+    @PostMapping("/course_edit")
+    public String course_editPro(Model model, CourseDTO courseDTO){
+        log.info("courseDTO -----------" + courseDTO);
+        courseService.course_edit(courseDTO);
+        return "redirect:/admin/course";
+    }
 
 
 }

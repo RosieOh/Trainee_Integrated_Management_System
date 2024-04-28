@@ -503,3 +503,15 @@
     padding: 7px 2px;
     border-radius: 5px;
 }
+
+.notiSearchGroup {
+    display: flex;
+    padding: 10px 0;
+}
+
+.btn.notiSb {
+    margin-left: 11px;
+    height: 49px;
+    margin-top: 0px;
+    width: 35%;
+}
