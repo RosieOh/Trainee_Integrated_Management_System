@@ -4,20 +4,28 @@ import com.lms.domain.Course.entity.Course;
 import com.lms.domain.Course.repository.CourseRepository;
 import com.lms.domain.member.dto.MemberDTO;
 import com.lms.domain.member.entity.Member;
+import com.lms.domain.member.entity.QMember;
 import com.lms.domain.member.repository.MemberRepository;
 import com.lms.domain.student.entity.Student;
 import com.lms.domain.student.repository.StudentRepository;
 import com.lms.global.cosntant.Role;
 import com.lms.global.cosntant.Status;
 import com.lms.global.cosntant.Subject;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.QueryResults;
+import com.querydsl.jpa.JPQLQuery;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
@@ -36,6 +44,7 @@ public class MemberServiceImpl implements MemberService {
     private final CourseRepository courseRepository;
     private final StudentRepository studentRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JPAQueryFactory queryFactory;
 
     @Override
     public void createAdminMember() {
@@ -196,18 +205,44 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Page<Member> findByKeywordAndFlagAndSubjectAndRole(String keyword, Integer flag, Subject subject, Role role, Pageable pageable) {
-        return memberRepository.findByKeywordAndFlagAndSubjectAndRole(keyword, flag, subject, role, pageable);
-    }
-
-    @Override
-    public Page<Member> memberList(Pageable pageable) {
-        return memberRepository.findAll(pageable);
-    }
-
-    @Override
     public String getMemberName(Principal principal) {
         String name = memberRepository.findId(principal.getName()).getName();
         return name;
+    }
+
+
+    @Override
+    public Page<Member> searchMembers(String keyword, Integer flag, Subject subject, Role role, Pageable pageable) {
+        BooleanBuilder where = new BooleanBuilder();
+
+        // 키워드가 있는 경우 이름 필터링
+        if (StringUtils.hasText(keyword)) {
+            where.and(QMember.member.name.containsIgnoreCase(keyword));
+        }
+
+        // 과정, 기수, 롤에 대한 필터링
+        if (flag != null) {
+            where.and(QMember.member.course.flag.eq(flag));
+        }
+        if (subject != null) {
+            where.and(QMember.member.course.subject.eq(subject));
+        }
+        if (role != null) {
+            where.and(QMember.member.role.eq(role));
+        }
+
+        // 페이징 처리
+        JPQLQuery<Member> query = queryFactory
+                .selectFrom(QMember.member)
+                .leftJoin(QMember.member.course).fetchJoin()
+                .where(where);
+
+        // 페이징 처리된 결과 반환
+        QueryResults<Member> results = query
+                .offset(pageable.getOffset()) // 오프셋 설정
+                .limit(pageable.getPageSize()) // 페이지 크기 설정
+                .fetchResults(); // 결과 가져오기
+
+        return new PageImpl<>(results.getResults(), pageable, results.getTotal());
     }
 }

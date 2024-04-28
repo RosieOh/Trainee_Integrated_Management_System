@@ -6,38 +6,39 @@
 <body>
   <div th:fragment="pagination(pageLink)" class="paging_btn">
 
-      <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
-          <th:block th:if="${nowPage > 5 && page%5 ==1}">
-              <a  th:onclick="goToPage('[[${page-1}]]')" class="nextBtn">&laquo;</a>
+      <th:block th:each="page : ${#numbers.sequence(pageDTO.getPageStart(), pageDTO.getPageLast())}">
+          <th:block th:if="${pageDTO.pageNow >= 5 && page%5 ==1}">
+              <a  th:onclick="goToPage('[[${page-2}]]')" class="nextBtn">&laquo;</a>
           </th:block>
-          <a th:if="${page != nowPage}" th:text="${page}" th:page="${page}" th:onclick="goToPage('[[${page}]]')" class="pageBtn"></a>
-          <a th:if="${page == nowPage}" th:text="${page}" class="pageNowBtn"></a>
-          <th:block th:if="${endPage < totalPage}">
-              <a th:if="${endPage < totalPage && page%5 ==0 && endPage != 1 }" th:onclick="goToPage('[[${page+1}]]')" class="nextBtn">»</a>
+          <a th:text="${page}" th:page="${page}" th:onclick="goToPage('[[${page-1}]]')" class="pageBtn"></a>
+<!--          <a th:if="${page == pageDTO.pageNow}" th:text="${page}" class="pageNowBtn"></a>-->
+          <th:block th:if="${pageDTO.pageLast < pageDTO.pageTotal && page%5 ==0}">
+              <a th:onclick="goToPage('[[${page}]]')" class="nextBtn">»</a>
           </th:block>
       </th:block>
 
       <script th:inline="javascript">
           function goToPage(page) {
               var keyword = /*[[${param.keyword} != null ? ${param.keyword} : '']]*/ '';
-              var subject =  document.getElementById('subject').value;
-              var flag =  document.getElementById('flag').value;
-              var role =  document.getElementById('role').value;
+              var subject =  /*[[${param.subject} != null ? ${param.subject} : '']]*/ '';
+              var flag =  /*[[${param.flag} != null ? ${param.flag} : '']]*/ '';
+              var role = /*[[${param.role} != null ? ${param.role} : '']]*/ '';
               var pageLink = /*[[${pageLink}]]*/ '';
-              var url = pageLink + '?page=' + page;
+              pageLink += '?page=' + page
+              ;
               if(keyword !== '') {
-                  url += '&keyword=' + encodeURIComponent(keyword);
+                  pageLink += '&keyword=' + encodeURIComponent(keyword);
               }
               if(subject !== '') {
-                  url += '&subject=' + encodeURIComponent(subject);
+                  pageLink += '&subject=' + encodeURIComponent(subject);
               }
               if(flag !== '') {
-                  url += '&flag=' + encodeURIComponent(flag);
+                  pageLink += '&flag=' + encodeURIComponent(flag);
               }
               if(role !== '') {
-                  role += '&role=' + encodeURIComponent(role);
+                  pageLink += '&role=' + encodeURIComponent(role);
               }
-              window.location.href = url;
+              window.location.href = pageLink;
           }
       </script>
   </div>

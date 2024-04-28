@@ -30,10 +30,9 @@ public interface MemberService {
     // 고정 아이디 생성
     void createAdminMember();
 
-    //검색 및 페이징처리
-    Page<Member> findByKeywordAndFlagAndSubjectAndRole(String keyword, Integer flag, Subject subject, Role role, Pageable pageable);
-    Page<Member> memberList(Pageable pageable);
-
     //이름 가져오기
     public String getMemberName(Principal principal);
+
+    //검색 및 페이징 처리
+    public Page<Member> searchMembers(String keyword, Integer flag, Subject subject, Role role, Pageable pageable);
 }

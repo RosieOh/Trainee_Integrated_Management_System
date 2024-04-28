@@ -11,6 +11,7 @@ import com.lms.domain.student.service.StudentService;
 import com.lms.global.cosntant.Role;
 import com.lms.global.cosntant.Status;
 import com.lms.global.cosntant.Subject;
+import com.lms.global.util.PageDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -47,24 +48,43 @@ public class AdminController {
         return "admin/member/admin_member";
     }
 
-
     // 회원 리스트(매니저)
-//    @GetMapping("/member")
-//    public String member_list(Model model, Integer cno){
-//        List<CourseDTO> course_big_List = courseService.course_subject_list(Subject.BIGDATA);
-//        List<CourseDTO> course_full_List = courseService.course_subject_list(Subject.FULLSTACK);
-//        List<CourseDTO> course_pm_List = courseService.course_subject_list(Subject.PM);
-//        List<MemberDTO> memberList = memberService.member_list();
-//        List<MemberDTO> memberVOList = memberService.memberVO_list(cno);
-//        List<StudentDTO> studentDTOList = studentService.student_list();
-//        model.addAttribute("memberList",memberList);
-//        model.addAttribute("memberVOList",memberVOList);
-//        model.addAttribute("course_big_List",course_big_List);
-//        model.addAttribute("course_full_List",course_full_List);
-//        model.addAttribute("course_pm_List",course_pm_List);
-//        model.addAttribute("cno",cno);
-//        return "admin/member/list";
-//    }
+    @GetMapping("/member")
+    public String memberList(HttpServletRequest request, Model model, @PageableDefault(page=0, size=20, sort="name", direction= Sort.Direction.ASC)Pageable pageable,
+                             @RequestParam(required = false) String keyword, @RequestParam(required = false)Subject subject, @RequestParam(required = false)Integer flag, @RequestParam(required = false)Role role) {
+
+        List<CourseDTO> course_big_List = courseService.course_subject_list(Subject.BIGDATA);
+        List<CourseDTO> course_full_List = courseService.course_subject_list(Subject.FULLSTACK);
+        List<CourseDTO> course_pm_List = courseService.course_subject_list(Subject.PM);
+        Subject[] subjects = {Subject.BIGDATA, Subject.FULLSTACK, Subject.PM};
+        Role[] roles = {Role.STUDENT, Role.TEACHER};
+
+        model.addAttribute("course_big_List",course_big_List);
+        model.addAttribute("course_full_List",course_full_List);
+        model.addAttribute("course_pm_List",course_pm_List);
+        model.addAttribute("subjects", subjects);
+        model.addAttribute("roles", roles);
+
+        Page<Member> members = memberService.searchMembers(keyword, flag, subject, role, pageable);
+        model.addAttribute("memberList", members);
+
+        int pageNow = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+
+        PageDTO<Member, MemberDTO> pageDTO = new PageDTO<>();
+        pageDTO.setPageNow(pageNow);
+        pageDTO.setPostTotal(members.getTotalElements());
+        pageDTO.setPageTotal(members.getTotalPages());
+        pageDTO.build(members);
+        pageDTO.entity2dto(members, MemberDTO.class);
+        log.info("============총 개수"+ members.getTotalElements());
+        log.info("============첫번째"+ pageDTO.getPageStart());
+        log.info("===========마지막"+pageDTO.getPageLast());
+        log.info("=========총"+pageDTO.getPageTotal());
+        log.info("페이지나우"+pageNow);
+        model.addAttribute("pageDTO", pageDTO);
+
+        return "admin/member/list";
+    }
 
 
     // 회원 상세보기
@@ -114,117 +134,48 @@ public class AdminController {
         return  "redirect:/admin/member_read?no="+ no;
     }
 
-    @GetMapping("/member")
-    public String memberList(HttpServletRequest request, Model model, Integer cno, @PageableDefault(page=0, size=20, sort="name", direction= Sort.Direction.ASC)Pageable pageable,
-                             @RequestParam(required = false) String keyword, @RequestParam(required = false)Subject subject, @RequestParam(required = false)Integer flag, @RequestParam(required = false)Role role) {
-        List<CourseDTO> course_big_List = courseService.course_subject_list(Subject.BIGDATA);
-        List<CourseDTO> course_full_List = courseService.course_subject_list(Subject.FULLSTACK);
-        List<CourseDTO> course_pm_List = courseService.course_subject_list(Subject.PM);
-        List<MemberDTO> memberVOList = memberService.memberVO_list(cno);
-        Subject[] subjects = {Subject.BIGDATA, Subject.FULLSTACK, Subject.PM};
-        Role[] roles = {Role.STUDENT, Role.TEACHER};
-        model.addAttribute("subjects", subjects);
-        model.addAttribute("roles", roles);
-        model.addAttribute("subjects", subjects);
-        model.addAttribute("memberVOList",memberVOList);
-        model.addAttribute("course_big_List",course_big_List);
-        model.addAttribute("course_full_List",course_full_List);
-        model.addAttribute("course_pm_List",course_pm_List);
-        model.addAttribute("cno",cno);
 
-        Page<Member> list;
 
-        if(keyword != null ) {
-            if( flag != null && subject != null ) {
-                if (role != null) {
-                    list = memberService.findByKeywordAndFlagAndSubjectAndRole(keyword, flag, subject, role, pageable);
-                } else {
-                    list = memberService.findByKeywordAndFlagAndSubjectAndRole(keyword, flag, subject, null, pageable);
-                }
-            } else {
-                if (role != null) {
-                    list = memberService.findByKeywordAndFlagAndSubjectAndRole(keyword, null, null, role, pageable);
-                } else {
-                    list = memberService.findByKeywordAndFlagAndSubjectAndRole(keyword, null, null, null, pageable);
-                }
-            }
-        } else {
-            if (flag != null && subject != null) {
-                if (role != null) {
-                    list = memberService.findByKeywordAndFlagAndSubjectAndRole("", flag, subject, role, pageable);
-                } else {
-                    list = memberService.findByKeywordAndFlagAndSubjectAndRole("", flag, subject, null, pageable);
-                }
-            } else {
-                if (role != null) {
-                    list = memberService.findByKeywordAndFlagAndSubjectAndRole("", null, null, role, pageable);
-                } else {
-                    list = memberService.memberList(pageable);
-                }
-            }
-        }
-        int startPage, endPage;
-        int totalPage = list.getTotalPages();
-        int nowPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
 
-        if(nowPage<=1){
-            startPage = 1;
-        } else {
-            startPage = ((nowPage - 1) / 5) * 5 + 1;
-        }
-        endPage = startPage + 5 - 1;
-        if(endPage > totalPage) {
-            endPage = totalPage-1;
+        // 강의 시스템 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+        // 강의 리스트
+        @GetMapping("/course")
+        public String course(Model model){
+            List<CourseDTO> courseDTOList = courseService.course_list();
+            model.addAttribute("courseDTOList",courseDTOList);
+            return "admin/course/list";
         }
 
-        model.addAttribute("memberList", list);
-        model.addAttribute("nowPage", nowPage);
-        model.addAttribute("startPage", startPage);
-        model.addAttribute("endPage", endPage);
-        model.addAttribute("totalPage", totalPage);
+        // 강의 등록
+        @PostMapping("/coursePro")
+        public String coursePro(CourseDTO courseDTO){
+            courseService.course_add(courseDTO);
+            return "redirect:/admin/course";
+        }
 
-        return "admin/member/list";
-    }
+        // 강의 공개여부
+        @PostMapping("/course_delete")
+        public String course_delete(CourseDTO courseDTO) {
+            courseService.delete_type(courseDTO);
+            return "redirect:/admin/course";
+        }
 
+        // 강의 변경 페이지
+        @GetMapping("/course_edit")
+        public String course_edit(Model model, Integer no){
+            CourseDTO courseDTO = courseService.course_read(no);
+            model.addAttribute("courseDTO",courseDTO);
+            return "admin/course/edit";
+        }
 
-    // 강의 시스템 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+        // 강의 수정하기
+        @PostMapping("/course_edit")
+        public String course_editPro(Model model, CourseDTO courseDTO){
+            log.info("courseDTO -----------" + courseDTO);
+            courseService.course_edit(courseDTO);
+            return "redirect:/admin/course";
+        }
 
-    // 강의 리스트
-    @GetMapping("/course")
-    public String course(Model model){
-        List<CourseDTO> courseDTOList = courseService.course_list();
-        model.addAttribute("courseDTOList",courseDTOList);
-        return "admin/course/list";
-    }
-
-    // 강의 등록
-    @PostMapping("/coursePro")
-    public String coursePro(CourseDTO courseDTO){
-        courseService.course_add(courseDTO);
-        return "redirect:/admin/course";
-    }
-
-    // 강의 공개여부
-    @PostMapping("/course_delete")
-    public String course_delete(CourseDTO courseDTO) {
-        courseService.delete_type(courseDTO);
-        return "redirect:/admin/course";
-    }
-
-    // 강의 변경 페이지
-    @GetMapping("/course_edit")
-    public String course_edit(Model model, Integer no){
-        CourseDTO courseDTO = courseService.course_read(no);
-        model.addAttribute("courseDTO",courseDTO);
-        return "admin/course/edit";
-    }
-
-    // 강의 수정하기
-    @PostMapping("/course_edit")
-    public String course_editPro(Model model, CourseDTO courseDTO){
-        log.info("courseDTO -----------" + courseDTO);
-        courseService.course_edit(courseDTO);
-        return "redirect:/admin/course";
-    }
 
 }
