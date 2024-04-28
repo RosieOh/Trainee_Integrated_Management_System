@@ -8,7 +8,7 @@
 
       <th:block th:each="page : ${#numbers.sequence(pageDTO.getPageStart(), pageDTO.getPageLast())}">
           <th:block th:if="${pageDTO.pageNow >= 5 && page%5 ==1}">
-              <a  th:onclick="goToPage('[[${page-2}]]')" class="nextBtn">&laquo;</a>
+              <a th:onclick="goToPage('[[${page-2}]]')" class="nextBtn">&laquo;</a>
           </th:block>
           <a th:text="${page}" th:page="${page}" th:onclick="goToPage('[[${page-1}]]')" class="pageBtn"></a>
           <th:block th:if="${pageDTO.pageLast < pageDTO.pageTotal && page%5 ==0}">
@@ -38,6 +38,31 @@
                   pageLink += '&role=' + encodeURIComponent(role);
               }
               window.location.href = pageLink;
+
+
+          }
+          window.onload = function() {
+              // URL에서 page 매개변수 값을 가져오기
+              var urlParams = new URLSearchParams(window.location.search);
+              var pageValue = urlParams.get('page');
+
+              // 가져온 값이 있고 숫자일 경우 해당 페이지 버튼을 활성화
+              if (pageValue !== null && !isNaN(pageValue)) {
+                  var page = parseInt(pageValue);
+                  addActiveClass(page);
+              }
+          };
+
+          function addActiveClass(page) {
+              var pageButtons = document.querySelectorAll('.pageBtn');
+              var nextPage = page + 1;
+
+              for (var i = 0; i < pageButtons.length; i++) {
+                  pageButtons[i].classList.remove('active');
+                  if (pageButtons[i].getAttribute('page') == nextPage) {
+                      pageButtons[i].classList.add('active');
+                  }
+              }
           }
       </script>
   </div>

@@ -490,7 +490,7 @@
     border-radius: 5px;
 }
 
-.pageNowBtn {
+.pageBtn.active {
     color: #fff;
     background-color: #99ccff;
     padding: 7px 8px;
