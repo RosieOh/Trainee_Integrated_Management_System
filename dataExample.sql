@@ -1,5 +1,16 @@
 USE chunjaeitlms;
 
+/* 강의 더미 데이터 */
+SELECT * FROM course;
+
+INSERT INTO course (created_time, modified_time, delete_type, end_date, flag, instructor, manager, start_date, SUBJECT, train_time) VALUES ( '2024-04-29 09:15:25.751508', '2024-04-29 09:15:25.751508', 'n', '2024.07.30', 1, '김이름', '이이름', '2024.02.21' ,'BIGDATA', '2024.06.21');
+INSERT INTO course (created_time, modified_time, delete_type, end_date, flag, instructor, manager, start_date, SUBJECT, train_time) VALUES ( '2024-04-29 09:16:29.727949', '2024-04-29 09:16:29.727949', 'n', '2024.12.22', 2, '김이름', '이이름', '2024.06.21' ,'BIGDATA', '2024.09.20');
+INSERT INTO course (created_time, modified_time, delete_type, end_date, flag, instructor, manager, start_date, SUBJECT, train_time) VALUES ( '2024-04-29 09:15:25.751508', '2024-04-29 09:15:25.751508', 'n', '2024.07.30', 1, '김이름', '이이름', '2024.05.21' ,'FULLSTACK', '2024.10.21');
+INSERT INTO course (created_time, modified_time, delete_type, end_date, flag, instructor, manager, start_date, SUBJECT, train_time) VALUES ( '2024-04-29 09:15:25.751508', '2024-04-29 09:15:25.751508', 'n', '2024.07.30', 2, '김이름', '이이름', '2024.05.21' ,'FULLSTACK', '2024.10.21');
+INSERT INTO course (created_time, modified_time, delete_type, end_date, flag, instructor, manager, start_date, SUBJECT, train_time) VALUES ( '2024-04-29 09:15:25.751508', '2024-04-29 09:15:25.751508', 'n', '2024.07.30', 1, '김이름', '이이름', '2024.03.2' ,'PM', '2024.08.21');
+INSERT INTO course (created_time, modified_time, delete_type, end_date, flag, instructor, manager, start_date, SUBJECT, train_time) VALUES ( '2024-04-29 09:15:25.751508', '2024-04-29 09:15:25.751508', 'n', '2024.07.30', 2, '김이름', '이이름', '2024.02.22' ,'PM', '2024.05.21');
+INSERT INTO course (created_time, modified_time, delete_type, end_date, flag, instructor, manager, start_date, SUBJECT, train_time) VALUES ( '2024-04-29 09:15:25.751508', '2024-04-29 09:15:25.751508', 'n', '2024.07.30', 3, '김이름', '이이름', '2024.02.22' ,'PM', '2024.05.21');
+
 /* 회원 더미데이터 */
 SELECT * FROM member;
 
