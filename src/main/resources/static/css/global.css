@@ -31,7 +31,7 @@
   --card_section1_btn: #553BF3;
 
   /* 색 추가 */
-  --c-red: #dc3545;
+  --c-red: #b41010;
   --c-red-hover: #aa3545;
   --c-orange: #fd7e14;
   --c-yellow: #ffc107;
@@ -306,6 +306,7 @@ tr:last-child td {
   border: 1px solid var(--c-back_gray);
 }
 
+/* 버튼 모음 */
 .button {
   background-color: var(--c-main);
   text-align: center;
@@ -315,73 +316,12 @@ tr:last-child td {
   font-weight: bold;
   font-size: 1.5rem;
 }
-.button_board {
-text-align: center;
-border-radius: 5px;
-border: none;
-width: 10%;
-font-weight: bold;
-font-size: 1.5rem;
-padding: 5px 0;
-}
-
-.button:hover {
-  background-color: var(--c-hover);
-  color: var(--c-white);
-}
-
-.bottom_button {
-  background-color: var(--c-main);
-  width: max-content;
-  border: none;
-  border-radius: 10px;
-}
-
-.bottom_button:hover {
-  background-color: var(--c-hover);
-}
 
 
-.btn {
-  background-color: var(--c-sub);
-  padding: 1rem 1.5rem;
-  color: var(--c-white);
-  border: none;
-  border-radius: 30px;
-  font-size: 1rem;
-}
 
-.btn2 {
-  background-color: var(--c-white);
-  padding: 1rem 1.5rem;
-  color: var(--c-main);
-  border: none;
-  font-size: 1rem;
-  margin: 1em 0;
-  border-radius: 30px;
-}
-
-.btn3 {
-  background-color: var(--c-main);
-  padding: 1rem 1.5rem;
-  color: var(--c-white);
-  border: none;
-  font-size: 1rem;
-  border-radius: 30px;
-  margin: 1em 0;
-}
-
-.board_btn {
+.btn_group_right {
   margin: 20px auto;
   float: right;
-}
-
-.form_button {
-  border-radius: 5px;
-  border: none;
-  width: 100%;
-  font-size: 1.5rem;
-  height: 50px;
 }
 
 .inline_form_btn {
@@ -418,3 +358,45 @@ padding: 5px 0;
   color: white;
 }
 
+.search_btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+}
+
+
+
+
+
+.form_button {
+  border-radius: 5px;
+  border: none;
+  width: 100%;
+  font-size: 1.5rem;
+  height: 50px;
+}
+
+
+.button_board {
+  text-align: center;
+  border-radius: 5px;
+  border: none;
+  width: 10%;
+  font-weight: bold;
+  font-size: 1.5rem;
+  padding: 5px 0;
+}
+
+.button:hover {
+  background-color: var(--c-hover);
+  color: var(--c-white);
+}
+
+.btn {
+  background-color: var(--c-sub);
+  padding: 1rem 1.5rem;
+  color: var(--c-white);
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+}

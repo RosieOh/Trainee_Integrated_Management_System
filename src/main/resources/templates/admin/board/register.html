@@ -1,22 +1,12 @@
-<!doctype html>
-<html
-        xmlns:th="http://www.thymeleaf.org"
->
-<head>
-  <meta charset="UTF-8" />
-  <meta
-          content="minimum-scale=1.0, width=device-width, maximum-scale=1, ser-scalable=no"
-          name="viewport"
-  />
-  <title>천재IT교육센터</title>
-  <th:block th:replace="~{include/head :: head}"></th:block>
-  <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
-  <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-</head>
-<body>
-<div class="main admin">
-  <th:block th:replace="~{include/header :: header}"></th:block>
-  <div class="admin-board">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{include/layout}">
+
+<div layout:fragment="content">
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
     <div class="admin-content">
       <div class="admin_box ">
         <h2>공지사항 작성</h2>
@@ -105,6 +95,3 @@
         </div>
       </div>
   </div>
-</div>
-</body>
-</html>

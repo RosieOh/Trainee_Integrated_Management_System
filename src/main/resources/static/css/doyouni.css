@@ -131,7 +131,7 @@
     font-size: 1.5em;
 }
 .main_notice h1 span {
-    color: #b41010;
+    color: var(--c-red);
 }
 .main_table {
     margin: 30px 0;
@@ -160,26 +160,14 @@
 .board_pin {
     width: fit-content;
     margin: 0px auto;
-    background-color: #b41010;
-    padding: 3px 6px 0px;
+    background-color: var(--c-red);
+    padding: 3px 6px 0;
     color: #ffffff;
 }
 /* 공지사항 작성 */
 
 /* 공지사항 read */
-.board_container {
-    width: 100%;
-    height: calc(100vh - 67px);
-}
 
-.back_white {
-    width: 70%;
-}
-
-.noti_read  {
-    display: flex;
-    justify-content: center;
-}
 
 .btn_myInfo.list {
     color: #fff;
@@ -187,7 +175,7 @@
 
 .btn_myInfo.out {
     color: #fff;
-    background-color: #b41010;
+    background-color: var(--c-red);
 }
 
 /* 공지사상 수정하기 */
