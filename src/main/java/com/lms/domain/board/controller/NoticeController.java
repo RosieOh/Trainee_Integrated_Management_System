@@ -38,6 +38,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.File;
 import java.nio.file.Files;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,7 +58,7 @@ public class NoticeController {
 
     @GetMapping(value = {"/list"})
     public String noticeListAll(Model model, HttpServletRequest request, @PageableDefault(page=0, size=10, sort="title", direction= Sort.Direction.DESC) Pageable pageable,
-                                @RequestParam(required = false) String keyword, @RequestParam(required = false) Integer cno){
+                                @RequestParam(required = false) String keyword, @RequestParam(required = false) Integer cno, Principal principal){
 //        List<BoardDTO> boardList = boardService.findNoticeAll();
 //        int pinnedCount = boardService.countPinned(boardList);
 //        model.addAttribute("boardList", boardList);
@@ -76,6 +77,16 @@ public class NoticeController {
         model.addAttribute("pinnedCount", pinnedCount);
         model.addAttribute("searchTotal", boardList.getTotalElements());
 
+        //각 공지사항의 파일
+        List<FileDTO> fileList = new ArrayList<>();
+        for (Board board : boardList) {
+            FileDTO fileDTO = fileService.getFile(board.getFileId());
+            fileList.add(fileDTO);
+            log.info(String.valueOf(fileDTO));
+        }
+        log.info(fileList+"fileList");
+        model.addAttribute("fileList", fileList);
+
         int pageNow = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
 
         PageDTO<Board, BoardDTO> pageDTO = new PageDTO<>();
@@ -87,6 +98,12 @@ public class NoticeController {
 
         model.addAttribute("pageDTO", pageDTO);
 
+
+        //비밀글을 위한 정보 가져오기
+        String id = principal.getName();
+        MemberDTO memberDTO = memberService.loginId(id);
+        model.addAttribute("memberDTO",memberDTO);
+
         return "admin/board/list";
     }
 
@@ -94,11 +111,12 @@ public class NoticeController {
     public String readNotice(Long id, Model model, Principal principal) {
         if (id != null) {
             BoardDTO boardDTO = boardService.findById(id);
+            log.info(boardDTO.getWriter());
             if (boardDTO != null) {
                 FileDTO fileDTO = fileService.getFile(boardDTO.getFileId());
                 //String prin = principal.getName();
                 //String name = memberRepository.findId(prin).getName();
-                String name = memberService.getMemberName(principal);
+                String name = memberService.getNameById(boardDTO.getWriter());
                 model.addAttribute("name", name);
                 model.addAttribute("principal", principal);
                 model.addAttribute("fileList", fileDTO);
@@ -112,7 +130,8 @@ public class NoticeController {
 
     @GetMapping("/register")
     public String registerForm(Model model, Principal principal) {
-        String name = memberService.getMemberName(principal);
+        //String name = memberService.getMemberName(principal);
+        String name = principal.getName();
         model.addAttribute("name", name);
         return "admin/board/register";
     }
