@@ -18,7 +18,7 @@
     <div class="admin-content">
       <div class="course_box ">
         <h2>클래스 공지</h2>
-        <div th:replace="/include/search :: searchClassNoti('/notice/class/list')"></div>
+        <div th:replace="~{include/search :: searchClassNoti('/notice/class/list')}"></div>
         <table class="table_set">
             <thead>
             <tr>
@@ -41,7 +41,7 @@
             </tr>
             </tbody>
           </table>
-          <th:block th:replace="~{/include/page :: paginationClassNoti(pageLink=@{'/notice/class/list'})}"></th:block>
+          <th:block th:replace="~{include/page :: paginationClassNoti(pageLink=@{'/notice/class/list'})}"></th:block>
         <div class="notice_btn">
           <a th:href="@{/notice/register}" class="btn NlistBtn">글쓰기</a>
         </div>

@@ -109,8 +109,6 @@ public class NoticeController {
         return "admin/board/read";
     }
 
-
-
     @GetMapping("/register")
     public String registerForm(Model model, Principal principal) {
         String name = memberService.getMemberName(principal);

@@ -66,7 +66,7 @@
     position: absolute;
     background-color: var(--c-white);
     right: 84px;
-    top: 67px;
+    top: 78px;
     border-radius: 5px;
     box-shadow: 0 4px 6px -3px gray;
     width: 300px;
@@ -102,8 +102,8 @@
     display: none;
     position: absolute;
     background-color: var(--c-white);
-    right: 18px;
-    top: 67px;
+    right: 16px;
+    top: 78px;
     border-radius: 5px;
     box-shadow: 0 4px 6px -3px gray;
 }
@@ -233,6 +233,7 @@
 .admin-content {
     width: 100%;
     padding: 2rem 0;
+    overflow-x: hidden;
 }
 
 .admin-content_box {
@@ -520,4 +521,44 @@
 
 .job_box input{
     margin: 0 1rem;
+}
+
+/* hide_layout */
+
+.hide_layout {
+    position: absolute;
+    top: 78px;
+    right: -600px;
+    background-color: white;
+    width: 600px;
+    min-height: 100vh;
+    transition: all 0.5s ease-in-out;
+}
+
+.layout_box {
+    width: 100%;
+    padding: 2rem 0;
+}
+
+.layout_add {
+    font-size: 1.5rem;
+    height: 80px;
+}
+.layout_add i {
+    font-size: 110%;
+}
+.layout_add:hover {
+    cursor: pointer;
+    background-color: var(--c-main_back);
+}
+.layout_close {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    font-size: 2.5rem;
+}
+
+.layout_close:hover {
+    cursor: pointer;
+    color: var(--c-back_gray);
 }
