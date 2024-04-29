@@ -244,4 +244,10 @@ public class MemberServiceImpl implements MemberService {
 
         return new PageImpl<>(results.getResults(), pageable, results.getTotal());
     }
+
+    @Override
+    public String getNameById(String id) {
+        Member member = memberRepository.getNameById(id);
+        return member.getName();
+    }
 }

@@ -38,7 +38,7 @@
             </tr>
             <tr>
               <th scope="row">작성자</th>
-              <td th:text="${name}"></td>
+              <td th:text="${boardList.writer}"></td>
               <th scope="row">작성일</th>
               <td th:text="${#temporals.format(boardList.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
               <th scope="row">첨부파일</th>

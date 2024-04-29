@@ -254,3 +254,11 @@
 .NlistBtn {
     float: right;
 }
+
+/* 에디터 */
+.toastui-editor-md-preview, .toastui-editor-md-splitter {
+    display: none !important;
+}
+.md-mode {
+    width: 100% !important;
+}
