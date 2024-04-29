@@ -28,13 +28,49 @@
             </th:block>
         </select>
         <script>
-            document.getElementById('subject').addEventListener('change', function() {
-                var subject = this.value;
-                var optionsBig = document.querySelectorAll('.flag_big');
-                var optionsFull = document.querySelectorAll('.flag_full');
-                var optionsPm = document.querySelectorAll('.flag_pm');
-
-                if (subject === 'BIGDATA') {
+            var urlParams = new URLSearchParams(window.location.search);
+            var subjectValue = urlParams.get('subject');
+            console.log(subjectValue);
+            var optionsBig = document.querySelectorAll('.flag_big');
+            var optionsFull = document.querySelectorAll('.flag_full');
+            var optionsPm = document.querySelectorAll('.flag_pm');
+            if(subjectValue == null){
+                document.getElementById('subject').addEventListener('change', function () {
+                    var subject = this.value;
+                    if (subject === 'BIGDATA') {
+                        optionsFull.forEach(function(option) {
+                            option.style.display = 'none';
+                        });
+                        optionsPm.forEach(function(option) {
+                            option.style.display = 'none';
+                        });
+                        optionsBig.forEach(function(option) {
+                            option.style.display = 'block';
+                        });
+                    } else if (subject === 'FULLSTACK') {
+                        optionsBig.forEach(function(option) {
+                            option.style.display = 'none';
+                        });
+                        optionsPm.forEach(function(option) {
+                            option.style.display = 'none';
+                        });
+                        optionsFull.forEach(function(option) {
+                            option.style.display = 'block';
+                        });
+                    } else if (subject === 'PM') {
+                        optionsFull.forEach(function(option) {
+                            option.style.display = 'none';
+                        });
+                        optionsBig.forEach(function(option) {
+                            option.style.display = 'none';
+                        });
+                        optionsPm.forEach(function(option) {
+                            option.style.display = 'block';
+                        });
+                    }
+                });
+            } else {
+                if (subjectValue === 'BIGDATA') {
                     optionsFull.forEach(function(option) {
                         option.style.display = 'none';
                     });
@@ -44,7 +80,41 @@
                     optionsBig.forEach(function(option) {
                         option.style.display = 'block';
                     });
-                } else if (subject === 'FULLSTACK') {
+                    document.getElementById('subject').addEventListener('change', function () {
+                        var subject = this.value;
+                        if (subject === 'BIGDATA') {
+                            optionsFull.forEach(function(option) {
+                                option.style.display = 'none';
+                            });
+                            optionsPm.forEach(function(option) {
+                                option.style.display = 'none';
+                            });
+                            optionsBig.forEach(function(option) {
+                                option.style.display = 'block';
+                            });
+                        } else if (subject === 'FULLSTACK') {
+                            optionsBig.forEach(function(option) {
+                                option.style.display = 'none';
+                            });
+                            optionsPm.forEach(function(option) {
+                                option.style.display = 'none';
+                            });
+                            optionsFull.forEach(function(option) {
+                                option.style.display = 'block';
+                            });
+                        } else if (subject === 'PM') {
+                            optionsFull.forEach(function(option) {
+                                option.style.display = 'none';
+                            });
+                            optionsBig.forEach(function(option) {
+                                option.style.display = 'none';
+                            });
+                            optionsPm.forEach(function(option) {
+                                option.style.display = 'block';
+                            });
+                        }
+                    });
+                } else if (subjectValue === 'FULLSTACK') {
                     optionsBig.forEach(function(option) {
                         option.style.display = 'none';
                     });
@@ -54,7 +124,41 @@
                     optionsFull.forEach(function(option) {
                         option.style.display = 'block';
                     });
-                } else if (subject === 'PM') {
+                    document.getElementById('subject').addEventListener('change', function () {
+                        var subject = this.value;
+                        if (subject === 'BIGDATA') {
+                            optionsFull.forEach(function(option) {
+                                option.style.display = 'none';
+                            });
+                            optionsPm.forEach(function(option) {
+                                option.style.display = 'none';
+                            });
+                            optionsBig.forEach(function(option) {
+                                option.style.display = 'block';
+                            });
+                        } else if (subject === 'FULLSTACK') {
+                            optionsBig.forEach(function(option) {
+                                option.style.display = 'none';
+                            });
+                            optionsPm.forEach(function(option) {
+                                option.style.display = 'none';
+                            });
+                            optionsFull.forEach(function(option) {
+                                option.style.display = 'block';
+                            });
+                        } else if (subject === 'PM') {
+                            optionsFull.forEach(function(option) {
+                                option.style.display = 'none';
+                            });
+                            optionsBig.forEach(function(option) {
+                                option.style.display = 'none';
+                            });
+                            optionsPm.forEach(function(option) {
+                                option.style.display = 'block';
+                            });
+                        }
+                    });
+                } else if (subjectValue === 'PM') {
                     optionsFull.forEach(function(option) {
                         option.style.display = 'none';
                     });
@@ -63,9 +167,43 @@
                     });
                     optionsPm.forEach(function(option) {
                         option.style.display = 'block';
+                    });
+                    document.getElementById('subject').addEventListener('change', function () {
+                        var subject = this.value;
+                        if (subject === 'BIGDATA') {
+                            optionsFull.forEach(function(option) {
+                                option.style.display = 'none';
+                            });
+                            optionsPm.forEach(function(option) {
+                                option.style.display = 'none';
+                            });
+                            optionsBig.forEach(function(option) {
+                                option.style.display = 'block';
+                            });
+                        } else if (subject === 'FULLSTACK') {
+                            optionsBig.forEach(function(option) {
+                                option.style.display = 'none';
+                            });
+                            optionsPm.forEach(function(option) {
+                                option.style.display = 'none';
+                            });
+                            optionsFull.forEach(function(option) {
+                                option.style.display = 'block';
+                            });
+                        } else if (subject === 'PM') {
+                            optionsFull.forEach(function(option) {
+                                option.style.display = 'none';
+                            });
+                            optionsBig.forEach(function(option) {
+                                option.style.display = 'none';
+                            });
+                            optionsPm.forEach(function(option) {
+                                option.style.display = 'block';
+                            });
+                        }
                     });
                 }
-            });
+            }
         </script>
 
         <select name="role" id="role" class="custom-select">
