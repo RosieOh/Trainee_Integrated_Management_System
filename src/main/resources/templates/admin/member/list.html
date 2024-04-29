@@ -9,7 +9,7 @@
             <h2>회원</h2>
 
             <div class="table_group">
-                <div th:replace="/include/search :: search('/admin/member')"></div>
+                <div th:replace="~{include/search :: search('/admin/member')}"></div>
                 <table class="table_set">
                     <thead>
                     <tr>
@@ -108,7 +108,7 @@
                     </th:block>
                     </tbody>
                 </table>
-                <th:block th:replace="~{/include/page :: pagination(pageLink=@{'/admin/member'})}"></th:block>
+                <th:block th:replace="~{include/page :: pagination(pageLink=@{'/admin/member'})}"></th:block>
             </div>
         </div>
     </div>

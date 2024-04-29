@@ -56,7 +56,7 @@ public class NoticeController {
     private final FileService fileService;
 
     @GetMapping(value = {"/list"})
-    public String noticeListAll(Model model, HttpServletRequest request, @PageableDefault(page=0, size=10, sort="title", direction= Sort.Direction.ASC) Pageable pageable,
+    public String noticeListAll(Model model, HttpServletRequest request, @PageableDefault(page=0, size=10, sort="title", direction= Sort.Direction.DESC) Pageable pageable,
                                 @RequestParam(required = false) String keyword, @RequestParam(required = false) Integer cno){
 //        List<BoardDTO> boardList = boardService.findNoticeAll();
 //        int pinnedCount = boardService.countPinned(boardList);
@@ -108,8 +108,6 @@ public class NoticeController {
         }
         return "admin/board/read";
     }
-
-
 
     @GetMapping("/register")
     public String registerForm(Model model, Principal principal) {
@@ -280,38 +278,38 @@ public class NoticeController {
     }
 
 //   --------------------------------------클래스 공지사항 --------------------------
-    @GetMapping(value = {"/class/list"})
-    public String classNoticeAll(Model model, Long cno) {
-        List<BoardDTO> boardList = boardService.classNoticeAll(cno);
-        int pinnedCount = boardService.countPinned(boardList);
-
-        model.addAttribute("boardList", boardList);
-        model.addAttribute("pinnedCount", pinnedCount);
-        return "user/class/notice/list";
-    }
-
 //    @GetMapping(value = {"/class/list"})
-//    public String classNoticeAll(Model model,HttpServletRequest request, @PageableDefault(page=0, size=10, sort="title", direction= Sort.Direction.ASC) Pageable pageable,
-//                                 @RequestParam(required = false) String keyword, Integer cno) {
+//    public String classNoticeAll(Model model, Long cno) {
+//        List<BoardDTO> boardList = boardService.classNoticeAll(cno);
+//        int pinnedCount = boardService.countPinned(boardList);
 //
-//
-//        Page<Board> boardList = boardService.searchNotice(keyword, cno,pageable);
-//        int pinnedCount = boardService.countPinnedPaging(boardList);
 //        model.addAttribute("boardList", boardList);
 //        model.addAttribute("pinnedCount", pinnedCount);
-//        model.addAttribute("cno", cno);
-//
-//        int pageNow = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
-//
-//        PageDTO<Board, BoardDTO> pageDTO = new PageDTO<>();
-//        pageDTO.setPageNow(pageNow);
-//        pageDTO.setPostTotal(boardList.getTotalElements());
-//        pageDTO.setPageTotal(boardList.getTotalPages());
-//        pageDTO.build(boardList);
-//        pageDTO.entity2dto(boardList, BoardDTO.class);
-//
-//        model.addAttribute("pageDTO", pageDTO);
 //        return "user/class/notice/list";
 //    }
+
+    @GetMapping(value = {"/class/list"})
+    public String classNoticeAll(Model model,HttpServletRequest request, @PageableDefault(page=0, size=10, sort="title", direction= Sort.Direction.ASC) Pageable pageable,
+                                 @RequestParam(required = false) String keyword, Integer cno) {
+
+
+        Page<Board> boardList = boardService.searchNotice(keyword, cno,pageable);
+        int pinnedCount = boardService.countPinnedPaging(boardList);
+        model.addAttribute("boardList", boardList);
+        model.addAttribute("pinnedCount", pinnedCount);
+        model.addAttribute("cno", cno);
+
+        int pageNow = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+
+        PageDTO<Board, BoardDTO> pageDTO = new PageDTO<>();
+        pageDTO.setPageNow(pageNow);
+        pageDTO.setPostTotal(boardList.getTotalElements());
+        pageDTO.setPageTotal(boardList.getTotalPages());
+        pageDTO.build(boardList);
+        pageDTO.entity2dto(boardList, BoardDTO.class);
+
+        model.addAttribute("pageDTO", pageDTO);
+        return "user/class/notice/list";
+    }
 
 }
