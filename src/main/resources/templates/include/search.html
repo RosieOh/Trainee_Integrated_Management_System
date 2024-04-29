@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<body>
+<div th:fragment="search(pageLink)">
+    <form id="search-form" role="search" method="get">
+        <select name="subject" id="subject" class="custom-select">
+            <option value="">==전체과정==</option>
+            <th:block th:each="subject : ${subjects}">
+                <option th:value="${subject}" th:text="${subject}"></option>
+            </th:block>
+        </select>
+
+        <select name="flag" class="custom-select" id="flag" >
+            <option value="">==전체기수==</option>
+            <th:block th:each="course_big : ${course_big_List}">
+                <option th:value="${course_big.getFlag()}" th:text="${course_big.flag} + '기'" class="flag_big"></option>
+            </th:block>
+            <th:block th:each="course_full : ${course_full_List}">
+                <option th:value="${course_full.getFlag()}" th:text=" ${course_full.flag} + '기'" class="flag_full"></option>
+            </th:block>
+            <th:block th:each="course_pm : ${course_pm_List}">
+                <option th:value="${course_pm.getFlag()}" th:text=" ${course_pm.flag} + '기'" class="flag_pm"></option>
+            </th:block>
+        </select>
+        <script>
+            document.getElementById('subject').addEventListener('change', function() {
+                var subject = this.value;
+                var optionsBig = document.querySelectorAll('.flag_big');
+                var optionsFull = document.querySelectorAll('.flag_full');
+                var optionsPm = document.querySelectorAll('.flag_pm');
+
+                if (subject === 'BIGDATA') {
+                    optionsFull.forEach(function(option) {
+                        option.style.display = 'none';
+                    });
+                    optionsPm.forEach(function(option) {
+                        option.style.display = 'none';
+                    });
+                    optionsBig.forEach(function(option) {
+                        option.style.display = 'block';
+                    });
+                } else if (subject === 'FULLSTACK') {
+                    optionsBig.forEach(function(option) {
+                        option.style.display = 'none';
+                    });
+                    optionsPm.forEach(function(option) {
+                        option.style.display = 'none';
+                    });
+                    optionsFull.forEach(function(option) {
+                        option.style.display = 'block';
+                    });
+                } else if (subject === 'PM') {
+                    optionsFull.forEach(function(option) {
+                        option.style.display = 'none';
+                    });
+                    optionsBig.forEach(function(option) {
+                        option.style.display = 'none';
+                    });
+                    optionsPm.forEach(function(option) {
+                        option.style.display = 'block';
+                    });
+                }
+            });
+        </script>
+
+        <select name="role" id="role" class="custom-select">
+            <option value="">==전체회원==</option>
+            <th:block th:each="role : ${roles}">
+                <option th:value="${role}" th:text="${role}"></option>
+            </th:block>
+        </select>
+        <input type="text" name="keyword" placeholder="이름 입력">
+        <button type="submit" class="btn sb">검색</button>
+    </form>
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            let pageLink = /*[[@{${pageLink}}]]*/ '';
+        });
+    </script>
+</div>
+
+<div th:fragment="searchNoti(pageLink)">
+    <form id="search-form2" role="search" method="get">
+        <select name="cno" id="cno" class="custom-select-noti">
+            <option value="">==전체과정==</option>
+            <th:block th:each="course_big : ${course_big_List}">
+                <option th:value="${course_big.getNo()}" th:text="'프로젝트 기반 빅데이터 서비스 개발자 양성'+' '+ ${course_big.flag} + '기'"></option>
+            </th:block>
+            <th:block th:each="course_full : ${course_full_List}">
+                <option th:value="${course_full.getNo()}" th:text="'에듀테크 풀스택 개발자 양성(Java)'+' '+ ${course_full.flag} + '기'"></option>
+            </th:block>
+            <th:block th:each="course_pm : ${course_pm_List}">
+                <option th:value="${course_pm.getNo()}" th:text="'에듀테크 상품서비스 PM(프로덕트매니저) 양성'+' '+ ${course_pm.flag} + '기'"></option>
+            </th:block>
+        </select>
+        <div class="notiSearchGroup">
+            <input type="text" name="keyword" placeholder="제목 입력">
+            <button type="submit" class="btn notiSb">검색</button>
+        </div>
+    </form>
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            let pageLink = /*[[@{${pageLink}}]]*/ '';
+        });
+    </script>
+</div>
+
+<div th:fragment="searchClassNoti(pageLink)">
+    <form id="search-form3" role="search" method="get">
+        <div class="notiSearchGroup">
+            <input type="text" name="keyword" placeholder="제목 입력">
+            <input type="hidden" name="cno" th:value="${cno}"/>
+            <button type="submit" class="btn notiSb">검색</button>
+        </div>
+    </form>
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            let pageLink = /*[[@{${pageLink}}]]*/ '';
+        });
+    </script>
+</div>
+</body>
+</html>
