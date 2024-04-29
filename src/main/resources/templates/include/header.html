@@ -61,7 +61,7 @@
                 </th:block>
                 <th:block sec:authorize="isAuthenticated()">
                 <li class="nav-content nav-dropdown">
-                <a class="nav_link " href="#"><i class="fas fa-user"></i><div id="nav-dropdown">▼</div></a>
+                <a class="nav_link " href="#"><i class="fas fa-user"></i></a>
                   <ul class="user-dropdown_wrap" id="nav-dropdown_wrap">
                     <li class="nav-content">
                       <a class="nav_link " th:href="@{/member/mypage}">
@@ -104,7 +104,7 @@
               </li>
               <li>
                 <a class="nav_link " th:href="@{/notice/list}"><i class="fas fa-clipboard"></i>
-                  <p>게시판</p>
+                  <p>공지사항</p>
                 </a>
               </li>
 <!--              <li>-->
@@ -142,10 +142,21 @@
                     });
             });
 
-            let dropdown = document.querySelector(".header-dropdown");
-            dropdown.addEventListener("click", function(){
-                this._toggleClass('o')
-            })
+            $(document).ready(function () {
+                $(".nav-dropdown ")
+                    .off("click")
+                    .on("click", function () {
+                        $(this).find(".user-dropdown_wrap").slideToggle();
+                    });
+            });
+
+
+
+            //
+            // let dropdown = document.querySelector(".header-dropdown");
+            // dropdown.addEventListener("click", function(){
+            //     this._toggleClass('o')
+            // })
 
         </script>
     </th:block>

@@ -1,5 +1,6 @@
 package com.lms.domain.student.dto;
 
+import jakarta.persistence.Column;
 import lombok.*;
 
 @Getter
@@ -18,9 +19,6 @@ public class StudentDTO{
     private String cert;            //자격증
 
 
-    private String resume;            //이력서
-
-    
     private String univ;            //대학교
 
     
@@ -32,14 +30,17 @@ public class StudentDTO{
     
     private String fund;            //지원센터
 
-    
-    private String picture;            //사진
 
-    
     private String hope;            //희망 진로분야
 
-    
-    private String portfolio;            //포트폴리오
+
+    private Long picture;            //사진
+
+
+    private Long resume;            //이력서
+
+
+    private Long portfolio;           //포트폴리오
 
 
     //    매니저 입력

@@ -31,7 +31,7 @@
   --card_section1_btn: #553BF3;
 
   /* 색 추가 */
-  --c-red: #dc3545;
+  --c-red: #b41010;
   --c-red-hover: #aa3545;
   --c-orange: #fd7e14;
   --c-yellow: #ffc107;
@@ -306,82 +306,26 @@ tr:last-child td {
   border: 1px solid var(--c-back_gray);
 }
 
-.button {
-  background-color: var(--c-main);
+/* 버튼 모음 */
+.login_btn {
   text-align: center;
   border-radius: 15px;
   border: none;
   width: 100%;
   font-weight: bold;
   font-size: 1.5rem;
-}
-.button_board {
-text-align: center;
-border-radius: 5px;
-border: none;
-width: 10%;
-font-weight: bold;
-font-size: 1.5rem;
-padding: 5px 0;
+  padding: 0.75rem;
+
 }
 
-.button:hover {
-  background-color: var(--c-hover);
-  color: var(--c-white);
-}
-
-.bottom_button {
-  background-color: var(--c-main);
-  width: max-content;
-  border: none;
-  border-radius: 10px;
-}
-
-.bottom_button:hover {
-  background-color: var(--c-hover);
-}
-
-
-.btn {
-  background-color: var(--c-sub);
-  padding: 1rem 1.5rem;
-  color: var(--c-white);
-  border: none;
-  border-radius: 30px;
-  font-size: 1rem;
-}
-
-.btn2 {
-  background-color: var(--c-white);
-  padding: 1rem 1.5rem;
-  color: var(--c-main);
-  border: none;
-  font-size: 1rem;
-  margin: 1em 0;
-  border-radius: 30px;
-}
-
-.btn3 {
-  background-color: var(--c-main);
-  padding: 1rem 1.5rem;
-  color: var(--c-white);
-  border: none;
-  font-size: 1rem;
-  border-radius: 30px;
-  margin: 1em 0;
-}
-
-.board_btn {
-  margin: 20px auto;
+.btn_group_right {
+  margin: 30px auto;
   float: right;
 }
 
-.form_button {
-  border-radius: 5px;
-  border: none;
-  width: 100%;
-  font-size: 1.5rem;
-  height: 50px;
+.btn_group_center {
+  margin: 30px auto;
+  text-align: center;
 }
 
 .inline_form_btn {
@@ -390,6 +334,29 @@ padding: 5px 0;
   border: none;
   padding: 15px 10px;
 }
+
+.board_btn {
+  text-align: center;
+  border-radius: 5px;
+  border: none;
+  padding : 15px 30px;
+  font-size: 110%;
+}
+
+.form_btn {
+  border-radius: 5px;
+  border: none;
+  width: 100%;
+  font-size: 1.25rem;
+  height: 50px;
+}
+
+.search_btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+}
+
 
 .select_btn {
   background-color: var(--c-main);
@@ -402,11 +369,12 @@ padding: 5px 0;
 
 .cancel_btn {
   background-color: var(--c-red);
+  color: white;
 }
 
 .cancel_btn:hover {
   background-color: var(--c-red-hover);
-  color: white;
+  color: black;
 }
 
 .edit_btn {

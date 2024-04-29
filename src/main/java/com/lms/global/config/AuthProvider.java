@@ -43,10 +43,13 @@ public class AuthProvider implements AuthenticationProvider {
             List<GrantedAuthority> roles = new ArrayList<>();
             if (memberToken.getRole().equals(Role.ADMIN)) {
                 roles.add(new SimpleGrantedAuthority("ADMIN")); // ADMIN 권한 부여
-            } else if (memberToken.getRole().equals(Role.TEACHER)) {
-                roles.add(new SimpleGrantedAuthority("MANAGER"));   // MANAGER 권한 부여
+
             } else if (memberToken.getRole().equals(Role.MANAGER)) {
+                roles.add(new SimpleGrantedAuthority("MANAGER"));   // MANAGER 권한 부여
+
+            } else if (memberToken.getRole().equals(Role.TEACHER)) {
             roles.add(new SimpleGrantedAuthority("TEACHER"));   // TEACHER 권한 부여
+
             } else {
                 roles.add(new SimpleGrantedAuthority("STUDENT"));       // STUDENT 권한 부여
             }

@@ -37,10 +37,10 @@ table i {
 
 .ft {
     display: flex;
-    justify-content: center;
+    justify-content: start;
     width: 100%;
     background-color: var(--c-main_back);
-    padding: 0.5rem 0.5rem 0.5rem;
+    padding: 0.5rem 8rem;
     box-shadow: 0 5px 10px 0 black;
 }
 

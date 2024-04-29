@@ -1,60 +1,50 @@
-<!doctype html>
-<html
-        xmlns:th="http://www.thymeleaf.org"
-        xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-  <meta charset="UTF-8" />
-  <meta
-          content="minimum-scale=1.0, width=device-width, maximum-scale=1, ser-scalable=no"
-          name="viewport"
-  />
-  <title>천재IT교육센터</title>
-  <th:block th:replace="~{include/head :: head}"></th:block>
-</head>
-<body>
-<div class="main admin">
-  <th:block th:replace="~{include/header :: header}"></th:block>
-  <div class="admin-board">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{include/layout}">
+
+<div layout:fragment="content">
     <div class="admin-content">
-      <th class="admin_box ">
+      <div class="admin_box ">
         <h2>공지사항 리스트</h2>
         <table class="table_set">
             <div th:replace="~{include/search :: searchNoti('/notice/list')}"></div>
             <thead>
-            <tr>
-              <th>no</th>
-              <th>제목</th>
-              <th>작성자</th>
-              <th>작성일</th>
-              <th>파일</th>
-            </tr>
+                <tr>
+                  <th style="width: 10%">no</th>
+                  <th style="width: auto">제목</th>
+                  <th style="width: 10%">작성자</th>
+                  <th style="width: 20%">작성일</th>
+                  <th style="width: 10%">파일</th>
+                </tr>
             </thead>
             <tbody>
-            <tr th:each="notice, about :${boardList}">
-                <!-- pinned가 1이면 필독 아니면 그냥 숫자 -->
-                <td th:if="${notice.pinned == true}" ><p class="board_pin">필독</p></td>
-                <td th:if="${notice.pinned != true}" th:text="${about.count - pinnedCount}"></td>
-                <!-- privated가 1이면 비밀글 아니면 공개글-->
-                <td th:if="${notice.privated == true}">
-                    <th:block th:if="${memberDTO.role == 'ADMIN' or memberDTO.id == notice.writer }">
-                        <a th:href="|@{/notice/read(id=${notice.id})}|" class="text-decoration-none"><i class="fas fa-lock">   </i>  [[${notice.title}]]</a>
-                    </th:block>
-                    <th:block th:if="${memberDTO.role != 'ADMIN' or memberDTO.id != notice.writer }">
-                        <i class="fas fa-lock">   </i>  비밀글입니다
-                    </th:block>
-                </td>
-                <td th:if="${notice.privated != true}"><a th:href="|@{/notice/read(id=${notice.id})}|" class="text-decoration-none">[[${notice.title}]]</a></td>
-                <td th:text="${notice.writer}"></td>
-                <td th:text="${#temporals.format(notice.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
-                <td th:if="${fileList[about.index].id == notice.fileId and fileList[about.index].originFileName == ''}">
+                <tr th:each="notice, about :${boardList}">
+                    <!-- pinned가 1이면 필독 아니면 그냥 숫자 -->
+                    <td th:if="${notice.pinned == true}" ><p class="board_pin">필독</p></td>
+                    <td th:if="${notice.pinned != true}" th:text="${about.count - pinnedCount}"></td>
+                    <!-- privated가 1이면 비밀글 아니면 공개글-->
+                    <td th:if="${notice.privated == true}">
+                        <th:block th:if="${memberDTO.role == 'ADMIN' or memberDTO.id == notice.writer }">
+                            <a th:href="|@{/notice/read(id=${notice.id})}|" class="text-decoration-none"><i class="fas fa-lock">   </i>  [[${notice.title}]]</a>
+                        </th:block>
+                        <th:block th:if="${memberDTO.role != 'ADMIN' or memberDTO.id != notice.writer }">
+                            <i class="fas fa-lock">   </i>  비밀글입니다
+                        </th:block>
+                    </td>
+                    <td th:if="${notice.privated != true}"><a th:href="|@{/notice/read(id=${notice.id})}|" class="text-decoration-none">[[${notice.title}]]</a></td>
+                    <td th:text="${notice.writer}"></td>
+                    <td th:text="${#temporals.format(notice.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:if="${fileList[about.index].id == notice.fileId and fileList[about.index].originFileName == ''}">
 
-                </td>
-                <td th:if="${fileList[about.index].id == notice.fileId and fileList[about.index].originFileName != ''}">
-                    <a th:href="@{'/download/' + ${fileList[about.index].id}}">
-                        <i class="fas fa-window-maximize"></i>
-                    </a>
-                </td>
-            </tr>
+                    </td>
+                    <td th:if="${fileList[about.index].id == notice.fileId and fileList[about.index].originFileName != ''}">
+                        <a th:href="@{'/download/' + ${fileList[about.index].id}}">
+                            <i class="fas fa-window-maximize"></i>
+                        </a>
+                    </td>
+                </tr>
             </tbody>
           </table>
           <th:block th:if="${boardList == null or boardList.isEmpty()}">
@@ -99,13 +89,10 @@
           </th:block>
 
           <th:block sec:authorize="hasAuthority('ADMIN')">
-            <div class="notice_btn">
-              <a th:href="@{/notice/register}" class="btn NlistBtn">글쓰기</a>
+            <div class="btn_group_right">
+              <a th:href="@{/notice/register}" class="board_btn select_btn">글쓰기</a>
             </div>
           </th:block>
       </div>
   </div>
 </div>
-</div>
-</body>
-</html>

@@ -35,7 +35,7 @@
 
 .nav-content {
     line-height: 1.5;
-    padding: 1.25rem 1.75rem;
+    padding: 1.25rem 3.25rem;
     white-space: nowrap;
     display: flex;
     align-items: center;
@@ -65,7 +65,7 @@
     display: none;
     position: absolute;
     background-color: var(--c-white);
-    right: 84px;
+    right: 166px;
     top: 78px;
     border-radius: 5px;
     box-shadow: 0 4px 6px -3px gray;
@@ -106,21 +106,6 @@
     top: 78px;
     border-radius: 5px;
     box-shadow: 0 4px 6px -3px gray;
-}
-
-#nav-dropdown {
-    display: inline-block;
-    font-size: 12px;
-}
-
-.nav-dropdown:hover {
-    .user-dropdown_wrap {
-        display: block;
-    }
-    #nav-dropdown {
-        transition: 0.4s ease-in-out;
-        transform: rotateX(180deg);
-    }
 }
 
 .user-dropdown_wrap > .nav-content {
@@ -199,8 +184,9 @@
 }
 .admin-board {
     width: 100%;
-    min-height: 100vh;
+    min-width: 1750px;
     padding-top: 78px;
+    overflow: hidden;
 
 }
 .admin-board h2 {
@@ -232,6 +218,7 @@
 
 .admin-content {
     width: 100%;
+    min-height: 100vh;
     padding: 2rem 0;
     overflow-x: hidden;
 }
@@ -317,10 +304,6 @@
 }
 .course_cal > input {
     margin: 0 3px;
-    width: 80px;
-}
-.course_cal > select {
-    width: 80px;
 }
 
 
@@ -408,10 +391,7 @@
     margin-top: 0.5em;
 }
 
-.login_btn {
-    padding: 0.75rem;
-    font-weight: bold;
-}
+
 
 .join_loca {
     margin: 5rem auto;
@@ -469,7 +449,7 @@
 }
 
 .join_tel input {
-    width: 80px;
+    width: 50%;
 }
 #birth2{
     margin-top: 5px;
@@ -543,6 +523,7 @@
 .layout_add {
     font-size: 1.5rem;
     height: 80px;
+    text-align: right;
 }
 .layout_add i {
     font-size: 110%;
@@ -561,4 +542,16 @@
 .layout_close:hover {
     cursor: pointer;
     color: var(--c-back_gray);
+}
+.admin_join {
+    padding: 2rem;
+}
+
+.form-login {
+    margin: 2em 0;
+}
+.form-login em {
+    color: var(--c-sub2);
+    font-size: 90%;
+    font-weight: 100;
 }

@@ -44,7 +44,7 @@
               <div class="user_info_box infobirth">
                 <label for="birth">생일</label>
                 <div class="myinfo_line">
-                  <input type="text" name="birth" id="birth" class="ro_input" th:value="${member.birth }"  readonly />
+                  <input type="date" name="birth" id="birth" min="1960-01-01" max="2040-12-31" class="ro_input" th:value="${member.birth }" readonly/>
                 </div>
               </div>
               <div class="user_info_box">
@@ -71,12 +71,12 @@
               </div>
               <div class="user_info_box">
                 <input type="text" name="postcode" id="postcode" th:value="${member.postcode }" class="postcodeBtn">
-                <button type="button" id="post_btn" onclick="findAddr()" class="btn_myInfo">우편번호 검색</button>
+                <button type="button" id="post_btn" onclick="findAddr()" class="join_btn">우편번호 검색</button>
               </div>
             </div>
           </div>
-          <div class="myinfo_btn_group">
-            <button type="submit" class="btn_myInfo">회원정보수정</button>
+          <div class="btn_group_center">
+            <button type="submit" class="board_btn select_btn">회원정보수정</button>
           </div>
         </div>
         </form>

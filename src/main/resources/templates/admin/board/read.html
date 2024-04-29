@@ -1,95 +1,72 @@
-<!doctype html>
-<html
-        xmlns:th="http://www.thymeleaf.org"
-        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
->
-<head>
-  <meta charset="UTF-8" />
-  <meta
-          content="minimum-scale=1.0, width=device-width, maximum-scale=1, ser-scalable=no"
-          name="viewport"
-  />
-  <title>천재IT교육센터</title>
-  <th:block th:replace="~{include/head :: head}"></th:block>
-</head>
-<body>
-<div class="main admin">
-<th:block th:replace="~{include/header :: header}"></th:block>
-  <div class="admin-board">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{include/layout}">
+
+<div layout:fragment="content">
     <div class="admin-content">
+      <div class="admin_box flex_center">
+        <div class="board_in">
 
-      <div class="board_container">
-      <div class="admin-content noti_read">
-        <div class="container back_white">
-          <table class="board_detail">
-
-            <colgroup>
-              <col style="width: 15%"/>
-              <col style="width: 25%"/>
-              <col style="width: 15%"/>
-              <col style="width: 35%"/>
-              <col style="width: 25%"/>
-              <col style="width: 35%"/>
-            </colgroup>
+        <h2>공지사항 내용</h2>
+        <div class="board_detail">
+          <div>
+          <table>
             <tbody>
-            <tr>
-              <th scope="row">제목</th>
-              <td colspan="6" th:text="${boardList.title}"></td>
-            </tr>
-            <tr>
-              <th scope="row">작성자</th>
-              <td th:text="${boardList.writer}"></td>
-              <th scope="row">작성일</th>
-              <td th:text="${#temporals.format(boardList.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
-              <th scope="row">첨부파일</th>
-              <td th:if="${fileList.originFileName == ''}">
-                파일 없음
-              </td>
-              <td th:if="${fileList.originFileName != ''}">
-                <a th:href="@{'/download/' + ${boardList.fileId}}">
-                  <i class="fas fa-window-maximize"></i>[[${fileList.originFileName}]]
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td colspan="7" class="view_text">
-                <textarea title="내용" id="contents" name="contents" th:text="${boardList.content}" readonly></textarea>
-              </td>
-            </tr>
+              <tr>
+                <th scope="row">제목</th>
+                <td colspan="6" th:text="${boardList.title}"></td>
+              </tr>
+              <tr>
+                <th scope="row">작성자</th>
+                <td th:text="${boardList.writer}"></td>
+                <th scope="row">작성일</th>
+                <td th:text="${#temporals.format(boardList.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
+                <th scope="row">첨부파일</th>
+                <td th:if="${fileList.originFileName == ''}">
+                  파일 없음
+                </td>
+                <td th:if="${fileList.originFileName != ''}">
+                  <a th:href="@{'/download/' + ${boardList.fileId}}">
+                    <i class="fas fa-window-maximize"></i>[[${fileList.originFileName}]]
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <th colspan="7" class="view_text">
+                  <textarea title="내용" id="contents" name="contents" th:text="${boardList.content}" readonly></textarea>
+                </th>
+              </tr>
             </tbody>
           </table>
+          </div>
           <th:block sec:authorize="hasAuthority('MANAGER') or hasAuthority('ADMIN')">
-            <div class="myinfo_btn_group">
-              <a class="btn_myInfo" th:href="@{/notice/list}">목록</a>
-              <a class="btn_myInfo out" th:href="@{/notice/remove(id=${boardList.id})}">삭제</a>
-              <a class="btn_myInfo" th:href="@{/notice/modify(id=${boardList.id})}">수정</a>
+            <div class="btn_group_center">
+              <a class="board_btn select_btn" th:href="@{/notice/list}">목록으로</a>
+              <!--              <a class="board_btn cancel_btn" th:href="@{/notice/remove(id=${boardList.id})}">삭제하기</a>-->
+              <a class="board_btn edit_btn" th:href="@{/notice/modify(id=${boardList.id})}">수정하기</a>
             </div>
           </th:block>
           <th:block sec:authorize="hasAuthority('STUDENT') or hasAuthority('TEACHER')">
-            <div class="myinfo_btn_group">
-              <a class="btn_myInfo" th:href="@{/member/index}">목록</a>
+            <div class="btn_group_center">
+              <a class="board_btn select_btn" th:href="@{/notice/list}">목록으로</a>
             </div>
           </th:block>
-
-
-          <script th:inline="javascript">
-            const errors = [[${errors}]]
-            console.log(errors)
-            let errorMsg = ''
-            if(errors){
-              for (let i = 0; i < errors.length; i++) {
-                errorMsg += `${errors[i].field}은(는) ${errors[i].code} \n`
-              }
-              alert(errorMsg)
-            }
-
-          </script>
         </div>
-
+        </div>
       </div>
-</div>
+      </div>
+    <script th:inline="javascript">
+      const errors = [[${errors}]]
+      console.log(errors)
+      let errorMsg = ''
+      if(errors){
+        for (let i = 0; i < errors.length; i++) {
+          errorMsg += `${errors[i].field}은(는) ${errors[i].code} \n`
+        }
+        alert(errorMsg)
+      }
+
+    </script>
     </div>
-  </div>
-</div>
-</body>
-</html>
