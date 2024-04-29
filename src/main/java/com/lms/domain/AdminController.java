@@ -82,7 +82,7 @@ public class AdminController {
     // 회원 리스트(매니저)
     @GetMapping("/member")
     public String memberList(HttpServletRequest request, Model model, @PageableDefault(page=0, size=20, sort="name", direction= Sort.Direction.ASC)Pageable pageable,
-                             @RequestParam(required = false) String keyword, @RequestParam(required = false)Subject subject, @RequestParam(required = false)Integer flag, @RequestParam(required = false)Role role) {
+                             @RequestParam(required = false) String keyword, @RequestParam(required = false) Subject subject, @RequestParam(required = false)Integer flag, @RequestParam(required = false)Role role) {
 
         List<CourseDTO> course_big_List = courseService.course_subject_list(Subject.BIGDATA);
         List<CourseDTO> course_full_List = courseService.course_subject_list(Subject.FULLSTACK);
