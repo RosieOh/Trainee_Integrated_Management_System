@@ -75,6 +75,7 @@ public class NoticeController {
         int pinnedCount = boardService.countPinnedPaging(boardList);
         model.addAttribute("boardList", boardList);
         model.addAttribute("pinnedCount", pinnedCount);
+        model.addAttribute("searchTotal", boardList.getTotalElements());
 
         //각 공지사항의 파일
         List<FileDTO> fileList = new ArrayList<>();
@@ -317,6 +318,7 @@ public class NoticeController {
         model.addAttribute("boardList", boardList);
         model.addAttribute("pinnedCount", pinnedCount);
         model.addAttribute("cno", cno);
+        model.addAttribute("searchTotal", boardList.getTotalElements());
 
         int pageNow = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
 

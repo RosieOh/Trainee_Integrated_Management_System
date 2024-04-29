@@ -16,7 +16,7 @@
   <th:block th:replace="~{include/header :: header}"></th:block>
   <div class="admin-board">
     <div class="admin-content">
-      <div class="admin_box ">
+      <th class="admin_box ">
         <h2>공지사항 리스트</h2>
         <table class="table_set">
             <div th:replace="~{include/search :: searchNoti('/notice/list')}"></div>
@@ -57,7 +57,47 @@
             </tr>
             </tbody>
           </table>
-          <th:block th:replace="~{include/page :: paginationNoti(pageLink=@{'/notice/list'})}"></th:block>
+          <th:block th:if="${boardList == null or boardList.isEmpty()}">
+              <div class="listEmptyBox">찾으시는 정보가 없습니다.</div>
+              <script>
+                  window.onload = function() {
+                      var urlParams = new URLSearchParams(window.location.search);
+                      var pageValue = urlParams.get('page');
+                      var cnoValue = urlParams.get('cno');
+                      var keywordValue = urlParams.get('keyword');
+
+                      function setSelectedOption(selectId, optionValue) {
+                          var selectElement = document.getElementById(selectId);
+                          var options = selectElement.options;
+
+                          for (var i = 0; i < options.length; i++) {
+                              if (options[i].value === optionValue) {
+                                  options[i].setAttribute('selected', 'selected');
+                                  return;
+                              }
+                          }
+                      }
+
+
+                      if (pageValue !== null && !isNaN(pageValue)) {
+                          var page = parseInt(pageValue);
+                          addActiveClass(page);
+                      } else {
+                          addActiveClass(0);
+                      }
+                      if (cnoValue) {
+                          setSelectedOption('cno', cnoValue);
+                      }
+                      if(keywordValue) {
+                          document.getElementById('keywordTitle').setAttribute('value', keywordValue);
+                      }
+                  };
+              </script>
+          </th:block>
+          <th:block th:if="${boardList != null and not boardList.isEmpty()}">
+              <th:block th:replace="~{include/page :: paginationNoti(pageLink=@{'/notice/list'})}"></th:block>
+          </th:block>
+
           <th:block sec:authorize="hasAuthority('ADMIN')">
             <div class="notice_btn">
               <a th:href="@{/notice/register}" class="btn NlistBtn">글쓰기</a>
