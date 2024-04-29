@@ -45,12 +45,45 @@
           window.onload = function() {
               var urlParams = new URLSearchParams(window.location.search);
               var pageValue = urlParams.get('page');
+              var subjectValue = urlParams.get('subject');
+              var flagValue = urlParams.get('flag');
+              var roleValue = urlParams.get('role');
+              var keywordValue = urlParams.get('keyword');
+
+              console.log(subjectValue);
+              console.log(flagValue);
+              console.log(roleValue);
+              console.log(keywordValue);
+              function setSelectedOption(selectId, optionValue) {
+                  var selectElement = document.getElementById(selectId);
+                  var options = selectElement.options;
+
+                  for (var i = 0; i < options.length; i++) {
+                      if (options[i].value === optionValue) {
+                          options[i].setAttribute('selected', 'selected');
+                          return;
+                      }
+                  }
+              }
+
 
               if (pageValue !== null && !isNaN(pageValue)) {
                   var page = parseInt(pageValue);
                   addActiveClass(page);
               } else {
                   addActiveClass(0);
+              }
+              if (subjectValue) {
+                  setSelectedOption('subject', subjectValue);
+              }
+              if (flagValue) {
+                  setSelectedOption('flag', flagValue);
+              }
+              if (roleValue) {
+                  setSelectedOption('role', roleValue);
+              }
+              if(keywordValue) {
+                  document.getElementById('keyword').setAttribute('value', keywordValue);
               }
           };
 
@@ -101,12 +134,33 @@
           window.onload = function() {
               var urlParams = new URLSearchParams(window.location.search);
               var pageValue = urlParams.get('page');
+              var cnoValue = urlParams.get('cno');
+              var keywordValue = urlParams.get('keyword');
+
+              function setSelectedOption(selectId, optionValue) {
+                  var selectElement = document.getElementById(selectId);
+                  var options = selectElement.options;
+
+                  for (var i = 0; i < options.length; i++) {
+                      if (options[i].value === optionValue) {
+                          options[i].setAttribute('selected', 'selected');
+                          return;
+                      }
+                  }
+              }
+
 
               if (pageValue !== null && !isNaN(pageValue)) {
                   var page = parseInt(pageValue);
                   addActiveClass(page);
               } else {
                   addActiveClass(0);
+              }
+              if (cnoValue) {
+                  setSelectedOption('cno', cnoValue);
+              }
+              if(keywordValue) {
+                  document.getElementById('keywordTitle').setAttribute('value', keywordValue);
               }
           };
 
@@ -154,12 +208,17 @@
           window.onload = function() {
               var urlParams = new URLSearchParams(window.location.search);
               var pageValue = urlParams.get('page');
+              var keywordValue = urlParams.get('keyword');
+
 
               if (pageValue !== null && !isNaN(pageValue)) {
                   var page = parseInt(pageValue);
                   addActiveClass(page);
               } else {
                   addActiveClass(0);
+              }
+              if(keywordValue) {
+                  document.getElementById('keywordTitle2').setAttribute('value', keywordValue);
               }
           };
 
