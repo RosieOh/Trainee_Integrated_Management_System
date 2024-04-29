@@ -37,7 +37,7 @@
                                 <div class="file_box_div">
                                     <label for="fileNotice">첨부파일</label>
                                     <th:block th:if="${fileList.originFileName == ''}">
-                                        <input type="file" class="form-control" name="file" id="fileNotice">
+                                        <input type="file" class="form-control" name="file" id="fileNotice" onchange="uploadImage()">
                                     </th:block>
                                     <th:block th:if="${fileList.originFileName != '' }">
                                         <input type="text" class="form-control" name="file" th:value="${fileList.originFileName}" readonly>
