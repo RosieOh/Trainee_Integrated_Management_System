@@ -44,8 +44,8 @@
               <form th:action="@{/admin/change_role(id=${member.id} )}" method="post" class="inline_form">
                 <select name="role" class="select-box">
                   <option value="MANAGER" th:selected="${#strings.equals(member.role, 'MANAGER')}">매니저</option>
-                  <option value="TEACHER" th:selected="${#strings.equals(member.role, 'TEACHER')}">선생님</option>
-                  <option value="STUDENT" th:selected="${#strings.equals(member.role, 'STUDENT')}">학생</option>
+                  <option value="TEACHER" th:selected="${#strings.equals(member.role, 'TEACHER')}">교수자 </option>
+                  <option value="STUDENT" th:selected="${#strings.equals(member.role, 'STUDENT')}">교육생</option>
                 </select>
                 <button type="submit" class="inline_form_btn select_btn" >권한 변경 <i class="fas fa-pencil-alt"></i></button>
               </form>
@@ -55,52 +55,52 @@
       </table>
       <th:block th:replace="~{include/page :: pagination(pageLink=@{'/admin/admin_member'})}"></th:block>
     </div>
-<!--    <div class="layout_add">-->
-<!--      <div > <i class="far fa-plus-square"></i> 매니저 추가하기</div>-->
-<!--    </div>-->
+    <div class="layout_add">
+      <div > <i class="far fa-plus-square"></i> 매니저 추가하기</div>
+    </div>
 
   </div>
-<!--    -->
-<!--    <div class="hide_layout">-->
-<!--      <div class="layout_box">-->
-<!--        <i class="fas fa-times-circle layout_close"></i>-->
-<!--        <form th:action="@{/joinPro}" onsubmit="return joinCheck(this)">-->
-<!--          <div class="login_box">-->
-<!--            <div class="form-login">-->
-<!--              <label>아이디<em>*</em></label>-->
-<!--              <div class="flex_between">-->
-<!--                <input type="text" name="id" id="id" class="join_input" placeholder="아이디를 입력해주세요." required />-->
-<!--                <button type="button" class="join_btn" onclick="idCheck()">아이디 중복 확인</button>-->
-<!--                <input type="hidden" name="cno" value="1">-->
-<!--              </div>-->
-<!--              <input type="hidden" name="idCk" id="idCk" value="no">-->
-<!--              <p id="msg" class="no_check">아이디 중복 체크를 하지 않으셨습니다.</p>-->
-<!--            </div>-->
-<!--            <div class="form-login">-->
-<!--              <label>이름<em>*</em></label>-->
-<!--              <input type="text" name="name" placeholder="한글로 공백없이 입력해주세요." maxlength="4" required/>-->
-<!--            </div>-->
-<!--            <div class="form-login">-->
-<!--              <label>비밀번호<em>*</em></label>-->
-<!--              <input type="password" name="pw" placeholder="비밀번호를 입력해주세요." maxlength="16" required />-->
-<!--              <p class="info mb-0">비밀번호는 최소 8자리에서 최대 16자리 <br> 숫자, 영문, 특수문자 각 1개 이상 포함</p>-->
-<!--            </div>-->
-<!--            <div class="form-login">-->
-<!--              <label>비밀번호 확인<em>*</em></label>-->
-<!--              <input type="password" name="pw2" placeholder="비밀번호를 다시 입력해주세요." maxlength="16" required />-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <input type="hidden" name="email" value="매니저"/>-->
-<!--          <input type="hidden" name="birth" value="매니저"/>-->
-<!--          <input type="hidden" name="gender" value="매니저"/>-->
-<!--          <input type="hidden" name="phone" value="매니저"/>-->
-<!--          <input type="hidden" name="addr1" value="매니저" />-->
-<!--          <input type="hidden" name="postcode" value="매니저">-->
 
-<!--          <button type="submit" class="button login_btn">매니저 회원가입</button>-->
-<!--        </form>-->
-<!--      </div>-->
-<!--    </div>-->
+    <div class="hide_layout">
+      <div class="layout_box">
+        <i class="fas fa-times-circle layout_close"></i>
+        <form th:action="@{/joinPro}" onsubmit="return joinCheck(this)">
+          <div class="login_box">
+            <div class="form-login">
+              <label>아이디<em>*</em></label>
+              <div class="flex_between">
+                <input type="text" name="id" id="id" class="join_input" placeholder="아이디를 입력해주세요." required />
+                <button type="button" class="join_btn" onclick="idCheck()">아이디 중복 확인</button>
+                <input type="hidden" name="cno" value="1">
+              </div>
+              <input type="hidden" name="idCk" id="idCk" value="no">
+              <p id="msg" class="no_check">아이디 중복 체크를 하지 않으셨습니다.</p>
+            </div>
+            <div class="form-login">
+              <label>이름<em>*</em></label>
+              <input type="text" name="name" placeholder="한글로 공백없이 입력해주세요." maxlength="4" required/>
+            </div>
+            <div class="form-login">
+              <label>비밀번호<em>*</em></label>
+              <input type="password" name="pw" placeholder="비밀번호를 입력해주세요." maxlength="16" required />
+              <p class="info mb-0">비밀번호는 최소 8자리에서 최대 16자리 <br> 숫자, 영문, 특수문자 각 1개 이상 포함</p>
+            </div>
+            <div class="form-login">
+              <label>비밀번호 확인<em>*</em></label>
+              <input type="password" name="pw2" placeholder="비밀번호를 다시 입력해주세요." maxlength="16" required />
+            </div>
+          </div>
+          <input type="hidden" name="email" value="매니저"/>
+          <input type="hidden" name="birth" value="매니저"/>
+          <input type="hidden" name="gender" value="매니저"/>
+          <input type="hidden" name="phone" value="매니저"/>
+          <input type="hidden" name="addr1" value="매니저" />
+          <input type="hidden" name="postcode" value="매니저">
+
+          <button type="submit" class="button login_btn">매니저 회원가입</button>
+        </form>
+      </div>
+    </div>
   </div>
 
 

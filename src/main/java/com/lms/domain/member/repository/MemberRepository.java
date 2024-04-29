@@ -26,4 +26,5 @@ public interface MemberRepository extends JpaRepository<Member, Long>, QuerydslP
     @Query("select m from Member m where m.no > 1")
     List<Member> member_list();
 
+
 }

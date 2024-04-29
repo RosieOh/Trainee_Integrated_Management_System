@@ -24,7 +24,7 @@ public class CourseDTO{
 
     private String end_date;        //종료일
     
-    private String train_time;        //수료도(80%)
+    private String train_time;        //80% 경과일자
     
     private String instructor;        //대표강사
     

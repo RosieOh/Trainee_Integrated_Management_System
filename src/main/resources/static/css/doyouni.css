@@ -7,7 +7,6 @@
 .user_index {
     background-color: var(--c-main_back);
     width: 100%;
-    height: calc(100vh - 67px);
 }
 .user_info {
     width: 25% ;
@@ -113,9 +112,7 @@
 }
 
 /* index */
-.user_index {
-    display: flex;
-}
+
 .user_index section article.profile img {
     box-shadow: 5px 15px 30px rgba(173, 216, 230, 0.8);
 }

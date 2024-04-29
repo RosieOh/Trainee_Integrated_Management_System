@@ -35,7 +35,7 @@
           <div class="admin_info_box infobirth">
             <label for="birth">생일</label>
             <div class="myinfo_line">
-              <input type="text" name="birth" id="birth" class="ro_input" th:value="${member.birth }"  readonly />
+              <input type="date" name="birth" id="birth" min="1960-01-01" max="2040-12-31" class="ro_input" th:value="${member.birth }" readonly/>
             </div>
           </div>
           <div class="admin_info_box">
