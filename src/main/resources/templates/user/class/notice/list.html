@@ -41,7 +41,29 @@
             </tr>
             </tbody>
           </table>
-          <th:block th:replace="~{include/page :: paginationClassNoti(pageLink=@{'/notice/class/list'})}"></th:block>
+          <th:block th:if="${boardList == null or boardList.isEmpty()}">
+              <div class="listEmptyBox">찾으시는 정보가 없습니다.</div>
+              <script>
+                  window.onload = function() {
+                      var urlParams = new URLSearchParams(window.location.search);
+                      var pageValue = urlParams.get('page');
+                      var keywordValue = urlParams.get('keyword');
+
+
+                      if (pageValue !== null && !isNaN(pageValue)) {
+                          var page = parseInt(pageValue);
+                          addActiveClass(page);
+                      } else {
+                          addActiveClass(0);
+                      }
+                      if(keywordValue) {
+                          document.getElementById('keywordTitle2').setAttribute('value', keywordValue);
+                      }
+              </script>
+          </th:block>
+          <th:block th:if="${boardList != null and not boardList.isEmpty()}">
+              <th:block th:replace="~{include/page :: paginationClassNoti(pageLink=@{'/notice/class/list'})}"></th:block>
+          </th:block>
         <div class="notice_btn">
           <a th:href="@{/notice/register}" class="btn NlistBtn">글쓰기</a>
         </div>

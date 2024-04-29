@@ -53,7 +53,50 @@
           </tr>
         </tbody>
       </table>
-      <th:block th:replace="~{include/page :: pagination(pageLink=@{'/admin/admin_member'})}"></th:block>
+      <th:block th:if="${memberList == null or memberList.isEmpty()}">
+        <div class="listEmptyBox">찾으시는 정보가 없습니다.</div>
+        <script>
+          window.onload = function() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var subjectValue = urlParams.get('subject');
+            var flagValue = urlParams.get('flag');
+            var roleValue = urlParams.get('role');
+            var keywordValue = urlParams.get('keyword');
+
+            console.log(subjectValue);
+            console.log(flagValue);
+            console.log(roleValue);
+            console.log(keywordValue);
+            function setSelectedOption(selectId, optionValue) {
+              var selectElement = document.getElementById(selectId);
+              var options = selectElement.options;
+
+              for (var i = 0; i < options.length; i++) {
+                if (options[i].value === optionValue) {
+                  options[i].setAttribute('selected', 'selected');
+                  return;
+                }
+              }
+            }
+
+            if (subjectValue) {
+              setSelectedOption('subject', subjectValue);
+            }
+            if (flagValue) {
+              setSelectedOption('flag', flagValue);
+            }
+            if (roleValue) {
+              setSelectedOption('role', roleValue);
+            }
+            if(keywordValue) {
+              document.getElementById('keyword').setAttribute('value', keywordValue);
+            }
+          };
+        </script>
+      </th:block>
+      <th:block th:if="${memberList != null and not memberList.isEmpty()}">
+        <th:block th:replace="~{include/page :: pagination(pageLink=@{'/admin/admin_member'})}"></th:block>
+      </th:block>
     </div>
     <div class="layout_add">
       <div > <i class="far fa-plus-square"></i> 매니저 추가하기</div>
