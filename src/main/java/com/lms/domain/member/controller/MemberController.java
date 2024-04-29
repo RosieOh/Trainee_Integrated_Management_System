@@ -34,6 +34,7 @@ public class MemberController {
         MemberDTO memberDTO = memberService.loginId(id);
         model.addAttribute("memberDTO",memberDTO);
 
+        log.info(memberDTO.toString());
         String courseName ="관리자";
         log.info(memberDTO.getCourse().getSubject());
         if (memberDTO.getCourse().getSubject() == Subject.BIGDATA) {
@@ -46,6 +47,9 @@ public class MemberController {
         model.addAttribute("courseName",courseName);
 
         List<BoardDTO> newNoticeList = boardService.newNoticeList();
+        int pinnedCount = boardService.countPinned(newNoticeList);
+
+        model.addAttribute("pinnedCount", pinnedCount);
         model.addAttribute("memberDTO", memberDTO);
         model.addAttribute("newNoticeList", newNoticeList);
 

@@ -3,7 +3,6 @@ package com.lms.global.s3.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.lms.global.util.MultipartUtil;
-import jakarta.persistence.Entity;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 

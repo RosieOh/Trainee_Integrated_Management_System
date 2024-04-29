@@ -5,7 +5,7 @@
 
 <div layout:fragment="content">
     <div class="admin-content">
-        <div class="course_box ">
+        <div class="admin_box ">
             <h2>강의 리스트</h2>
             <table class="table_set">
                 <thead>
@@ -35,7 +35,7 @@
                             </select>
                         </td>
                         <td >
-                            <input type="number" name="flag" placeholder="1" required/>
+                            <input type="number" name="flag" placeholder="0" required/>
                         </td>
                         <td >
                             <div class="course_cal">
@@ -139,7 +139,7 @@
                         </form>
                     </td>
                     <td>
-                        <a th:href="@{/admin/course_edit(no=${course.getNo()})}" class="inline_form_btn select_btn" >수정하기<i class="fas fa-pencil-alt"></i></a>
+                        <a th:href="@{/admin/course_edit(no=${course.getNo()})}" class="inline_form_btn edit_btn" >수정하기<i class="fas fa-pencil-alt"></i></a>
                     </td>
                 </tr>
                 </tbody>
@@ -199,7 +199,6 @@
 
 
 
-
             // 종료날짜
             if($("#end_date1").val() == "" || $("#end_date2").val() == "" || $("#end_date3").val() == "") {
                 alert("종료날짜가 정확하지 않습니다.")
@@ -230,5 +229,4 @@
             $(".inputCh").attr('readonly', false)
         }
     </script>
-
 </div>

@@ -20,23 +20,27 @@
                 </ul>
             </section>
             <section class="main_notice">
-                <h1><span>NEW!   </span>  공지사항</h1>
+                <h1>  <a class="nav_link header_board" th:href="@{/notice/list}"> <span>NEW! </span>   공지사항 </a></h1>
                 <table class="main_table" >
                     <thead>
-                    <tr>
-                        <th scope="col" class="num">#</th>
-                        <th scope="col" class="title">제목</th>
-                        <th scope="col" class="create_time">작성일</th>
-                        <th scope="col" class="writer">작성자</th>
-                    </tr>
+                        <tr>
+                            <th scope="col" class="num">#</th>
+                            <th scope="col" class="title">제목</th>
+                            <th scope="col" class="create_time">작성일</th>
+                            <th scope="col" class="writer">작성자</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="notice, about :${newNoticeList}">
-                        <th scope="row" th:text="${about.count}"></th>
-                        <td><a th:href="|@{/notice/read(id=${notice.id})}|" class="text-decoration-none">[[${notice.title}]]</a></td>
-                        <td th:text="${#temporals.format(notice.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
-                        <td th:text="${notice.writer}"></td>
-                    </tr>
+                        <tr th:each="notice, about :${newNoticeList}">
+                            <!-- pinned가 1이면 필독 아니면 그냥 숫자 -->
+                            <th scope="row" th:if="${notice.pinned == true}" ><p class="board_pin">필독</p></th>
+                            <th scope="row" th:if="${notice.pinned != true}" th:text="${about.count - pinnedCount}"></th>
+                            <!-- privated가 1이면 비밀글 아니면 공개글-->
+                            <td th:if="${notice.privated == true}"><a th:href="|@{/notice/read(id=${notice.id})}|" class="text-decoration-none"><i class="fas fa-lock">   </i>  [[${notice.title}]]</a></td>
+                            <td th:if="${notice.privated != true}"><a th:href="|@{/notice/read(id=${notice.id})}|" class="text-decoration-none">[[${notice.title}]]</a></td>
+                            <td th:text="${#temporals.format(notice.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
+                            <td th:text="${notice.writer}"></td>
+                        </tr>
                     </tbody>
                 </table>
             </section>

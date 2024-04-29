@@ -1,7 +1,7 @@
 <!doctype html>
 <html
         xmlns:th="http://www.thymeleaf.org"
-        xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+>
 <head>
   <meta charset="UTF-8" />
   <meta
@@ -16,10 +16,10 @@
   <th:block th:replace="~{include/header :: header}"></th:block>
   <div class="admin-board">
     <div class="admin-content">
-      <div class="admin_box ">
-        <h2>공지사항 리스트</h2>
+      <div class="course_box ">
+        <h2>클래스 공지</h2>
+        <div th:replace="/include/search :: searchClassNoti('/notice/class/list')"></div>
         <table class="table_set">
-            <div th:replace="/include/search :: searchNoti('notice/list')"></div>
             <thead>
             <tr>
               <th>no</th>
@@ -41,12 +41,10 @@
             </tr>
             </tbody>
           </table>
-          <th:block th:replace="~{/include/page :: paginationNoti(pageLink=@{'/notice/list'})}"></th:block>
-          <th:block sec:authorize="hasAuthority('ADMIN')">
-            <div class="notice_btn">
-              <a th:href="@{/notice/register}" class="btn NlistBtn">글쓰기</a>
-            </div>
-          </th:block>
+          <th:block th:replace="~{/include/page :: paginationClassNoti(pageLink=@{'/notice/class/list'})}"></th:block>
+        <div class="notice_btn">
+          <a th:href="@{/notice/register}" class="btn NlistBtn">글쓰기</a>
+        </div>
       </div>
   </div>
 </div>

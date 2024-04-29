@@ -35,7 +35,9 @@
   --c-red-hover: #aa3545;
   --c-orange: #fd7e14;
   --c-yellow: #ffc107;
-  --c-green: #198754;
+  --c-green: #1d975d;
+  /*--c-green: #198754;*/
+  --c-green-hover: #12613d;
   --c-blue: #0d6efd;
   --c-indigo: #6610f2;
   --c-purple: #6f42c1;
@@ -89,6 +91,7 @@ a, button {
   cursor: pointer;
   text-decoration: none;
   color: inherit;
+  font-size: 100%;
 }
 
 img {
@@ -152,7 +155,6 @@ tr, th, td {
   border-width: 1px 0 0;
   border-style: solid;
   height: 30px;
-  width: 200px;
   text-align: center;
 }
 
@@ -187,31 +189,31 @@ tr:last-child td {
 }
 
 
-[type="checkbox"] {
-  appearance: none;
-  border: max(2px, 0.1em) solid var(--c-back_gray);
-  border-radius: 50%;
-  width: 1rem;
-  height: 1rem;
-  transition: border 0.1s ease-in-out;
-  padding: 0;
-}
+/*[type="checkbox"] {*/
+/*  appearance: none;*/
+/*  border: max(2px, 0.1em) solid var(--c-back_gray);*/
+/*  border-radius: 50%;*/
+/*  width: 1rem;*/
+/*  height: 1rem;*/
+/*  transition: border 0.1s ease-in-out;*/
+/*  padding: 0;*/
+/*}*/
 
-[type="checkbox"]:checked {
-  border: 0.3em solid var(--c-main);
-}
+/*[type="checkbox"]:checked {*/
+/*  border: 0.3em solid var(--c-main);*/
+/*}*/
 
-[type="checkbox"]:hover {
-  box-shadow: 0 0 0 max(4px, 0.2em) var(--c-back_lightgray);
-  cursor: pointer;
-}
+/*[type="checkbox"]:hover {*/
+/*  box-shadow: 0 0 0 max(4px, 0.2em) var(--c-back_lightgray);*/
+/*  cursor: pointer;*/
+/*}*/
 
-[type="checkbox"]:disabled {
-  background-color: var(--c-back_gray);
-  box-shadow: none;
-  opacity: 0.7;
-  cursor: not-allowed;
-}
+/*[type="checkbox"]:disabled {*/
+/*  background-color: var(--c-back_gray);*/
+/*  box-shadow: none;*/
+/*  opacity: 0.7;*/
+/*  cursor: not-allowed;*/
+/*}*/
 
 /* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
 
@@ -373,6 +375,7 @@ padding: 5px 0;
   text-align: center;
   border-radius: 5px;
   border: none;
+  padding: 15px 10px;
 }
 
 .select_btn {
@@ -392,3 +395,13 @@ padding: 5px 0;
   background-color: var(--c-red-hover);
   color: white;
 }
+
+.edit_btn {
+  background-color: var(--c-green);
+}
+
+.edit_btn:hover {
+  background-color: var(--c-green-hover);
+  color: white;
+}
+

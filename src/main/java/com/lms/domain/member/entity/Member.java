@@ -4,6 +4,7 @@ import com.lms.domain.Course.entity.Course;
 import com.lms.global.cosntant.BaseEntity;
 import com.lms.global.cosntant.Role;
 import com.lms.global.cosntant.Status;
+import com.lms.global.cosntant.Subject;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -64,4 +65,6 @@ public class Member extends BaseEntity {
     @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @JoinColumn(name = "cno", referencedColumnName = "no")
     private Course course;      // 강의 분류
+
+
 }

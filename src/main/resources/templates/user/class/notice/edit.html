@@ -18,8 +18,9 @@
     <th:block th:replace="~{include/header :: header}"></th:block>
     <div class="admin-board">
         <div class="admin-content">
-            <div class="admin_box ">
+            <div class="course_box ">
                 <h2>공지사항 수정</h2>
+
                 <form th:action="@{/notice/modify/{id}(id=${boardDTO.id})}" method="post" enctype="multipart/form-data">
                     <div class="notice_seperate">
                         <div class="notice_container" >
@@ -37,7 +38,7 @@
                                 <div class="file_box_div">
                                     <label for="fileNotice">첨부파일</label>
                                     <th:block th:if="${fileList.originFileName == ''}">
-                                        <input type="file" class="form-control" name="file" id="fileNotice" onchange="uploadImage()">
+                                        <input type="file" class="form-control" name="file" id="fileNotice">
                                     </th:block>
                                     <th:block th:if="${fileList.originFileName != '' }">
                                         <input type="text" class="form-control" name="file" th:value="${fileList.originFileName}" readonly>

@@ -1,21 +1,33 @@
 package com.lms.domain.board.controller;
 
+import com.lms.domain.Course.dto.CourseDTO;
+import com.lms.domain.Course.entity.Course;
+import com.lms.domain.Course.service.CourseService;
 import com.lms.domain.board.dto.BoardDTO;
 import com.lms.domain.board.entity.Board;
 import com.lms.domain.board.repository.BoardRepository;
 import com.lms.domain.board.service.BoardService;
 import com.lms.domain.file.dto.FileDTO;
 import com.lms.domain.file.service.FileService;
+import com.lms.domain.member.dto.MemberDTO;
 import com.lms.domain.member.entity.Member;
 import com.lms.domain.member.repository.MemberRepository;
 import com.lms.domain.member.service.MemberService;
+import com.lms.global.cosntant.Role;
+import com.lms.global.cosntant.Subject;
 import com.lms.global.util.MD5Generator;
+import com.lms.global.util.PageDTO;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,16 +51,41 @@ public class NoticeController {
     private String uploadPath;
 
     private final MemberService memberService;
-    private final MemberRepository memberRepository;
     private final BoardService boardService;
-    private final BoardRepository boardRepository;
+    private final CourseService courseService;
     private final FileService fileService;
 
     @GetMapping(value = {"/list"})
-    public String noticeListAll(Model model) {
-        String boardType = "NOTICE";
-        List<Board> boardList = boardRepository.findAll();
+    public String noticeListAll(Model model, HttpServletRequest request, @PageableDefault(page=0, size=10, sort="title", direction= Sort.Direction.ASC) Pageable pageable,
+                                @RequestParam(required = false) String keyword, @RequestParam(required = false) Integer cno){
+//        List<BoardDTO> boardList = boardService.findNoticeAll();
+//        int pinnedCount = boardService.countPinned(boardList);
+//        model.addAttribute("boardList", boardList);
+//        model.addAttribute("pinnedCount", pinnedCount);
+
+        List<CourseDTO> course_big_List = courseService.course_join_list(Subject.BIGDATA);
+        List<CourseDTO> course_full_List = courseService.course_join_list(Subject.FULLSTACK);
+        List<CourseDTO> course_pm_List = courseService.course_join_list(Subject.PM);
+        model.addAttribute("course_big_List",course_big_List);
+        model.addAttribute("course_full_List",course_full_List);
+        model.addAttribute("course_pm_List",course_pm_List);
+
+        Page<Board> boardList = boardService.searchNotice(keyword, cno, pageable);
+        int pinnedCount = boardService.countPinnedPaging(boardList);
         model.addAttribute("boardList", boardList);
+        model.addAttribute("pinnedCount", pinnedCount);
+
+        int pageNow = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+
+        PageDTO<Board, BoardDTO> pageDTO = new PageDTO<>();
+        pageDTO.setPageNow(pageNow);
+        pageDTO.setPostTotal(boardList.getTotalElements());
+        pageDTO.setPageTotal(boardList.getTotalPages());
+        pageDTO.build(boardList);
+        pageDTO.entity2dto(boardList, BoardDTO.class);
+
+        model.addAttribute("pageDTO", pageDTO);
+
         return "admin/board/list";
     }
 
@@ -58,9 +95,9 @@ public class NoticeController {
             BoardDTO boardDTO = boardService.findById(id);
             if (boardDTO != null) {
                 FileDTO fileDTO = fileService.getFile(boardDTO.getFileId());
-                String prin = principal.getName();
-                log.info(prin);
-                String name = memberRepository.findId(prin).getName();
+                //String prin = principal.getName();
+                //String name = memberRepository.findId(prin).getName();
+                String name = memberService.getMemberName(principal);
                 model.addAttribute("name", name);
                 model.addAttribute("principal", principal);
                 model.addAttribute("fileList", fileDTO);
@@ -76,9 +113,7 @@ public class NoticeController {
 
     @GetMapping("/register")
     public String registerForm(Model model, Principal principal) {
-        String id = principal.getName();
-        log.info(id);
-        String name = memberRepository.findId(id).getName();
+        String name = memberService.getMemberName(principal);
         model.addAttribute("name", name);
         return "admin/board/register";
     }
@@ -113,6 +148,7 @@ public class NoticeController {
             Long fileId = fileService.saveFile(fileDTO);
             boardDTO.setFileId(fileId);
             boardDTO.setWriter(boardDTO.getWriter());
+            boardDTO.setBoardType("NOTICE");
             boardService.register(boardDTO);
         } catch (Exception e) {
             e.printStackTrace();
@@ -125,6 +161,7 @@ public class NoticeController {
     public String noticeEditForm(Model model, Long id) {
         BoardDTO boardDTO = boardService.getBoard(id);
         FileDTO fileDTO = fileService.getFile(boardDTO.getFileId());
+
         model.addAttribute("fileList", fileDTO);
         model.addAttribute("boardDTO", boardDTO);
         return "admin/board/edit";
@@ -135,39 +172,85 @@ public class NoticeController {
                              BindingResult bindingResult,
                              RedirectAttributes redirectAttributes,
                              Model model,
-                             @RequestParam("file") MultipartFile files){
+                             @RequestParam(value = "file", required = false) MultipartFile files){
+//        try {
+//            String originFilename = files.getOriginalFilename();
+//            String filename = new MD5Generator(originFilename).toString();
+//            String savePath = System.getProperty("user.dir") + "/files/";
+//            if(!new File(savePath).exists()) {
+//                try {
+//                    new File(savePath).mkdirs();
+//                }
+//                catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            String filePath = savePath + filename;
+//
+//            files.transferTo(new File(filePath));
+//
+//            FileDTO fileDTO = new FileDTO();
+//            fileDTO.setOriginFileName(originFilename);
+//            fileDTO.setFileName(filename);
+//            fileDTO.setFilePath(filePath);
+//
+//            Long fileId = fileService.saveFile(fileDTO);
+//
+//            BoardDTO boardDTO1 = boardService.getBoard(id);
+//            boardDTO1.setTitle(boardDTO.getTitle());
+//            boardDTO1.setContent(boardDTO.getContent());
+//            boardDTO1.setPinned(boardDTO.isPinned());
+//            boardDTO1.setPrivated(boardDTO.isPrivated());
+//            boardDTO1.setFileId(fileId);
+//            boardService.modify(boardDTO1);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         try {
-            String originFilename = files.getOriginalFilename();
-            String filename = new MD5Generator(originFilename).toString();
-            String savePath = System.getProperty("user.dir") + "/files/";
-            if(!new File(savePath).exists()) {
-                try {
-                    new File(savePath).mkdirs();
+            // 파일이 존재하는 경우에만 파일을 업로드하고 처리
+            if (files != null && !files.isEmpty()) {
+                String originFilename = files.getOriginalFilename();
+                String filename = new MD5Generator(originFilename).toString();
+                String savePath = System.getProperty("user.dir") + "/files/";
+                if (!new File(savePath).exists()) {
+                    try {
+                        new File(savePath).mkdirs();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
+                String filePath = savePath + filename;
+
+                files.transferTo(new File(filePath));
+
+                // 새로운 파일 정보를 생성하여 저장
+                FileDTO fileDTO = new FileDTO();
+                fileDTO.setOriginFileName(originFilename);
+                fileDTO.setFileName(filename);
+                fileDTO.setFilePath(filePath);
+
+                Long fileId = fileService.saveFile(fileDTO);
+
+                // 기존 게시글 정보를 가져와서 새로운 파일 정보를 적용하여 수정
+                BoardDTO boardDTO1 = boardService.getBoard(id);
+                boardDTO1.setTitle(boardDTO.getTitle());
+                boardDTO1.setContent(boardDTO.getContent());
+                boardDTO1.setPinned(boardDTO.isPinned());
+                boardDTO1.setPrivated(boardDTO.isPrivated());
+                boardDTO1.setFileId(fileId);
+                boardService.modify(boardDTO1);
+            } else {
+                // 파일이 없는 경우에는 그대로 기존 파일을 유지하고 수정
+                BoardDTO boardDTO1 = boardService.getBoard(id);
+                boardDTO1.setTitle(boardDTO.getTitle());
+                boardDTO1.setContent(boardDTO.getContent());
+                boardDTO1.setPinned(boardDTO.isPinned());
+                boardDTO1.setPrivated(boardDTO.isPrivated());
+                boardService.modify(boardDTO1);
             }
-            String filePath = savePath + filename;
-
-            files.transferTo(new File(filePath));
-
-            FileDTO fileDTO = new FileDTO();
-            fileDTO.setOriginFileName(originFilename);
-            fileDTO.setFileName(filename);
-            fileDTO.setFilePath(filePath);
-
-            Long fileId = fileService.saveFile(fileDTO);
-
-            BoardDTO boardDTO1 = boardService.getBoard(id);
-            boardDTO1.setTitle(boardDTO.getTitle());
-            boardDTO1.setContent(boardDTO.getContent());
-            boardDTO1.setFileId(fileId);
-            boardService.modify(boardDTO1);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return "redirect:/notice/read?id="+id;
     }
 
@@ -195,4 +278,40 @@ public class NoticeController {
             }
         }
     }
+
+//   --------------------------------------클래스 공지사항 --------------------------
+    @GetMapping(value = {"/class/list"})
+    public String classNoticeAll(Model model, Long cno) {
+        List<BoardDTO> boardList = boardService.classNoticeAll(cno);
+        int pinnedCount = boardService.countPinned(boardList);
+
+        model.addAttribute("boardList", boardList);
+        model.addAttribute("pinnedCount", pinnedCount);
+        return "user/class/notice/list";
+    }
+
+//    @GetMapping(value = {"/class/list"})
+//    public String classNoticeAll(Model model,HttpServletRequest request, @PageableDefault(page=0, size=10, sort="title", direction= Sort.Direction.ASC) Pageable pageable,
+//                                 @RequestParam(required = false) String keyword, Integer cno) {
+//
+//
+//        Page<Board> boardList = boardService.searchNotice(keyword, cno,pageable);
+//        int pinnedCount = boardService.countPinnedPaging(boardList);
+//        model.addAttribute("boardList", boardList);
+//        model.addAttribute("pinnedCount", pinnedCount);
+//        model.addAttribute("cno", cno);
+//
+//        int pageNow = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+//
+//        PageDTO<Board, BoardDTO> pageDTO = new PageDTO<>();
+//        pageDTO.setPageNow(pageNow);
+//        pageDTO.setPostTotal(boardList.getTotalElements());
+//        pageDTO.setPageTotal(boardList.getTotalPages());
+//        pageDTO.build(boardList);
+//        pageDTO.entity2dto(boardList, BoardDTO.class);
+//
+//        model.addAttribute("pageDTO", pageDTO);
+//        return "user/class/notice/list";
+//    }
+
 }

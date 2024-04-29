@@ -23,7 +23,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public List<CourseDTO> course_list() {
-        List<Course> courseList = courseRepository.findAll();
+        List<Course> courseList = courseRepository.admin_subject_list();
         List<CourseDTO> courseDTOList = courseList.stream().map(
                         course -> modelMapper.map(course,CourseDTO.class))
                 .collect(Collectors.toList());
