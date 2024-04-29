@@ -307,21 +307,25 @@ tr:last-child td {
 }
 
 /* 버튼 모음 */
-.button {
-  background-color: var(--c-main);
+.login_btn {
   text-align: center;
   border-radius: 15px;
   border: none;
   width: 100%;
   font-weight: bold;
   font-size: 1.5rem;
+  padding: 0.75rem;
+
 }
 
-
-
 .btn_group_right {
-  margin: 20px auto;
+  margin: 30px auto;
   float: right;
+}
+
+.btn_group_center {
+  margin: 30px auto;
+  text-align: center;
 }
 
 .inline_form_btn {
@@ -330,6 +334,29 @@ tr:last-child td {
   border: none;
   padding: 15px 10px;
 }
+
+.board_btn {
+  text-align: center;
+  border-radius: 5px;
+  border: none;
+  padding : 15px 30px;
+  font-size: 110%;
+}
+
+.form_btn {
+  border-radius: 5px;
+  border: none;
+  width: 100%;
+  font-size: 1.25rem;
+  height: 50px;
+}
+
+.search_btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+}
+
 
 .select_btn {
   background-color: var(--c-main);
@@ -342,11 +369,12 @@ tr:last-child td {
 
 .cancel_btn {
   background-color: var(--c-red);
+  color: white;
 }
 
 .cancel_btn:hover {
   background-color: var(--c-red-hover);
-  color: white;
+  color: black;
 }
 
 .edit_btn {
@@ -358,45 +386,3 @@ tr:last-child td {
   color: white;
 }
 
-.search_btn {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 10px;
-}
-
-
-
-
-
-.form_button {
-  border-radius: 5px;
-  border: none;
-  width: 100%;
-  font-size: 1.5rem;
-  height: 50px;
-}
-
-
-.button_board {
-  text-align: center;
-  border-radius: 5px;
-  border: none;
-  width: 10%;
-  font-weight: bold;
-  font-size: 1.5rem;
-  padding: 5px 0;
-}
-
-.button:hover {
-  background-color: var(--c-hover);
-  color: var(--c-white);
-}
-
-.btn {
-  background-color: var(--c-sub);
-  padding: 1rem 1.5rem;
-  color: var(--c-white);
-  border: none;
-  border-radius: 30px;
-  font-size: 1rem;
-}

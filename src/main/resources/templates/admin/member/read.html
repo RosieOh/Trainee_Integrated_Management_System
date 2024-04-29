@@ -62,7 +62,7 @@
           </div>
           <div class="admin_info_box">
             <input type="text" name="postcode" id="postcode" th:value="${member.postcode }" class="postcodeBtn">
-            <button type="button" id="post_btn" onclick="findAddr()" class="btn_myInfo">우편번호 검색</button>
+            <button type="button" id="post_btn" onclick="findAddr()" class="join_btn">우편번호 검색</button>
           </div>
 
           <div class="admin_info_box file_input">
@@ -210,9 +210,8 @@
           </div>
         </div>
         </div>
-      <div class="myinfo_btn_group">
-        <button type="submit" class="btn_myInfo">회원정보수정</button>
-        <a th:href="@{/static}" class="btn_myInfo_out">회원탈퇴</a>
+      <div class="btn_group_center">
+        <button type="submit" class="board_btn select_btn">회원정보수정</button>
       </div>
     </div>
   </form>

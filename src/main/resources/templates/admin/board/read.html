@@ -6,9 +6,13 @@
 
 <div layout:fragment="content">
     <div class="admin-content">
-      <div class="admin_box">
-        <h2>공지사항 글쓰기</h2>
-          <table class="board_detail">
+      <div class="admin_box flex_center">
+        <div class="board_in">
+
+        <h2>공지사항 내용</h2>
+        <div class="board_detail">
+          <div>
+          <table>
             <tbody>
               <tr>
                 <th scope="row">제목</th>
@@ -30,38 +34,39 @@
                 </td>
               </tr>
               <tr>
-                <td colspan="7" class="view_text">
+                <th colspan="7" class="view_text">
                   <textarea title="내용" id="contents" name="contents" th:text="${boardList.content}" readonly></textarea>
-                </td>
+                </th>
               </tr>
             </tbody>
           </table>
+          </div>
           <th:block sec:authorize="hasAuthority('MANAGER') or hasAuthority('ADMIN')">
-            <div class="myinfo_btn_group">
-              <a class="btn_myInfo" th:href="@{/notice/list}">목록</a>
-              <a class="btn_myInfo out" th:href="@{/notice/remove(id=${boardList.id})}">삭제</a>
-              <a class="btn_myInfo" th:href="@{/notice/modify(id=${boardList.id})}">수정</a>
+            <div class="btn_group_center">
+              <a class="board_btn select_btn" th:href="@{/notice/list}">목록으로</a>
+              <!--              <a class="board_btn cancel_btn" th:href="@{/notice/remove(id=${boardList.id})}">삭제하기</a>-->
+              <a class="board_btn edit_btn" th:href="@{/notice/modify(id=${boardList.id})}">수정하기</a>
             </div>
           </th:block>
           <th:block sec:authorize="hasAuthority('STUDENT') or hasAuthority('TEACHER')">
-            <div class="myinfo_btn_group">
-              <a class="btn_myInfo" th:href="@{/member/index}">목록</a>
+            <div class="btn_group_center">
+              <a class="board_btn select_btn" th:href="@{/notice/list}">목록으로</a>
             </div>
           </th:block>
-
-
-          <script th:inline="javascript">
-            const errors = [[${errors}]]
-            console.log(errors)
-            let errorMsg = ''
-            if(errors){
-              for (let i = 0; i < errors.length; i++) {
-                errorMsg += `${errors[i].field}은(는) ${errors[i].code} \n`
-              }
-              alert(errorMsg)
-            }
-
-          </script>
+        </div>
         </div>
       </div>
+      </div>
+    <script th:inline="javascript">
+      const errors = [[${errors}]]
+      console.log(errors)
+      let errorMsg = ''
+      if(errors){
+        for (let i = 0; i < errors.length; i++) {
+          errorMsg += `${errors[i].field}은(는) ${errors[i].code} \n`
+        }
+        alert(errorMsg)
+      }
+
+    </script>
     </div>

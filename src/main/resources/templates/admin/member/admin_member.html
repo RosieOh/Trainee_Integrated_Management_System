@@ -108,7 +108,7 @@
       <div class="layout_box">
         <i class="fas fa-times-circle layout_close"></i>
         <form th:action="@{/joinPro}" onsubmit="return joinCheck(this)">
-          <div class="login_box">
+          <div class="admin_join">
             <div class="form-login">
               <label>아이디<em>*</em></label>
               <div class="flex_between">
@@ -133,14 +133,15 @@
               <input type="password" name="pw2" placeholder="비밀번호를 다시 입력해주세요." maxlength="16" required />
             </div>
           </div>
-          <input type="hidden" name="email" value="매니저"/>
-          <input type="hidden" name="birth" value="매니저"/>
-          <input type="hidden" name="gender" value="매니저"/>
-          <input type="hidden" name="phone" value="매니저"/>
-          <input type="hidden" name="addr1" value="매니저" />
-          <input type="hidden" name="postcode" value="매니저">
-
-          <button type="submit" class="button login_btn">매니저 회원가입</button>
+          <input type="hidden" name="email" value="-"/>
+          <input type="hidden" name="birth" value="-"/>
+          <input type="hidden" name="gender" value="-"/>
+          <input type="hidden" name="phone" value="-"/>
+          <input type="hidden" name="addr1" value="-" />
+          <input type="hidden" name="postcode" value="-">
+          <div class="btn_group_center">
+            <button type="submit" class="board_btn select_btn">매니저 회원가입</button>
+          </div>
         </form>
       </div>
     </div>

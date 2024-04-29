@@ -179,21 +179,34 @@
 }
 
 /* 공지사상 수정하기 */
-.notice_seperate{
-    background-color: #fff;
-}
 
 .notice_container{
-    padding : 30px;
-
+    padding: 30px;
+    background-color: #fff;
+    width: 1200px;
 }
+
 .notice_box{
     padding-bottom: 15px;
+    display: flex;
+    align-items: center;
+    font-size: 125%;
 }
-
+.notice_box label{
+    width: 80px;
+    margin-right: 10px;
+}
 .notice_box input{
     height: 40px;
+    width: 900px;
 }
+
+.notice_box .writer {
+    width: 120px;
+    border: none;
+    text-align: center;
+}
+
 .file_box {
     display: flex;
     justify-content: start;
@@ -208,7 +221,8 @@
 }
 .board_checkbox_container {
     display: flex;
-    width: 20%;
+    width: 400px;
+    margin-left: 26rem;
 }
 .board_checkbox_container div {
     margin: 0 5px;
@@ -223,21 +237,15 @@
 }
 .board_checkbox_container label{
     text-align: center;
-    width: 120px;
+    width: 100px;
 }
 .board_checkbox {
-    height: 40px;
-}
-.notice_btn{
-    margin: 20px auto;
+    height: 30px;
+    width: 30px;
 }
 
 .btnNotice {
     width: 100%;
-}
-
-.NlistBtn {
-    float: right;
 }
 
 /* 에디터 */

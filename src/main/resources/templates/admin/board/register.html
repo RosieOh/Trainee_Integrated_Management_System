@@ -8,28 +8,21 @@
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
     <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
     <div class="admin-content">
-      <div class="admin_box ">
+      <form th:action="@{/notice/register}" method="post" onsubmit="uploadImage()"  enctype="multipart/form-data">
+      <div class="admin_box flex_center">
+        <div class="board_in">
         <h2>공지사항 작성</h2>
-          <form th:action="@{/notice/register}" method="post" onsubmit="uploadImage()"  enctype="multipart/form-data">
-            <div class="notice_seperate">
               <div class="notice_container" >
                 <div class="notice_box">
                   <label for="titleNotice">제목</label>
                   <input type="text" class="form-control" name="title" id="titleNotice" required/>
                   <input type="hidden" name="cno" value="0" required/>
                 </div>
-
-                <div class="notice_box">
-                  <label for="writerNotice">작성자</label>
-                  <input type="text" class="ro_input" id="writerNotice" name="writer" th:value="${name}" readonly>
-                </div>
-
-                <div class="file_box">
-                  <div class="file_input">
-                    <label for="fileNotice"><i class="fas fa-file"></i> 첨부파일</label>
-                    <input type="file" class="form-control" name="file" id="fileNotice" onchange="uploadImage()">
+                <div class="flex">
+                  <div class="notice_box">
+                    <label for="writerNotice">작성자</label>
+                    <input type="text" class="ro_input writer" id="writerNotice" name="writer" th:value="${name}" readonly>
                   </div>
-
                   <div class="board_checkbox_container">
                     <div>
                       <label for="pinnedBoard">상단 고정</label>
@@ -40,58 +33,65 @@
                       <input type="checkbox" id="privateBoard" class="board_checkbox" name="privated">
                     </div>
                   </div>
-
                 </div>
-
+                <div class="file_box">
+                  <div class="file_input">
+                    <label for="fileNotice"><i class="fas fa-file"></i> 첨부파일</label>
+                    <input type="file" class="form-control" name="file" id="fileNotice" onchange="uploadImage()">
+                  </div>
+                </div>
                 <div id="editor">
                   <textarea class="input"  style="width: 1320px; height: 500px;" id="myTextarea" type="text" name="content" required ></textarea>
                 </div>
-                <script th:inline="javascript">
-                  const Editor = toastui.Editor;
-                  const textarea = document.querySelector('#myTextarea');
-
-                  // 숨겨진 textarea 대신에 에디터를 생성할 div 요소를 만듭니다.
-                  const editorDiv = document.createElement('div');
-                  editorDiv.id = 'editor';
-                  textarea.parentNode.insertBefore(editorDiv, textarea);
-                  textarea.style.display = 'none';  // 숨겨진 textarea
-
-                  const editor = new Editor({
-                    el: editorDiv,
-                    height: '500px',
-                    initialEditType: 'markdown',
-                    previewStyle: 'vertical',
-                    initialValue: textarea.value  // 초기값을 textarea의 값으로 설정
-                  });
-
-                  // 에디터의 내용이 변경될 때마다 textarea에 값을 업데이트합니다.
-                  editor.on('change', () => {
-                    textarea.value = editor.getMarkdown();
-                  });
-                </script>
-
-                <script th:inline="javascript">
-                  function uploadImage() {
-                    var file = $('#fileNotice')[0].files[0];
-                    var formData = new FormData();
-                    formData.append('file', file);
-
-                    $.ajax({
-                      type: 'POST',
-                      url: '/upload',
-                      data: formData,
-                      processData: false,
-                      contentType: false
-                    })
-                  }
-                </script>
-
-                <div class="notice_btn">
-                  <button type="submit" class="btn btnNotice">등록</button>
+                <div class="btn_group_center">
+                  <button type="submit" class="board_btn select_btn">등록하기</button>
+                  <a th:href="@{/notice/list}" class="board_btn cancel_btn">목록으로</a>
                 </div>
               </div>
-            </div>
-          </form>
-        </div>
+
+          </div>
+          </div>
+        </form>
       </div>
+
+
+  <script th:inline="javascript">
+    const Editor = toastui.Editor;
+    const textarea = document.querySelector('#myTextarea');
+
+    // 숨겨진 textarea 대신에 에디터를 생성할 div 요소를 만듭니다.
+    const editorDiv = document.createElement('div');
+    editorDiv.id = 'editor';
+    textarea.parentNode.insertBefore(editorDiv, textarea);
+    textarea.style.display = 'none';  // 숨겨진 textarea
+
+    const editor = new Editor({
+      el: editorDiv,
+      height: '500px',
+      initialEditType: 'markdown',
+      previewStyle: 'vertical',
+      initialValue: textarea.value  // 초기값을 textarea의 값으로 설정
+    });
+
+    // 에디터의 내용이 변경될 때마다 textarea에 값을 업데이트합니다.
+    editor.on('change', () => {
+      textarea.value = editor.getMarkdown();
+    });
+  </script>
+
+  <script th:inline="javascript">
+    function uploadImage() {
+      var file = $('#fileNotice')[0].files[0];
+      var formData = new FormData();
+      formData.append('file', file);
+
+      $.ajax({
+        type: 'POST',
+        url: '/upload',
+        data: formData,
+        processData: false,
+        contentType: false
+      })
+    }
+  </script>
   </div>

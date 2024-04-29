@@ -304,7 +304,6 @@
 }
 .course_cal > input {
     margin: 0 3px;
-    width: 50%;
 }
 
 
@@ -392,10 +391,7 @@
     margin-top: 0.5em;
 }
 
-.login_btn {
-    padding: 0.75rem;
-    font-weight: bold;
-}
+
 
 .join_loca {
     margin: 5rem auto;
@@ -522,12 +518,12 @@
 .layout_box {
     width: 100%;
     padding: 2rem 0;
-    box-shadow: 0 0 14px -7px black;
 }
 
 .layout_add {
     font-size: 1.5rem;
     height: 80px;
+    text-align: right;
 }
 .layout_add i {
     font-size: 110%;
@@ -547,39 +543,10 @@
     cursor: pointer;
     color: var(--c-back_gray);
 }
-
-
-.layout_login {
-    background-color: var(--c-white);
-    box-shadow: 0 0 14px -7px black;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 530px;
-    border-radius: 15px;
-    padding: 2em;
-}
-.login_box h1 {
-    font-size: 260%;
-}
-.login_box form {
-    width: 90%;
-}
-.login_box input {
-    margin-top: 5px;
+.admin_join {
+    padding: 2rem;
 }
 
-.login_box label {
-    font-size: 110%;
-    font-weight: bold;
-}
-.login_box p {
-    font-size: 90%;
-    margin: 10px 5px;
-}
-.login_box a:hover {
-    color: var(--c-hover);
-}
 .form-login {
     margin: 2em 0;
 }

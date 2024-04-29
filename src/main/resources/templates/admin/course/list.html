@@ -16,10 +16,10 @@
                     <th style="width: 15%">시작일</th>
                     <th style="width: 15%">종료일</th>
                     <th style="width: 15%">80% 경과일자</th>
-                    <th>대표강사</th>
-                    <th>담당 매니저</th>
-                    <th style="width: 15%">공개여부</th>
-                    <th style="width: 5%"></th>
+                    <th style="width: auto">대표강사</th>
+                    <th style="width: auto">담당 매니저</th>
+                    <th style="width: 18%">공개여부</th>
+                    <th style="width: 8%"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -61,7 +61,7 @@
                             <input type="hidden" name="delete_type" value="n"/>
                         </td>
                         <td>
-                            <button type="submit" class="form_button select_btn">강의등록</button>
+                            <button type="submit" class="form_btn select_btn">강의등록</button>
 <!--                            <button type="button" class="form_button cancel_btn" onclick="asdf()">확인</button>-->
                         </td>
                         <td></td>
@@ -99,7 +99,6 @@
     </div>
     <script>
         function asdf() {
-
 
             let start = document.getElementById("start_date").value;
             let date = new Date(start)
