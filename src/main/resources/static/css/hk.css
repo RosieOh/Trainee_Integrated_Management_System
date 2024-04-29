@@ -507,6 +507,7 @@
 .notiSearchGroup {
     display: flex;
     padding: 10px 0;
+    justify-content: flex-end;
 }
 
 .btn.notiSb {
@@ -518,8 +519,50 @@
 
 .listEmptyBox {
     width: 100%;
-    background-color: #dcdcdc;
+    background-color: #f1f1f1;
     padding: 30px;
     text-align: center;
     border-radius: 0 0 10px 10px;
+}
+#search-form {
+    position: relative;
+}
+
+.searchTotal {
+    position : absolute;
+    left : 1px;
+    font-size: 18px;
+    padding-right: 29px;
+    padding-top: 25px;
+}
+
+.searchTotal strong {
+    color : #b41010;
+}
+
+#keywordTitle {
+    width: 45%;
+}
+
+.searchTotal2 {
+    position: absolute;
+    left: -147px;
+    font-size: 18px;
+    padding-right: 29px;
+    padding-top: 25px;
+    top: 12px;
+}
+
+.searchTotal2 strong {
+    color : #b41010;
+}
+
+.custom-select-noti {
+    margin-right: 10px;
+}
+
+.searchFormNotice {
+    width: 70%;
+    float: right;
+    position: relative;
 }

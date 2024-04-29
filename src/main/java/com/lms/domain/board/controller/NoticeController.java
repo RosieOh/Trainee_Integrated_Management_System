@@ -74,6 +74,7 @@ public class NoticeController {
         int pinnedCount = boardService.countPinnedPaging(boardList);
         model.addAttribute("boardList", boardList);
         model.addAttribute("pinnedCount", pinnedCount);
+        model.addAttribute("searchTotal", boardList.getTotalElements());
 
         int pageNow = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
 
@@ -298,6 +299,7 @@ public class NoticeController {
         model.addAttribute("boardList", boardList);
         model.addAttribute("pinnedCount", pinnedCount);
         model.addAttribute("cno", cno);
+        model.addAttribute("searchTotal", boardList.getTotalElements());
 
         int pageNow = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
 

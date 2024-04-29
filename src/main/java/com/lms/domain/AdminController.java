@@ -4,6 +4,7 @@ package com.lms.domain;
 import com.lms.domain.Course.dto.CourseDTO;
 import com.lms.domain.Course.service.CourseService;
 import com.lms.domain.member.dto.MemberDTO;
+import com.lms.domain.member.dto.MemberVO;
 import com.lms.domain.member.entity.Member;
 import com.lms.domain.member.service.MemberService;
 import com.lms.domain.student.dto.StudentDTO;
@@ -62,6 +63,7 @@ public class AdminController {
 
         Page<Member> members = memberService.searchMembers(keyword, flag, subject, role, pageable);
         model.addAttribute("memberList", members);
+        model.addAttribute("searchTotal",members.getTotalElements());
 
         int pageNow = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
 
@@ -96,16 +98,16 @@ public class AdminController {
 
         Page<Member> members = memberService.searchMembers(keyword, flag, subject, role, pageable);
         model.addAttribute("memberList", members);
+        model.addAttribute("searchTotal", members.getTotalElements());
 
         int pageNow = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
 
-        PageDTO<Member, MemberDTO> pageDTO = new PageDTO<>();
+        PageDTO<Member, Member> pageDTO = new PageDTO<>();
         pageDTO.setPageNow(pageNow);
         pageDTO.setPostTotal(members.getTotalElements());
         pageDTO.setPageTotal(members.getTotalPages());
         pageDTO.build(members);
-        pageDTO.entity2dto(members, MemberDTO.class);
-
+        pageDTO.entity2dto(members, Member.class);
         model.addAttribute("pageDTO", pageDTO);
 
         return "admin/member/list";
