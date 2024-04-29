@@ -142,7 +142,7 @@
               var keyword = /*[[${param.keyword} != null ? ${param.keyword} : '']]*/ '';
               var cno = /*[[${param.keyword} != null ? ${param.keyword} : '']]*/ '';
               var pageLink = /*[[${pageLink}]]*/ '';
-              pageLink += '?page=' + page + '?cno=' +cno;
+              pageLink += '?cno=' +1 +'&page=' + page ;
               if(keyword !== '') {
                   pageLink += '&keyword=' + encodeURIComponent(keyword);
               }

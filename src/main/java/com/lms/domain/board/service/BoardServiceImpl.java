@@ -197,7 +197,8 @@ public class BoardServiceImpl implements BoardService {
         // 페이징 처리
         JPAQuery<Board> query = queryFactory
                 .selectFrom(QBoard.board)
-                .where(where);
+                .where(where)
+                .orderBy(QBoard.board.pinned.desc(), QBoard.board.createdTime.desc());
 
         // 페이징 처리된 결과 반환
         QueryResults<Board> results = query

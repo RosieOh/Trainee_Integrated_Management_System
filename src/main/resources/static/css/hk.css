@@ -515,3 +515,11 @@
     margin-top: 0px;
     width: 35%;
 }
+
+.listEmptyBox {
+    width: 100%;
+    background-color: #dcdcdc;
+    padding: 30px;
+    text-align: center;
+    border-radius: 0 0 10px 10px;
+}
