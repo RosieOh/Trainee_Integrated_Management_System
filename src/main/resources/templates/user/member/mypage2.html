@@ -57,15 +57,39 @@
                   </div>
                   <div class="file_input">
                     <label for="picture" ><i class="fas fa-file"></i> 사진</label>
-                    <input type="file" id="picture" name="picture" class="">
+                    <th:block th:if="${studentDTO.picture == null}">
+                      <input type="file" id="picture" name="picture" class="" value="파일 없음">
+                    </th:block>
+                    <th:block th:if="${studentDTO.picture != null}">
+                      <a th:href="@{'/download/' + ${studentDTO.picture}}">
+                        <i class="fas fa-window-maximize"></i>
+                      </a>
+                    </th:block>
+<!--                    <input type="file" id="picture" name="picture" class="">-->
                   </div>
                   <div class="file_input">
                     <label for="portfolio" ><i class="fas fa-file"></i> 포트폴리오</label>
-                    <input type="file" id="portfolio" name="portfolio" class="border_none">
+                    <th:block th:if="${studentDTO.portfolio == null}">
+                      <input type="file" id="portfolio" name="portfolio" class="" value="파일 없음">
+                    </th:block>
+                    <th:block th:if="${studentDTO.portfolio != null}">
+                      <a th:href="@{'/download/' + ${studentDTO.portfolio}}">
+                        <i class="fas fa-window-maximize"></i>
+                      </a>
+                    </th:block>
+<!--                    <input type="file" id="portfolio" name="portfolio" class="border_none">-->
                   </div>
                   <div class="file_input">
                     <label for="resume" ><i class="fas fa-file"></i> 이력서</label>
-                    <input type="file" id="resume" name="resume" class="border_none">
+                    <th:block th:if="${studentDTO.resume == null}">
+                      <input type="file" id="resume" name="resume" class="" value="파일 없음">
+                    </th:block>
+                    <th:block th:if="${studentDTO.resume != null}">
+                      <a th:href="@{'/download/' + ${studentDTO.resume}}">
+                        <i class="fas fa-window-maximize"></i>
+                      </a>
+                    </th:block>
+<!--                    <input type="file" id="resume" name="resume" class="border_none">-->
                   </div>
                 </div>
               </div>

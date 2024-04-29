@@ -3,17 +3,24 @@ package com.lms.domain.member.controller;
 import com.lms.domain.Course.dto.CourseDTO;
 import com.lms.domain.board.dto.BoardDTO;
 import com.lms.domain.board.service.BoardService;
+import com.lms.domain.file.dto.FileDTO;
+import com.lms.domain.file.service.FileService;
 import com.lms.domain.member.dto.MemberDTO;
 import com.lms.domain.member.service.MemberService;
 import com.lms.domain.student.dto.StudentDTO;
 import com.lms.domain.student.service.StudentService;
 import com.lms.global.cosntant.Subject;
+import com.lms.global.util.MD5Generator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
 import java.security.Principal;
 import java.util.List;
 
@@ -26,6 +33,7 @@ public class MemberController {
     private final MemberService memberService;
     private final BoardService boardService;
     private final StudentService studentService;
+    private final FileService fileService;
 
 
     @GetMapping("/index")
@@ -92,11 +100,29 @@ public class MemberController {
         model.addAttribute("member", member);
         return "user/member/mypage";
     }
+
     @GetMapping("mypage2")
     public String mypage2(Model model, Principal principal){
         String id = principal.getName();
         MemberDTO memberDTO = memberService.loginId(id);
         StudentDTO studentDTO = studentService.student_read(memberDTO.getNo());
+        log.info("getPicture ㅡㅡㅡㅡ" + studentDTO.getPicture());
+        log.info("getPortfolio ㅡㅡㅡㅡ" + studentDTO.getPortfolio());
+        log.info("getResume ㅡㅡㅡㅡ" + studentDTO.getResume());
+
+        if(studentDTO.getPicture() != null){
+            FileDTO picture_file = fileService.getFile(studentDTO.getPicture());
+            model.addAttribute("picture_file", picture_file);
+
+        }
+        if(studentDTO.getPortfolio() != null){
+            FileDTO Portfolio_file = fileService.getFile(studentDTO.getPortfolio());
+            model.addAttribute("Portfolio_file", Portfolio_file);
+        }
+        if(studentDTO.getResume() != null){
+            FileDTO resume_file = fileService.getFile(studentDTO.getResume());
+            model.addAttribute("resume_file", resume_file);
+        }
         model.addAttribute("studentDTO", studentDTO);
         return "user/member/mypage2";
     }
@@ -111,8 +137,82 @@ public class MemberController {
     }
 
     @PostMapping("student_add")
-    public String student_add(StudentDTO studentDTO){
+    public String mypage2(StudentDTO studentDTO, Model model, Principal principal, BindingResult bindingResult,
+                          RedirectAttributes redirectAttributes,
+                          @RequestParam("picture") MultipartFile picture,
+                          @RequestParam("portfolio") MultipartFile portfolio,
+                          @RequestParam("resume") MultipartFile resume){
+        try {
+            if(picture != null) {
+                String picture_origin = picture.getOriginalFilename();
+                String picture_filename = new MD5Generator(picture_origin).toString();
+                String picture_savePath = System.getProperty("user.dir") + "/files/";
+                String picture_filePath = picture_filename + picture_savePath;
+                picture.transferTo(new File(picture_filePath));
+                FileDTO fileDTO = new FileDTO();
+                fileDTO.setOriginFileName(picture_origin);
+                fileDTO.setFileName(picture_filename);
+                fileDTO.setFilePath(picture_savePath);
+                Long fileId = fileService.saveFile(fileDTO);
+                studentDTO.setPicture(fileId);
+            }
+            if(portfolio != null) {
+                String portfolio_origin = portfolio.getOriginalFilename();
+                String portfolio_filename = new MD5Generator(portfolio_origin).toString();
+                String portfolio_savePath = System.getProperty("user.dir") + "/files/";
+                String portfolio_filePath = portfolio_filename + portfolio_savePath;
+                portfolio.transferTo(new File(portfolio_filePath));
+                FileDTO fileDTO2 = new FileDTO();
+                fileDTO2.setOriginFileName(portfolio_origin);
+                fileDTO2.setFileName(portfolio_filename);
+                fileDTO2.setFilePath(portfolio_savePath);
+                Long fileId2 = fileService.saveFile(fileDTO2);
+                studentDTO.setPortfolio(fileId2);
+            }
+            if(resume != null) {
+                String resume_origin = resume.getOriginalFilename();
+                String resume_filename = new MD5Generator(resume_origin).toString();
+                String resume_savePath = System.getProperty("user.dir") + "/files/";
+                String resume_filePath = resume_filename + resume_savePath;
+                resume.transferTo(new File(resume_filePath));
+                FileDTO fileDTO3 = new FileDTO();
+                fileDTO3.setOriginFileName(resume_origin);
+                fileDTO3.setFileName(resume_filename);
+                fileDTO3.setFilePath(resume_savePath);
+                Long fileId3 = fileService.saveFile(fileDTO3);
+                studentDTO.setResume(fileId3);
+            }
+
+//            if(!new File(picture_savePath).exists()) {
+//                try {
+//                    new File(picture_savePath).mkdirs();
+//                }
+//                catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            if(!new File(portfolio_savePath).exists()) {
+//                try {
+//                    new File(portfolio_savePath).mkdirs();
+//                }
+//                catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            if(!new File(resume_savePath).exists()) {
+//                try {
+//                    new File(resume_savePath).mkdirs();
+//                }
+//                catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+
         studentService.student_edit(studentDTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        model.addAttribute("message", "글 작성이 완료되었습니다.");
         return "redirect:/member/mypage2";
     }
 }
