@@ -2,6 +2,10 @@ package com.lms.domain.member.service;
 
 import com.lms.domain.member.dto.MemberDTO;
 import com.lms.domain.member.entity.Member;
+import com.lms.global.cosntant.Role;
+import com.lms.global.cosntant.Subject;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.security.Principal;
@@ -28,4 +32,7 @@ public interface MemberService {
 
     //이름 가져오기
     public String getMemberName(Principal principal);
+
+    //검색 및 페이징 처리
+    public Page<Member> searchMembers(String keyword, Integer flag, Subject subject, Role role, Pageable pageable);
 }

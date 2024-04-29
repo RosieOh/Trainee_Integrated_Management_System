@@ -1,15 +1,29 @@
 package com.lms.domain.board.service;
 
 
+import com.lms.domain.Course.repository.CourseRepository;
 import com.lms.domain.board.dto.BoardDTO;
 import com.lms.domain.board.entity.Board;
+import com.lms.domain.board.entity.QBoard;
 import com.lms.domain.board.repository.BoardRepository;
+import com.lms.domain.member.entity.Member;
+import com.lms.domain.member.entity.QMember;
 import com.lms.global.cosntant.BoardType;
+import com.lms.global.cosntant.Subject;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.QueryResults;
+import com.querydsl.jpa.JPQLQuery;
+import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,7 +38,9 @@ import java.util.stream.Collectors;
 public class BoardServiceImpl implements BoardService {
 
     private final ModelMapper modelMapper;
+    private final CourseRepository courseRepository;
     private final BoardRepository boardRepository;
+    private final JPAQueryFactory queryFactory;
 
     // 새로운 게시판을 추가해주는 메소드
     public void createAndSaveBoards() {
@@ -50,7 +66,7 @@ public class BoardServiceImpl implements BoardService {
     public List<BoardDTO> findNoticeAll() {
         List<Board> boardList = boardRepository.findAll();
         List<BoardDTO> boardDTOList = boardList.stream()
-                .filter(board -> board.getCno() == 0)
+//                .filter(board -> board.getCno() == 0)
                 .map(board -> modelMapper.map(board, BoardDTO.class))
                 .collect(Collectors.toList());
 
@@ -161,5 +177,46 @@ public class BoardServiceImpl implements BoardService {
             return boardDTOList;
         }
 
+
     }
+
+    @Override
+    public Page<Board> searchNotice(String keyword, Integer cno, Pageable pageable) {
+        BooleanBuilder where = new BooleanBuilder();
+
+        // 키워드가 있는 경우 이름 필터링
+        if (StringUtils.hasText(keyword)) {
+            where.and(QBoard.board.title.containsIgnoreCase(keyword));
+        }
+
+        if (cno != null) {
+            where.and(QBoard.board.cno.eq(Long.valueOf(cno)));
+        }
+
+
+        // 페이징 처리
+        JPAQuery<Board> query = queryFactory
+                .selectFrom(QBoard.board)
+                .where(where);
+
+        // 페이징 처리된 결과 반환
+        QueryResults<Board> results = query
+                .offset(pageable.getOffset()) // 오프셋 설정
+                .limit(pageable.getPageSize()) // 페이지 크기 설정
+                .fetchResults(); // 결과 가져오기
+
+        return new PageImpl<>(results.getResults(), pageable, results.getTotal());
+    }
+
+    @Override
+    public int countPinnedPaging(Page<Board> pagingPinList) {
+        int PinnedPaging =0;
+        for (Board board : pagingPinList) {
+            if (board.isPinned()) {
+                PinnedPaging++;
+            }
+        }
+        return PinnedPaging;
+    }
+
 }
