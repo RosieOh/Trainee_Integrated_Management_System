@@ -26,6 +26,7 @@
               <th>제목</th>
               <th>작성자</th>
               <th>작성일</th>
+              <th>파일</th>
             </tr>
             </thead>
             <tbody>
@@ -34,10 +35,25 @@
                 <td th:if="${notice.pinned == true}" ><p class="board_pin">필독</p></td>
                 <td th:if="${notice.pinned != true}" th:text="${about.count - pinnedCount}"></td>
                 <!-- privated가 1이면 비밀글 아니면 공개글-->
-                <td th:if="${notice.privated == true}"><a th:href="|@{/notice/read(id=${notice.id})}|" class="text-decoration-none"><i class="fas fa-lock">   </i>  [[${notice.title}]]</a></td>
+                <td th:if="${notice.privated == true}">
+                    <th:block th:if="${memberDTO.role == 'ADMIN' or memberDTO.id == notice.writer }">
+                        <a th:href="|@{/notice/read(id=${notice.id})}|" class="text-decoration-none"><i class="fas fa-lock">   </i>  [[${notice.title}]]</a>
+                    </th:block>
+                    <th:block th:if="${memberDTO.role != 'ADMIN' or memberDTO.id != notice.writer }">
+                        <i class="fas fa-lock">   </i>  비밀글입니다
+                    </th:block>
+                </td>
                 <td th:if="${notice.privated != true}"><a th:href="|@{/notice/read(id=${notice.id})}|" class="text-decoration-none">[[${notice.title}]]</a></td>
                 <td th:text="${notice.writer}"></td>
                 <td th:text="${#temporals.format(notice.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
+                <td th:if="${fileList[about.index].id == notice.fileId and fileList[about.index].originFileName == ''}">
+
+                </td>
+                <td th:if="${fileList[about.index].id == notice.fileId and fileList[about.index].originFileName != ''}">
+                    <a th:href="@{'/download/' + ${fileList[about.index].id}}">
+                        <i class="fas fa-window-maximize"></i>
+                    </a>
+                </td>
             </tr>
             </tbody>
           </table>

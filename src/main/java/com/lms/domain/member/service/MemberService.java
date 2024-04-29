@@ -1,11 +1,13 @@
 package com.lms.domain.member.service;
 
+import com.lms.domain.board.entity.Board;
 import com.lms.domain.member.dto.MemberDTO;
 import com.lms.domain.member.entity.Member;
 import com.lms.global.cosntant.Role;
 import com.lms.global.cosntant.Subject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.security.Principal;
@@ -35,4 +37,7 @@ public interface MemberService {
 
     //검색 및 페이징 처리
     public Page<Member> searchMembers(String keyword, Integer flag, Subject subject, Role role, Pageable pageable);
+
+    //공지사항의 작성자 이름 가져오기 == id로 이름 찾기
+    public String getNameById(String id);
 }
