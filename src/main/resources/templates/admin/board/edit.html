@@ -38,7 +38,7 @@
 
                             <div class="file_box">
                                 <label for="fileNotice">첨부파일</label>
-                                <input type="file" class="form-control" name="file" id="fileNotice">
+                                <input type="file" class="form-control" name="file" id="fileNotice" onchange="uploadImage()">
                             </div>
 
 
@@ -65,6 +65,22 @@
                                 editor.on('change', () => {
                                     textarea.value = editor.getMarkdown();
                                 });
+                            </script>
+
+                            <script th:inline="javascript">
+                                function uploadImage() {
+                                    var file = $('#fileNotice')[0].files[0];
+                                    var formData = new FormData();
+                                    formData.append('file', file);
+
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: '/upload',
+                                        data: formData,
+                                        processData: false,
+                                        contentType: false
+                                    })
+                                }
                             </script>
 
                             <div class="notice_btn">
