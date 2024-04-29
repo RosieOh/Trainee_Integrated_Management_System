@@ -7,6 +7,7 @@
 <div th:fragment="search(pageLink)">
     <form id="search-form" role="search" method="get">
         <span class="searchTotal">전체 <strong>[[${searchTotal}]]</strong>건의 결과</span>
+        <div class="search-select">
         <select name="subject" id="subject" class="custom-select">
             <option value="">==전체과정==</option>
             <th:block th:each="subject : ${subjects}">
@@ -75,6 +76,7 @@
         </select>
         <input type="text" name="keyword" placeholder="이름 입력" value="" id="keyword">
         <button type="submit" class="btn sb" id="searchButton">검색</button>
+        </div>
     </form>
     <script th:inline="javascript">
         $(document).ready(function() {
