@@ -53,6 +53,7 @@ public class MemberController {
         model.addAttribute("memberDTO", memberDTO);
         model.addAttribute("newNoticeList", newNoticeList);
 
+
         return "user/index";
     }
 
