@@ -153,6 +153,7 @@ INSERT INTO member (email, gender, id, NAME, phone, ROLE, STATUS, cno) VALUES ('
 SELECT * FROM board;
 update board SET created_time = '2024-04-28 21:15:26.348127'; 
 update board SET modified_time = '2024-04-28 21:19:26.348127'; 
+UPDATE board SET file_id = '1';
 
 INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 1, '공지사항1 입니다.', 1, '공지사항1', '관리자');
 INSERT INTO board ( created_time, board_type, cno, content, flag, title, writer) VALUES (DEFAULT, 'NOTICE', 2, '공지사항2 입니다.', 2, '공지사항2', '관리자');
