@@ -60,7 +60,7 @@
                   </div>
                   <div class="file_input">
                     <label for="picture" ><i class="fas fa-file"></i> 사진</label>
-                    <input type="file" id="file1" name="file1" class="border_none" >
+                    <input type="file" class="form-control" name="file" id="fileNotice" onchange="uploadImage()">
                     <input type="hidden" id="picture" name="picture" class="" >
 <!--                    <input type="file" id="picture" name="picture" class="" th:value="${studentDTO.picture}" onchange="uploadImage()">-->
 <!--                    <th:block th:if="${studentDTO.picture != null}">-->
@@ -139,4 +139,20 @@
         }
       })
     </script>
+    <script th:inline="javascript">
+      function uploadImage() {
+        var file = $('#fileNotice')[0].files[0];
+        var formData = new FormData();
+        formData.append('file', file);
+
+        $.ajax({
+          type: 'POST',
+          url: '/upload',
+          data: formData,
+          processData: false,
+          contentType: false
+        })
+      }
+    </script>
+
 </div>
