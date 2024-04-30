@@ -234,7 +234,8 @@ public class MemberServiceImpl implements MemberService {
         JPQLQuery<Member> query = queryFactory
                 .selectFrom(QMember.member)
                 .leftJoin(QMember.member.course).fetchJoin()
-                .where(where);
+                .where(where)
+                ;
 
         // 페이징 처리된 결과 반환
         QueryResults<Member> results = query
