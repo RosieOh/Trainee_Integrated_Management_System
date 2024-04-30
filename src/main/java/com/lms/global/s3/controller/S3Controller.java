@@ -3,12 +3,15 @@
  import com.lms.global.s3.dto.FileDetail;
  import com.lms.global.s3.service.FileDownloadService;
  import com.lms.global.s3.service.FileUploadService;
+ import com.lms.global.s3.service.S3Service;
  import lombok.RequiredArgsConstructor;
  import lombok.extern.log4j.Log4j2;
  import org.springframework.http.HttpStatus;
  import org.springframework.http.ResponseEntity;
  import org.springframework.web.bind.annotation.*;
  import org.springframework.web.multipart.MultipartFile;
+
+ import java.util.List;
 
  import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -20,6 +23,7 @@
 
      private final FileUploadService fileUploadService;
      private final FileDownloadService fileDownloadService;
+     private final S3Service s3Service;
 
      @PostMapping
      public ResponseEntity<FileDetail> post(@RequestPart(value = "file", required = false) MultipartFile multipartFile) {
@@ -42,5 +46,12 @@
              log.error("Error while downloading file: {}", e.getMessage());
              return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
          }
+     }
+
+     // profile 이미지 전달
+     @GetMapping("/member/profile")
+     public List<String> getProfileImages() {
+         List<String> profileImageList = s3Service.getFileList("profile");
+         return profileImageList;
      }
  }
