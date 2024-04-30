@@ -102,6 +102,7 @@ public class NoticeController {
         //비밀글을 위한 정보 가져오기
         String id = principal.getName();
         MemberDTO memberDTO = memberService.loginId(id);
+        log.info(String.valueOf(memberDTO));
         model.addAttribute("memberDTO",memberDTO);
 
         return "admin/board/list";
@@ -168,6 +169,7 @@ public class NoticeController {
             boardDTO.setWriter(boardDTO.getWriter());
             boardDTO.setBoardType("NOTICE");
             boardService.register(boardDTO);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
