@@ -2,7 +2,6 @@ package com.lms.domain.Course.dto;
 
 import com.lms.global.cosntant.Subject;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 

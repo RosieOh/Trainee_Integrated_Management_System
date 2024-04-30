@@ -35,17 +35,20 @@
                             </td>
                             <td >
                                 <div class="course_cal">
-                                    <input type="date" name="start_date" id="start_date" min="1960-01-01" max="2040-12-31" required/>
+                                    <input type="date" name="start_date1" id="start_date1" min="1960-01-01" max="2040-12-31" required/>
+                                    <input type="hidden" name="start_date" id="start_date" th:value="${courseDTO.start_date}"/>
                                 </div>
                             </td>
                             <td >
                                 <div class="course_cal">
-                                    <input type="date" name="end_date" id="end_date" min="1960-01-01" max="2040-12-31" required/>
+                                    <input type="date" name="end_date1" id="end_date1" min="1960-01-01" max="2040-12-31" required/>
+                                    <input type="hidden" name="end_date" id="end_date" th:value="${courseDTO.end_date}"/>
                                 </div>
                             </td>
                             <td >
                                 <div class="course_cal">
-                                    <input type="date" name="train_time" id="train_time" min="1960-01-01" max="2040-12-31" disabled/>
+                                    <input type="date" name="train_time1" id="train_time1" min="1960-01-01" max="2040-12-31" required/>
+                                    <input type="hidden" name="train_time" id="train_time" th:value="${courseDTO.train_time}"/>
                                 </div>
                             </td>
                             <td >
@@ -67,9 +70,9 @@
                     <tr class="board_box">
                         <td></td>
                         <td>기존</td>
-                        <td th:text="${courseDTO.start_date}"></td>
-                        <td th:text="${courseDTO.end_date}">
-                        <td th:text="${courseDTO.train_time}">
+                        <td th:text="${courseDTO.start_date.substring(0,10)}"></td>
+                        <td th:text="${courseDTO.end_date.substring(0,10)}">
+                        <td th:text="${courseDTO.train_time.substring(0,10)}">
                         <td></td>
                         <td></td>
                         <td></td>

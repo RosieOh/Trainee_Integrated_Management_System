@@ -5,6 +5,10 @@ import com.lms.global.cosntant.Subject;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
+
+import java.util.Date;
 
 @Entity
 @Getter

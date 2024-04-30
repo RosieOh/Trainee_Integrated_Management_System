@@ -30,8 +30,8 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorizeRequests) -> {authorizeRequests
                         .requestMatchers(new AntPathRequestMatcher("/")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/member/**")).authenticated()
-                        .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasAuthority("ADMIN")
+                        .requestMatchers(new AntPathRequestMatcher("/member/**"), new AntPathRequestMatcher("/notice/**")).authenticated()
+                        .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasAnyAuthority("ADMIN", "MANAGER")
                         .anyRequest().permitAll();
                 })
             .formLogin((formLogin) -> formLogin

@@ -63,6 +63,7 @@
   word-wrap: break-word;
   word-break: keep-all;
   box-sizing: border-box;
+  /*font-family: 'JalnanGothic';*/
   font-family: 'S-CoreDream-3Light';
 }
 
@@ -274,6 +275,7 @@ tr:last-child td {
 }
 .flex {
   display: flex;
+  align-items: center;
 }
 
 .flex_around {

@@ -169,6 +169,7 @@ public class NoticeController {
             boardDTO.setWriter(boardDTO.getWriter());
             boardDTO.setBoardType("NOTICE");
             boardService.register(boardDTO);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
