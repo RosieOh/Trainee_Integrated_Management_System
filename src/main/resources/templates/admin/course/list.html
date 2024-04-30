@@ -40,17 +40,20 @@
                         </td>
                         <td >
                             <div class="course_cal">
-                                <input type="date" name="start_date" id="start_date" min="1960-01-01" max="2040-12-31" required/>
+                                <input type="date" name="start_date1" id="start_date1" min="1960-01-01" max="2040-12-31" required/>
+                                <input type="hidden" name="start_date" id="start_date" />
                             </div>
                         </td>
                         <td >
                             <div class="course_cal">
-                                <input type="date" name="end_date" id="end_date" min="1960-01-01" max="2040-12-31" required/>
+                                <input type="date" name="end_date1" id="end_date1" min="1960-01-01" max="2040-12-31" required/>
+                                <input type="hidden" name="end_date" id="end_date" />
                             </div>
                         </td>
                         <td >
                             <div class="course_cal">
-                                <input type="date" name="train_time" id="train_time" min="1960-01-01" max="2040-12-31" disabled/>
+                                <input type="date" name="train_time1" id="train_time1" min="1960-01-01" max="2040-12-31" required/>
+                                <input type="hidden" name="train_time" id="train_time" />
                             </div>
                         </td>
                         <td >
@@ -75,9 +78,9 @@
                     <td th:if="${#strings.equals(course.subject, 'FULLSTACK')}">풀스택</td>
                     <td th:if="${#strings.equals(course.subject, 'PM')}">PM</td>
                     <td th:text="${course.flag} + ' 기'"></td>
-                    <td th:text="${course.start_date}"></td>
-                    <td th:text="${course.end_date}"></td>
-                    <td th:text="${course.train_time}"></td>
+                    <td th:text="${course.start_date.substring(0,10)}"></td>
+                    <td th:text="${course.end_date.substring(0,10)}"></td>
+                    <td th:text="${course.train_time.substring(0,10)}"></td>
                     <td th:text="${course.instructor}"></td>
                     <td th:text="${course.manager}"></td>
                     <td >
@@ -119,19 +122,43 @@
             course_input.style.display = "table-row";
         })
     </script>
+<!--    <script>-->
+
+<!--        // 시작일 변경 시 종료일 처리-->
+<!--        $("#start_date1").change(() => {-->
+<!--            // $("#end_date1").prop("min", $("#start_date1").val());-->
+<!--            $("#end_date1").html($("#start_date1").val());-->
+<!--            // $("#train_time1").prop("min", $("#start_date1").val());-->
+
+<!--            // 종료일이 변경한 시작일보다 빠른 경우-->
+<!--            if($("#end_date1").val() < $("#start_date1").val()) {-->
+<!--                $("#end_date1").val($("#start_date1").val());-->
+<!--            }-->
+<!--        });-->
+<!--        // 종료일 변경 시 시작일 처리-->
+<!--        $("#end_date1").change(() => {-->
+<!--            $("#start_date1").prop("max", $("#end_date1").val());-->
+<!--        })-->
+
+<!--    </script>-->
     <script>
-        // 시작일 변경 시 종료일 처리
-        $("#start_date").change(() => {
-            $("#end_date").prop("min", $("#start_date").val());
-            // 종료일이 변경한 시작일보다 빠른 경우
-            if($("#end_date").val() < $("#start_date").val()) {
-                $("#end_date").val($("#start_date").val());
-            }
-        });
-        // 종료일 변경 시 시작일 처리
-        $("#end_date").change(() => {
-            $("#start_date").prop("max", $("#end_date").val());
+        const start_date1 = document.querySelector('#start_date1')
+        const start_date = document.querySelector('#start_date')
+        const end_date1 = document.querySelector('#end_date1')
+        const end_date = document.querySelector('#end_date')
+        const train_time1 = document.querySelector('#train_time1')
+        const train_time = document.querySelector('#train_time')
+        start_date1.addEventListener('change', (event) => {
+            end_date1.value = start_date1.value
+            end_date.value = start_date1.substring(0,10)
+            start_date.value = start_date1.substring(0,10)
+            train_time1.value = start_date1.value
+            train_time.value = start_date1.substring(0,10)
         })
+        train_time1.addEventListener('change', (event) => {
+            train_time.value = train_time1.substring(0,10)
+        })
+
     </script>
     <script>
         // function Datetime(date){

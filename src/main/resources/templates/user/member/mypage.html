@@ -47,6 +47,12 @@
                   <input type="date" name="birth" id="birth" min="1960-01-01" max="2040-12-31" class="ro_input" th:value="${member.birth }" readonly/>
                 </div>
               </div>
+              <div class="user_info_box infotel">
+                <label for="phone">연락처</label>
+                <div class="myinfo_line">
+                  <input type="number" name="phone" id="phone" class="ro_input" th:value="${member.phone }"  />
+                </div>
+              </div>
               <div class="user_info_box">
                 <label for="gender">성별</label>
                 <div class="myinfo_line">
@@ -59,17 +65,11 @@
                   <input type="text" name="email" id="email" th:value="${member.email }"  />
                 </div>
               </div>
-              <div class="user_info_box infotel">
-                <label for="phone">연락처</label>
-                <div class="myinfo_line">
-                  <input type="text" name="phone" id="phone" th:value="${member.phone }"  />
-                </div>
-              </div>
               <div class="user_info_box">
                 <label for="phone">주소</label>
                 <input type="text" name="addr1" id="addr1" th:value="${member.addr1 }"  />
               </div>
-              <div class="user_info_box">
+              <div class="user_info_box flex">
                 <input type="text" name="postcode" id="postcode" th:value="${member.postcode }" class="postcodeBtn">
                 <button type="button" id="post_btn" onclick="findAddr()" class="join_btn">우편번호 검색</button>
               </div>
@@ -130,9 +130,10 @@
             document.getElementById("addr1").value = jibunAddr;
           }
           document.getElementById("addr3").value = bname;
-          document.getElementById("addr2").focus();
+          // document.getElementById("addr2").focus();
         }
-      }).open();
+      }).open()
     }
+
   </script>
 </div>

@@ -44,11 +44,14 @@
                     <label for="job_program" >국취참여여부</label>
                     <div class="job_box">
                       <select id="job_program_select">
-                        <option value="참여중" th:selected="${studentDTO.job_program} eq '참여중'">참여중</option>
-                        <option value="기참여" th:selected="${studentDTO.job_program} eq '기참여'">기참여</option>
+                        <option value="참여중" th:selected="${#strings.equals(studentDTO.job_program, '참여중')}">참여중</option>
+                        <option value="기참여" th:selected="${#strings.equals(studentDTO.job_program, '기참여')}">기참여</option>
+<!--                        <option value="미참여" th:selected="${#strings.equals(studentDTO.job_program, not '참여중' or '기참여')}">미참여</option>-->
+<!--                        <option value="참여중" th:selected="${studentDTO.job_program} eq '참여중'">참여중</option>-->
+<!--                        <option value="기참여" th:selected="${studentDTO.job_program} eq '기참여'">기참여</option>-->
                         <option value="self" th:selected="${studentDTO.job_program} != '참여중' or '기참여'">미참여</option>
                       </select>
-                      <input type="text" name="job_program" id="job_program" required />
+                      <input type="text" name="job_program" id="job_program" th:value="${studentDTO.job_program}"/>
                     </div>
                   </div>
                   <div class="user_info_box">
@@ -57,39 +60,45 @@
                   </div>
                   <div class="file_input">
                     <label for="picture" ><i class="fas fa-file"></i> 사진</label>
-                    <th:block th:if="${studentDTO.picture == null}">
-                      <input type="file" id="picture" name="picture" class="" value="파일 없음">
-                    </th:block>
-                    <th:block th:if="${studentDTO.picture != null}">
-                      <a th:href="@{'/download/' + ${studentDTO.picture}}">
-                        <i class="fas fa-window-maximize"></i>
-                      </a>
-                    </th:block>
-<!--                    <input type="file" id="picture" name="picture" class="">-->
+                    <input type="file" id="file1" name="file1" class="border_none" >
+                    <input type="hidden" id="picture" name="picture" class="" >
+<!--                    <input type="file" id="picture" name="picture" class="" th:value="${studentDTO.picture}" onchange="uploadImage()">-->
+<!--                    <th:block th:if="${studentDTO.picture != null}">-->
+<!--                      <a th:href="@{'/download/' + ${studentDTO.picture}}">-->
+<!--                        <i class="fas fa-window-maximize"></i>-->
+<!--                      </a>-->
+<!--                    </th:block>-->
+
+<!--                    <th:block th:if="${studentDTO.picture == null}">-->
+<!--                      <input type="file" id="picture" name="picture" class="" value="파일 없음">-->
+<!--                    </th:block>-->
+
                   </div>
                   <div class="file_input">
                     <label for="portfolio" ><i class="fas fa-file"></i> 포트폴리오</label>
-                    <th:block th:if="${studentDTO.portfolio == null}">
-                      <input type="file" id="portfolio" name="portfolio" class="" value="파일 없음">
-                    </th:block>
-                    <th:block th:if="${studentDTO.portfolio != null}">
-                      <a th:href="@{'/download/' + ${studentDTO.portfolio}}">
-                        <i class="fas fa-window-maximize"></i>
-                      </a>
-                    </th:block>
-<!--                    <input type="file" id="portfolio" name="portfolio" class="border_none">-->
+<!--                    <th:block th:if="${studentDTO.portfolio == null}">-->
+<!--                      <input type="file" id="portfolio" name="portfolio" class="" value="파일 없음">-->
+<!--                    </th:block>-->
+<!--                    <th:block th:if="${studentDTO.portfolio != null}">-->
+<!--                      <a th:href="@{'/download/' + ${studentDTO.portfolio}}">-->
+<!--                        <i class="fas fa-window-maximize"></i>-->
+<!--                      </a>-->
+<!--                    </th:block>-->
+                    <input type="file" id="file2" name="file2" class="border_none">
+                    <input type="hidden" id="portfolio" name="portfolio" class="border_none">
                   </div>
                   <div class="file_input">
                     <label for="resume" ><i class="fas fa-file"></i> 이력서</label>
-                    <th:block th:if="${studentDTO.resume == null}">
-                      <input type="file" id="resume" name="resume" class="" value="파일 없음">
-                    </th:block>
-                    <th:block th:if="${studentDTO.resume != null}">
-                      <a th:href="@{'/download/' + ${studentDTO.resume}}">
-                        <i class="fas fa-window-maximize"></i>
-                      </a>
-                    </th:block>
-<!--                    <input type="file" id="resume" name="resume" class="border_none">-->
+<!--                    <th:block th:if="${studentDTO.resume == null}">-->
+<!--                      <input type="file" id="resume" name="resume" class="" value="파일 없음">-->
+<!--                    </th:block>-->
+<!--                    <th:block th:if="${studentDTO.resume != null}">-->
+<!--                      <a th:href="@{'/download/' + ${studentDTO.resume}}">-->
+<!--                        <i class="fas fa-window-maximize"></i>-->
+<!--                      </a>-->
+<!--                    </th:block>-->
+                    <input type="file" id="file3" name="file3" class="border_none">
+                    <input type="hidden" id="resume" name="resume" class="border_none">
                   </div>
                 </div>
               </div>
@@ -101,19 +110,33 @@
       </div>
       </div>
     </div>
+    <script th:inline="javascript">
+      function uploadImage() {
+        var file = $('#fileNotice')[0].files[0];
+        var formData = new FormData();
+        formData.append('file', file);
+
+        $.ajax({
+          type: 'POST',
+          url: '/upload',
+          data: formData,
+          processData: false,
+          contentType: false
+        })
+      }
+    </script>
     <script>
       const job_program_select = document.querySelector('#job_program_select')
       const job_program = document.querySelector('#job_program')
       job_program_select.addEventListener('change', (event) => {
         if(event.target.value !== "self") {
           job_program.value = event.target.value
-          job_program.disabled = true
+          job_program.readOnly = true
         } else {
           job_program.value = "미참여 사유 : ";
-          job_program.disabled = false
+          job_program.readOnly = false
           job_program.focus()
         }
       })
-
     </script>
 </div>
