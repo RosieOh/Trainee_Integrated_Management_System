@@ -84,11 +84,11 @@
                         <div class="form-login">
                             <label>연락처<em>*</em></label>
                             <div class="join_tel">
-                                <input type="number" class="number" id="phone1" placeholder="000" maxlength="4" required/>
+                                <input type="number" class="number" id="phone1" placeholder="000" maxlength="4" required oninput="lengthChk(this)"/>
                                 <p>-</p>
-                                <input type="number" class="number" id="phone2" placeholder="0000" maxlength="4" required/>
+                                <input type="number" class="number" id="phone2" placeholder="0000" maxlength="4" required oninput="lengthChk(this)"/>
                                 <p>-</p>
-                                <input type="number" class="number" id="phone3" placeholder="0000" maxlength="4" th:maxlength="4" required/>
+                                <input type="number" class="number" id="phone3" placeholder="0000" maxlength="4" required oninput="lengthChk(this)"/>
                                 <input type="hidden" name="phone" id="phone"/>
                             </div>
                         </div>
@@ -124,7 +124,7 @@
     const birth1 = document.querySelector('#birth1')
     const birth = document.querySelector('#birth')
     birth1.addEventListener('change', (event) => {
-        birth.value = birth1.value
+        birth.value = birth1.substring(0,10)
     })
 
 </script>
@@ -143,7 +143,8 @@
             e.value = e.value.slice(0, e.maxLength);
         }
     }
-</script>
+       
+    </script>
 <script>
     function idCheck() {
         if ($("#id").val() == "") {
@@ -258,10 +259,11 @@ console.log("id.val" + $("#id").val() + $("#id").val())
                 document.getElementById("postcode").value = data.zonecode;
                 if(roadAddr !== ''){
                     document.getElementById("addr1").value = roadAddr;
-                } else if(jibunAddr !== ''){
-                    document.getElementById("addr1").value = jibunAddr;
                 }
-                document.getElementById("addr3").value = bname;
+                // else if(jibunAddr !== ''){
+                //     document.getElementById("addr1").value = jibunAddr;
+                // }
+                // document.getElementById("addr3").value = bname;
             }
         }).open();
     }
