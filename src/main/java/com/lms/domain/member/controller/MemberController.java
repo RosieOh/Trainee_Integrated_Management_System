@@ -2,6 +2,7 @@ package com.lms.domain.member.controller;
 
 import com.lms.domain.Course.dto.CourseDTO;
 import com.lms.domain.board.dto.BoardDTO;
+import com.lms.domain.board.entity.Board;
 import com.lms.domain.board.service.BoardService;
 import com.lms.domain.file.dto.FileDTO;
 import com.lms.domain.file.service.FileService;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Log4j2
@@ -62,6 +64,15 @@ public class MemberController {
         model.addAttribute("pinnedCount", pinnedCount);
         model.addAttribute("memberDTO", memberDTO);
         model.addAttribute("newNoticeList", newNoticeList);
+
+        //각 공지사항의 파일
+        List<FileDTO> fileList = new ArrayList<>();
+        for (BoardDTO board : newNoticeList) {
+            FileDTO fileDTO = fileService.getFile(board.getFileId());
+            fileList.add(fileDTO);
+            log.info(String.valueOf(fileDTO));
+        }
+        model.addAttribute("fileList", fileList);
 
         return "user/index";
     }
