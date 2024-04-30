@@ -63,7 +63,8 @@
   word-wrap: break-word;
   word-break: keep-all;
   box-sizing: border-box;
-  font-family: 'JalnanGothic';
+  /*font-family: 'JalnanGothic';*/
+  font-family: 'S-CoreDream-3Light';
 }
 
 body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, p, blockquote, label {
@@ -274,6 +275,7 @@ tr:last-child td {
 }
 .flex {
   display: flex;
+  align-items: center;
 }
 
 .flex_around {
