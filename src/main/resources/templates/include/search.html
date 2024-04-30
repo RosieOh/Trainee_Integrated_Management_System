@@ -226,7 +226,7 @@
 
 
 <div th:fragment="searchNoti(pageLink)" class="search-form">
-<!--    <form class="search-form" id="search-form2" role="search" method="get">-->
+    <form id="search-form2" role="search" method="get" style="display: none">
         <span class="searchTotal">전체 <strong>[[${searchTotal}]]</strong>건의 결과</span>
         <div class="search-select">
             <select name="cno" id="cno" class="custom-select">
@@ -241,10 +241,10 @@
                     <option th:value="${course_pm.getNo()}" th:text="'에듀테크 상품서비스 PM(프로덕트매니저) 양성'+' '+ ${course_pm.flag} + '기'"></option>
                 </th:block>
             </select>
-            <input type="text" name="keyword" placeholder="제목 입력" >
+            <input type="text" name="keyword" placeholder="제목 입력" value="" id="keywordTitle">
             <button type="submit" class="search_btn select_btn">검색</button>
         </div>
-<!--    </form>-->
+    </form>
     <script th:inline="javascript">
         $(document).ready(function() {
             let pageLink = /*[[@{${pageLink}}]]*/ '';

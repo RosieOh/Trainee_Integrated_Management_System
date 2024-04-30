@@ -410,7 +410,7 @@
     font-size: 90%;
     border: 1px solid;
     line-height: 1.25;
-    margin-top: 5px;
+    margin: 5px 5px 0;
 }
 
 .join_gender {
@@ -464,10 +464,13 @@
 
 
 .inline_form {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 .inline_form select {
     height: auto;
-    width: 50%;
+    width: 40%;
     margin-right: 10px;
 }
 

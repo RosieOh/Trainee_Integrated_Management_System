@@ -47,22 +47,21 @@
           <div class="admin_info_box infoemail">
             <label for="email">이메일</label>
             <div class="myinfo_line">
-              <input type="text" name="email" id="email" th:value="${member.email }"  />
+              <input type="text" name="email" id="email" class="ro_input" th:value="${member.email }"  readonly/>
             </div>
           </div>
           <div class="admin_info_box infotel">
             <label for="phone">연락처</label>
             <div class="myinfo_line">
-              <input type="text" name="phone" id="phone" th:value="${member.phone }"  />
+              <input type="text" name="phone" id="phone" class="ro_input" th:value="${member.phone }" readonly />
             </div>
           </div>
           <div class="admin_info_box">
             <label for="phone">주소</label>
-            <input type="text" name="addr1" id="addr1" th:value="${member.addr1 }"  />
+            <input type="text" name="addr1" id="addr1" class="ro_input" th:value="${member.addr1 }"  readonly/>
           </div>
-          <div class="admin_info_box">
-            <input type="text" name="postcode" id="postcode" th:value="${member.postcode }" class="postcodeBtn">
-            <button type="button" id="post_btn" onclick="findAddr()" class="join_btn">우편번호 검색</button>
+          <div class="admin_info_box flex">
+            <input type="text" name="postcode" id="postcode" th:value="${member.postcode }" class="postcodeBtn ro_input" readonly>
           </div>
 
           <div class="admin_info_box file_input">
@@ -266,25 +265,7 @@
   }
 </script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
-  function findAddr(){
-    new daum.Postcode({
-      oncomplete:function(data){
-        var roadAddr = data.roadAddress;
-        var jibunAddr = data.jibunAddress;
-        var bname = data.bname;
-        document.getElementById("postcode").value = data.zonecode;
-        if(roadAddr !== ''){
-          document.getElementById("addr1").value = roadAddr;
-        } else if(jibunAddr !== ''){
-          document.getElementById("addr1").value = jibunAddr;
-        }
-        document.getElementById("addr3").value = bname;
-        document.getElementById("addr2").focus();
-      }
-    }).open();
-  }
-</script>
+
 <script>
   $(document).ready(function() {
     var params = {"no": $("#no").val()};

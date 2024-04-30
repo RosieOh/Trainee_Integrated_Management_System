@@ -13,7 +13,7 @@
             <thead>
                 <tr>
                   <th style="width: 10%">no</th>
-                  <th style="width: auto">제목</th>
+                  <th style="width: 50%">제목</th>
                   <th style="width: 10%">작성자</th>
                   <th style="width: 20%">작성일</th>
                   <th style="width: 10%">파일</th>
@@ -68,13 +68,6 @@
                           }
                       }
 
-
-                      if (pageValue !== null && !isNaN(pageValue)) {
-                          var page = parseInt(pageValue);
-                          addActiveClass(page);
-                      } else {
-                          addActiveClass(0);
-                      }
                       if (cnoValue) {
                           setSelectedOption('cno', cnoValue);
                       }

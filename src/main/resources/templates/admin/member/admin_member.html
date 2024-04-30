@@ -12,10 +12,11 @@
       <table class="table_set">
         <thead>
         <tr>
-          <th>이름</th>
-          <th>가입날짜</th>
-          <th>클래스</th>
-          <th>권한</th>
+          <th style="width: auto">아이디</th>
+          <th style="width: auto">이름</th>
+          <th style="width: auto">가입날짜</th>
+          <th style="width: 20%">클래스 변경</th>
+          <th style="width: 20%">권한</th>
         </tr>
         </thead>
         <tbody>
@@ -27,12 +28,13 @@
           </tr>
         </th:block>
           <tr th:each="member, about :${memberList}">
+            <td th:text="${member.id}"></td>
             <td>
               <a th:href="@{/admin/member_read(no=${member.getNo() } )}">[[${member.name }]]  <i class='fas fa-sign-in-alt'></i> </a>
             </td>
             <td th:text="${#temporals.format(member.createdTime, 'yyyy-MM-dd')}"></td>
             <td>
-              <form th:action="@{/admin/change_role(id=${member.id} )}" method="post" class="inline_form">
+              <form th:action="@{/admin/admin_change_status(id=${member.id} )}" method="post" class="inline_form">
                 <select name="role" class="select-box">
                   <option th:value="${member.course.no}" th:selected="${member.course.subject} != 'EXCEPTION'">[[${member.course.subject}]]</option>
                   <option value="1" th:selected="${member.course.subject} == 'EXCEPTION'">예외</option>
@@ -41,7 +43,7 @@
               </form>
             </td>
             <td>
-              <form th:action="@{/admin/change_role(id=${member.id} )}" method="post" class="inline_form">
+              <form th:action="@{/admin/admin_change_role(id=${member.id} )}" method="post" class="inline_form">
                 <select name="role" class="select-box">
                   <option value="MANAGER" th:selected="${#strings.equals(member.role, 'MANAGER')}">매니저</option>
                   <option value="TEACHER" th:selected="${#strings.equals(member.role, 'TEACHER')}">교수자 </option>
@@ -107,14 +109,13 @@
     <div class="hide_layout">
       <div class="layout_box">
         <i class="fas fa-times-circle layout_close"></i>
-        <form th:action="@{/joinPro}" onsubmit="return joinCheck(this)">
+        <form th:action="@{/admin_joinPro}" onsubmit="return joinCheck(this)">
           <div class="admin_join">
             <div class="form-login">
               <label>아이디<em>*</em></label>
               <div class="flex_between">
                 <input type="text" name="id" id="id" class="join_input" placeholder="아이디를 입력해주세요." required />
                 <button type="button" class="join_btn" onclick="idCheck()">아이디 중복 확인</button>
-                <input type="hidden" name="cno" value="1">
               </div>
               <input type="hidden" name="idCk" id="idCk" value="no">
               <p id="msg" class="no_check">아이디 중복 체크를 하지 않으셨습니다.</p>
@@ -133,6 +134,7 @@
               <input type="password" name="pw2" placeholder="비밀번호를 다시 입력해주세요." maxlength="16" required />
             </div>
           </div>
+          <input type="hidden" name="cno" value="1">
           <input type="hidden" name="email" value="-"/>
           <input type="hidden" name="birth" value="-"/>
           <input type="hidden" name="gender" value="-"/>
@@ -140,7 +142,7 @@
           <input type="hidden" name="addr1" value="-" />
           <input type="hidden" name="postcode" value="-">
           <div class="btn_group_center">
-            <button type="submit" class="board_btn select_btn">매니저 회원가입</button>
+            <button type="button" class="board_btn select_btn">매니저 회원가입</button>
           </div>
         </form>
       </div>

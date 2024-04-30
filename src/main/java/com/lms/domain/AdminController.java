@@ -109,7 +109,6 @@ public class AdminController {
         pageDTO.build(members);
         pageDTO.entity2dto(members, Member.class);
         model.addAttribute("pageDTO", pageDTO);
-
         return "admin/member/list";
     }
 
@@ -143,6 +142,43 @@ public class AdminController {
         Integer cno = memberDTO.getCourse().getNo();
         return "redirect:/admin/member?cno="+ cno;
     }
+
+    // 관리자 회원 상태변경
+    @PostMapping("/admin_change_status")
+    public String admin_change_status(String id, Model model, Status status){
+        MemberDTO memberDTO = memberService.loginId(id);
+        memberDTO.setStatus(status);
+        memberService.member_edit(memberDTO);
+        Integer cno = memberDTO.getCourse().getNo();
+        return "redirect:/admin/admin_member";
+    }
+
+    // 관리자 회원 권한변경
+    @PostMapping("/admin_change_role")
+    public String admin_change_role(String id, Model model, Role role){
+        MemberDTO memberDTO = memberService.loginId(id);
+        memberDTO.setRole(role);
+        memberService.member_edit(memberDTO);
+        Integer cno = memberDTO.getCourse().getNo();
+        return "redirect:/admin/admin_member";
+    }
+
+    // 관리자 회원가입
+    @PostMapping("/admin_joinPro")
+    public String joinPro(MemberDTO memberDTO, @RequestParam("cno") Integer cno){
+        CourseDTO course = new CourseDTO();
+        course.setNo(cno);
+        memberDTO.setCourse(course);
+        memberDTO.setStatus(Status.ACTIVE);
+        memberDTO.setRole(Role.MANAGER);
+        memberService.member_add(memberDTO);
+        MemberDTO memberDTO1 = memberService.loginId(memberDTO.getId());
+        StudentDTO studentDTO = new StudentDTO();
+        studentDTO.setNo(memberDTO1.getNo());
+        studentService.student_add(studentDTO);
+        return "redirect:/admin/admin_member";
+    }
+
 
     // 비밀번호 초기화(진행중)
     @PostMapping("pw_reset")
