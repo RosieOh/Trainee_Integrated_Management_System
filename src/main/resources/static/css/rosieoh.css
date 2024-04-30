@@ -39,7 +39,7 @@ table i {
     display: flex;
     justify-content: start;
     width: 100%;
-    background-color: var(--c-main_back);
+    background-color: #ffffff;
     padding: 0.5rem 8rem;
     box-shadow: 0 5px 10px 0 black;
 }
