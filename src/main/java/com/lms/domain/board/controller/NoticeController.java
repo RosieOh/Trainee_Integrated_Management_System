@@ -77,6 +77,8 @@ public class NoticeController {
 //        log.info(fileList+"fileList");
 //        model.addAttribute("fileList", fileList);
 
+
+
         int pageNow = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
 
         PageDTO<Board, BoardDTO> pageDTO = new PageDTO<>();

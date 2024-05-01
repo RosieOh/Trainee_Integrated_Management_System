@@ -29,6 +29,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.lms.domain.board.entity.QBoard.board;
+
 @Log4j2
 @Service
 @RequiredArgsConstructor
@@ -183,19 +185,19 @@ public class BoardServiceImpl implements BoardService {
 
         // 키워드가 있는 경우 이름 필터링
         if (StringUtils.hasText(keyword)) {
-            where.and(QBoard.board.title.containsIgnoreCase(keyword));
+            where.and(board.title.containsIgnoreCase(keyword));
         }
 
         if (cno != null) {
-            where.and(QBoard.board.cno.eq(Long.valueOf(cno)));
+            where.and(board.cno.eq(Long.valueOf(cno)));
         }
 
 
         // 페이징 처리
         JPAQuery<Board> query = queryFactory
-                .selectFrom(QBoard.board)
-                .where(where)
-                .orderBy(QBoard.board.pinned.desc(), QBoard.board.createdTime.desc());
+                .selectFrom(board)
+                .where(board.deleteType.ne(true), where)
+                .orderBy(board.pinned.desc(), board.createdTime.desc());
 
         // 페이징 처리된 결과 반환
         QueryResults<Board> results = query
