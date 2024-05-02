@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -59,6 +60,12 @@ public class FileService {
         } else {
             return Collections.emptyList();
         }
+    }
+
+    @Transactional
+    public List<Long> getFileIdsByBoardId(Long boardId) {
+        List<Long> fileIds = fileRepository.findIdsByBoardId(boardId);
+        return fileIds;
     }
 
     @Transactional

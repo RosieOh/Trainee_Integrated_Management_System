@@ -49,10 +49,6 @@ public class NoticeController {
     @GetMapping(value = {"/list"})
     public String noticeListAll(Model model, HttpServletRequest request, @PageableDefault(page=0, size=10, sort="title", direction= Sort.Direction.DESC) Pageable pageable,
                                 @RequestParam(required = false) String keyword, @RequestParam(required = false) Integer cno, Principal principal){
-//        List<BoardDTO> boardList = boardService.findNoticeAll();
-//        int pinnedCount = boardService.countPinned(boardList);
-//        model.addAttribute("boardList", boardList);
-//        model.addAttribute("pinnedCount", pinnedCount);
 
         List<CourseDTO> course_big_List = courseService.course_join_list(Subject.BIGDATA);
         List<CourseDTO> course_full_List = courseService.course_join_list(Subject.FULLSTACK);
@@ -67,18 +63,6 @@ public class NoticeController {
         model.addAttribute("pinnedCount", pinnedCount);
         model.addAttribute("searchTotal", boardList.getTotalElements());
 
-        //각 공지사항의 파일
-//        List<FileDTO> fileList = new ArrayList<>();
-//        for (Board board : boardList) {
-//            FileDTO fileDTO = fileService.getFile(fileList);
-//            fileList.add(fileDTO);
-//            log.info(String.valueOf(fileDTO));
-//        }
-//        log.info(fileList+"fileList");
-//        model.addAttribute("fileList", fileList);
-
-
-
         int pageNow = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
 
         PageDTO<Board, BoardDTO> pageDTO = new PageDTO<>();
@@ -89,6 +73,13 @@ public class NoticeController {
         pageDTO.entity2dto(boardList, BoardDTO.class);
 
         model.addAttribute("pageDTO", pageDTO);
+
+        List<List<Long>> fileIdsList = new ArrayList<>();
+        for (Board board : boardList) {
+            List<Long> fileIds = fileService.getFileIdsByBoardId(board.getId());
+            fileIdsList.add(fileIds);
+        }
+        model.addAttribute("fileIdsList", fileIdsList);
 
         //비밀글을 위한 정보 가져오기
         String id = principal.getName();

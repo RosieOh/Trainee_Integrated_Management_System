@@ -38,15 +38,15 @@
 
                     <td th:text="${notice.writer}"></td>
                     <td th:text="${#temporals.format(notice.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
-
-<!--                    파일 유무에 따른 if문-->
-<!--                    <td th:if="${fileList[about.index].id == notice.fileId and fileList[about.index].originFileName == ''}">-->
-<!--                    </td>-->
-<!--                    <td th:if="${fileList[about.index].id == notice.fileId and fileList[about.index].originFileName != ''}">-->
-<!--                        <a th:href="@{'/download/' + ${fileList[about.index].id}}">-->
-<!--                            <i class="fas fa-window-maximize"></i>-->
-<!--                        </a>-->
-<!--                    </td>-->
+                    <td th:if="${!fileIdsList.isEmpty()}">
+                        <div th:each="fileIds : ${fileIdsList}">
+                            <div th:each="fileId : ${fileIds}">
+                                <a th:href="@{'/download/' + ${fileId}}">
+                                    <i class="fas fa-window-maximize"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </td>
                 </tr>
             </tbody>
           </table>

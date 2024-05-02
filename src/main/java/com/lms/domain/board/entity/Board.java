@@ -1,6 +1,5 @@
 package com.lms.domain.board.entity;
 
-import com.lms.domain.Course.entity.Course;
 import com.lms.domain.file.entity.File;
 import com.lms.global.cosntant.BaseEntity;
 import jakarta.persistence.*;
