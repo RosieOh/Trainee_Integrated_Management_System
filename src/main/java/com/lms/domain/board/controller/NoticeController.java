@@ -76,6 +76,12 @@ public class NoticeController {
 
         model.addAttribute("pageDTO", pageDTO);
 
+        List<FileDTO> fileList = new ArrayList<>();
+        for (Board board : boardList) {
+            List<FileDTO> fileDTO = fileService.findByBoardId(board.getId());
+            log.info(String.valueOf(fileDTO));
+        }
+        model.addAttribute("fileList", fileList);
 
         //비밀글을 위한 정보 가져오기
         String id = principal.getName();
@@ -92,9 +98,6 @@ public class NoticeController {
     public List<Long> getFileList(@RequestBody Map<String, Long> requestBody) {
 
         Long boardId = requestBody.get("boardId");
-
-        log.info("====="+boardId);
-
         List<Long> fileIds = fileService.getFileIdsByBoardId(boardId);
 
         return fileIds;

@@ -38,20 +38,26 @@
 
                     <td th:text="${notice.writer}"></td>
                     <td th:text="${#temporals.format(notice.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
-                    <td>
-                        <i class="fas fa-window-maximize" onclick="downloadFiles()"></i>
+                    <td class="fileDownload">
+                        <i class="fas fa-window-maximize" onclick="downloadFiles(this)" ></i>
+                        <input type="hidden" name="boardId" th:value="${notice.id}" >
                     </td>
                     <script th:inline="javascript">
-                        function downloadFiles() {
+                        function downloadFiles(element) {
+                        var fileDownload = element.parentNode;
+                        var boardIdValue = fileDownload.querySelector('input[name="boardId"]').value;
 
-                        let data = JSON.stringify({"boardId": 2});
+                        console.log(boardIdValue);
+
+                        let data = JSON.stringify({"boardId": boardIdValue});
                         $.ajax({
                             url: "/notice/fileList",
                             type: "post",
                             contentType: "application/json",
+                            dataType: "json",
                             data: data,
                             success: function(result) {
-                                console.log("HI"+result);
+                                console.log("HI:"+result);
                                 handleFileList(result);
                             },
                             error: function(res) {
@@ -61,11 +67,26 @@
                         })
                         }
 
-                        function handleFileList(fileList) {
-                            fileList.forEach(function(fileId) {
-                                var downloadUrl = '/download/' + fileId;
-                                console.log("다운로드 URL: ", downloadUrl);
-                                window.location.href = downloadUrl;
+                        function handleFileList(result) {
+
+                            var iframe = $('<iframe>', { style: 'display: none' })[0];
+                            $('body').append(iframe);
+
+                            result.forEach(function(fileId, index) {
+                                setTimeout(function() {
+                                    var downloadUrl = '/download/' + fileId;
+                                    console.log("다운주소"+downloadUrl);
+
+                                    var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+                                    var downloadLink = iframeDocument.createElement('a');
+                                    downloadLink.href = downloadUrl;
+                                    iframeDocument.body.appendChild(downloadLink);
+                                    downloadLink.click();
+
+                                    if (index === result.length) {
+                                        $(iframe).remove();
+                                    }
+                                }, 100 * index);
                             });
                         }
                     </script>
