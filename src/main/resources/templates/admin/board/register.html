@@ -38,7 +38,9 @@
                 <div class="file_box">
                   <div class="file_input">
                     <label for="fileNotice"><i class="fas fa-file"></i> 첨부파일</label>
-                    <input type="file" name="files"  id="fileNotice" multiple>
+                    <div id="fileListInput">
+                      <input type="file" name="files"  id="fileNotice" multiple>
+                    </div>
                   </div>
                 </div>
                 <div id="editor">
@@ -81,18 +83,23 @@
   </script>
 
   <script th:inline="javascript">
-    function uploadImage() {
-      var file = $('#fileNotice')[0].files[0];
-      var formData = new FormData();
-      formData.append('file', file);
+    document.getElementById('fileNotice').addEventListener('change', function(event) {
+      var files = event.target.files;
+      var parentElement = document.getElementById('fileListInput').parentNode;
 
-      $.ajax({
-        type: 'POST',
-        url: '/upload',
-        data: formData,
-        processData: false,
-        contentType: false
-      })
-    }
+      for (var i = 0; i < files.length; i++) {
+        var file = files[i];
+        console.log('파일 이름:', file.name);
+
+        var newInputField = document.createElement('input');
+        newInputField.type = 'text';
+        newInputField.className = 'form-control file';
+        newInputField.name = 'file';
+        newInputField.value = file.name;
+        newInputField.readOnly = true;
+
+        parentElement.appendChild(newInputField);
+      }
+    });
   </script>
   </div>

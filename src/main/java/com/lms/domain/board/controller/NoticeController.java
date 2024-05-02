@@ -76,12 +76,6 @@ public class NoticeController {
 
         model.addAttribute("pageDTO", pageDTO);
 
-        List<List<Long>> fileIdsList = new ArrayList<>();
-        for (Board board : boardList) {
-            List<Long> fileIds = fileService.getFileIdsByBoardId(board.getId());
-            fileIdsList.add(fileIds);
-        }
-        model.addAttribute("fileIdsList", fileIdsList);
 
         //비밀글을 위한 정보 가져오기
         String id = principal.getName();
@@ -92,6 +86,13 @@ public class NoticeController {
         return "admin/board/list";
     }
 
+
+    @GetMapping("/fileList")
+    @ResponseBody
+    public List<Long> getFileList(Long boardId) {
+        List<Long> fileIds = fileService.getFileIdsByBoardId(boardId);
+        return fileIds;
+    }
 
     @GetMapping("/read")
     public String readNotice(Long id, Model model, Principal principal) {

@@ -509,3 +509,15 @@
     justify-content: end;
     align-items: center;
 }
+
+
+/* 공지사항 파일 첨부 */
+
+.fileListNotice {
+    display: flex;
+    justify-content: center;
+}
+
+.fileListNotice div {
+    margin : 0 3px;
+}
