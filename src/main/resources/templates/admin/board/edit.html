@@ -37,10 +37,21 @@
                             <div class="file_box">
                                 <div class="file_input">
                                     <label for="fileNotice"><i class="fas fa-file"></i> 첨부파일</label>
-                                    <input type="file" name="files"  id="fileNotice" multiple>
+
+                                    <th:block th:if="${fileList == null}">
+                                        <input type="file" class="form-control" name="files" id="fileNotice" multiple>
+                                    </th:block>
+
+                                    <th:block  th:if="${fileList!= null}">
+                                        <input type="file" class="form-control" name="files" id="fileNotice" multiple>
+                                        <div th:each="file, about :${fileList}" id="fileListInput">
+                                            <input type="text" class="form-control file" name="file" th:value="${file.originFileName}" readonly>
+                                            <input type="hidden" name="id" th:value="${file.id}" id="fileID">
+                                            <i class="fas fa-times" onclick="removeFile(this)"></i>
+                                        </div>
+                                    </th:block>
                                 </div>
                             </div>
-
 
                             <div id="editor">
                                 <textarea class="input"  style="width: 1320px; height: 500px;" id="myTextarea" type="text" th:utext="${boardDTO.content}" required th:name="content" placeholder="내용"></textarea>
@@ -79,7 +90,47 @@
         </script>
         <script th:inline="javascript">
             function removeFile(element) {
-                element.parentNode.remove();
+                var fileDiv = element.parentNode;
+                var fileId = document.getElementById('fileID').value;
+
+                console.log("파일 확인" + fileId);
+                let data = JSON.stringify({"fileId": fileId});
+
+                $.ajax({
+                    url: "/notice/deleteFile",
+                    type: "post",
+                    contentType: "application/json",
+                    data: data,
+                    success: function(result) {
+                        console.log("HI");
+                        fileDiv.remove();
+                    },
+                    error: function(res) {
+                        alert(" 잠시 후 다시 시도해주세요.");
+                        console.log(res.responseText);
+                    }
+                })
             }
+
+
+            document.getElementById('fileNotice').addEventListener('change', function(event) {
+                var files = event.target.files;
+                var parentElement = document.getElementById('fileListInput').parentNode;
+
+                for (var i = 0; i < files.length; i++) {
+                    var file = files[i];
+                    console.log('파일 이름:', file.name);
+
+                    var newInputField = document.createElement('input');
+                    newInputField.type = 'text';
+                    newInputField.className = 'form-control file';
+                    newInputField.name = 'file';
+                    newInputField.value = file.name;
+                    newInputField.readOnly = true;
+
+                    parentElement.appendChild(newInputField);
+                }
+            });
+
         </script>
     </div>

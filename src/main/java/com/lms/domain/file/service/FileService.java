@@ -46,6 +46,10 @@ public class FileService {
         return savedFiles.stream().map(File::getId).collect(Collectors.toList());
     }
 
+    public void deleteFile(Long id) {
+        fileRepository.deleteById(id);
+    }
+
     public void deleteFilesByBoardId(Long boardId) {
         List<File> filesToDelete = fileRepository.findByBoardId(boardId);
         fileRepository.deleteAll(filesToDelete);
