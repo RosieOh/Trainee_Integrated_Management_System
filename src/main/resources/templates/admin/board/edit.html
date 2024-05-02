@@ -16,11 +16,12 @@
                             <div class="notice_box">
                                 <label for="titleNotice">제목</label>
                                 <input type="text" class="form-control" id="titleNotice" th:field="*{boardDTO.title}">
+                                <input type="hidden" name="boardType" th:value="${boardDTO.boardType}">
                             </div>
                             <div class="flex">
                                 <div class="notice_box">
                                     <label for="writerNotice">작성자</label>
-                                    <input type="text" class="ro_input writer" id="writerNotice" th:value="${boardDTO.writer}" readonly>
+                                    <input type="text" name="writer" class="ro_input writer" id="writerNotice" th:value="${boardDTO.writer}" readonly>
                                 </div>
                                 <div class="board_checkbox_container">
                                     <div>
@@ -36,12 +37,7 @@
                             <div class="file_box">
                                 <div class="file_input">
                                     <label for="fileNotice"><i class="fas fa-file"></i> 첨부파일</label>
-                                    <th:block th:if="${fileList.originFileName == ''}">
-                                        <input type="file" class="form-control" name="file" id="fileNotice" onchange="uploadImage()">
-                                    </th:block>
-                                    <th:block th:if="${fileList.originFileName != '' }">
-                                        <input type="text" class="form-control" name="file" th:value="${fileList.originFileName}" readonly>
-                                    </th:block>
+                                    <input type="file" name="files"  id="fileNotice" multiple>
                                 </div>
                             </div>
 
@@ -60,25 +56,30 @@
             </div>
             </div>
         </div>
-    <script th:inline="javascript">
-        const Editor = toastui.Editor;
-        const textarea = document.querySelector('#myTextarea');
+        <script th:inline="javascript">
+            const Editor = toastui.Editor;
+            const textarea = document.querySelector('#myTextarea');
 
-        const editorDiv = document.createElement('div');
-        editorDiv.id = 'editor';
-        textarea.parentNode.insertBefore(editorDiv, textarea);
-        textarea.style.display = 'none';  // 숨겨진 textarea
+            const editorDiv = document.createElement('div');
+            editorDiv.id = 'editor';
+            textarea.parentNode.insertBefore(editorDiv, textarea);
+            textarea.style.display = 'none';  // 숨겨진 textarea
 
-        const editor = new Editor({
-            el: editorDiv,
-            height: '500px',
-            initialEditType: 'markdown',
-            previewStyle: 'vertical',
-            initialValue: textarea.value  // 초기값을 textarea의 값으로 설정
-        });
+            const editor = new Editor({
+                el: editorDiv,
+                height: '500px',
+                initialEditType: 'markdown',
+                previewStyle: 'vertical',
+                initialValue: textarea.value  // 초기값을 textarea의 값으로 설정
+            });
 
-        editor.on('change', () => {
-            textarea.value = editor.getMarkdown();
-        });
-    </script>
+            editor.on('change', () => {
+                textarea.value = editor.getMarkdown();
+            });
+        </script>
+        <script th:inline="javascript">
+            function removeFile(element) {
+                element.parentNode.remove();
+            }
+        </script>
     </div>

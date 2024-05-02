@@ -1,18 +1,16 @@
 package com.lms.domain.board.service;
 
 
-import com.lms.domain.Course.repository.CourseRepository;
+import com.lms.domain.Course.dto.CourseDTO;
+import com.lms.domain.Course.entity.Course;
 import com.lms.domain.board.dto.BoardDTO;
 import com.lms.domain.board.entity.Board;
 import com.lms.domain.board.entity.QBoard;
 import com.lms.domain.board.repository.BoardRepository;
-import com.lms.domain.member.entity.Member;
-import com.lms.domain.member.entity.QMember;
+import com.lms.domain.file.entity.File;
 import com.lms.global.cosntant.BoardType;
-import com.lms.global.cosntant.Subject;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.QueryResults;
-import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.transaction.Transactional;
@@ -31,6 +29,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.lms.domain.board.entity.QBoard.board;
+
 @Log4j2
 @Service
 @RequiredArgsConstructor
@@ -38,7 +38,6 @@ import java.util.stream.Collectors;
 public class BoardServiceImpl implements BoardService {
 
     private final ModelMapper modelMapper;
-    private final CourseRepository courseRepository;
     private final BoardRepository boardRepository;
     private final JPAQueryFactory queryFactory;
 
@@ -91,7 +90,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void register(BoardDTO boardDTO) {
+    public Long register(BoardDTO boardDTO) {
         log.info(boardDTO.getBoardType());
         Board board = Board.builder()
                 .id(boardDTO.getId())
@@ -99,12 +98,12 @@ public class BoardServiceImpl implements BoardService {
                 .content(boardDTO.getContent())
                 .boardType(boardDTO.getBoardType())
                 .writer(boardDTO.getWriter())
-                .fileId(boardDTO.getFileId())
                 .pinned(boardDTO.isPinned())
                 .privated(boardDTO.isPrivated())
                 .cno(boardDTO.getCno())
                 .build();
         boardRepository.save(board);
+        return board.getId();
     }
 
     @Override
@@ -186,19 +185,19 @@ public class BoardServiceImpl implements BoardService {
 
         // 키워드가 있는 경우 이름 필터링
         if (StringUtils.hasText(keyword)) {
-            where.and(QBoard.board.title.containsIgnoreCase(keyword));
+            where.and(board.title.containsIgnoreCase(keyword));
         }
 
         if (cno != null) {
-            where.and(QBoard.board.cno.eq(Long.valueOf(cno)));
+            where.and(board.cno.eq(Long.valueOf(cno)));
         }
 
 
         // 페이징 처리
         JPAQuery<Board> query = queryFactory
-                .selectFrom(QBoard.board)
-                .where(where)
-                .orderBy(QBoard.board.pinned.desc(), QBoard.board.createdTime.desc());
+                .selectFrom(board)
+                .where(board.deleteType.ne(true), where)
+                .orderBy(board.pinned.desc(), board.createdTime.desc());
 
         // 페이징 처리된 결과 반환
         QueryResults<Board> results = query
@@ -218,6 +217,21 @@ public class BoardServiceImpl implements BoardService {
             }
         }
         return PinnedPaging;
+    }
+
+
+    //다중 업로드 - insert
+    @Override
+    public Board uploadFile(Long boardId, File file) {
+        Optional<Board> optionalBoard = boardRepository.findById(boardId);
+        if (optionalBoard.isPresent()) {
+            Board board = optionalBoard.get();
+            file.setBoard(board);
+            board.getFiles().add(file);
+            return boardRepository.save(board);
+        } else {
+            throw new IllegalArgumentException("Board not found with id: " + boardId);
+        }
     }
 
 }

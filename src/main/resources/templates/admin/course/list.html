@@ -26,7 +26,7 @@
                     <tr class="course_add">
                         <td colspan="10"> <i class="far fa-plus-square"></i> 강의추가하기</td>
                     </tr>
-                    <form th:action="@{/admin/coursePro}" method="post" onsubmit="return formCheck()">
+                    <form th:action="@{/admin/coursePro}" method="post" >
                         <tr class="board_box course_input">
                         <td class="board_box ">
                             <select name="subject" >
@@ -35,25 +35,43 @@
                                 <option value="PM"> PM </option>
                             </select>
                         </td>
-                        <td >
-                            <input type="number" name="flag" placeholder="0" required/>
+                        <td class="board_box ">
+                            <select name="flag" >
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                            </select>
                         </td>
                         <td >
                             <div class="course_cal">
-                                <input type="date" name="start_date1" id="start_date1" min="1960-01-01" max="2040-12-31" required/>
-                                <input type="hidden" name="start_date" id="start_date" />
+                                <input type="date" name="start_date" id="start_date" min="1960-01-01" max="2040-12-31" onchange="TransDate()" required/>
                             </div>
                         </td>
                         <td >
                             <div class="course_cal">
-                                <input type="date" name="end_date1" id="end_date1" min="1960-01-01" max="2040-12-31" required/>
-                                <input type="hidden" name="end_date" id="end_date" />
+                                <input type="date" name="end_date" id="end_date" min="1960-01-01" max="2040-12-31" onchange="EndDate()" required/>
                             </div>
                         </td>
                         <td >
                             <div class="course_cal">
-                                <input type="date" name="train_time1" id="train_time1" min="1960-01-01" max="2040-12-31" required/>
-                                <input type="hidden" name="train_time" id="train_time" />
+                                <input type="date" name="train_time" id="train_time" min="1960-01-01" max="2040-12-31" required readonly/>
                             </div>
                         </td>
                         <td >
@@ -78,9 +96,9 @@
                     <td th:if="${#strings.equals(course.subject, 'FULLSTACK')}">풀스택</td>
                     <td th:if="${#strings.equals(course.subject, 'PM')}">PM</td>
                     <td th:text="${course.flag} + ' 기'"></td>
-                    <td th:text="${course.start_date.substring(0,10)}"></td>
-                    <td th:text="${course.end_date.substring(0,10)}"></td>
-                    <td th:text="${course.train_time.substring(0,10)}"></td>
+                    <td th:text="${course.start_date}"></td>
+                    <td th:text="${course.end_date}"></td>
+                    <td th:text="${course.train_time}"></td>
                     <td th:text="${course.instructor}"></td>
                     <td th:text="${course.manager}"></td>
                     <td >
@@ -101,17 +119,48 @@
         </div>
     </div>
     <script>
-        function asdf() {
+        let start_date = document.querySelector('#start_date')
+        let end_date = document.querySelector('#end_date')
+        let train_time = document.querySelector('#train_time')
 
-            let start = document.getElementById("start_date").value;
-            let date = new Date(start)
-            let diff = Math.abs(date.getTime() + 150);
-            diff = Math.ceil(diff / (1000 * 60 * 60 * 24));
-            alert("1번 뭘까: " + diff);
-            console.log(diff);
-            // alert("1번 뭘까: " + start.getDate());
-            // alert("2번 뭘까: " + date.getDate() + 90);
+        function TransDate() {
 
+            let endNum = new Date(start_date.value)
+            let transNum = new Date(start_date.value)
+
+            endNum.setDate(endNum.getDate()+180)
+            transNum.setDate(transNum.getDate()+144)
+
+            let yy = endNum.getFullYear();
+            let mm = endNum.getMonth()+1;
+            let dd = endNum.getDate();
+            if( mm < 10){
+                mm = '0'+ mm
+            }
+            if(dd < 10){
+                dd = '0'+ dd
+            }
+
+            let yy2 = transNum.getFullYear();
+            let mm2 = transNum.getMonth()+1;
+            let dd2 = transNum.getDate();
+            if( mm2 < 10){
+                mm2 = '0'+ mm2
+            }
+            if(dd2 < 10){
+                dd2 = '0'+ dd2
+            }
+            end_date.value = yy +'-'+ mm +'-'+ dd;
+            train_time.value = yy2 +'-'+ mm2 +'-'+ dd2;
+        }
+
+        function EndDate() {
+            let startNum = new Date(start_date.value)
+            let endNum = new Date(end_date.value)
+                if(startNum.getTime() > endNum.getTime()){
+                    alert("시작날짜보다 전입니다.")
+                    end_date.value = start_date.value
+                }
         }
     </script>
     <script>
@@ -122,140 +171,5 @@
             course_input.style.display = "table-row";
         })
     </script>
-<!--    <script>-->
 
-<!--        // 시작일 변경 시 종료일 처리-->
-<!--        $("#start_date1").change(() => {-->
-<!--            // $("#end_date1").prop("min", $("#start_date1").val());-->
-<!--            $("#end_date1").html($("#start_date1").val());-->
-<!--            // $("#train_time1").prop("min", $("#start_date1").val());-->
-
-<!--            // 종료일이 변경한 시작일보다 빠른 경우-->
-<!--            if($("#end_date1").val() < $("#start_date1").val()) {-->
-<!--                $("#end_date1").val($("#start_date1").val());-->
-<!--            }-->
-<!--        });-->
-<!--        // 종료일 변경 시 시작일 처리-->
-<!--        $("#end_date1").change(() => {-->
-<!--            $("#start_date1").prop("max", $("#end_date1").val());-->
-<!--        })-->
-
-<!--    </script>-->
-    <script>
-        const start_date1 = document.querySelector('#start_date1')
-        const start_date = document.querySelector('#start_date')
-        const end_date1 = document.querySelector('#end_date1')
-        const end_date = document.querySelector('#end_date')
-        const train_time1 = document.querySelector('#train_time1')
-        const train_time = document.querySelector('#train_time')
-        start_date1.addEventListener('change', (event) => {
-            end_date1.value = start_date1.value
-            end_date.value = start_date1.substring(0,10)
-            start_date.value = start_date1.substring(0,10)
-            train_time1.value = start_date1.value
-            train_time.value = start_date1.substring(0,10)
-        })
-        train_time1.addEventListener('change', (event) => {
-            train_time.value = train_time1.substring(0,10)
-        })
-
-    </script>
-    <script>
-        // function Datetime(date){
-        //     var year = date.getFullYear();
-        //     var month = (1 + date.getMonth());
-        //     month = month >= 10 ? month : '0' + month;
-        //     var day = date.getDate();
-        //     day = day >= 10 ? day : '0' + day;
-        //     return  year + '-' + month + '-' + day;
-        // }
-        //
-        // function Train_time() {
-        //     let start_date = document.getElementById("start_date").value;
-        //     let train_time = document.getElementById("train_time");
-        //
-        //     console.log("start_date.getDate()" + start_date.getDate());
-        //     console.log("train_time.getDate()" + train_time.getDate());
-        //
-        // }
-        //
-        // date.setDate(date.getDate()*1.8);
-        //
-        // let maxDate = Train_time(date);
-        //
-        // if (start_date < minDate) {
-        //     toastr.options.preventDuplicates = true;
-        //     toastr.warning("오늘 이후의 날짜를 선택해주세요");
-        //     $("#offerdate").focus();
-        //     return false;
-        // }
-        //
-        //
-        // if (offerdate > maxDate) {
-        //     toastr.options.preventDuplicates = true;
-        //     toastr.warning("+90일까지 설정 가능합니다.");
-        //     $("#offerdate").focus();
-        //
-        //     return false;
-        // }
-    </script>
-    <script>
-        function formCheck(){
-
-
-            // 시작날짜
-            if($("#start_date1").val() == "" || $("#start_date2").val() == "" || $("#start_date3").val() == "") {
-                alert("시작날짜가 정확하지 않습니다.")
-                return false
-            }
-
-            let start_date =  $("#start_date1").val() +'.'+ $("#start_date2").val() +'.'+ $("#start_date3").val()
-            $("#start_date").val(start_date)
-
-            if($("#start_date1").val() > $("#end_date1").val()){
-                alert("종료날짜 연도에 문제가 있습니다.")
-                return false
-            }
-
-            if(($("#start_date1").val() == $("#end_date1").val()) && ($("#start_date2").val() > $("#end_date2").val())){
-                alert("종료날짜 월에 문제가 있습니다.")
-                return false
-            }
-            if(($("#start_date1").val() == $("#end_date1").val()) && ($("#start_date2").val() == $("#end_date2").val()) && ($("#start_date3").val() >= $("#end_date3").val())){
-                alert("종료날짜 일자에 문제가 있습니다.")
-                return false
-            }
-
-
-
-            // 종료날짜
-            if($("#end_date1").val() == "" || $("#end_date2").val() == "" || $("#end_date3").val() == "") {
-                alert("종료날짜가 정확하지 않습니다.")
-                return false
-            }
-            let end_date =  $("#end_date1").val() +'.'+ $("#end_date2").val() +'.'+ $("#end_date3").val()
-            $("#end_date").val(end_date)
-
-
-
-            // 수료도 80%
-            if($("#train_time1").val() == "" || $("#train_time2").val() == "" || $("#train_time3").val() == "") {
-                alert("수료도가 정확하지 않습니다.")
-                return false
-            }
-            let train_time =  $("#train_time1").val() +'.'+ $("#train_time2").val() +'.'+ $("#train_time3").val()
-            $("#train_time").val(train_time)
-        }
-    </script>
-    <script>
-        $(document).ready(function(){
-            $(".change_input").prop('readonly', true)
-
-        })
-    </script>
-    <script>
-        function inputa(e){
-            $(".inputCh").attr('readonly', false)
-        }
-    </script>
 </div>

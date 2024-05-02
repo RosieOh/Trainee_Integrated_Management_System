@@ -69,8 +69,26 @@
                         <div class="form-login">
                             <label>생일<em>*</em></label>
                             <div class="join_tel">
-                                <input type="date" name="birth1" id="birth1" min="1960-01-01" max="2040-12-31" required/>
-                                <input type="hidden" name="birth" id="birth" readonly/>
+                                <input type="number" class="number" name="birth1" id="birth1" placeholder="YYYY" maxlength="4" min="1940" max="2040" oninput="lengthChk(this)" required />
+                                <p></p>
+                                <select name="birth2" id="birth2" >
+                                    <option value="" disabled selected>MM</option>
+                                    <option value="01">1월</option>
+                                    <option value="02">2월</option>
+                                    <option value="03">3월</option>
+                                    <option value="04">4월</option>
+                                    <option value="05">5월</option>
+                                    <option value="06">6월</option>
+                                    <option value="07">7월</option>
+                                    <option value="08">8월</option>
+                                    <option value="09">9월</option>
+                                    <option value="10">10월</option>
+                                    <option value="11">11월</option>
+                                    <option value="12">12월</option>
+                                </select>
+                                <p></p>
+                                <input type="number" class="number" name="birth3" id="birth3" placeholder="DD" maxlength="2" min="1" max="31" oninput="lengthChk(this)" required />
+                                <input type="hidden" name="birth" id="birth"/>
                             </div>
                         </div>
                         <div class="form-login">
@@ -84,7 +102,7 @@
                         <div class="form-login">
                             <label>연락처<em>*</em></label>
                             <div class="join_tel">
-                                <input type="number" class="number" id="phone1" placeholder="000" maxlength="4" required oninput="lengthChk(this)"/>
+                                <input type="number" class="number" id="phone1" name="phone1" placeholder="000" maxlength="4" required oninput="lengthChk(this)"/>
                                 <p>-</p>
                                 <input type="number" class="number" id="phone2" placeholder="0000" maxlength="4" required oninput="lengthChk(this)"/>
                                 <p>-</p>
@@ -120,13 +138,6 @@
             email2.disabled = false
         }
     })
-
-    const birth1 = document.querySelector('#birth1')
-    const birth = document.querySelector('#birth')
-    birth1.addEventListener('change', (event) => {
-        birth.value = birth1.substring(0,10)
-    })
-
 </script>
     <script>
         let number = document.querySelector('.number');
@@ -181,20 +192,45 @@ console.log("id.val" + $("#id").val() + $("#id").val())
 
     function joinCheck(f){
 
-
         if($("#phone1").val() == "" || $("#phone2").val() == "" || $("#phone3").val() == "") {
+            f.phone1.focus();
             alert("연락처를 적어주세요.")
             return false
         }
-
         let phoneval =  $("#phone1").val() +'-'+ $("#phone2").val() +'-'+ $("#phone3").val()
         $("#phone").val(phoneval)
 
+        if($("#birth1").val() == "" || $("#birth2").val() == "" || $("#birth3").val() == "") {
+            f.birth1.focus();
+            alert("생일을 적어주세요.")
+            return false
+        }
 
+        if($("#birth2").val() == '04'||'06'||'09'||'11'){
+            if($("#birth3").val() >= 31){
+                alert("생일 일자가 맞지않습니다.")
+                f.birth3.focus();
+                return false
+            }
+        }
+
+        if($("#birth2").val() == '02'){
+            if($("#birth3").val() >= 29){
+                alert("생일 일자가 맞지않습니다.")
+                f.birth3.focus();
+                return false
+            }
+        }
+
+        let brithval = $("#birth1").val() +'-'+ $("#birth2").val() +'-'+ $("#birth3").val();
+        $("#birth").val(brithval)
+
+        alert(brithval)
         if($("#email2").val() == "" || $("#email1").val() == "") {
             alert("이메일을 적어주세요.")
             return false
         }
+
         let emailval = $("#email1").val() + '@' + $("#email2").val()
         $("#email").val(emailval)
 
@@ -235,7 +271,6 @@ console.log("id.val" + $("#id").val() + $("#id").val())
             return false;
         }
     }
-
 </script>
 
 <script>

@@ -8,7 +8,7 @@
     <div class="admin-content">
       <div class="admin_box ">
         <h2>공지사항 리스트</h2>
-        <table class="table_set">
+        <table class="table_set"  >
             <div th:replace="~{include/search :: searchNoti('/notice/list')}"></div>
             <thead>
                 <tr>
@@ -20,7 +20,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="notice, about :${boardList}">
+                <tr th:if="${!boardList.isEmpty()}" th:each="notice, about :${boardList}">
                     <!-- pinned가 1이면 필독 아니면 그냥 숫자 -->
                     <td th:if="${notice.pinned == true}" ><p class="board_pin">필독</p></td>
                     <td th:if="${notice.pinned != true}" th:text="${about.count - pinnedCount}"></td>
@@ -40,13 +40,13 @@
                     <td th:text="${#temporals.format(notice.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
 
 <!--                    파일 유무에 따른 if문-->
-                    <td th:if="${fileList[about.index].id == notice.fileId and fileList[about.index].originFileName == ''}">
-                    </td>
-                    <td th:if="${fileList[about.index].id == notice.fileId and fileList[about.index].originFileName != ''}">
-                        <a th:href="@{'/download/' + ${fileList[about.index].id}}">
-                            <i class="fas fa-window-maximize"></i>
-                        </a>
-                    </td>
+<!--                    <td th:if="${fileList[about.index].id == notice.fileId and fileList[about.index].originFileName == ''}">-->
+<!--                    </td>-->
+<!--                    <td th:if="${fileList[about.index].id == notice.fileId and fileList[about.index].originFileName != ''}">-->
+<!--                        <a th:href="@{'/download/' + ${fileList[about.index].id}}">-->
+<!--                            <i class="fas fa-window-maximize"></i>-->
+<!--                        </a>-->
+<!--                    </td>-->
                 </tr>
             </tbody>
           </table>
