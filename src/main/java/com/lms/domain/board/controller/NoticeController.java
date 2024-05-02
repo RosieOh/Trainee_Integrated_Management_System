@@ -87,10 +87,16 @@ public class NoticeController {
     }
 
 
-    @GetMapping("/fileList")
+    @PostMapping("/fileList")
     @ResponseBody
-    public List<Long> getFileList(Long boardId) {
+    public List<Long> getFileList(@RequestBody Map<String, Long> requestBody) {
+
+        Long boardId = requestBody.get("boardId");
+
+        log.info("====="+boardId);
+
         List<Long> fileIds = fileService.getFileIdsByBoardId(boardId);
+
         return fileIds;
     }
 

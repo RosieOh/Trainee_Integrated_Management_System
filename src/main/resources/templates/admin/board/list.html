@@ -38,26 +38,37 @@
 
                     <td th:text="${notice.writer}"></td>
                     <td th:text="${#temporals.format(notice.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
-                    <td th:if="${fileIdsList != null}">
+                    <td>
                         <i class="fas fa-window-maximize" onclick="downloadFiles()"></i>
-                        <script th:inline="javascript">
-
-                            let data = JSON.stringify({"boardID": 2});
-                            $.ajax({
-                                url: "/notice/fileList",
-                                type: "get",
-                                contentType: "application/json",
-                                data: data,
-                                success: function(result) {
-                                    console.log("HI"+result.data);
-                                },
-                                error: function(res) {
-                                    alert(" 잠시 후 다시 시도해주세요.");
-                                    console.log(res.responseText);
-                                }
-                            })
-                        </script>
                     </td>
+                    <script th:inline="javascript">
+                        function downloadFiles() {
+
+                        let data = JSON.stringify({"boardId": 2});
+                        $.ajax({
+                            url: "/notice/fileList",
+                            type: "post",
+                            contentType: "application/json",
+                            data: data,
+                            success: function(result) {
+                                console.log("HI"+result);
+                                handleFileList(result);
+                            },
+                            error: function(res) {
+                                alert(" 잠시 후 다시 시도해주세요.");
+                                console.log(res.responseText);
+                            }
+                        })
+                        }
+
+                        function handleFileList(fileList) {
+                            fileList.forEach(function(fileId) {
+                                var downloadUrl = '/download/' + fileId;
+                                console.log("다운로드 URL: ", downloadUrl);
+                                window.location.href = downloadUrl;
+                            });
+                        }
+                    </script>
                 </tr>
             </tbody>
           </table>
