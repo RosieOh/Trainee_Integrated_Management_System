@@ -16,13 +16,13 @@
             <tbody>
               <tr>
                 <th scope="row">제목</th>
-                <td colspan="6" th:text="${boardList.title}"></td>
+                <td colspan="6" th:text="${boardDTO.title}"></td>
               </tr>
               <tr>
                 <th scope="row">작성자</th>
-                <td colspan="2" th:text="${boardList.writer}"></td>
+                <td colspan="2" th:text="${boardDTO.writer}"></td>
                 <th scope="row">작성일</th>
-                <td colspan="2" th:text="${#temporals.format(boardList.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
+                <td colspan="2" th:text="${#temporals.format(boardDTO.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
               </tr>
               <tr>
                 <th scope="row">첨부파일</th>
@@ -37,7 +37,7 @@
               </tr>
               <tr>
                 <th colspan="7" class="view_text">
-                  <textarea title="내용" id="contents" name="contents" th:text="${boardList.content}" readonly></textarea>
+                  <textarea title="내용" id="contents" name="contents" th:text="${boardDTO.content}" readonly></textarea>
                 </th>
               </tr>
             </tbody>
@@ -46,9 +46,9 @@
           <th:block sec:authorize="hasAuthority('MANAGER') or hasAuthority('ADMIN')">
             <div class="btn_group_center">
               <a class="board_btn select_btn" th:href="@{/notice/list}">목록으로</a>
-              <!--              <a class="board_btn cancel_btn" th:href="@{/notice/remove(id=${boardList.id})}">삭제하기</a>-->
-              <a class="board_btn edit_btn" th:href="@{/notice/modify(id=${boardList.id})}">수정하기</a>
-              <form th:action="@{/notice/remove(id=${boardList.id})}" method="post" class="deleteForm">
+              <!--              <a class="board_btn cancel_btn" th:href="@{/notice/remove(id=${boardDTO.id})}">삭제하기</a>-->
+              <a class="board_btn edit_btn" th:href="@{/notice/modify(id=${boardDTO.id})}">수정하기</a>
+              <form th:action="@{/notice/remove(id=${boardDTO.id})}" method="post" class="deleteForm">
                 <input type="hidden" name="deleteType" value="true">
                 <button type="submit" class="board_btn cancel_btn">삭제</button>
               </form>

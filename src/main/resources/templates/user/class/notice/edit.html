@@ -16,36 +16,43 @@
                             <div class="notice_box">
                                 <label for="titleNotice">제목</label>
                                 <input type="text" class="form-control" id="titleNotice" th:field="*{boardDTO.title}">
+                                <input type="hidden" name="boardType" th:value="${boardDTO.boardType}">
                             </div>
                             <div class="flex">
                                 <div class="notice_box">
                                     <label for="writerNotice">작성자</label>
-                                    <input type="text" class="ro_input writer" id="writerNotice" th:value="${boardDTO.writer}" readonly>
+                                    <input type="text" name="writer" class="ro_input writer" id="writerNotice" th:value="${boardDTO.writer}" readonly>
                                 </div>
                                 <div class="board_checkbox_container">
+                                    <th:block th:if="${not #authorization.expression('hasAuthority(''STUDENT'')')}">
                                     <div>
                                         <label for="pinnedNotice">상단 고정</label>
                                         <input type="checkbox" id="pinnedNotice" class="board_checkbox" name="pinned" th:checked="${boardDTO.pinned}">
                                     </div>
+                                    </th:block>
                                     <div>
                                         <label for="privateBoard">비밀글</label>
                                         <input type="checkbox" id="privateBoard" class="board_checkbox" name="privated" th:checked="${boardDTO.privated}">
                                     </div>
                                 </div>
                             </div>
-                            <div class="file_box">
-                                <div class="file_input">
-                                    <label for="fileNotice"><i class="fas fa-file"></i> 첨부파일</label>
-                                    <th:block th:if="${fileList.originFileName == ''}">
-                                        <input type="file" class="form-control" name="file" id="fileNotice" onchange="uploadImage()">
-                                    </th:block>
-                                    <th:block th:if="${fileList.originFileName != '' }">
-                                        <input type="text" class="form-control" name="file" th:value="${fileList.originFileName}" readonly>
-                                    </th:block>
-                                </div>
+                            <div class="file_input">
+                                <label for="writerNotice"> 파일 업로드</label>
+                                <div class="myinfo_line"><label for="fileNotice" class="uploadbtn">upload</label><input type="file" class="form-control" name="files" id="fileNotice" multiple></div>
                             </div>
+                            <script th:inline="javascript">
+
+                                var fileInput = document.getElementById('fileNotice');
 
 
+                                var maxFiles = 5;
+                                fileInput.addEventListener('change', function(event) {
+                                    if (this.files.length > maxFiles) {
+                                        alert('최대 ' + maxFiles + '개의 파일을 선택할 수 있습니다.');
+                                        this.value = '';
+                                    }
+                                });
+                            </script>
                             <div id="editor">
                                 <textarea class="input"  style="width: 1320px; height: 500px;" id="myTextarea" type="text" th:utext="${boardDTO.content}" required th:name="content" placeholder="내용"></textarea>
                             </div>
