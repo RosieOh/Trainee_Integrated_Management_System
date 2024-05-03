@@ -8,10 +8,11 @@
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
     <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
     <div class="admin-content">
-      <form th:action="@{/notice/register}" method="post"  enctype="multipart/form-data">
+
       <div class="admin_box flex_center">
         <div class="board_in">
         <h2>공지사항 작성</h2>
+          <form th:action="@{/notice/register}" method="post"  enctype="multipart/form-data">
               <div class="notice_container" >
                 <div class="notice_box">
                   <label for="titleNotice">제목</label>
@@ -35,14 +36,23 @@
                     </div>
                   </div>
                 </div>
-                <div class="file_box">
-                  <div class="file_input">
-                    <label for="fileNotice"><i class="fas fa-file"></i> 첨부파일</label>
-                    <div id="fileListInput">
-                      <input type="file" name="files"  id="fileNotice" multiple>
-                    </div>
-                  </div>
+                <div class="file_input">
+                  <label for="writerNotice"> 파일 업로드</label>
+                  <div class="myinfo_line"><label for="fileNotice" class="uploadbtn">upload</label><input type="file" class="form-control" name="files" id="fileNotice" multiple></div>
                 </div>
+                <script th:inline="javascript">
+
+              var fileInput = document.getElementById('fileNotice');
+
+
+              var maxFiles = 5;
+              fileInput.addEventListener('change', function(event) {
+                if (this.files.length > maxFiles) {
+                  alert('최대 ' + maxFiles + '개의 파일을 선택할 수 있습니다.');
+                  this.value = '';
+                }
+              });
+            </script>
                 <div id="editor">
                   <textarea class="input"  style="width: 1320px; height: 500px;" id="myTextarea" type="text" name="content" required ></textarea>
                 </div>
@@ -50,12 +60,10 @@
                   <button type="submit" class="board_btn select_btn">등록하기</button>
                   <a th:href="@{/notice/list}" class="board_btn cancel_btn">목록으로</a>
                 </div>
-              </div>
-
-          </div>
-          </div>
+            </div>
         </form>
       </div>
+  </div>
 
 
   <script th:inline="javascript">
@@ -80,26 +88,7 @@
     editor.on('change', () => {
       textarea.value = editor.getMarkdown();
     });
+
   </script>
 
-  <script th:inline="javascript">
-    document.getElementById('fileNotice').addEventListener('change', function(event) {
-      var files = event.target.files;
-      var parentElement = document.getElementById('fileListInput').parentNode;
-
-      for (var i = 0; i < files.length; i++) {
-        var file = files[i];
-        console.log('파일 이름:', file.name);
-
-        var newInputField = document.createElement('input');
-        newInputField.type = 'text';
-        newInputField.className = 'form-control file';
-        newInputField.name = 'file';
-        newInputField.value = file.name;
-        newInputField.readOnly = true;
-
-        parentElement.appendChild(newInputField);
-      }
-    });
-  </script>
   </div>
