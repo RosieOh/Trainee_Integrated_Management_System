@@ -22,7 +22,7 @@ public class S3Service {
     @Value("${cloud.aws.s3.bucket}")
     private String bucketName;
 
-    @Value("${cloud.aws.s3.region}")
+    @Value("${cloud.aws.region.static}")
     private String region;
 
     public String getThumbnailPath(String path) {
