@@ -66,13 +66,13 @@ public class MemberController {
         model.addAttribute("newNoticeList", newNoticeList);
 
         //각 공지사항의 파일
-        List<FileDTO> fileList = new ArrayList<>();
-        for (BoardDTO board : newNoticeList) {
-            FileDTO fileDTO = fileService.getFile(board.getFileId());
-            fileList.add(fileDTO);
-            log.info(String.valueOf(fileDTO));
-        }
-        model.addAttribute("fileList", fileList);
+//        List<FileDTO> fileList = new ArrayList<>();
+//        for (BoardDTO board : newNoticeList) {
+//            FileDTO fileDTO = fileService.getFile(board.getFileId());
+//            fileList.add(fileDTO);
+//            log.info(String.valueOf(fileDTO));
+//        }
+//        model.addAttribute("fileList", fileList);
 
         return "user/index";
     }

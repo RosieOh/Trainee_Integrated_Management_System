@@ -58,13 +58,13 @@
                                 <td th:text="${notice.writer}"></td>
 
                                 <!-- 파일 유무에 따른 if문 -->
-                                <td th:if="${fileList[about.index].id == notice.fileId and fileList[about.index].originFileName == ''}">
-                                </td>
-                                <td th:if="${fileList[about.index].id == notice.fileId and fileList[about.index].originFileName != ''}">
-                                    <a th:href="@{'/download/' + ${fileList[about.index].id}}">
-                                        <i class="fas fa-window-maximize"></i>
-                                    </a>
-                                </td>
+<!--                                <td th:if="${fileList[about.index].id == notice.fileId and fileList[about.index].originFileName == ''}">-->
+<!--                                </td>-->
+<!--                                <td th:if="${fileList[about.index].id == notice.fileId and fileList[about.index].originFileName != ''}">-->
+<!--                                    <a th:href="@{'/download/' + ${fileList[about.index].id}}">-->
+<!--                                        <i class="fas fa-window-maximize"></i>-->
+<!--                                    </a>-->
+<!--                                </td>-->
                             </tr>
                         </tbody>
                     </table>

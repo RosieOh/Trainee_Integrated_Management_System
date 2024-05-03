@@ -6,6 +6,7 @@ import com.lms.domain.board.dto.BoardDTO;
 import com.lms.domain.board.entity.Board;
 import com.lms.domain.board.entity.QBoard;
 import com.lms.domain.board.repository.BoardRepository;
+import com.lms.domain.file.entity.File;
 import com.lms.domain.member.entity.Member;
 import com.lms.domain.member.entity.QMember;
 import com.lms.domain.member.repository.MemberRepository;
@@ -222,6 +223,20 @@ public class BoardServiceImpl implements BoardService {
                 .fetchResults(); // 결과 가져오기
 
         return new PageImpl<>(results.getResults(), pageable, results.getTotal());
+    }
+
+    //다중 업로드 - insert
+    @Override
+    public Board uploadFile(Long boardId, File file) {
+        Optional<Board> optionalBoard = boardRepository.findById(boardId);
+        if (optionalBoard.isPresent()) {
+            Board board = optionalBoard.get();
+            file.setBoard(board);
+            board.getFiles().add(file);
+            return boardRepository.save(board);
+        } else {
+            throw new IllegalArgumentException("Board not found with id: " + boardId);
+        }
     }
 
 }
