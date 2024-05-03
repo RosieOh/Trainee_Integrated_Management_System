@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
@@ -6,21 +7,21 @@
 
 <div layout:fragment="content">
     <div class="admin-content">
-      <div class="admin_box ">
-        <h2>공지사항 리스트</h2>
-        <table class="table_set">
-            <div th:replace="~{include/search :: searchNoti('/notice/list')}"></div>
-            <thead>
+        <div class="admin_box ">
+            <h2>공지사항 리스트</h2>
+            <table class="table_set"  >
+                <div th:replace="~{include/search :: searchNoti('/notice/list')}"></div>
+                <thead>
                 <tr>
-                  <th style="width: 10%">no</th>
-                  <th style="width: 50%; overflow: hidden;">제목</th>
-                  <th style="width: 10%">작성자</th>
-                  <th style="width: 20%">작성일</th>
-                  <th style="width: 10%">파일</th>
+                    <th style="width: 10%">no</th>
+                    <th style="width: 50%; overflow: hidden;">제목</th>
+                    <th style="width: 10%">작성자</th>
+                    <th style="width: 20%">작성일</th>
+                    <th style="width: 10%">파일</th>
                 </tr>
-            </thead>
-            <tbody>
-                <tr th:each="notice, about :${boardList}">
+                </thead>
+                <tbody>
+                <tr th:if="${!boardList.isEmpty()}" th:each="notice, about :${boardList}">
                     <!-- pinned가 1이면 필독 아니면 그냥 숫자 -->
                     <td th:if="${notice.pinned == true}" ><p class="board_pin">필독</p></td>
                     <td th:if="${notice.pinned != true}" th:text="${about.count - pinnedCount}"></td>
@@ -38,60 +39,94 @@
 
                     <td th:text="${notice.writer}"></td>
                     <td th:text="${#temporals.format(notice.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td class="fileDownload" th:if="${fileCountMap[notice.id] gt 0}">
+                        <i class="fas fa-window-maximize" onclick="downloadFiles(this)" ></i>[[${fileCountMap[notice.id]}]]
+                        <input type="hidden" name="boardId" th:value="${notice.id}" >
+                    </td>
+                    <script th:inline="javascript">
+                        function downloadFiles(element) {
+                            var fileDownload = element.parentNode;
+                            var boardIdValue = fileDownload.querySelector('input[name="boardId"]').value;
 
-<!--                    파일 유무에 따른 if문-->
-                    <td th:if="${fileList[about.index].id == notice.fileId and fileList[about.index].originFileName == ''}">
-                    </td>
-                    <td th:if="${fileList[about.index].id == notice.fileId and fileList[about.index].originFileName != ''}">
-                        <a th:href="@{'/download/' + ${fileList[about.index].id}}">
-                            <i class="fas fa-window-maximize"></i>
-                        </a>
-                    </td>
+                            console.log(boardIdValue);
+
+                            let data = JSON.stringify({"boardId": boardIdValue});
+                            $.ajax({
+                                url: "/notice/fileList",
+                                type: "post",
+                                contentType: "application/json",
+                                dataType: "json",
+                                data: data,
+                                success: function(result) {
+                                    console.log("HI:"+result);
+                                    handleFileList(result);
+                                },
+                                error: function(res) {
+                                    alert(" 잠시 후 다시 시도해주세요.");
+                                    console.log(res.responseText);
+                                }
+                            })
+                        }
+
+                        function handleFileList(result) {
+
+                            var iframe = $('<iframe>', { style: 'display: none' })[0];
+                            $('body').append(iframe);
+
+                            result.forEach(function(fileId, index) {
+                                setTimeout(function() {
+                                    var downloadUrl = '/download/' + fileId;
+                                    console.log("다운주소"+downloadUrl);
+
+                                    var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+                                    var downloadLink = iframeDocument.createElement('a');
+                                    downloadLink.href = downloadUrl;
+                                    iframeDocument.body.appendChild(downloadLink);
+                                    downloadLink.click();
+
+                                    if (index === result.length) {
+                                        $(iframe).remove();
+                                    }
+                                }, 100 * index);
+                            });
+                        }
+                    </script>
                 </tr>
-            </tbody>
-          </table>
-          <th:block th:if="${boardList == null or boardList.isEmpty()}">
-              <div class="listEmptyBox">찾으시는 정보가 없습니다.</div>
-              <script>
-                  window.onload = function() {
-                      var urlParams = new URLSearchParams(window.location.search);
-                      var pageValue = urlParams.get('page');
-                      var cnoValue = urlParams.get('cno');
-                      var keywordValue = urlParams.get('keyword');
+                </tbody>
+            </table>
+            <th:block th:if="${boardList == null or boardList.isEmpty()}">
+                <div class="listEmptyBox">찾으시는 정보가 없습니다.</div>
+                <script>
+                    window.onload = function() {
+                        var urlParams = new URLSearchParams(window.location.search);
+                        var cnoValue = urlParams.get('cno');
+                        var keywordValue = urlParams.get('keyword');
 
-                      function setSelectedOption(selectId, optionValue) {
-                          var selectElement = document.getElementById(selectId);
-                          var options = selectElement.options;
+                        function setSelectedOption(selectId, optionValue) {
+                            var selectElement = document.getElementById(selectId);
+                            var options = selectElement.options;
 
-                          for (var i = 0; i < options.length; i++) {
-                              if (options[i].value === optionValue) {
-                                  options[i].setAttribute('selected', 'selected');
-                                  return;
-                              }
-                          }
-                      }
+                            for (var i = 0; i < options.length; i++) {
+                                if (options[i].value === optionValue) {
+                                    options[i].setAttribute('selected', 'selected');
+                                    return;
+                                }
+                            }
+                        }
+                        if (cnoValue) {
+                            setSelectedOption('cno', cnoValue);
+                        }
+                        if(keywordValue) {
+                            document.getElementById('keywordTitle').setAttribute('value', keywordValue);
+                        }
+                    };
+                </script>
+            </th:block>
+            <th:block th:if="${boardList != null and not boardList.isEmpty()}">
+                <th:block th:replace="~{include/page :: paginationNoti(pageLink=@{'/notice/list'})}"></th:block>
+            </th:block>
 
-
-                      if (pageValue !== null && !isNaN(pageValue)) {
-                          var page = parseInt(pageValue);
-                          addActiveClass(page);
-                      } else {
-                          addActiveClass(0);
-                      }
-                      if (cnoValue) {
-                          setSelectedOption('cno', cnoValue);
-                      }
-                      if(keywordValue) {
-                          document.getElementById('keywordTitle').setAttribute('value', keywordValue);
-                      }
-                  };
-              </script>
-          </th:block>
-          <th:block th:if="${boardList != null and not boardList.isEmpty()}">
-              <th:block th:replace="~{include/page :: paginationNoti(pageLink=@{'/notice/list'})}"></th:block>
-          </th:block>
-
-          <th:block sec:authorize="hasAuthority('ADMIN')">
+          <th:block sec:authorize="hasAuthority('ADMIN') or hasAuthority('MANAGER')">
             <div class="btn_group_right">
               <a th:href="@{/notice/register}" class="board_btn select_btn">글쓰기</a>
             </div>

@@ -20,17 +20,19 @@
               </tr>
               <tr>
                 <th scope="row">작성자</th>
-                <td th:text="${boardList.writer}"></td>
+                <td colspan="2" th:text="${boardList.writer}"></td>
                 <th scope="row">작성일</th>
-                <td th:text="${#temporals.format(boardList.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
+                <td colspan="2" th:text="${#temporals.format(boardList.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
+              </tr>
+              <tr>
                 <th scope="row">첨부파일</th>
-                <td th:if="${fileList.originFileName == ''}">
+                <td th:if="${files == null}">
                   파일 없음
                 </td>
-                <td th:if="${fileList.originFileName != ''}">
-                  <a th:href="@{'/download/' + ${boardList.fileId}}">
-                    <i class="fas fa-window-maximize"></i>[[${fileList.originFileName}]]
-                  </a>
+                <td th:if="${files != null}" th:each="file : ${files}">
+                  <a th:href="@{'/download/' + ${file.id}}">
+                    <i class="fas fa-window-maximize"></i>[[${file.originFileName}]]
+                  </a><br />
                 </td>
               </tr>
               <tr>
@@ -46,6 +48,10 @@
               <a class="board_btn select_btn" th:href="@{/notice/list}">목록으로</a>
               <!--              <a class="board_btn cancel_btn" th:href="@{/notice/remove(id=${boardList.id})}">삭제하기</a>-->
               <a class="board_btn edit_btn" th:href="@{/notice/modify(id=${boardList.id})}">수정하기</a>
+              <form th:action="@{/notice/remove(id=${boardList.id})}" method="post" class="deleteForm">
+                <input type="hidden" name="deleteType" value="true">
+                <button type="submit" class="board_btn cancel_btn">삭제</button>
+              </form>
             </div>
           </th:block>
           <th:block sec:authorize="hasAuthority('STUDENT') or hasAuthority('TEACHER')">
@@ -67,6 +73,5 @@
         }
         alert(errorMsg)
       }
-
     </script>
     </div>

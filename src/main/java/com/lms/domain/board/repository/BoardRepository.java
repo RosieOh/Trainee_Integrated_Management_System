@@ -5,6 +5,7 @@ import com.lms.domain.member.entity.Member;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.query.Param;
@@ -26,7 +27,7 @@ public interface BoardRepository extends JpaRepository<Board, Long>, QuerydslPre
     Page<Board> findByBoardType(String boardType, Pageable pageable);
 
     //메인 인덱스에 최신 공지사항 5개 불러오기
-    @Query("select b from Board b order by b.pinned desc, b.createdTime desc LIMIT 5")
+    @Query("select b from Board b where b.cno = 0 order by b.pinned desc, b.createdTime desc LIMIT 5")
     List<Board> newNoticeList();
 
     //고정게시글 상위 조회  + 최신 작성순

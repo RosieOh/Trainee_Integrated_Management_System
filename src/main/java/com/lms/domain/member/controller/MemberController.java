@@ -51,7 +51,7 @@ public class MemberController {
             courseName = "프로젝트 기반 빅데이터 서비스 개발자 양성 " + memberDTO.getCourse().getFlag()+"기";
         } else if ( memberDTO.getCourse().getSubject() == Subject.FULLSTACK) {
             courseName = "에듀테크 풀스택 개발자 양성(Java) " + memberDTO.getCourse().getFlag()+"기";
-        } else if ( memberDTO.getCourse().getSubject() == Subject.FULLSTACK) {
+        } else if ( memberDTO.getCourse().getSubject() == Subject.PM) {
             courseName = "에듀테크 상품서비스 PM(프로덕트매니저) 양성 " + memberDTO.getCourse().getFlag()+"기";
         } else {
             courseName = "매니저";
@@ -66,13 +66,13 @@ public class MemberController {
         model.addAttribute("newNoticeList", newNoticeList);
 
         //각 공지사항의 파일
-        List<FileDTO> fileList = new ArrayList<>();
-        for (BoardDTO board : newNoticeList) {
-            FileDTO fileDTO = fileService.getFile(board.getFileId());
-            fileList.add(fileDTO);
-            log.info(String.valueOf(fileDTO));
-        }
-        model.addAttribute("fileList", fileList);
+//        List<FileDTO> fileList = new ArrayList<>();
+//        for (BoardDTO board : newNoticeList) {
+//            FileDTO fileDTO = fileService.getFile(board.getFileId());
+//            fileList.add(fileDTO);
+//            log.info(String.valueOf(fileDTO));
+//        }
+//        model.addAttribute("fileList", fileList);
 
         return "user/index";
     }

@@ -1,9 +1,12 @@
 package com.lms.domain.board.entity;
 
-import com.lms.domain.Course.entity.Course;
+import com.lms.domain.file.entity.File;
 import com.lms.global.cosntant.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -34,8 +37,8 @@ public class Board extends BaseEntity {
     @Column(nullable = false, columnDefinition = "BIGINT DEFAULT 0")
     private Long cno;      // 강의 분류
 
-    @Column
-    private Long fileId;
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<File> files = new ArrayList<>();
 
     private String writer;
 
@@ -47,6 +50,9 @@ public class Board extends BaseEntity {
     @Column(columnDefinition = "BOOLEAN DEFAULT FALSE")
     private boolean privated;
 
+    @Column(columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private boolean deleteType;
+
     public void create(String title, String content, String writer) {
         this.title = title;
         this.content = content;
@@ -56,19 +62,16 @@ public class Board extends BaseEntity {
     public void change(String title, String content, boolean pinned, boolean privated) {
         this.title = title;
         this.content = content;
-        this.writer = writer;
-        this.fileId = fileId;
         this.pinned = pinned;
         this.privated = privated;
     }
 
     @Builder
-    public Board(Long id, String title, String content, String writer, Long fileId) {
+    public Board(Long id, String title, String content, String writer) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.writer = writer;
-        this.fileId = fileId;
     }
 }
 

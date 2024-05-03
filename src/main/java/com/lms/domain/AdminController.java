@@ -102,12 +102,12 @@ public class AdminController {
 
         int pageNow = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
 
-        PageDTO<Member, Member> pageDTO = new PageDTO<>();
+        PageDTO<Member, MemberDTO> pageDTO = new PageDTO<>();
         pageDTO.setPageNow(pageNow);
         pageDTO.setPostTotal(members.getTotalElements());
         pageDTO.setPageTotal(members.getTotalPages());
         pageDTO.build(members);
-        pageDTO.entity2dto(members, Member.class);
+        pageDTO.entity2dto(members, MemberDTO.class);
         model.addAttribute("pageDTO", pageDTO);
         return "admin/member/list";
     }

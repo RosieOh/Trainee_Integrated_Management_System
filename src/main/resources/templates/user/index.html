@@ -32,8 +32,8 @@
 <!--                                <th scope="col" >파일</th>-->
                                 <th style="width: 10%">#</th>
                                 <th style="width: 50%; overflow: hidden;">제목</th>
-                                <th style="width: 10%">작성자</th>
                                 <th style="width: 20%">작성일</th>
+                                <th style="width: 10%">작성자</th>
                                 <th style="width: 10%">파일</th>
                             </tr>
                         </thead>
@@ -58,13 +58,13 @@
                                 <td th:text="${notice.writer}"></td>
 
                                 <!-- 파일 유무에 따른 if문 -->
-                                <td th:if="${fileList[about.index].id == notice.fileId and fileList[about.index].originFileName == ''}">
-                                </td>
-                                <td th:if="${fileList[about.index].id == notice.fileId and fileList[about.index].originFileName != ''}">
-                                    <a th:href="@{'/download/' + ${fileList[about.index].id}}">
-                                        <i class="fas fa-window-maximize"></i>
-                                    </a>
-                                </td>
+<!--                                <td th:if="${fileList[about.index].id == notice.fileId and fileList[about.index].originFileName == ''}">-->
+<!--                                </td>-->
+<!--                                <td th:if="${fileList[about.index].id == notice.fileId and fileList[about.index].originFileName != ''}">-->
+<!--                                    <a th:href="@{'/download/' + ${fileList[about.index].id}}">-->
+<!--                                        <i class="fas fa-window-maximize"></i>-->
+<!--                                    </a>-->
+<!--                                </td>-->
                             </tr>
                         </tbody>
                     </table>

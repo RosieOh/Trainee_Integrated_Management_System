@@ -6,8 +6,10 @@ import com.lms.domain.board.dto.BoardDTO;
 import com.lms.domain.board.entity.Board;
 import com.lms.domain.board.entity.QBoard;
 import com.lms.domain.board.repository.BoardRepository;
+import com.lms.domain.file.entity.File;
 import com.lms.domain.member.entity.Member;
 import com.lms.domain.member.entity.QMember;
+import com.lms.domain.member.repository.MemberRepository;
 import com.lms.global.cosntant.BoardType;
 import com.lms.global.cosntant.Subject;
 import com.querydsl.core.BooleanBuilder;
@@ -40,6 +42,7 @@ public class BoardServiceImpl implements BoardService {
     private final ModelMapper modelMapper;
     private final CourseRepository courseRepository;
     private final BoardRepository boardRepository;
+    private final MemberRepository memberRepository;
     private final JPAQueryFactory queryFactory;
 
     // 새로운 게시판을 추가해주는 메소드
@@ -62,16 +65,6 @@ public class BoardServiceImpl implements BoardService {
         return boardDTO;
     }
 
-    @Override
-    public List<BoardDTO> findNoticeAll() {
-        List<Board> boardList = boardRepository.findAll();
-        List<BoardDTO> boardDTOList = boardList.stream()
-//                .filter(board -> board.getCno() == 0)
-                .map(board -> modelMapper.map(board, BoardDTO.class))
-                .collect(Collectors.toList());
-
-        return boardDTOList;
-    }
 
     @Override
     public List<Board> boardList() {
@@ -91,23 +84,6 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void register(BoardDTO boardDTO) {
-        log.info(boardDTO.getBoardType());
-        Board board = Board.builder()
-                .id(boardDTO.getId())
-                .title(boardDTO.getTitle())
-                .content(boardDTO.getContent())
-                .boardType(boardDTO.getBoardType())
-                .writer(boardDTO.getWriter())
-                .fileId(boardDTO.getFileId())
-                .pinned(boardDTO.isPinned())
-                .privated(boardDTO.isPrivated())
-                .cno(boardDTO.getCno())
-                .build();
-        boardRepository.save(board);
-    }
-
-    @Override
     public void modify(BoardDTO boardDTO) {
         Board board = modelMapper.map(boardDTO, Board.class);
         board.change(boardDTO.getTitle(), boardDTO.getContent(), boardDTO.isPinned(), boardDTO.isPrivated());
@@ -121,6 +97,23 @@ public class BoardServiceImpl implements BoardService {
         Board board = result.orElseThrow();
         BoardDTO boardDTO = modelMapper.map(board, BoardDTO.class);
         return boardDTO;
+    }
+
+    @Override
+    public Long register(BoardDTO boardDTO) {
+        log.info(boardDTO.getBoardType());
+        Board board = Board.builder()
+                .id(boardDTO.getId())
+                .title(boardDTO.getTitle())
+                .content(boardDTO.getContent())
+                .boardType(boardDTO.getBoardType())
+                .writer(boardDTO.getWriter())
+                .pinned(boardDTO.isPinned())
+                .privated(boardDTO.isPrivated())
+                .cno(boardDTO.getCno())
+                .build();
+        boardRepository.save(board);
+        return board.getId();
     }
 
 
@@ -157,29 +150,6 @@ public class BoardServiceImpl implements BoardService {
         return pinnedCount;
     }
 
-    //----------------------------클래스 공지사항-----------------------
-
-    @Override
-    public List<BoardDTO> classNoticeAll(Long cno) {
-        List<Board> boardList = boardRepository.findAll();
-        if (cno == 1) {
-            List<BoardDTO> boardDTOList = boardList.stream()
-                    .filter(board -> board.getCno() != 0)
-                    .map(board -> modelMapper.map(board, BoardDTO.class))
-                    .collect(Collectors.toList());
-            return boardDTOList;
-
-        } else {
-            List<BoardDTO> boardDTOList = boardList.stream()
-                    .filter(board -> board.getCno() == cno)
-                    .map(board -> modelMapper.map(board, BoardDTO.class))
-                    .collect(Collectors.toList());
-            return boardDTOList;
-        }
-
-
-    }
-
     @Override
     public Page<Board> searchNotice(String keyword, Integer cno, Pageable pageable) {
         BooleanBuilder where = new BooleanBuilder();
@@ -193,6 +163,8 @@ public class BoardServiceImpl implements BoardService {
             where.and(QBoard.board.cno.eq(Long.valueOf(cno)));
         }
 
+        // boardType이 Class_Notice인 것만 필터링
+        where.and(QBoard.board.boardType.eq(String.valueOf(BoardType.NOTICE)));
 
         // 페이징 처리
         JPAQuery<Board> query = queryFactory
@@ -219,5 +191,53 @@ public class BoardServiceImpl implements BoardService {
         }
         return PinnedPaging;
     }
+
+
+    //----------------------------클래스 공지사항-----------------------
+    @Override
+    public Page<Board> classNoticeAll(String keyword, Integer cno, Pageable pageable) {
+
+        BooleanBuilder where = new BooleanBuilder();
+
+        // 키워드가 있는 경우 이름 필터링
+        if (StringUtils.hasText(keyword)) {
+            where.and(QBoard.board.title.containsIgnoreCase(keyword));
+        }
+
+        if (cno != null) {
+            where.and(QBoard.board.cno.eq(Long.valueOf(cno)));
+        }
+        // boardType이 Class_Notice인 것만 필터링
+        where.and(QBoard.board.boardType.eq(String.valueOf(BoardType.CLASS_NOTICE)));
+
+        // 페이징 처리
+        JPAQuery<Board> query = queryFactory
+                .selectFrom(QBoard.board)
+                .where(where)
+                .orderBy(QBoard.board.pinned.desc(), QBoard.board.createdTime.desc());
+
+        // 페이징 처리된 결과 반환
+        QueryResults<Board> results = query
+                .offset(pageable.getOffset()) // 오프셋 설정
+                .limit(pageable.getPageSize()) // 페이지 크기 설정
+                .fetchResults(); // 결과 가져오기
+
+        return new PageImpl<>(results.getResults(), pageable, results.getTotal());
+    }
+
+    //다중 업로드 - insert
+    @Override
+    public Board uploadFile(Long boardId, File file) {
+        Optional<Board> optionalBoard = boardRepository.findById(boardId);
+        if (optionalBoard.isPresent()) {
+            Board board = optionalBoard.get();
+            file.setBoard(board);
+            board.getFiles().add(file);
+            return boardRepository.save(board);
+        } else {
+            throw new IllegalArgumentException("Board not found with id: " + boardId);
+        }
+    }
+
 
 }
