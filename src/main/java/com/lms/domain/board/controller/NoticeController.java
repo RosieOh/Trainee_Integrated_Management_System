@@ -1,19 +1,14 @@
 package com.lms.domain.board.controller;
 
 import com.lms.domain.Course.dto.CourseDTO;
-import com.lms.domain.Course.entity.Course;
 import com.lms.domain.Course.service.CourseService;
 import com.lms.domain.board.dto.BoardDTO;
 import com.lms.domain.board.entity.Board;
-import com.lms.domain.board.repository.BoardRepository;
 import com.lms.domain.board.service.BoardService;
 import com.lms.domain.file.dto.FileDTO;
 import com.lms.domain.file.service.FileService;
 import com.lms.domain.member.dto.MemberDTO;
-import com.lms.domain.member.entity.Member;
-import com.lms.domain.member.repository.MemberRepository;
 import com.lms.domain.member.service.MemberService;
-import com.lms.global.cosntant.Role;
 import com.lms.global.cosntant.Subject;
 import com.lms.global.util.MD5Generator;
 import com.lms.global.util.PageDTO;
@@ -40,7 +35,6 @@ import java.nio.file.Files;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -59,10 +53,6 @@ public class NoticeController {
     @GetMapping(value = {"/list"})
     public String noticeListAll(Model model, HttpServletRequest request, @PageableDefault(page=0, size=10, sort="title", direction= Sort.Direction.DESC) Pageable pageable,
                                 @RequestParam(required = false) String keyword, @RequestParam(required = false) Integer cno, Principal principal){
-//        List<BoardDTO> boardList = boardService.findNoticeAll();
-//        int pinnedCount = boardService.countPinned(boardList);
-//        model.addAttribute("boardList", boardList);
-//        model.addAttribute("pinnedCount", pinnedCount);
 
         List<CourseDTO> course_big_List = courseService.course_join_list(Subject.BIGDATA);
         List<CourseDTO> course_full_List = courseService.course_join_list(Subject.FULLSTACK);
@@ -193,39 +183,6 @@ public class NoticeController {
                              RedirectAttributes redirectAttributes,
                              Model model,
                              @RequestParam(value = "file", required = false) MultipartFile files){
-//        try {
-//            String originFilename = files.getOriginalFilename();
-//            String filename = new MD5Generator(originFilename).toString();
-//            String savePath = System.getProperty("user.dir") + "/files/";
-//            if(!new File(savePath).exists()) {
-//                try {
-//                    new File(savePath).mkdirs();
-//                }
-//                catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//            String filePath = savePath + filename;
-//
-//            files.transferTo(new File(filePath));
-//
-//            FileDTO fileDTO = new FileDTO();
-//            fileDTO.setOriginFileName(originFilename);
-//            fileDTO.setFileName(filename);
-//            fileDTO.setFilePath(filePath);
-//
-//            Long fileId = fileService.saveFile(fileDTO);
-//
-//            BoardDTO boardDTO1 = boardService.getBoard(id);
-//            boardDTO1.setTitle(boardDTO.getTitle());
-//            boardDTO1.setContent(boardDTO.getContent());
-//            boardDTO1.setPinned(boardDTO.isPinned());
-//            boardDTO1.setPrivated(boardDTO.isPrivated());
-//            boardDTO1.setFileId(fileId);
-//            boardService.modify(boardDTO1);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
         try {
             // 파일이 존재하는 경우에만 파일을 업로드하고 처리
             if (files != null && !files.isEmpty()) {
@@ -300,27 +257,47 @@ public class NoticeController {
     }
 
 //   --------------------------------------클래스 공지사항 --------------------------
-//    @GetMapping(value = {"/class/list"})
-//    public String classNoticeAll(Model model, Long cno) {
-//        List<BoardDTO> boardList = boardService.classNoticeAll(cno);
-//        int pinnedCount = boardService.countPinned(boardList);
-//
-//        model.addAttribute("boardList", boardList);
-//        model.addAttribute("pinnedCount", pinnedCount);
-//        return "user/class/notice/list";
-//    }
-
     @GetMapping(value = {"/class/list"})
     public String classNoticeAll(Model model,HttpServletRequest request, @PageableDefault(page=0, size=10, sort="title", direction= Sort.Direction.ASC) Pageable pageable,
-                                 @RequestParam(required = false) String keyword, Integer cno) {
+                                 @RequestParam(required = false) String keyword, Integer cno, Principal principal) {
 
+        List<CourseDTO> course_big_List = courseService.course_join_list(Subject.BIGDATA);
+        List<CourseDTO> course_full_List = courseService.course_join_list(Subject.FULLSTACK);
+        List<CourseDTO> course_pm_List = courseService.course_join_list(Subject.PM);
+        model.addAttribute("course_big_List",course_big_List);
+        model.addAttribute("course_full_List",course_full_List);
+        model.addAttribute("course_pm_List",course_pm_List);
 
-        Page<Board> boardList = boardService.searchNotice(keyword, cno,pageable);
+        //비밀글을 위한 정보 가져오기
+        String id = principal.getName();
+        MemberDTO memberDTO = memberService.loginId(id);
+        log.info(String.valueOf(memberDTO));
+        model.addAttribute("memberDTO",memberDTO);
+
+        Page<Board> boardList;
+        // memberDTO가 null이 아니고, memberDTO의 course의 no가 1이면 필터링 없이 전체를 가져옴
+        if (memberDTO != null && memberDTO.getCourse() != null && memberDTO.getCourse().getNo() == 1) {
+            boardList = boardService.classNoticeAll(keyword, null, pageable); // 필터링 없이 전체 가져오기
+        } else {
+            // memberDTO의 cno와 memberDTO의 course의 no가 같은 것만 필터링하여 가져옴
+            boardList = boardService.classNoticeAll(keyword,memberDTO.getCourse().getNo(), pageable);
+        }
+
         int pinnedCount = boardService.countPinnedPaging(boardList);
         model.addAttribute("boardList", boardList);
         model.addAttribute("pinnedCount", pinnedCount);
         model.addAttribute("cno", cno);
         model.addAttribute("searchTotal", boardList.getTotalElements());
+
+        //각 공지사항의 파일
+        List<FileDTO> fileList = new ArrayList<>();
+        for (Board board : boardList) {
+            FileDTO fileDTO = fileService.getFile(board.getFileId());
+            fileList.add(fileDTO);
+            log.info(String.valueOf(fileDTO));
+        }
+        log.info(fileList+"fileList");
+        model.addAttribute("fileList", fileList);
 
         int pageNow = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
 
@@ -332,7 +309,215 @@ public class NoticeController {
         pageDTO.entity2dto(boardList, BoardDTO.class);
 
         model.addAttribute("pageDTO", pageDTO);
+
+        String courseName, flag ;
+        if (memberDTO.getCourse().getSubject() == Subject.BIGDATA) {
+            courseName = "프로젝트 기반 빅데이터 서비스 개발자 양성 ";
+            flag = memberDTO.getCourse().getFlag()+"기";
+        } else if ( memberDTO.getCourse().getSubject() == Subject.FULLSTACK) {
+            courseName = "에듀테크 풀스택 개발자 양성(Java) ";
+            flag = memberDTO.getCourse().getFlag()+"기";
+        } else if ( memberDTO.getCourse().getSubject() == Subject.PM) {
+            courseName = "에듀테크 상품서비스 PM(프로덕트매니저) 양성 ";
+            flag = memberDTO.getCourse().getFlag()+"기";
+        } else {
+            courseName = "과정별";
+            flag="";
+        }
+        model.addAttribute("courseName",courseName);
+        model.addAttribute("flag",flag);
+
         return "user/class/notice/list";
+    }
+
+    @GetMapping("/class/registerClass")
+    public String registerClassNotice(Model model, Principal principal) {
+        String id = principal.getName();
+        MemberDTO memberDTO = memberService.loginId(id);
+        model.addAttribute("memberDTO", memberDTO);
+        return "user/class/notice/registerClass";
+    }
+
+    @PostMapping("/class/registerClass")
+    public String registerClassNoticeForm (@Valid BoardDTO boardDTO,
+                                 BindingResult bindingResult,
+                                 RedirectAttributes redirectAttributes,
+                                 Model model,
+                                 @RequestParam("file") MultipartFile files) {
+        try {
+            String originFilename = files.getOriginalFilename();
+            String filename = new MD5Generator(originFilename).toString();
+            String savePath = System.getProperty("user.dir") + "/files/";
+            if(!new File(savePath).exists()) {
+                try {
+                    new File(savePath).mkdirs();
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            String filePath = savePath + filename;
+
+            files.transferTo(new File(filePath));
+
+            FileDTO fileDTO = new FileDTO();
+            fileDTO.setOriginFileName(originFilename);
+            fileDTO.setFileName(filename);
+            fileDTO.setFilePath(filePath);
+
+            Long fileId = fileService.saveFile(fileDTO);
+            boardDTO.setFileId(fileId);
+            boardDTO.setWriter(boardDTO.getWriter());
+            boardDTO.setBoardType("CLASS_NOTICE");
+            boardService.register(boardDTO);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/notice/class/list";
+    }
+
+    @GetMapping("/class/read")
+    public String readClassNotice(Long id, Model model, Principal principal) {
+        if (id != null) {
+            BoardDTO boardDTO = boardService.findById(id);
+            log.info(boardDTO.getWriter());
+            if (boardDTO != null) {
+                FileDTO fileDTO = fileService.getFile(boardDTO.getFileId());
+                //String prin = principal.getName();
+                //String name = memberRepository.findId(prin).getName();
+                String name = memberService.getNameById(boardDTO.getWriter());
+                model.addAttribute("name", name);
+                model.addAttribute("fileList", fileDTO);
+                model.addAttribute("boardDTO", boardDTO);
+                String sid = principal.getName();
+                MemberDTO memberDTO = memberService.loginId(sid);
+                model.addAttribute("memberDTO", memberDTO);
+            } else {
+                log.info("fileDTO" + fileService);
+            }
+        }
+        return "user/class/notice/read";
+    }
+
+    @GetMapping("/class/modify")
+    public String classNoticeEditForm(Model model, Long id) {
+        BoardDTO boardDTO = boardService.getBoard(id);
+        FileDTO fileDTO = fileService.getFile(boardDTO.getFileId());
+
+        model.addAttribute("fileList", fileDTO);
+        model.addAttribute("boardDTO", boardDTO);
+        return "user/class/notice/edit";
+    }
+
+    @PostMapping("/class/modify/{id}")
+    public String classNoticeEdit(@PathVariable("id") Long id, @Valid BoardDTO boardDTO,
+                             BindingResult bindingResult,
+                             RedirectAttributes redirectAttributes,
+                             Model model,
+                             @RequestParam(value = "file", required = false) MultipartFile files){
+        try {
+            // 파일이 존재하는 경우에만 파일을 업로드하고 처리
+            if (files != null && !files.isEmpty()) {
+                String originFilename = files.getOriginalFilename();
+                String filename = new MD5Generator(originFilename).toString();
+                String savePath = System.getProperty("user.dir") + "/files/";
+                if (!new File(savePath).exists()) {
+                    try {
+                        new File(savePath).mkdirs();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                String filePath = savePath + filename;
+
+                files.transferTo(new File(filePath));
+
+                // 새로운 파일 정보를 생성하여 저장
+                FileDTO fileDTO = new FileDTO();
+                fileDTO.setOriginFileName(originFilename);
+                fileDTO.setFileName(filename);
+                fileDTO.setFilePath(filePath);
+
+                Long fileId = fileService.saveFile(fileDTO);
+
+                // 기존 게시글 정보를 가져와서 새로운 파일 정보를 적용하여 수정
+                BoardDTO boardDTO1 = boardService.getBoard(id);
+                boardDTO1.setTitle(boardDTO.getTitle());
+                boardDTO1.setContent(boardDTO.getContent());
+                boardDTO1.setPinned(boardDTO.isPinned());
+                boardDTO1.setPrivated(boardDTO.isPrivated());
+                boardDTO1.setFileId(fileId);
+                boardService.modify(boardDTO1);
+            } else {
+                // 파일이 없는 경우에는 그대로 기존 파일을 유지하고 수정
+                BoardDTO boardDTO1 = boardService.getBoard(id);
+                boardDTO1.setTitle(boardDTO.getTitle());
+                boardDTO1.setContent(boardDTO.getContent());
+                boardDTO1.setPinned(boardDTO.isPinned());
+                boardDTO1.setPrivated(boardDTO.isPrivated());
+                boardService.modify(boardDTO1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/notice/class/read?id="+id;
+    }
+
+
+    //관리자 and 매니저의 등록폼
+    @GetMapping("/class/registerAdmin")
+    public String registerAdminClassNotice(Model model, Principal principal) {
+        String id = principal.getName();
+        MemberDTO memberDTO = memberService.loginId(id);
+        model.addAttribute("memberDTO", memberDTO);
+
+        List<CourseDTO> course_big_List = courseService.course_join_list(Subject.BIGDATA);
+        List<CourseDTO> course_full_List = courseService.course_join_list(Subject.FULLSTACK);
+        List<CourseDTO> course_pm_List = courseService.course_join_list(Subject.PM);
+        model.addAttribute("course_big_List",course_big_List);
+        model.addAttribute("course_full_List",course_full_List);
+        model.addAttribute("course_pm_List",course_pm_List);
+        return "user/class/notice/registerAdmin";
+    }
+
+    @PostMapping("/class/registerAdmin")
+    public String registerAdminClassNoticeForm (@Valid BoardDTO boardDTO,
+                                           BindingResult bindingResult,
+                                           RedirectAttributes redirectAttributes,
+                                           Model model,
+                                           @RequestParam("file") MultipartFile files) {
+        try {
+            String originFilename = files.getOriginalFilename();
+            String filename = new MD5Generator(originFilename).toString();
+            String savePath = System.getProperty("user.dir") + "/files/";
+            if(!new File(savePath).exists()) {
+                try {
+                    new File(savePath).mkdirs();
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            String filePath = savePath + filename;
+
+            files.transferTo(new File(filePath));
+
+            FileDTO fileDTO = new FileDTO();
+            fileDTO.setOriginFileName(originFilename);
+            fileDTO.setFileName(filename);
+            fileDTO.setFilePath(filePath);
+
+            Long fileId = fileService.saveFile(fileDTO);
+            boardDTO.setFileId(fileId);
+            boardDTO.setWriter(boardDTO.getWriter());
+            boardDTO.setBoardType("CLASS_NOTICE");
+            boardService.register(boardDTO);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/notice/class/list";
     }
 
 }

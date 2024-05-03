@@ -255,3 +255,20 @@
 .md-mode {
     width: 100% !important;
 }
+
+/* class 공지사항 */
+.notice_flag {
+    color: var(--c-red);
+}
+.register-admin {
+    justify-content: space-between;
+}
+.none-margin {
+    margin-left: 0px !important;
+}
+.class-select {
+    padding: 0px;
+}
+.cno-label {
+    width: 45px !important;
+}
