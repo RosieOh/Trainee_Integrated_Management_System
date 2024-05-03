@@ -38,23 +38,23 @@
                         </div>
                         <div class="form-login">
                             <label>이름<em>*</em></label>
-                            <input type="text" name="name" placeholder="한글로 공백없이 입력해주세요." maxlength="4" required/>
+                            <input type="text" name="name" placeholder="한글로 공백없이 입력해주세요." minlength="2" maxlength="4" required/>
                         </div>
                         <div class="form-login">
                             <label>비밀번호<em>*</em></label>
-                            <input type="password" name="pw" placeholder="비밀번호를 입력해주세요." maxlength="16" required />
-                            <p class="info mb-0">비밀번호는 최소 8자리에서 최대 16자리 <br> 숫자, 영문, 특수문자 각 1개 이상 포함</p>
+                            <input type="password" name="pw" id="pw" placeholder="비밀번호를 입력해주세요." minlength="8" maxlength="16" onchange="pwCheck(this)" required />
+                            <p class="info mb-0" id="pwmsg">비밀번호는 최소 8자리에서 최대 16자리 <br> 숫자, 영문, 특수문자 각 1개 이상 포함</p>
                         </div>
                         <div class="form-login">
                             <label>비밀번호 확인<em>*</em></label>
-                            <input type="password" name="pw2" placeholder="비밀번호를 다시 입력해주세요." maxlength="16" required />
+                            <input type="password" name="pw2" id="pw2" placeholder="비밀번호를 다시 입력해주세요." minlength="8" maxlength="16" required />
                         </div>
                         <div class="form-login">
                             <label>이메일<em>*</em></label>
                             <div class="join_email">
                                 <input type="text" name="email1" id="email1" placeholder="이메일 입력" required />
                                 <p>@</p>
-                                <input type="text" name="email2" id="email2" onchange="emailCheck()" required />
+                                <input type="text" name="email2" id="email2" onchange="emailCheck(this)" required />
                                 <select id="email2_select">
                                     <option value="self">직접입력</option>
                                     <option value="naver.com">naver.com</option>
@@ -102,11 +102,11 @@
                         <div class="form-login">
                             <label>연락처<em>*</em></label>
                             <div class="join_tel">
-                                <input type="number" class="number" id="phone1" name="phone1" placeholder="000" maxlength="4" required oninput="lengthChk(this)"/>
+                                <input type="number" class="number" id="phone1" name="phone1" placeholder="000" minlength="2" maxlength="4" required oninput="lengthChk(this)"/>
                                 <p>-</p>
-                                <input type="number" class="number" id="phone2" placeholder="0000" maxlength="4" required oninput="lengthChk(this)"/>
+                                <input type="number" class="number" id="phone2" placeholder="0000" minlength="3" maxlength="4" required oninput="lengthChk(this)"/>
                                 <p>-</p>
-                                <input type="number" class="number" id="phone3" placeholder="0000" maxlength="4" required oninput="lengthChk(this)"/>
+                                <input type="number" class="number" id="phone3" placeholder="0000" minlength="3" maxlength="4" required oninput="lengthChk(this)"/>
                                 <input type="hidden" name="phone" id="phone"/>
                             </div>
                         </div>
@@ -225,7 +225,6 @@ console.log("id.val" + $("#id").val() + $("#id").val())
         let brithval = $("#birth1").val() +'-'+ $("#birth2").val() +'-'+ $("#birth3").val();
         $("#birth").val(brithval)
 
-        alert(brithval)
         if($("#email2").val() == "" || $("#email1").val() == "") {
             alert("이메일을 적어주세요.")
             return false
@@ -239,49 +238,42 @@ console.log("id.val" + $("#id").val() + $("#id").val())
             f.pw.focus();
             return false;
         }
-
-        if(f.pw.value.length(8-16)){
-            alert("비밀번호는 최소 8자리에서 최대 16자리까지 숫자, 영문, 특수문자 각 1개 이상 포함해주세요.");
-            f.pw.focus();
-            return false;
-        }
-
         if(f.idCk.value!="yes"){
             alert("아이디 중복 체크를 하지 않으셨습니다.");
             $("#id").focus();
-            return false;
-        }
-
-
-        var valid_txt = /[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
-        //(알파벳,숫자)@(알파벳,숫자).(알파벳,숫자)
-
-        if(valid_txt.test(f.email2.value)==false){
-            alert("이메일 주소가 올바르지 않습니다.");
-            f.email2.focus();
-            return false;
-        }
-
-        let value = $("#pw").val();
-
-        let pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&.,])[A-Za-z\d$@$!%*#?&]{8,16}$"
-        if (!pattern.test(value)) {
-            alert("숫자, 영문, 특수문자 각 1개 이상 포함입니다.");
-            $("#pw").focus();
             return false;
         }
     }
 </script>
 
 <script>
-    function emailCheck(email_address){
-        email_regex = /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
-        if(!email_regex.test(email_address)){
+    function emailCheck(obj){
+        email_pattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])+(\.com)$/;
+        email_pattern2 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])+(\.co\.kr)$/;
+        if(email_pattern.test(obj.value) == false && email_pattern2.test(obj.value) == false){
+            alert("이메일 주소가 맞지않습니다.")
+            obj.value = '';
+            obj.focus();
             return false;
-        }else{
+        } else {
             return true;
         }
     }
+
+    function pwCheck(obj){
+        let pwmsg = document.querySelector('#pwmsg')
+        pw_pattern = /^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/;
+        if(pw_pattern.test(obj.value) == false){
+            alert("비밀번호가 맞지않습니다.")
+            pwmsg.style.color = "red"
+            obj.focus();
+            return false;
+        } else {
+            pwmsg.style.color = "blue"
+            return true;
+        }
+    }
+
 </script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
