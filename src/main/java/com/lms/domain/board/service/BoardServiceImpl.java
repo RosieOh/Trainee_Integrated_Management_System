@@ -165,6 +165,8 @@ public class BoardServiceImpl implements BoardService {
 
         // boardType이 Class_Notice인 것만 필터링
         where.and(QBoard.board.boardType.eq(String.valueOf(BoardType.NOTICE)));
+        // deleteType이 false인 애들만 필터링 (삭제되지 않은 게시물)
+        where.and(QBoard.board.deleteType.eq(false));
 
         // 페이징 처리
         JPAQuery<Board> query = queryFactory
@@ -195,7 +197,7 @@ public class BoardServiceImpl implements BoardService {
 
     //----------------------------클래스 공지사항-----------------------
     @Override
-    public Page<Board> classNoticeAll(String keyword, Integer cno, Pageable pageable) {
+    public Page<Board> classNoticeAll(String keyword, Integer cno, Pageable pageable, Integer mcno) {
 
         BooleanBuilder where = new BooleanBuilder();
 
@@ -204,11 +206,21 @@ public class BoardServiceImpl implements BoardService {
             where.and(QBoard.board.title.containsIgnoreCase(keyword));
         }
 
-        if (cno != null) {
+
+
+        // cno가 null이 아니면서 mcno가 1이면 cno가 1 이상인 것들만 필터링
+        if (cno != null && mcno != null && mcno == 1) {
             where.and(QBoard.board.cno.eq(Long.valueOf(cno)));
         }
-        // boardType이 Class_Notice인 것만 필터링
-        where.and(QBoard.board.boardType.eq(String.valueOf(BoardType.CLASS_NOTICE)));
+        // mcno가 null이 아니면서 mcno가 1이 아니면 mcno와 같은 cno만 필터링
+        else if (mcno != null && mcno != 1) {
+            where.and(QBoard.board.cno.eq(Long.valueOf(mcno)));
+        }
+
+        // boardType이 CLASS_BOARD인 것만 필터링
+        where.and(QBoard.board.boardType.eq(String.valueOf(BoardType.CLASS_BOARD)));
+        // deleteType이 false인 애들만 필터링 (삭제되지 않은 게시물)
+        where.and(QBoard.board.deleteType.eq(false));
 
         // 페이징 처리
         JPAQuery<Board> query = queryFactory
@@ -238,6 +250,5 @@ public class BoardServiceImpl implements BoardService {
             throw new IllegalArgumentException("Board not found with id: " + boardId);
         }
     }
-
 
 }

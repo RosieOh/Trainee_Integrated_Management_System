@@ -65,14 +65,16 @@ public class MemberController {
         model.addAttribute("memberDTO", memberDTO);
         model.addAttribute("newNoticeList", newNoticeList);
 
-        //각 공지사항의 파일
-//        List<FileDTO> fileList = new ArrayList<>();
-//        for (BoardDTO board : newNoticeList) {
-//            FileDTO fileDTO = fileService.getFile(board.getFileId());
-//            fileList.add(fileDTO);
-//            log.info(String.valueOf(fileDTO));
-//        }
-//        model.addAttribute("fileList", fileList);
+        List<FileDTO> fileList = new ArrayList<>();
+        for (BoardDTO board : newNoticeList) {
+            List<FileDTO> fileDTOs = fileService.findByBoardId(board.getId());
+            for (FileDTO fileDTO : fileDTOs) {
+                fileDTO.setBoardId(board.getId());
+            }
+            fileList.addAll(fileDTOs);
+        }
+        model.addAttribute("fileList", fileList);
+        model.addAttribute("fileCountMap", fileService.getFileCountMap(fileList));
 
         return "user/index";
     }
