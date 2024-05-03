@@ -12,8 +12,8 @@
       <table class="table_set">
         <thead>
         <tr>
-          <th style="width: auto">아이디</th>
-          <th style="width: auto">이름</th>
+          <th style="width: 10%">아이디</th>
+          <th style="width: 10%">이름</th>
           <th style="width: auto">가입날짜</th>
           <th style="width: 20%">클래스 변경</th>
           <th style="width: 20%">권한</th>
@@ -34,10 +34,10 @@
             </td>
             <td th:text="${#temporals.format(member.createdTime, 'yyyy-MM-dd')}"></td>
             <td>
-              <form th:action="@{/admin/admin_change_status(id=${member.id} )}" method="post" class="inline_form">
-                <select name="role" class="select-box">
-                  <option th:value="${member.course.no}" th:selected="${member.course.subject} != 'EXCEPTION'">[[${member.course.subject}]]</option>
-                  <option value="1" th:selected="${member.course.subject} == 'EXCEPTION'">예외</option>
+              <form th:action="@{/admin/admin_change_course(id=${member.id} )}" method="post" class="inline_form">
+                <select name="cno" class="select-box">
+                  <option th:value="${member.course.no}" th:selected="${member.course.subject} != 'EXCEPTION'">[[${member.course.subject } + ' '+ ${member.course.flag} +'기']]</option>
+                  <option value="1" th:selected="${member.course.subject} == 'EXCEPTION'">매니저</option>
                 </select>
                 <button type="submit" class="inline_form_btn select_btn" >권한 변경 <i class="fas fa-pencil-alt"></i></button>
               </form>
@@ -80,7 +80,6 @@
                 }
               }
             }
-
             if (subjectValue) {
               setSelectedOption('subject', subjectValue);
             }
@@ -100,16 +99,15 @@
         <th:block th:replace="~{include/page :: pagination(pageLink=@{'/admin/admin_member'})}"></th:block>
       </th:block>
     </div>
-    <div class="layout_add">
-      <div > <i class="far fa-plus-square"></i> 매니저 추가하기</div>
+    <div class="btn_group_right">
+      <div class="layout_add"><i class="far fa-plus-square"></i> 매니저 추가하기</div>
     </div>
-
   </div>
 
     <div class="hide_layout">
       <div class="layout_box">
         <i class="fas fa-times-circle layout_close"></i>
-        <form th:action="@{/admin_joinPro}" onsubmit="return joinCheck(this)">
+        <form th:action="@{/admin/admin_joinPro}" method="post" onsubmit="return joinCheck(this)">
           <div class="admin_join">
             <div class="form-login">
               <label>아이디<em>*</em></label>
@@ -122,27 +120,27 @@
             </div>
             <div class="form-login">
               <label>이름<em>*</em></label>
-              <input type="text" name="name" placeholder="한글로 공백없이 입력해주세요." maxlength="4" required/>
+              <input type="text" name="name" placeholder="한글로 공백없이 입력해주세요." minlength="2" maxlength="4" required/>
             </div>
             <div class="form-login">
               <label>비밀번호<em>*</em></label>
-              <input type="password" name="pw" placeholder="비밀번호를 입력해주세요." maxlength="16" required />
+              <input type="password" name="pw" id="pw" placeholder="비밀번호를 입력해주세요." minlength="8" maxlength="16" onchange="pwCheck(this)" required />
               <p class="info mb-0">비밀번호는 최소 8자리에서 최대 16자리 <br> 숫자, 영문, 특수문자 각 1개 이상 포함</p>
             </div>
             <div class="form-login">
               <label>비밀번호 확인<em>*</em></label>
-              <input type="password" name="pw2" placeholder="비밀번호를 다시 입력해주세요." maxlength="16" required />
+              <input type="password" name="pw2" placeholder="비밀번호를 다시 입력해주세요." minlength="8" maxlength="16" required />
             </div>
           </div>
-          <input type="hidden" name="cno" value="1">
-          <input type="hidden" name="email" value="-"/>
-          <input type="hidden" name="birth" value="-"/>
-          <input type="hidden" name="gender" value="-"/>
-          <input type="hidden" name="phone" value="-"/>
-          <input type="hidden" name="addr1" value="-" />
-          <input type="hidden" name="postcode" value="-">
+          <input type="hidden" name="cno" value="1" readonly />
+          <input type="hidden" name="email" value="-" readonly/>
+          <input type="hidden" name="birth" value="-" readonly/>
+          <input type="hidden" name="gender" value="-" readonly/>
+          <input type="hidden" name="phone" value="-" readonly/>
+          <input type="hidden" name="addr1" value="-"  readonly/>
+          <input type="hidden" name="postcode" value="-" readonly/>
           <div class="btn_group_center">
-            <button type="button" class="board_btn select_btn">매니저 회원가입</button>
+            <button type="submit" class="board_btn select_btn">매니저 회원가입</button>
           </div>
         </form>
       </div>
@@ -197,14 +195,9 @@
     }
 
     function joinCheck(f){
+
       if(f.pw.value!=f.pw2.value){
         alert("비밀번호와 비밀번호 확인이 서로 다릅니다.");
-        f.pw.focus();
-        return false;
-      }
-
-      if(f.pw.value.length(8-16)){
-        alert("비밀번호는 최소 8자리에서 최대 16자리까지 숫자, 영문, 특수문자 각 1개 이상 포함해주세요.");
         f.pw.focus();
         return false;
       }
@@ -214,14 +207,23 @@
         $("#id").focus();
         return false;
       }
+    }
 
-      let value = $("#pw").val();
+  </script>
 
-      let pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&.,])[A-Za-z\d$@$!%*#?&]{8,16}$"
-      if (!pattern.test(value)) {
-        alert("숫자, 영문, 특수문자 각 1개 이상 포함입니다.");
-        $("#pw").focus();
+  <script>
+
+    function pwCheck(obj){
+      let pwmsg = document.querySelector('#pwmsg')
+      pw_pattern = /^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/;
+      if(pw_pattern.test(obj.value) == false){
+        alert("비밀번호가 맞지않습니다.")
+        pwmsg.style.color = "red"
+        obj.focus();
         return false;
+      } else {
+        pwmsg.style.color = "blue"
+        return true;
       }
     }
 

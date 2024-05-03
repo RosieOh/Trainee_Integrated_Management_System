@@ -185,12 +185,9 @@ public class NoticeController {
     }
 
     @PostMapping("/modify/{id}")
-    public String noticeEdit(@PathVariable("id") Long id, @Valid BoardDTO boardDTO, @RequestParam("files") MultipartFile[] files) {
+    public String noticeEdit(@PathVariable("id") Long id, @Valid BoardDTO boardDTO, @RequestParam("files") MultipartFile[] files){
 
-        List<FileDTO> existingFiles = fileService.findByBoardId(id);
-        for (FileDTO file : existingFiles) {
-            file.setBoardId(id);
-        }
+        fileService.deleteFilesByBoardId(id);
 
         try {
             BoardDTO boardDTO1 = boardService.getBoard(id);
@@ -203,6 +200,7 @@ public class NoticeController {
             boardService.modify(boardDTO1);
 
             List<FileDTO> uploadFiles = new ArrayList<>();
+
             for (MultipartFile file : files) {
                 if (!file.isEmpty()) {
                     String originFilename = file.getOriginalFilename();
@@ -229,18 +227,13 @@ public class NoticeController {
                     uploadFiles.add(fileDTO);
                 }
             }
-
-            List<FileDTO> allFiles = new ArrayList<>();
-            allFiles.addAll(existingFiles);
-            allFiles.addAll(uploadFiles);
-
-            List<Long> fileIds = fileService.saveFiles(allFiles);
+            List<Long> fileIds = fileService.saveFiles(uploadFiles);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return "redirect:/notice/read?id=" + id;
+        return "redirect:/notice/read?id="+id;
     }
 
     @PostMapping("/remove")

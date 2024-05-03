@@ -61,7 +61,7 @@ public class AdminController {
         model.addAttribute("subjects", subjects);
         model.addAttribute("roles", roles);
 
-        Page<Member> members = memberService.searchMembers(keyword, flag, subject, role, pageable);
+        Page<Member> members = memberService.adminSearch(keyword, flag, subject, role, pageable);
         model.addAttribute("memberList", members);
         model.addAttribute("searchTotal",members.getTotalElements());
 
@@ -96,7 +96,7 @@ public class AdminController {
         model.addAttribute("subjects", subjects);
         model.addAttribute("roles", roles);
 
-        Page<Member> members = memberService.searchMembers(keyword, flag, subject, role, pageable);
+        Page<Member> members = memberService.managerSearch(keyword, flag, subject, role, pageable);
         model.addAttribute("memberList", members);
         model.addAttribute("searchTotal", members.getTotalElements());
 
@@ -149,7 +149,6 @@ public class AdminController {
         MemberDTO memberDTO = memberService.loginId(id);
         memberDTO.setStatus(status);
         memberService.member_edit(memberDTO);
-        Integer cno = memberDTO.getCourse().getNo();
         return "redirect:/admin/admin_member";
     }
 
@@ -159,7 +158,17 @@ public class AdminController {
         MemberDTO memberDTO = memberService.loginId(id);
         memberDTO.setRole(role);
         memberService.member_edit(memberDTO);
-        Integer cno = memberDTO.getCourse().getNo();
+        return "redirect:/admin/admin_member";
+    }
+
+    // 관리자 회원 클래스변경
+    @PostMapping("/admin_change_course")
+    public String admin_change_course(String id, Model model, Role role, Integer cno){
+        MemberDTO memberDTO = memberService.loginId(id);
+        CourseDTO courseDTO = new CourseDTO();
+        courseDTO.setNo(cno);
+        memberDTO.setCourse(courseDTO);
+        memberService.member_edit(memberDTO);
         return "redirect:/admin/admin_member";
     }
 
