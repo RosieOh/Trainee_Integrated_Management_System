@@ -14,7 +14,12 @@
                 <h2>클래스 게시판</h2>
             </th:block>
             <table class="table_set">
-                <div th:replace="~{include/search :: searchNoti('/notice/class/list')}"></div>
+                <th:block sec:authorize="hasAuthority('TEACHER') or hasAuthority('STUDENT')">
+                    <div th:replace="~{include/search :: searchClassNoti('/notice/class/list')}"></div>
+                </th:block>
+                <th:block sec:authorize="hasAuthority('ADMIN') or hasAuthority('MANAGER')">
+                    <div th:replace="~{include/search :: searchNoti('/notice/class/list')}"></div>
+                </th:block>
                 <thead>
                 <tr>
                     <th style="width: 10%">no</th>

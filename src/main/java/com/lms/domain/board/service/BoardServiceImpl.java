@@ -206,9 +206,11 @@ public class BoardServiceImpl implements BoardService {
             where.and(QBoard.board.title.containsIgnoreCase(keyword));
         }
 
+
+
         // cno가 null이 아니면서 mcno가 1이면 cno가 1 이상인 것들만 필터링
         if (cno != null && mcno != null && mcno == 1) {
-            where.and(QBoard.board.cno.goe(Long.valueOf(cno)));
+            where.and(QBoard.board.cno.eq(Long.valueOf(cno)));
         }
         // mcno가 null이 아니면서 mcno가 1이 아니면 mcno와 같은 cno만 필터링
         else if (mcno != null && mcno != 1) {
