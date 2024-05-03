@@ -388,10 +388,7 @@ public class NoticeController {
     @PostMapping("/class/modify/{id}")
     public String noticeClassEdit(@PathVariable("id") Long id, @Valid BoardDTO boardDTO, @RequestParam("files") MultipartFile[] files) {
 
-        List<FileDTO> existingFiles = fileService.findByBoardId(id);
-        for (FileDTO file : existingFiles) {
-            file.setBoardId(id);
-        }
+        fileService.deleteFilesByBoardId(id);
 
         try {
             BoardDTO boardDTO1 = boardService.getBoard(id);
@@ -431,11 +428,7 @@ public class NoticeController {
                 }
             }
 
-            List<FileDTO> allFiles = new ArrayList<>();
-            allFiles.addAll(existingFiles);
-            allFiles.addAll(uploadFiles);
-
-            List<Long> fileIds = fileService.saveFiles(allFiles);
+            List<Long> fileIds = fileService.saveFiles(uploadFiles);
 
         } catch (Exception e) {
             e.printStackTrace();
