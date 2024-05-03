@@ -31,21 +31,25 @@
 
 
 .file_input {
-    display: flex;
     align-items: center;
     height: 86px;
     color: var(--c-font_gray);
 }
+
 .file_input input{
-    width: 50%;
+    width: 85%;
     border: none;
     box-shadow: none;
     cursor: pointer;
+    background-color: #f1f1f1;
+    border-radius: 11px;
 
 }
 .file_input label {
     width: 120px;
     cursor: pointer;
+    font-size: 20px;
+    margin-bottom: 13px;
 }
 .file_input input:hover{
     border: none;
@@ -520,4 +524,51 @@
 
 .fileListNotice div {
     margin : 0 3px;
+}
+
+.fileDownloadTitle {
+    padding: 5px 12px;
+    background-color: #dfdfdf;
+    border-radius: 10px;
+}
+
+.fas.fa-window-maximize {
+    padding-right: 9px;
+}
+
+.deleteForm {
+    display: inline-block;
+}
+
+.fileListBox {
+    display: flex;
+    padding: 10px 5px 10px 24px;
+    width :1134px;
+}
+.fileViewBox {
+    background-color: #f6f9fc;
+    padding: 10px 5px 10px 24px;
+    width: 1150px;
+    height: 270px;
+}
+
+.fileUploadBox {
+    margin-top: 11px;
+}
+
+.uploadbtn {
+    background-color: #f6f9fc;
+    padding: 14px;
+    text-align: center;
+}
+
+.myinfo_line input[type=file] {
+    background-color: #f2f2f2;
+    width: 90%;
+}
+
+.fileListBox div {
+    background-color: #f1f1f1;
+    margin-right: 8px;
+    border-radius: 12px;
 }

@@ -11,9 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -70,6 +68,16 @@ public class FileService {
     public List<Long> getFileIdsByBoardId(Long boardId) {
         List<Long> fileIds = fileRepository.findIdsByBoardId(boardId);
         return fileIds;
+    }
+
+    public Map<Long, Integer> getFileCountMap(List<FileDTO> fileList) {
+        Map<Long, Integer> fileCountMap = new HashMap<>();
+        for (FileDTO fileDTO : fileList) {
+            long boardId = fileDTO.getBoardId();
+            int count = fileCountMap.getOrDefault(boardId, 0);
+            fileCountMap.put(boardId, count + 1);
+        }
+        return fileCountMap;
     }
 
     @Transactional
