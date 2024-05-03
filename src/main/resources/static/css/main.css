@@ -223,7 +223,7 @@
 
 .admin-content {
     width: 100%;
-    min-height: 100vh;
+    min-height: calc(100vh - 310px);
     padding: 2rem 0;
     overflow-x: hidden;
 }

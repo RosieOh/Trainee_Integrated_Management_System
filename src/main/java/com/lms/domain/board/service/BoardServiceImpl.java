@@ -1,16 +1,20 @@
 package com.lms.domain.board.service;
 
 
-import com.lms.domain.Course.dto.CourseDTO;
-import com.lms.domain.Course.entity.Course;
+import com.lms.domain.Course.repository.CourseRepository;
 import com.lms.domain.board.dto.BoardDTO;
 import com.lms.domain.board.entity.Board;
 import com.lms.domain.board.entity.QBoard;
 import com.lms.domain.board.repository.BoardRepository;
 import com.lms.domain.file.entity.File;
+import com.lms.domain.member.entity.Member;
+import com.lms.domain.member.entity.QMember;
+import com.lms.domain.member.repository.MemberRepository;
 import com.lms.global.cosntant.BoardType;
+import com.lms.global.cosntant.Subject;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.QueryResults;
+import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.transaction.Transactional;
@@ -29,8 +33,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.lms.domain.board.entity.QBoard.board;
-
 @Log4j2
 @Service
 @RequiredArgsConstructor
@@ -38,7 +40,9 @@ import static com.lms.domain.board.entity.QBoard.board;
 public class BoardServiceImpl implements BoardService {
 
     private final ModelMapper modelMapper;
+    private final CourseRepository courseRepository;
     private final BoardRepository boardRepository;
+    private final MemberRepository memberRepository;
     private final JPAQueryFactory queryFactory;
 
     // 새로운 게시판을 추가해주는 메소드
@@ -61,16 +65,6 @@ public class BoardServiceImpl implements BoardService {
         return boardDTO;
     }
 
-    @Override
-    public List<BoardDTO> findNoticeAll() {
-        List<Board> boardList = boardRepository.findAll();
-        List<BoardDTO> boardDTOList = boardList.stream()
-//                .filter(board -> board.getCno() == 0)
-                .map(board -> modelMapper.map(board, BoardDTO.class))
-                .collect(Collectors.toList());
-
-        return boardDTOList;
-    }
 
     @Override
     public List<Board> boardList() {
@@ -90,7 +84,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Long register(BoardDTO boardDTO) {
+    public void register(BoardDTO boardDTO) {
         log.info(boardDTO.getBoardType());
         Board board = Board.builder()
                 .id(boardDTO.getId())
@@ -98,12 +92,12 @@ public class BoardServiceImpl implements BoardService {
                 .content(boardDTO.getContent())
                 .boardType(boardDTO.getBoardType())
                 .writer(boardDTO.getWriter())
+                .fileId(boardDTO.getFileId())
                 .pinned(boardDTO.isPinned())
                 .privated(boardDTO.isPrivated())
                 .cno(boardDTO.getCno())
                 .build();
         boardRepository.save(board);
-        return board.getId();
     }
 
     @Override
@@ -156,48 +150,27 @@ public class BoardServiceImpl implements BoardService {
         return pinnedCount;
     }
 
-    //----------------------------클래스 공지사항-----------------------
-
-    @Override
-    public List<BoardDTO> classNoticeAll(Long cno) {
-        List<Board> boardList = boardRepository.findAll();
-        if (cno == 1) {
-            List<BoardDTO> boardDTOList = boardList.stream()
-                    .filter(board -> board.getCno() != 0)
-                    .map(board -> modelMapper.map(board, BoardDTO.class))
-                    .collect(Collectors.toList());
-            return boardDTOList;
-
-        } else {
-            List<BoardDTO> boardDTOList = boardList.stream()
-                    .filter(board -> board.getCno() == cno)
-                    .map(board -> modelMapper.map(board, BoardDTO.class))
-                    .collect(Collectors.toList());
-            return boardDTOList;
-        }
-
-
-    }
-
     @Override
     public Page<Board> searchNotice(String keyword, Integer cno, Pageable pageable) {
         BooleanBuilder where = new BooleanBuilder();
 
         // 키워드가 있는 경우 이름 필터링
         if (StringUtils.hasText(keyword)) {
-            where.and(board.title.containsIgnoreCase(keyword));
+            where.and(QBoard.board.title.containsIgnoreCase(keyword));
         }
 
         if (cno != null) {
-            where.and(board.cno.eq(Long.valueOf(cno)));
+            where.and(QBoard.board.cno.eq(Long.valueOf(cno)));
         }
 
+        // boardType이 Class_Notice인 것만 필터링
+        where.and(QBoard.board.boardType.eq(String.valueOf(BoardType.NOTICE)));
 
         // 페이징 처리
         JPAQuery<Board> query = queryFactory
-                .selectFrom(board)
-                .where(board.deleteType.ne(true), where)
-                .orderBy(board.pinned.desc(), board.createdTime.desc());
+                .selectFrom(QBoard.board)
+                .where(where)
+                .orderBy(QBoard.board.pinned.desc(), QBoard.board.createdTime.desc());
 
         // 페이징 처리된 결과 반환
         QueryResults<Board> results = query
@@ -220,6 +193,38 @@ public class BoardServiceImpl implements BoardService {
     }
 
 
+    //----------------------------클래스 공지사항-----------------------
+    @Override
+    public Page<Board> classNoticeAll(String keyword, Integer cno, Pageable pageable) {
+
+        BooleanBuilder where = new BooleanBuilder();
+
+        // 키워드가 있는 경우 이름 필터링
+        if (StringUtils.hasText(keyword)) {
+            where.and(QBoard.board.title.containsIgnoreCase(keyword));
+        }
+
+        if (cno != null) {
+            where.and(QBoard.board.cno.eq(Long.valueOf(cno)));
+        }
+        // boardType이 Class_Notice인 것만 필터링
+        where.and(QBoard.board.boardType.eq(String.valueOf(BoardType.CLASS_NOTICE)));
+
+        // 페이징 처리
+        JPAQuery<Board> query = queryFactory
+                .selectFrom(QBoard.board)
+                .where(where)
+                .orderBy(QBoard.board.pinned.desc(), QBoard.board.createdTime.desc());
+
+        // 페이징 처리된 결과 반환
+        QueryResults<Board> results = query
+                .offset(pageable.getOffset()) // 오프셋 설정
+                .limit(pageable.getPageSize()) // 페이지 크기 설정
+                .fetchResults(); // 결과 가져오기
+
+        return new PageImpl<>(results.getResults(), pageable, results.getTotal());
+    }
+
     //다중 업로드 - insert
     @Override
     public Board uploadFile(Long boardId, File file) {
@@ -233,6 +238,5 @@ public class BoardServiceImpl implements BoardService {
             throw new IllegalArgumentException("Board not found with id: " + boardId);
         }
     }
-
 
 }

@@ -51,7 +51,7 @@ public class MemberController {
             courseName = "프로젝트 기반 빅데이터 서비스 개발자 양성 " + memberDTO.getCourse().getFlag()+"기";
         } else if ( memberDTO.getCourse().getSubject() == Subject.FULLSTACK) {
             courseName = "에듀테크 풀스택 개발자 양성(Java) " + memberDTO.getCourse().getFlag()+"기";
-        } else if ( memberDTO.getCourse().getSubject() == Subject.FULLSTACK) {
+        } else if ( memberDTO.getCourse().getSubject() == Subject.PM) {
             courseName = "에듀테크 상품서비스 PM(프로덕트매니저) 양성 " + memberDTO.getCourse().getFlag()+"기";
         } else {
             courseName = "매니저";
