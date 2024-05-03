@@ -29,30 +29,26 @@ public class BoardDTO {
     @NotEmpty
     @Size(max = 50)
     private String boardType;
+
     private int flag;               //기수
 
     //강의에 따른 공지사항
     private Long cno;      // 강의 분류
 
-    @NotNull
-    private Long fileId;
-
     @NotEmpty
     @Size(max = 50)
     private String writer;
 
+    private List<Long> fileIds;
+
     private LocalDateTime createdTime;
+
     private LocalDateTime modifiedTime;
-    private List<String> fileNames;
+
     private boolean pinned; //게시글 고정 여부
+
     private boolean privated; //비밀글 여부
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private boolean deleteType; //삭제 여부
 
 }

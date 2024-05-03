@@ -1,19 +1,14 @@
 package com.lms.domain.board.controller;
 
 import com.lms.domain.Course.dto.CourseDTO;
-import com.lms.domain.Course.entity.Course;
 import com.lms.domain.Course.service.CourseService;
 import com.lms.domain.board.dto.BoardDTO;
 import com.lms.domain.board.entity.Board;
-import com.lms.domain.board.repository.BoardRepository;
 import com.lms.domain.board.service.BoardService;
 import com.lms.domain.file.dto.FileDTO;
 import com.lms.domain.file.service.FileService;
 import com.lms.domain.member.dto.MemberDTO;
-import com.lms.domain.member.entity.Member;
-import com.lms.domain.member.repository.MemberRepository;
 import com.lms.domain.member.service.MemberService;
-import com.lms.global.cosntant.Role;
 import com.lms.global.cosntant.Subject;
 import com.lms.global.util.MD5Generator;
 import com.lms.global.util.PageDTO;
@@ -22,25 +17,22 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
-import java.nio.file.Files;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -59,10 +51,6 @@ public class NoticeController {
     @GetMapping(value = {"/list"})
     public String noticeListAll(Model model, HttpServletRequest request, @PageableDefault(page=0, size=10, sort="title", direction= Sort.Direction.DESC) Pageable pageable,
                                 @RequestParam(required = false) String keyword, @RequestParam(required = false) Integer cno, Principal principal){
-//        List<BoardDTO> boardList = boardService.findNoticeAll();
-//        int pinnedCount = boardService.countPinned(boardList);
-//        model.addAttribute("boardList", boardList);
-//        model.addAttribute("pinnedCount", pinnedCount);
 
         List<CourseDTO> course_big_List = courseService.course_join_list(Subject.BIGDATA);
         List<CourseDTO> course_full_List = courseService.course_join_list(Subject.FULLSTACK);
@@ -77,16 +65,6 @@ public class NoticeController {
         model.addAttribute("pinnedCount", pinnedCount);
         model.addAttribute("searchTotal", boardList.getTotalElements());
 
-        //각 공지사항의 파일
-        List<FileDTO> fileList = new ArrayList<>();
-        for (Board board : boardList) {
-            FileDTO fileDTO = fileService.getFile(board.getFileId());
-            fileList.add(fileDTO);
-            log.info(String.valueOf(fileDTO));
-        }
-        log.info(fileList+"fileList");
-        model.addAttribute("fileList", fileList);
-
         int pageNow = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
 
         PageDTO<Board, BoardDTO> pageDTO = new PageDTO<>();
@@ -98,6 +76,16 @@ public class NoticeController {
 
         model.addAttribute("pageDTO", pageDTO);
 
+        List<FileDTO> fileList = new ArrayList<>();
+        for (Board board : boardList) {
+            List<FileDTO> fileDTOs = fileService.findByBoardId(board.getId());
+            for (FileDTO fileDTO : fileDTOs) {
+                fileDTO.setBoardId(board.getId());
+            }
+            fileList.addAll(fileDTOs);
+        }
+        model.addAttribute("fileList", fileList);
+        model.addAttribute("fileCountMap", fileService.getFileCountMap(fileList));
 
         //비밀글을 위한 정보 가져오기
         String id = principal.getName();
@@ -108,67 +96,72 @@ public class NoticeController {
         return "admin/board/list";
     }
 
+    @PostMapping("/fileList")
+    @ResponseBody
+    public List<Long> getFileList(@RequestBody Map<String, Long> requestBody) {
+
+        Long boardId = requestBody.get("boardId");
+        List<Long> fileIds = fileService.getFileIdsByBoardId(boardId);
+        return fileIds;
+    }
+
     @GetMapping("/read")
     public String readNotice(Long id, Model model, Principal principal) {
-        if (id != null) {
-            BoardDTO boardDTO = boardService.findById(id);
-            log.info(boardDTO.getWriter());
-            if (boardDTO != null) {
-                FileDTO fileDTO = fileService.getFile(boardDTO.getFileId());
-                //String prin = principal.getName();
-                //String name = memberRepository.findId(prin).getName();
-                String name = memberService.getNameById(boardDTO.getWriter());
-                model.addAttribute("name", name);
-                model.addAttribute("principal", principal);
-                model.addAttribute("fileList", fileDTO);
-                model.addAttribute("boardList", boardDTO);
-            } else {
-                log.info("fileDTO" + fileService);
-            }
-        }
+        BoardDTO boardDTO = boardService.findById(id);
+        List<FileDTO> files = fileService.findByBoardId(id);
+
+        model.addAttribute("principal", principal);
+        model.addAttribute("boardList", boardDTO);
+        model.addAttribute("files",files);
+
         return "admin/board/read";
     }
 
     @GetMapping("/register")
     public String registerForm(Model model, Principal principal) {
-        //String name = memberService.getMemberName(principal);
         String name = principal.getName();
         model.addAttribute("name", name);
         return "admin/board/register";
     }
 
     @PostMapping("/register")
-    public String noticeRegister(@Valid BoardDTO boardDTO,
-                                 BindingResult bindingResult,
-                                 RedirectAttributes redirectAttributes,
-                                 Model model,
-                                 @RequestParam("file") MultipartFile files) {
+    public String noticeRegister(@Valid BoardDTO boardDTO, Model model, @RequestParam("files") MultipartFile[] files) {
         try {
-            String originFilename = files.getOriginalFilename();
-            String filename = new MD5Generator(originFilename).toString();
-            String savePath = System.getProperty("user.dir") + "/files/";
-            if(!new File(savePath).exists()) {
-                try {
-                    new File(savePath).mkdirs();
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            String filePath = savePath + filename;
-
-            files.transferTo(new File(filePath));
-
-            FileDTO fileDTO = new FileDTO();
-            fileDTO.setOriginFileName(originFilename);
-            fileDTO.setFileName(filename);
-            fileDTO.setFilePath(filePath);
-
-            Long fileId = fileService.saveFile(fileDTO);
-            boardDTO.setFileId(fileId);
             boardDTO.setWriter(boardDTO.getWriter());
             boardDTO.setBoardType("NOTICE");
-            boardService.register(boardDTO);
+            boardDTO.setPinned(boardDTO.isPinned());
+            boardDTO.setPrivated(boardDTO.isPrivated());
+            Long boardId = boardService.register(boardDTO);
+
+            List<FileDTO> uploadFiles = new ArrayList<>();
+
+            for (MultipartFile file : files) {
+                if (!file.isEmpty()) {
+                    String originFilename = file.getOriginalFilename();
+                    String filename = new MD5Generator(originFilename).toString();
+                    String savePath = System.getProperty("user.dir") + "/files/";
+
+                    if (!new File(savePath).exists()) {
+                        try {
+                            new File(savePath).mkdirs();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    String filePath = savePath + filename;
+
+                    file.transferTo(new File(filePath));
+
+                    FileDTO fileDTO = new FileDTO();
+                    fileDTO.setOriginFileName(originFilename);
+                    fileDTO.setFileName(filename);
+                    fileDTO.setFilePath(filePath);
+                    fileDTO.setBoardId(boardId);
+
+                    uploadFiles.add(fileDTO);
+                }
+            }
+            List<Long> fileIds = fileService.saveFiles(uploadFiles);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -180,124 +173,97 @@ public class NoticeController {
     @GetMapping("/modify")
     public String noticeEditForm(Model model, Long id) {
         BoardDTO boardDTO = boardService.getBoard(id);
-        FileDTO fileDTO = fileService.getFile(boardDTO.getFileId());
+        List<FileDTO> fileList = fileService.findByBoardId(id);
 
-        model.addAttribute("fileList", fileDTO);
         model.addAttribute("boardDTO", boardDTO);
+        model.addAttribute("fileList", fileList);
         return "admin/board/edit";
     }
 
     @PostMapping("/modify/{id}")
-    public String noticeEdit(@PathVariable("id") Long id, @Valid BoardDTO boardDTO,
-                             BindingResult bindingResult,
-                             RedirectAttributes redirectAttributes,
-                             Model model,
-                             @RequestParam(value = "file", required = false) MultipartFile files){
-//        try {
-//            String originFilename = files.getOriginalFilename();
-//            String filename = new MD5Generator(originFilename).toString();
-//            String savePath = System.getProperty("user.dir") + "/files/";
-//            if(!new File(savePath).exists()) {
-//                try {
-//                    new File(savePath).mkdirs();
-//                }
-//                catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//            String filePath = savePath + filename;
-//
-//            files.transferTo(new File(filePath));
-//
-//            FileDTO fileDTO = new FileDTO();
-//            fileDTO.setOriginFileName(originFilename);
-//            fileDTO.setFileName(filename);
-//            fileDTO.setFilePath(filePath);
-//
-//            Long fileId = fileService.saveFile(fileDTO);
-//
-//            BoardDTO boardDTO1 = boardService.getBoard(id);
-//            boardDTO1.setTitle(boardDTO.getTitle());
-//            boardDTO1.setContent(boardDTO.getContent());
-//            boardDTO1.setPinned(boardDTO.isPinned());
-//            boardDTO1.setPrivated(boardDTO.isPrivated());
-//            boardDTO1.setFileId(fileId);
-//            boardService.modify(boardDTO1);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+    public String noticeEdit(@PathVariable("id") Long id, @Valid BoardDTO boardDTO, @RequestParam("files") MultipartFile[] files){
+
+        List<FileDTO> existingFiles = fileService.findByBoardId(id);
+        for (FileDTO file : existingFiles) {
+            file.setBoardId(id);
+        }
+
         try {
-            // 파일이 존재하는 경우에만 파일을 업로드하고 처리
-            if (files != null && !files.isEmpty()) {
-                String originFilename = files.getOriginalFilename();
-                String filename = new MD5Generator(originFilename).toString();
-                String savePath = System.getProperty("user.dir") + "/files/";
-                if (!new File(savePath).exists()) {
-                    try {
-                        new File(savePath).mkdirs();
-                    } catch (Exception e) {
-                        e.printStackTrace();
+            BoardDTO boardDTO1 = boardService.getBoard(id);
+            boardDTO1.setTitle(boardDTO.getTitle());
+            boardDTO1.setContent(boardDTO.getContent());
+            boardDTO1.setPinned(boardDTO.isPinned());
+            boardDTO1.setPrivated(boardDTO.isPrivated());
+            boardDTO1.setWriter(boardDTO.getWriter());
+            boardDTO1.setBoardType("NOTICE");
+            boardService.modify(boardDTO1);
+
+            List<FileDTO> uploadFiles = new ArrayList<>();
+            for (MultipartFile file : files) {
+                if (!file.isEmpty()) {
+                    String originFilename = file.getOriginalFilename();
+                    String filename = new MD5Generator(originFilename).toString();
+                    String savePath = System.getProperty("user.dir") + "/files/";
+
+                    if (!new File(savePath).exists()) {
+                        try {
+                            new File(savePath).mkdirs();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
+                    String filePath = savePath + filename;
+
+                    file.transferTo(new File(filePath));
+
+                    FileDTO fileDTO = new FileDTO();
+                    fileDTO.setOriginFileName(originFilename);
+                    fileDTO.setFileName(filename);
+                    fileDTO.setFilePath(filePath);
+                    fileDTO.setBoardId(id);
+
+                    uploadFiles.add(fileDTO);
                 }
-                String filePath = savePath + filename;
-
-                files.transferTo(new File(filePath));
-
-                // 새로운 파일 정보를 생성하여 저장
-                FileDTO fileDTO = new FileDTO();
-                fileDTO.setOriginFileName(originFilename);
-                fileDTO.setFileName(filename);
-                fileDTO.setFilePath(filePath);
-
-                Long fileId = fileService.saveFile(fileDTO);
-
-                // 기존 게시글 정보를 가져와서 새로운 파일 정보를 적용하여 수정
-                BoardDTO boardDTO1 = boardService.getBoard(id);
-                boardDTO1.setTitle(boardDTO.getTitle());
-                boardDTO1.setContent(boardDTO.getContent());
-                boardDTO1.setPinned(boardDTO.isPinned());
-                boardDTO1.setPrivated(boardDTO.isPrivated());
-                boardDTO1.setFileId(fileId);
-                boardService.modify(boardDTO1);
-            } else {
-                // 파일이 없는 경우에는 그대로 기존 파일을 유지하고 수정
-                BoardDTO boardDTO1 = boardService.getBoard(id);
-                boardDTO1.setTitle(boardDTO.getTitle());
-                boardDTO1.setContent(boardDTO.getContent());
-                boardDTO1.setPinned(boardDTO.isPinned());
-                boardDTO1.setPrivated(boardDTO.isPrivated());
-                boardService.modify(boardDTO1);
             }
+
+            List<FileDTO> allFiles = new ArrayList<>();
+            allFiles.addAll(existingFiles);
+            allFiles.addAll(uploadFiles);
+
+            List<Long> fileIds = fileService.saveFiles(allFiles);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return "redirect:/notice/read?id="+id;
     }
 
-    @RequestMapping(value = "/remove", method = {RequestMethod.GET, RequestMethod.POST})
-    public String remove(Long id, RedirectAttributes redirectAttributes) {
-        log.info("remove post.. " + id);
-        boardService.remove(id);
-        redirectAttributes.addFlashAttribute("result", "removed");
+    @PostMapping("/deleteFile")
+    @ResponseBody
+    public ResponseEntity<String> deleteFile(@RequestBody Map<String, Long> requestBody) {
+
+        Long fileId = requestBody.get("fileId");
+
+        try {
+            fileService.deleteFile(fileId);
+            return ResponseEntity.ok().body("파일이 성공적으로 삭제되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("파일 삭제 중 오류가 발생했습니다.");
+        }
+    }
+
+    @PostMapping("/remove")
+    public String remove(Long id, boolean deleteType) {
+
+        BoardDTO board = boardService.getBoard(id);
+
+        board.setDeleteType(deleteType);
+        boardService.modify(board);
+
         return "redirect:/notice/list";
     }
 
-    private void removeFiles(List<String> files) {
-        for (String fileName:files) {
-            Resource resource = new FileSystemResource(uploadPath + File.separator + fileName);
-            String resourceName = resource.getFilename();
-            try {
-                String contentType = Files.probeContentType(resource.getFile().toPath());
-                resource.getFile().delete();
-                if (contentType.startsWith("image")) {
-                    File thumbnailFile = new File(uploadPath + File.separator+"s_"+ fileName);
-                    thumbnailFile.delete();
-                }
-            } catch (Exception e) {
-                log.error(e.getMessage());
-            }
-        }
-    }
 
 //   --------------------------------------클래스 공지사항 --------------------------
 //    @GetMapping(value = {"/class/list"})
