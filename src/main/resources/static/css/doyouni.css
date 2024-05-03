@@ -117,8 +117,7 @@
     box-shadow: 5px 15px 30px rgba(173, 216, 230, 0.8);
 }
 .user_index section a.btnView {
-    background: linear-gradient(45deg, #53ecec, #38cfe5);
-    box-shadow: 5px 10px 20px rgba(71, 236, 236, 0.49);
+    background: black;
 }
 
 /* 메인 공지사항 */

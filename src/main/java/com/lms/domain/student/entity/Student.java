@@ -23,13 +23,13 @@ public class Student extends BaseEntity {
     private String cert;            //자격증
 
     @Column(nullable = true)
-    private String univ;            //대학교
+    private String univ;            //최종학력
 
     @Column(nullable = true)
     private String major;            //학과
 
     @Column(nullable = true)
-    private String job_program;            //국취참여여부
+    private String job_program;     //국취취업제도 참여 여부
 
     @Column(nullable = true)
     private String fund;            //지원센터

@@ -16,6 +16,7 @@
   --c-main_back: #EEF1F6;
   --c-main_white: #F6F9FC;
   --c-font_gray: #525354;
+  --c-disable: #e4e4e4;
 
   --c-back_lightgray: rgba(221, 221, 221, 1);
   --c-back_black: rgba(41, 41, 41, 1);
@@ -35,9 +36,9 @@
   --c-red-hover: #aa3545;
   --c-orange: #fd7e14;
   --c-yellow: #ffc107;
-  --c-green: #1d975d;
+  --c-green: #66b992;
   /*--c-green: #198754;*/
-  --c-green-hover: #12613d;
+  --c-green-hover: #338962;
   --c-blue: #0d6efd;
   --c-indigo: #6610f2;
   --c-purple: #6f42c1;
@@ -125,7 +126,7 @@ input, textarea, select {
 input, select {
   height: 50px;
   border: 1px solid;
-  padding: 14px 10px 10px;
+  padding: 12px 10px 10px;
 }
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,

@@ -19,13 +19,13 @@ public class StudentDTO{
     private String cert;            //자격증
 
 
-    private String univ;            //대학교
+    private String univ;            //최종학력
 
     
     private String major;            //학과
 
     
-    private String job_program;      //국취참여여부
+    private String job_program;      //국취취업제도 참여 여부
 
     
     private String fund;            //지원센터
