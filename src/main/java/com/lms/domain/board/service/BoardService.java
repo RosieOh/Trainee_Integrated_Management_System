@@ -13,7 +13,6 @@ public interface BoardService {
 
     public BoardDTO findById(Long id);
     //public List<BoardDTO> findAll(BoardDTO boardDTO);
-    List<BoardDTO> findNoticeAll();
 
     // test
     public List<Board> boardList();
@@ -34,7 +33,7 @@ public interface BoardService {
     public int countPinned(List<BoardDTO> boardDTOList);
 
     //-------------------클래스 공지사항---------------------------
-    List<BoardDTO> classNoticeAll(Long cno); //클래스 별 공지사항 리스트
+    public Page<Board> classNoticeAll(String keyword, Integer cno, Pageable pageable); //클래스 별 공지사항 리스트
 
     //검색 기능 및 페이징 추가
     public Page<Board> searchNotice(String keyword, Integer cno, Pageable pageable);

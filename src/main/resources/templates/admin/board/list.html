@@ -126,12 +126,11 @@
                 <th:block th:replace="~{include/page :: paginationNoti(pageLink=@{'/notice/list'})}"></th:block>
             </th:block>
 
-            <th:block sec:authorize="hasAuthority('ADMIN')">
-                <div class="btn_group_right">
-                    <a th:href="@{/notice/register}" class="board_btn select_btn">글쓰기</a>
-                </div>
-            </th:block>
-        </div>
-    </div>
-
+          <th:block sec:authorize="hasAuthority('ADMIN') or hasAuthority('MANAGER')">
+            <div class="btn_group_right">
+              <a th:href="@{/notice/register}" class="board_btn select_btn">글쓰기</a>
+            </div>
+          </th:block>
+      </div>
+  </div>
 </div>
