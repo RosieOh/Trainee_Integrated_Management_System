@@ -7,7 +7,12 @@
 <div layout:fragment="content">
     <div class="admin-content">
         <div class="admin_box ">
-            <h2>[[${courseName}]] <span class="notice_flag">[[${flag}]] </span> 게시판</h2>
+            <th:block sec:authorize="hasAuthority('TEACHER') or hasAuthority('STUDENT')">
+                <h2>[[${courseName}]] <span class="notice_flag">[[${flag}]] </span> 게시판</h2>
+            </th:block>
+            <th:block sec:authorize="hasAuthority('ADMIN') or hasAuthority('MANAGER')">
+                <h2>클래스 게시판</h2>
+            </th:block>
             <table class="table_set">
                 <div th:replace="~{include/search :: searchNoti('/notice/class/list')}"></div>
                 <thead>
@@ -20,7 +25,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="notice, about :${boardList}">
+                <tr th:if="${!boardList.isEmpty()}" th:each="notice, about :${boardList}">
                     <!-- pinned가 1이면 필독 아니면 그냥 숫자 -->
                     <td th:if="${notice.pinned == true}" ><p class="board_pin">필독</p></td>
                     <td th:if="${notice.pinned != true}" th:text="${about.count - pinnedCount}"></td>
@@ -39,14 +44,58 @@
                     <td th:text="${notice.writer}"></td>
                     <td th:text="${#temporals.format(notice.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
 
-                    <!--                    파일 유무에 따른 if문-->
-                    <td th:if="${fileList[about.index].id == notice.fileId and fileList[about.index].originFileName == ''}">
+                    <td class="fileDownload" th:if="${fileCountMap[notice.id] gt 0}">
+                        <i class="fas fa-window-maximize" onclick="downloadFiles(this)" ></i>[[${fileCountMap[notice.id]}]]
+                        <input type="hidden" name="boardId" th:value="${notice.id}" >
                     </td>
-                    <td th:if="${fileList[about.index].id == notice.fileId and fileList[about.index].originFileName != ''}">
-                        <a th:href="@{'/download/' + ${fileList[about.index].id}}">
-                            <i class="fas fa-window-maximize"></i>
-                        </a>
-                    </td>
+                    <script th:inline="javascript">
+                        function downloadFiles(element) {
+                            var fileDownload = element.parentNode;
+                            var boardIdValue = fileDownload.querySelector('input[name="boardId"]').value;
+
+                            console.log(boardIdValue);
+
+                            let data = JSON.stringify({"boardId": boardIdValue});
+                            $.ajax({
+                                url: "/notice/fileList",
+                                type: "post",
+                                contentType: "application/json",
+                                dataType: "json",
+                                data: data,
+                                success: function(result) {
+                                    console.log("HI:"+result);
+                                    handleFileList(result);
+                                },
+                                error: function(res) {
+                                    alert(" 잠시 후 다시 시도해주세요.");
+                                    console.log(res.responseText);
+                                }
+                            })
+                        }
+
+                        function handleFileList(result) {
+
+                            var iframe = $('<iframe>', { style: 'display: none' })[0];
+                            $('body').append(iframe);
+
+                            result.forEach(function(fileId, index) {
+                                setTimeout(function() {
+                                    var downloadUrl = '/download/' + fileId;
+                                    console.log("다운주소"+downloadUrl);
+
+                                    var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+                                    var downloadLink = iframeDocument.createElement('a');
+                                    downloadLink.href = downloadUrl;
+                                    iframeDocument.body.appendChild(downloadLink);
+                                    downloadLink.click();
+
+                                    if (index === result.length) {
+                                        $(iframe).remove();
+                                    }
+                                }, 100 * index);
+                            });
+                        }
+                    </script>
                 </tr>
                 </tbody>
             </table>
