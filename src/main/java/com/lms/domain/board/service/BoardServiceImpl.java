@@ -84,23 +84,6 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void register(BoardDTO boardDTO) {
-        log.info(boardDTO.getBoardType());
-        Board board = Board.builder()
-                .id(boardDTO.getId())
-                .title(boardDTO.getTitle())
-                .content(boardDTO.getContent())
-                .boardType(boardDTO.getBoardType())
-                .writer(boardDTO.getWriter())
-                .fileId(boardDTO.getFileId())
-                .pinned(boardDTO.isPinned())
-                .privated(boardDTO.isPrivated())
-                .cno(boardDTO.getCno())
-                .build();
-        boardRepository.save(board);
-    }
-
-    @Override
     public void modify(BoardDTO boardDTO) {
         Board board = modelMapper.map(boardDTO, Board.class);
         board.change(boardDTO.getTitle(), boardDTO.getContent(), boardDTO.isPinned(), boardDTO.isPrivated());
@@ -114,6 +97,23 @@ public class BoardServiceImpl implements BoardService {
         Board board = result.orElseThrow();
         BoardDTO boardDTO = modelMapper.map(board, BoardDTO.class);
         return boardDTO;
+    }
+
+    @Override
+    public Long register(BoardDTO boardDTO) {
+        log.info(boardDTO.getBoardType());
+        Board board = Board.builder()
+                .id(boardDTO.getId())
+                .title(boardDTO.getTitle())
+                .content(boardDTO.getContent())
+                .boardType(boardDTO.getBoardType())
+                .writer(boardDTO.getWriter())
+                .pinned(boardDTO.isPinned())
+                .privated(boardDTO.isPrivated())
+                .cno(boardDTO.getCno())
+                .build();
+        boardRepository.save(board);
+        return board.getId();
     }
 
 
@@ -238,5 +238,6 @@ public class BoardServiceImpl implements BoardService {
             throw new IllegalArgumentException("Board not found with id: " + boardId);
         }
     }
+
 
 }

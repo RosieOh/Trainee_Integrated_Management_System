@@ -34,6 +34,7 @@
     align-items: center;
     height: 86px;
     color: var(--c-font_gray);
+    margin-bottom: 35px;
 }
 
 .file_input input{
@@ -42,7 +43,6 @@
     box-shadow: none;
     cursor: pointer;
     background-color: #f1f1f1;
-    border-radius: 11px;
 
 }
 .file_input label {
