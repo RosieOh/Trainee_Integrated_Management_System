@@ -18,7 +18,7 @@
     border-collapse: collapse;
     background-color: white;
     text-align: start;
-    height: 900px;
+    padding: 0px 0px 20px;
 }
 
 .board_detail tbody tr {

@@ -5,6 +5,8 @@ import com.lms.domain.Course.service.CourseService;
 import com.lms.domain.board.dto.BoardDTO;
 import com.lms.domain.board.entity.Board;
 import com.lms.domain.board.service.BoardService;
+import com.lms.domain.comment.dto.CommentDTO;
+import com.lms.domain.comment.service.CommentService;
 import com.lms.domain.file.dto.FileDTO;
 import com.lms.domain.file.service.FileService;
 import com.lms.domain.member.dto.MemberDTO;
@@ -16,6 +18,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.mapstruct.ap.shaded.freemarker.core.Comment;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -51,6 +54,7 @@ public class NoticeController {
     private final BoardService boardService;
     private final CourseService courseService;
     private final FileService fileService;
+    private final CommentService commentService;
 
     @GetMapping(value = {"/list"})
     public String noticeListAll(Model model, HttpServletRequest request, @PageableDefault(page = 0, size = 10, sort = "title", direction = Sort.Direction.DESC) Pageable pageable,
@@ -299,9 +303,7 @@ public class NoticeController {
         //비밀글을 위한 정보 가져오기
         log.info(String.valueOf(memberDTO));
         model.addAttribute("memberDTO", memberDTO);
-        for (Board board : boardList.getContent()) {
-            log.info("게시물 ID: " + board.getId() + ", 제목: " + board.getTitle());
-        }
+
         return "user/class/notice/list";
     }
 
@@ -316,6 +318,10 @@ public class NoticeController {
         model.addAttribute("boardDTO", boardDTO);
         model.addAttribute("files", files);
         model.addAttribute("memberDTO", memberDTO);
+
+        //댓글 리스트 불러오기
+        List<CommentDTO> commentDTOList = commentService.findCommentList(boardDTO.getId());
+        model.addAttribute("cmList", commentDTOList);
 
         return "user/class/notice/read";
     }
@@ -510,6 +516,5 @@ public class NoticeController {
         model.addAttribute("message", "글 작성이 완료되었습니다.");
         return "redirect:/notice/class/list";
     }
-
 
 }
