@@ -11,7 +11,7 @@
             <div class="admin_box flex_center">
                 <div class="board_in">
                 <h2>공지사항 수정</h2>
-                <form th:action="@{/notice/modify/{id}(id=${boardDTO.id})}" method="post" enctype="multipart/form-data">
+                <form th:action="@{/notice/modify/{id}(id=${boardDTO.id})}" method="post" enctype="multipart/form-data" >
                         <div class="notice_container" >
                             <div class="notice_box">
                                 <label for="titleNotice">제목</label>
