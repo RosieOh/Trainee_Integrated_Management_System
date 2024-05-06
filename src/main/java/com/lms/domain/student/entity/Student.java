@@ -1,8 +1,11 @@
 package com.lms.domain.student.entity;
 
+import com.lms.domain.student.service.StudentConveter;
 import com.lms.global.cosntant.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -54,7 +57,16 @@ public class Student extends BaseEntity {
     private String exp;             //경력
 
     @Column(nullable = true)
-    private String OA;              // Word/PPT/Excel
+    private String excel;              // /Excel
+
+    @Column(nullable = true)
+    private String ppt;              // PPT
+
+    @Column(nullable = true)
+    private String word;              // Word
+
+    @Column(nullable = true)
+    private String hwp;              // 한글
 
     @Column(nullable = true)
     private String satis;           // 전반적 만족도
@@ -80,17 +92,16 @@ public class Student extends BaseEntity {
     @Column(nullable = true)
     private String personal;        // 성격 및 태도
 
-    @Column(nullable = true)
-    private String score;        // 벌점
+//    @Column(nullable = true)
+//    private String score;        // 벌점
 
-    @Column(nullable = true)
-    private String score_date;        // 벌점 날짜
+    @Convert(converter = StudentConveter.class)
+    @Column(nullable = true, length = 1000)
+    private List<String> score;        // 벌점
 
-    @Column(nullable = true)
-    private String accident;         // 사고
-
-    @Column(nullable = true)
-    private String reason;         // 벌점
+    @Convert(converter = StudentConveter.class)
+    @Column(nullable = true, length = 1000)
+    private List<String> accident;        // 사고
 
     @Column(nullable = true)
     private String education;         // 교육 수료
@@ -116,10 +127,10 @@ public class Student extends BaseEntity {
     @Column(nullable = true)
     private String disease;         // 질병
 
-    @Column(nullable = true)
+    @Column(nullable = true, length = 1000)
     private String opinion;         // 종합 의견
 
-    @Column(nullable = true)
+    @Column(nullable = true, length = 1000)
     private String content;         // 상담내용
 
     @Column(nullable = true)

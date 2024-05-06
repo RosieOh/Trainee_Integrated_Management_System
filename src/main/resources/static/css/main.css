@@ -1,11 +1,9 @@
 /* main */
 
 .main {
-    overflow: hidden;
     display: flex;
     background-color: var(--c-main_back);
 }
-
 
 .container {
     position: relative;
@@ -187,8 +185,7 @@
     font-size: 1.75rem;
 }
 .admin-board {
-    width: 100%;
-    min-width: 1750px;
+    width: 1750px;
     padding-top: 78px;
     overflow: hidden;
 

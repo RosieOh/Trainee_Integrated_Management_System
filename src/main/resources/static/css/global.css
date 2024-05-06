@@ -203,7 +203,11 @@ tr:last-child td {
   cursor: not-allowed;
 }
 
-
+.em_text em{
+  font-size: 80%;
+  color: var(--c-back_gray);
+  font-style: normal;
+}
 /*[type="checkbox"] {*/
 /*  appearance: none;*/
 /*  border: max(2px, 0.1em) solid var(--c-back_gray);*/

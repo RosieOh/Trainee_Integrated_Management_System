@@ -128,6 +128,7 @@ public class NoticeController {
         return "admin/board/register";
     }
 
+
     @PostMapping("/register")
     public String noticeRegister(@Valid BoardDTO boardDTO, Model model, @RequestParam("files") MultipartFile[] files) {
         try {

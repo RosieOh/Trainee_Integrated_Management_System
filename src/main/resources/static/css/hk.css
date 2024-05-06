@@ -257,7 +257,7 @@
 }
 .admin_content {
     background-color: #ffffff;
-    width: 80%;
+    width: 90%;
     padding: 25px 40px;
     margin : 0 auto;
 }
@@ -331,6 +331,16 @@
     width: 49%;
     display: inline-block;
 }
+
+.admin_info_box_in2 {
+    width: 22%;
+    display: inline-block;
+}
+
+.admin_info_box_in2 label{
+    line-height: 15px;
+}
+
 .admin_info_box label {
     line-height: 15px;
 }
@@ -341,7 +351,9 @@
     color: var(--c-font_gray);
     height: 45px;
 }
-
+.admin_info_box textarea {
+    resize: none;
+}
 .admin_info_select {
     margin: 5px 0;
     font-size: 14px;
@@ -358,6 +370,48 @@
     margin-bottom: 5px;
 }
 
+.score_box {
+    margin-top: 20px;
+}
+.score_box label {
+    font-size: 120%;
+    font-weight: bold;
+}
+.score_title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.score_title input {
+    width: 300px;
+}
+.score_in {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-top: 15px;
+}
+.score_in textarea {
+    resize: none;
+    width: 80%;
+    border: none;
+    box-shadow:none;
+    min-height: 7rem;
+    padding: 0 10px;
+    :hover {
+        border: none;
+    }
+}
+.score_in textarea:active {
+    border: none;
+    box-shadow: none;
+}
+.score_in textarea:focus {
+    border: none;
+    box-shadow: none;
+}
 .admin_textarea {
     font-size: 90%;
     margin: 5px 0 0;
