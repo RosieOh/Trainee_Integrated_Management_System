@@ -25,6 +25,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -118,7 +119,13 @@ public class AdminController {
     public String member_read(Model model,Long no){
         MemberDTO member = memberService.member_read(no);
         StudentDTO studentDTO = studentService.student_read(no);
+
+        List<String> scores = studentDTO.getScore();
+        List<String> accident = studentDTO.getAccident();
+
         model.addAttribute("member", member);
+        model.addAttribute("scores", scores);
+        model.addAttribute("accident", accident);
         model.addAttribute("studentDTO", studentDTO);
         return "admin/member/read";
     }
