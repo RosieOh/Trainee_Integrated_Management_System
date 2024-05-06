@@ -184,8 +184,10 @@
     left: 150px;
     font-size: 1.75rem;
 }
+
 .admin-board {
-    width: 1750px;
+    min-width: 1750px;
+    width: 100%;
     padding-top: 78px;
     overflow: hidden;
 
@@ -219,6 +221,7 @@
     min-height: calc(100vh - 310px);
     padding: 2rem 0;
     overflow-x: hidden;
+    background-color: var(--c-main_back);
 }
 
 .admin-content_box {

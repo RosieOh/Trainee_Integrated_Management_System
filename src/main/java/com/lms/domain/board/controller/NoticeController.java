@@ -62,6 +62,7 @@ public class NoticeController {
         model.addAttribute("course_big_List", course_big_List);
         model.addAttribute("course_full_List", course_full_List);
         model.addAttribute("course_pm_List", course_pm_List);
+        log.info("코스확인"+course_big_List);
 
         Page<Board> boardList = boardService.searchNotice(keyword, cno, pageable);
         int pinnedCount = boardService.countPinnedPaging(boardList);
