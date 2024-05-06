@@ -63,6 +63,37 @@
               <a class="board_btn select_btn" th:href="@{/notice/class/list}">목록으로</a>
             </div>
           </th:block>
+          <div class="comment-area">
+            <!-- 댓글 입력 창 -->
+            <form th:action="@{/comment/commentInsert}" method="post"  enctype="multipart/form-data">
+              <div class="btn-container">
+                <input type="hidden" name="bid" th:value="${boardDTO.id}" required/>
+                <input type="hidden" name="writer" th:value="${memberDTO.id}" required/>
+                <textarea class="comment-textarea" rows="3" type="text" name="content" required placeholder="댓글을 입력하세요..."></textarea>
+                <button class="btn" onclick="submitComment()">등록</button>
+              </div>
+            </form>
+            <!-- 이미 존재하는 댓글 목록 -->
+            <ul class="comment-list">
+              <li th:if="${!cmList.isEmpty()}" th:each="comment, about :${cmList}" class="comment btn-container">
+                <div>
+                  <div class="comment-author">[[${comment.writer}]] | [[${#temporals.format(comment.createdTime, 'yyyy-MM-dd HH:mm')}]]</div>
+                  <div class="comment-body">[[${comment.content}]]</div>
+                </div>
+                <th:block th:if="${memberDTO.id == comment.writer } or ${#authorization.expression('hasAuthority(''ADMIN'')')}">
+                  <form th:action="@{/comment/commentRemove(id=${comment.id})}" method="post" class="deleteForm">
+                    <input type="hidden" name="deleteType" value="true">
+                    <button class="btn btn-delete" onclick="return deleteComment();">삭제</button>
+                  </form>
+                </th:block>
+              </li>
+            </ul>
+            <script>
+              function deleteComment() {
+                return confirm("댓글을 삭제하시겠습니까?");
+              }
+            </script>
+          </div>
         </div>
         </div>
       </div>
