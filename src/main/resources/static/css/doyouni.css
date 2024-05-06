@@ -339,3 +339,7 @@
 .comment-body {
     margin-top: 5px;
 }
+
+.class-select {
+    width: 400px !important;
+}
