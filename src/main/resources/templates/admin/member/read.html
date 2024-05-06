@@ -108,24 +108,7 @@
                   <label for="personal" >성격 및 태도</label>
                   <input type="text" th:value="${studentDTO.personal}" id="personal" name="personal">
                 </div>
-                <div class="admin_info_box">
-                  <div class="flex_between">
-                    <div class="admin_info_box_in">
-                      <label for="satis" >전반적 만족도</label>
-                      <select name="satis" id="satis" class="select-box admin_info_select">
-                        <option value="1.매우 만족" th:selected="${studentDTO.satis} eq '1.매우 만족'">1.매우 만족</option>
-                        <option value="2.만족" th:selected="${studentDTO.satis} eq '2.만족'">2.만족</option>
-                        <option value="3.보통" th:selected="${studentDTO.satis} eq '3.보통'">3.보통</option>
-                        <option value="4.불만족" th:selected="${studentDTO.satis} eq '4.불만족'">4.불만족</option>
-                        <option value="5.매우 불만족" th:selected="${studentDTO.satis} eq '5.매우 불만족'">5.매우 불만족</option>
-                      </select>
-                    </div>
-                      <div class="admin_info_box_in">
-                        <label for="etc" >기타</label>
-                        <input type="text" th:value="${studentDTO.etc}" id="etc" name="etc">
-                     </div>
-                  </div>
-                </div>
+
                 <div class="admin_info_box">
                   <div class="flex_between">
                     <div class="admin_info_box_in">
@@ -163,10 +146,31 @@
                   <input type="text" th:value="${studentDTO.cert}" id="cert" name="cert">
                 </div>
                 <div class="admin_info_box">
+                  <label for="task" >과제 및 피드백</label>
+                  <input type="text" th:value="${studentDTO.task}" id="task" name="task">
+                </div>
+                <div class="admin_info_box">
+                  <label for="env" >학습환경 및 장비</label>
+                  <input type="text" th:value="${studentDTO.env}" id="env" name="env">
+                </div>
+                <div class="admin_info_box">
+                  <label for="exp" >경력</label>
+                  <input type="text" th:value="${studentDTO.exp}" id="exp" name="exp">
+                  <input type="hidden" name="no" th:value="${studentDTO.no}">
+                </div>
+                <div class="admin_info_box">
+                  <label for="stack" >기술스택</label>
+                  <input type="text" th:value="${studentDTO.stack}" id="stack" name="stack" placeholder="검색해주세요." >
+                  <input type="hidden" name="no" th:value="${studentDTO.no}">
+                </div>
+              </div>
+
+              <div class="admin_info_container2_in">
+                <div class="admin_info_box">
                   <div class="flex_between">
                     <div class="admin_info_box_in">
-                    <label for="univ" >최종학력</label>
-                    <input type="text" th:value="${studentDTO.univ}" id="univ" name="univ">
+                      <label for="univ" >최종학력</label>
+                      <input type="text" th:value="${studentDTO.univ}" id="univ" name="univ">
                     </div>
                     <div class="admin_info_box_in">
                       <label for="major" >학과</label>
@@ -175,27 +179,23 @@
                   </div>
                 </div>
                 <div class="admin_info_box">
-                  <label for="hope" >희망 진로분야</label>
-                  <input type="text" th:value="${studentDTO.hope}" id="hope" name="hope">
+                  <div class="flex_between">
+                    <div class="admin_info_box_in">
+                      <label for="satis" >전반적 만족도</label>
+                      <select name="satis" id="satis" class="select-box admin_info_select">
+                        <option value="1.매우 만족" th:selected="${studentDTO.satis} eq '1.매우 만족'">1.매우 만족</option>
+                        <option value="2.만족" th:selected="${studentDTO.satis} eq '2.만족'">2.만족</option>
+                        <option value="3.보통" th:selected="${studentDTO.satis} eq '3.보통'">3.보통</option>
+                        <option value="4.불만족" th:selected="${studentDTO.satis} eq '4.불만족'">4.불만족</option>
+                        <option value="5.매우 불만족" th:selected="${studentDTO.satis} eq '5.매우 불만족'">5.매우 불만족</option>
+                      </select>
+                    </div>
+                    <div class="admin_info_box_in">
+                      <label for="etc" >기타</label>
+                      <input type="text" th:value="${studentDTO.etc}" id="etc" name="etc">
+                    </div>
+                  </div>
                 </div>
-                <div class="admin_info_box">
-                  <label for="exp" >경력</label>
-                  <input type="text" th:value="${studentDTO.exp}" id="exp" name="exp">
-                  <input type="hidden" name="no" th:value="${studentDTO.no}">
-                </div>
-
-                </div>
-
-              <div class="admin_info_container2_in">
-              <div class="admin_info_box">
-                <label for="stack" >기술스택</label>
-                <input type="text" th:value="${studentDTO.stack}" id="stack" name="stack" placeholder="검색해주세요." >
-                <input type="hidden" name="no" th:value="${studentDTO.no}">
-              </div>
-              <div class="admin_info_box">
-                <label for="education" >교육 수료</label>
-                <input type="text" th:value="${studentDTO.education}" id="education" name="education">
-              </div>
               <div class="admin_info_box">
                 <div class="flex_between">
                   <div class="admin_info_box_in">
@@ -212,16 +212,16 @@
                 </div>
               </div>
                 <div class="admin_info_box">
-                  <label for="task" >과제 및 피드백</label>
-                  <input type="text" th:value="${studentDTO.task}" id="task" name="task">
-                </div>
-                <div class="admin_info_box">
-                  <label for="env" >학습환경 및 장비</label>
-                  <input type="text" th:value="${studentDTO.env}" id="env" name="env">
+                  <label for="education" >교육 수료</label>
+                  <input type="text" th:value="${studentDTO.education}" id="education" name="education">
                 </div>
                 <div class="admin_info_box">
                   <label for="goal" >최종목표</label>
                   <input type="text" th:value="${studentDTO.goal}" id="goal" name="goal">
+                </div>
+                <div class="admin_info_box">
+                  <label for="hope" >희망 진로분야</label>
+                  <input type="text" th:value="${studentDTO.hope}" id="hope" name="hope">
                 </div>
                 <div class="admin_info_box">
                   <label for="doc" >입사지원 서류관련 의견</label>
@@ -311,6 +311,7 @@
                   </div>
                 </th:block>
                   <th:block th:each="scores, about :${scores}">
+                    <th:block th:if="${!#strings.equals(scores, '내용없음')}">
                       <div class="score_in" th:id="'score_remove'+${about.count}">
                         <div th:text="${about.count}"></div>
                         <textarea name="score" id="score" readonly>[[${scores}]]</textarea>
@@ -318,6 +319,7 @@
                           <button type="button" class="inline_form_btn cancel_btn" th:com="'score_remove'+${about.count }" onclick="Remove_score(this.getAttribute('com'))">삭제<i class="fas fa-pencil-alt"></i></button>
                         </div>
                       </div>
+                    </th:block>
                   </th:block>
                   <div id="score_add"></div>
               </div>
@@ -341,6 +343,7 @@
                   </div>
                 </th:block>
                 <th:block th:each="accident, about :${accident}">
+                  <th:block th:if="${!#strings.equals(accident, '내용없음')}">
                   <div class="score_in" th:id="'accident_remove'+${about.count}">
                     <div th:text="${about.count}"></div>
                     <textarea name="accident" id="accident" readonly>[[${accident}]]</textarea>
@@ -348,6 +351,7 @@
                       <button type="button" class="inline_form_btn cancel_btn" th:com="'accident_remove'+${about.count }" onclick="Remove_accident(this.getAttribute('com'))">삭제<i class="fas fa-pencil-alt"></i></button>
                     </div>
                   </div>
+                  </th:block>
                 </th:block>
                 <div id="accident_add"></div>
               </div>
