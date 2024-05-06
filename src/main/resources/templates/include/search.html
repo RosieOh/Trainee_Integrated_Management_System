@@ -229,7 +229,7 @@
     <form id="search-form2" role="search" method="get" style="display: none">
         <span class="searchTotal">전체 <strong>[[${searchTotal}]]</strong>건의 결과</span>
         <div class="search-select">
-            <select name="cno" id="cno" class="custom-select">
+            <select name="cno" id="cno" class="custom-select class-select">
                 <option value="">==전체과정==</option>
                 <th:block th:each="course_big : ${course_big_List}">
                     <option th:value="${course_big.getNo()}" th:text="'프로젝트 기반 빅데이터 서비스 개발자 양성'+' '+ ${course_big.flag} + '기'"></option>

@@ -1,6 +1,8 @@
 package com.lms.domain.board.service;
 
 
+import com.lms.domain.Course.entity.Course;
+import com.lms.domain.Course.entity.QCourse;
 import com.lms.domain.Course.repository.CourseRepository;
 import com.lms.domain.board.dto.BoardDTO;
 import com.lms.domain.board.entity.Board;
@@ -27,10 +29,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Log4j2
@@ -206,8 +205,6 @@ public class BoardServiceImpl implements BoardService {
             where.and(QBoard.board.title.containsIgnoreCase(keyword));
         }
 
-
-
         // cno가 null이 아니면서 mcno가 1이면 cno가 1 이상인 것들만 필터링
         if (cno != null && mcno != null && mcno == 1) {
             where.and(QBoard.board.cno.eq(Long.valueOf(cno)));
@@ -222,10 +219,19 @@ public class BoardServiceImpl implements BoardService {
         // deleteType이 false인 애들만 필터링 (삭제되지 않은 게시물)
         where.and(QBoard.board.deleteType.eq(false));
 
+        // Course의 delete_type이 'ing'인 경우 해당 cno 가져오기
+        List<Long> courseQuery = queryFactory
+                .selectFrom(QCourse.course)
+                .where(QCourse.course.delete_type.eq("ing"))
+                .select(QCourse.course.no.longValue()) // Integer를 Long으로 변환하여 가져옴
+                .fetch();
+
+        // board의 cno가 Course의 cno와 일치하는 경우 필터링
         // 페이징 처리
         JPAQuery<Board> query = queryFactory
                 .selectFrom(QBoard.board)
                 .where(where)
+                .where(QBoard.board.cno.in(courseQuery))
                 .orderBy(QBoard.board.pinned.desc(), QBoard.board.createdTime.desc());
 
         // 페이징 처리된 결과 반환
