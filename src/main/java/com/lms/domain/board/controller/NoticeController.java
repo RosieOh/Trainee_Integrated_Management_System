@@ -36,6 +36,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
@@ -55,9 +56,9 @@ public class NoticeController {
     public String noticeListAll(Model model, HttpServletRequest request, @PageableDefault(page = 0, size = 10, sort = "title", direction = Sort.Direction.DESC) Pageable pageable,
                                 @RequestParam(required = false) String keyword, @RequestParam(required = false) Integer cno, Principal principal) {
 
-        List<CourseDTO> course_big_List = courseService.course_join_list(Subject.BIGDATA);
-        List<CourseDTO> course_full_List = courseService.course_join_list(Subject.FULLSTACK);
-        List<CourseDTO> course_pm_List = courseService.course_join_list(Subject.PM);
+        List<CourseDTO> course_big_List = courseService.ingSubject(Subject.BIGDATA);
+        List<CourseDTO> course_full_List = courseService.ingSubject(Subject.FULLSTACK);
+        List<CourseDTO> course_pm_List = courseService.ingSubject(Subject.PM);
         model.addAttribute("course_big_List", course_big_List);
         model.addAttribute("course_full_List", course_full_List);
         model.addAttribute("course_pm_List", course_pm_List);
@@ -126,6 +127,7 @@ public class NoticeController {
         model.addAttribute("name", name);
         return "admin/board/register";
     }
+
 
     @PostMapping("/register")
     public String noticeRegister(@Valid BoardDTO boardDTO, Model model, @RequestParam("files") MultipartFile[] files) {
@@ -255,9 +257,9 @@ public class NoticeController {
     public String classNoticeAll(Model model, HttpServletRequest request, @PageableDefault(page = 0, size = 10, sort = "title", direction = Sort.Direction.DESC) Pageable pageable,
                                 @RequestParam(required = false) String keyword, @RequestParam(required = false) Integer cno, Principal principal) {
 
-        List<CourseDTO> course_big_List = courseService.course_join_list(Subject.BIGDATA);
-        List<CourseDTO> course_full_List = courseService.course_join_list(Subject.FULLSTACK);
-        List<CourseDTO> course_pm_List = courseService.course_join_list(Subject.PM);
+        List<CourseDTO> course_big_List = courseService.ingSubject(Subject.BIGDATA);
+        List<CourseDTO> course_full_List = courseService.ingSubject(Subject.FULLSTACK);
+        List<CourseDTO> course_pm_List = courseService.ingSubject(Subject.PM);
         model.addAttribute("course_big_List", course_big_List);
         model.addAttribute("course_full_List", course_full_List);
         model.addAttribute("course_pm_List", course_pm_List);
@@ -298,7 +300,9 @@ public class NoticeController {
         //비밀글을 위한 정보 가져오기
         log.info(String.valueOf(memberDTO));
         model.addAttribute("memberDTO", memberDTO);
-
+        for (Board board : boardList.getContent()) {
+            log.info("게시물 ID: " + board.getId() + ", 제목: " + board.getTitle());
+        }
         return "user/class/notice/list";
     }
 
@@ -448,9 +452,9 @@ public class NoticeController {
     //매니저 & 관리자의 클래스 등록
     @GetMapping("/class/registerAdmin")
     public String registerClassAdminForm(Model model, Principal principal) {
-        List<CourseDTO> course_big_List = courseService.course_join_list(Subject.BIGDATA);
-        List<CourseDTO> course_full_List = courseService.course_join_list(Subject.FULLSTACK);
-        List<CourseDTO> course_pm_List = courseService.course_join_list(Subject.PM);
+        List<CourseDTO> course_big_List = courseService.ingSubject(Subject.BIGDATA);
+        List<CourseDTO> course_full_List = courseService.ingSubject(Subject.FULLSTACK);
+        List<CourseDTO> course_pm_List = courseService.ingSubject(Subject.PM);
         model.addAttribute("course_big_List",course_big_List);
         model.addAttribute("course_full_List",course_full_List);
         model.addAttribute("course_pm_List",course_pm_List);

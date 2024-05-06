@@ -135,6 +135,7 @@
             </ul>
           </div>
         </nav>
+      <a href="#top" class="gotop" id="gotop">▲</a>
       </th:block>
 
         <script>
@@ -154,15 +155,17 @@
                         $(this).find(".user-dropdown_wrap").slideToggle();
                     });
             });
-
-
-
-            //
-            // let dropdown = document.querySelector(".header-dropdown");
-            // dropdown.addEventListener("click", function(){
-            //     this._toggleClass('o')
-            // })
-
+        </script>
+        <script>
+            $(document).ready(function () {
+                $(window).scroll(function () {
+                    if ($(this).scrollTop() > 250) {
+                        $("#gotop").show();
+                    } else {
+                        $("#gotop").hide();
+                    }
+                });
+            });
         </script>
     </th:block>
   </body>

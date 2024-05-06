@@ -15,5 +15,5 @@ public interface CourseService {
     public void course_edit(CourseDTO courseDTO);
     public List<CourseDTO> course_subject_list(Subject subject);
     public void delete_type(CourseDTO courseDTO);
-
+    public List<CourseDTO> ingSubject(Subject subject);
 }

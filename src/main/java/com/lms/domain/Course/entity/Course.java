@@ -44,5 +44,5 @@ public class Course extends BaseEntity {
     private String manager;        //담당 매니저
 
     @ColumnDefault("'n'")
-    private String delete_type;        // 공개여부
+    private String delete_type;        // 공개여부 y== 회원가입 공개, n == 비공개(종강), ing == 진행 중인 강의
 }

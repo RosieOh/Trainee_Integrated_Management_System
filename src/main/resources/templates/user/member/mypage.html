@@ -15,7 +15,7 @@
           <div class="user_tab_title"><a th:href="@{/member/mypage}"><span class="user_tab_border">기본정보</span></a></div>
           <div class="user_tab_title"><a th:href="@{/member/mypage2}"><span >추가정보</span></a></div>
         </div>
-          <form th:action="@{/member/member_edit}" method="post">
+          <form th:action="@{/member/member_edit}" method="post" onsubmit="return modify(this)">
         <div class="user_content">
           <div class="user_content_seperate">
             <div class="user_info_container">
@@ -62,15 +62,16 @@
               <div class="user_info_box infoemail">
                 <label for="email">이메일</label>
                 <div class="myinfo_line">
-                  <input type="text" name="email" id="email" th:value="${member.email }"  />
+                  <input type="text" name="email" id="email" th:value="${member.email }" onchange="emailCheck(this)" required/>
+                  <input type="hidden" name="emailChk" id="emailChk" value="yes" />
                 </div>
               </div>
               <div class="user_info_box">
                 <label for="phone">주소</label>
-                <input type="text" name="addr1" id="addr1" th:value="${member.addr1 }"  />
+                <input type="text" name="addr1" id="addr1" th:value="${member.addr1 }" required />
               </div>
               <div class="user_info_box flex">
-                <input type="text" name="postcode" id="postcode" th:value="${member.postcode }" class="postcodeBtn">
+                <input type="text" name="postcode" id="postcode" th:value="${member.postcode }" class="postcodeBtn" required />
                 <button type="button" id="post_btn" onclick="findAddr()" class="join_btn">우편번호 검색</button>
               </div>
             </div>
@@ -84,56 +85,57 @@
       </div>
     </div>
   <script>
+    let emailChk = document.querySelector("#emailChk");
+
+
+    function emailCheck(obj){
+      email_pattern = /^[0-9a-zA-Z]+@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])+(\.com)$/;
+      email_pattern2 = /^[0-9a-zA-Z]+@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])+(\.co\.kr)$/;
+      if(email_pattern.test(obj.value) == false && email_pattern2.test(obj.value) == false){
+        alert("이메일 주소가 맞지않습니다.")
+        emailChk.value = 'no';
+        obj.focus();
+        return false;
+      } else {
+        emailChk.value = 'yes';
+        return true;
+      }
+    }
+
+
     function modify(f){
-      let phoneval =  $("#phone1").val() + $("#phone2").val() + $("#phone3").val()
-      $("#phone").val(phoneval)
-
-      let emailval =  $("#email1").val() +'@'+ $("#email2").val()
-      $("#email").val(emailval)
-
-      let birthval =  $("#birth1").val() +'년'+ $("#birth2").val() +'월'+ $("#birth3").val() +'일'
-      $("#birth").val(birthval)
-
-      if(f.pw.value!=f.pw2.value){
-        alert("비밀번호와 비밀번호 확인이 서로 다릅니다.");
-        f.pw.focus();
-        return false;
-      }
-      if(f.pw.value.length(8-16)){
-        alert("비밀번호는 최소 8자리에서 최대 16자리까지 숫자, 영문, 특수문자 각 1개 이상 포함해주세요.");
-        f.pw.focus();
-        return false;
+      if(f.emailChk.value != "yes"){
+        alert("이메일이 올바르지 않습니다.")
+        f.email.focus();
+        return false
       }
 
-      let value = $("#pw").val();
-
-      let pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&.,])[A-Za-z\d$@$!%*#?&]{8,16}$"
-      if (!pattern.test(value)) {
-        alert("숫자, 영문, 특수문자 각 1개 이상 포함입니다.");
-        $("#pw").focus();
-        return false;
+      if(f.addr1.value == "" || f.postcode.value ==""){
+        alert("주소가 올바르지 않습니다.")
+        f.addr1.focus();
+        return false
       }
+
+      alert("정보가 변경되었습니다.")
     }
   </script>
   <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-  <script>
-    function findAddr(){
-      new daum.Postcode({
-        oncomplete:function(data){
-          var roadAddr = data.roadAddress;
-          var jibunAddr = data.jibunAddress;
-          var bname = data.bname;
-          document.getElementById("postcode").value = data.zonecode;
-          if(roadAddr !== ''){
-            document.getElementById("addr1").value = roadAddr;
-          } else if(jibunAddr !== ''){
-            document.getElementById("addr1").value = jibunAddr;
+    <script>
+      function findAddr(){
+        new daum.Postcode({
+          oncomplete:function(data){
+            var roadAddr = data.roadAddress;
+            var jibunAddr = data.jibunAddress;
+            var bname = data.bname;
+            document.getElementById("postcode").value = data.zonecode;
+            if(roadAddr !== ''){
+              document.getElementById("addr1").value = roadAddr;
+              // } else if(jibunAddr !== ''){
+              //     document.getElementById("addr1").value = jibunAddr;
+            }
+            // document.getElementById("addr3").value = bname;
           }
-          document.getElementById("addr3").value = bname;
-          // document.getElementById("addr2").focus();
-        }
-      }).open()
-    }
-
-  </script>
+        }).open();
+      }
+    </script>
 </div>

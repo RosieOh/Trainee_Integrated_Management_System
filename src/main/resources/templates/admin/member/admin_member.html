@@ -125,7 +125,7 @@
             <div class="form-login">
               <label>비밀번호<em>*</em></label>
               <input type="password" name="pw" id="pw" placeholder="비밀번호를 입력해주세요." minlength="8" maxlength="16" onchange="pwCheck(this)" required />
-              <p class="info mb-0">비밀번호는 최소 8자리에서 최대 16자리 <br> 숫자, 영문, 특수문자 각 1개 이상 포함</p>
+              <p id="pwmsg" class="no_check">비밀번호는 최소 8자리에서 최대 16자리 <br> 숫자, 영문, 특수문자 각 1개 이상 포함</p>
             </div>
             <div class="form-login">
               <label>비밀번호 확인<em>*</em></label>
@@ -183,6 +183,8 @@
             $("#id").focus();
           } else if(idPass == true){
             $("#idCk").val("yes");
+            $("#id").attr('readonly', true)
+            $("#id").css('background-color', '#e4e4e4')
             if($("#msg").hasClass("no_check")) {
               $("#msg").removeClass("no_check");
             }
@@ -216,9 +218,18 @@
     function pwCheck(obj){
       let pwmsg = document.querySelector('#pwmsg')
       pw_pattern = /^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/;
-      if(pw_pattern.test(obj.value) == false){
-        alert("비밀번호가 맞지않습니다.")
+
+      if(obj.value.length <= 7){
+        alert("비밀번호는 8자리에서 16자리 입력해주셔야 합니다.")
         pwmsg.style.color = "red"
+        obj.value = '';
+        obj.focus();
+        return false;
+      }
+      if(pw_pattern.test(obj.value) == false){
+        alert("비밀번호는 숫자, 영문, 특수문자 각 1개 이상 포함되어야 합니다.")
+        pwmsg.style.color = "red"
+        obj.value = '';
         obj.focus();
         return false;
       } else {

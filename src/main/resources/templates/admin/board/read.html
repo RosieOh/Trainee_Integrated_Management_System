@@ -50,9 +50,14 @@
               <a class="board_btn edit_btn" th:href="@{/notice/modify(id=${boardDTO.id})}">수정하기</a>
               <form th:action="@{/notice/remove(id=${boardDTO.id})}" method="post" class="deleteForm">
                 <input type="hidden" name="deleteType" value="true">
-                <button type="submit" class="board_btn cancel_btn">삭제</button>
+                <button type="submit" class="board_btn cancel_btn" onclick="return confirmDelete();">삭제</button>
               </form>
             </div>
+            <script>
+              function confirmDelete() {
+                return confirm("정말 삭제하시겠습니까?");
+              }
+            </script>
           </th:block>
           <th:block sec:authorize="hasAuthority('STUDENT') or hasAuthority('TEACHER')">
             <div class="btn_group_center">
