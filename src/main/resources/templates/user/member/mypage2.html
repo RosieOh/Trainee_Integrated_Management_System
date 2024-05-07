@@ -59,44 +59,17 @@
                   </div>
                   <div class="file_input">
                     <label for="picture" ><i class="fas fa-file"></i> 사진</label>
-                    <input type="file" class="form-control" name="file" id="fileNotice" onchange="uploadImage()">
+                    <input type="file" class="form-control" name="files" id="fileNotice1" multiple>
                     <input type="hidden" id="picture" name="picture" class="" >
-<!--                    <input type="file" id="picture" name="picture" class="" th:value="${studentDTO.picture}" onchange="uploadImage()">-->
-<!--                    <th:block th:if="${studentDTO.picture != null}">-->
-<!--                      <a th:href="@{'/download/' + ${studentDTO.picture}}">-->
-<!--                        <i class="fas fa-window-maximize"></i>-->
-<!--                      </a>-->
-<!--                    </th:block>-->
-
-<!--                    <th:block th:if="${studentDTO.picture == null}">-->
-<!--                      <input type="file" id="picture" name="picture" class="" value="파일 없음">-->
-<!--                    </th:block>-->
-
                   </div>
                   <div class="file_input">
                     <label for="portfolio" ><i class="fas fa-file"></i> 포트폴리오</label>
-<!--                    <th:block th:if="${studentDTO.portfolio == null}">-->
-<!--                      <input type="file" id="portfolio" name="portfolio" class="" value="파일 없음">-->
-<!--                    </th:block>-->
-<!--                    <th:block th:if="${studentDTO.portfolio != null}">-->
-<!--                      <a th:href="@{'/download/' + ${studentDTO.portfolio}}">-->
-<!--                        <i class="fas fa-window-maximize"></i>-->
-<!--                      </a>-->
-<!--                    </th:block>-->
-                    <input type="file" id="file2" name="file2" class="border_none">
+                    <input type="file" class="form-control" name="files" id="fileNotice2" multiple>
                     <input type="hidden" id="portfolio" name="portfolio" class="border_none">
                   </div>
                   <div class="file_input">
                     <label for="resume" ><i class="fas fa-file"></i> 이력서</label>
-<!--                    <th:block th:if="${studentDTO.resume == null}">-->
-<!--                      <input type="file" id="resume" name="resume" class="" value="파일 없음">-->
-<!--                    </th:block>-->
-<!--                    <th:block th:if="${studentDTO.resume != null}">-->
-<!--                      <a th:href="@{'/download/' + ${studentDTO.resume}}">-->
-<!--                        <i class="fas fa-window-maximize"></i>-->
-<!--                      </a>-->
-<!--                    </th:block>-->
-                    <input type="file" id="file3" name="file3" class="border_none">
+                    <input type="file" class="form-control" name="files" id="fileNotice3" multiple>
                     <input type="hidden" id="resume" name="resume" class="border_none">
                   </div>
                 </div>
@@ -109,21 +82,6 @@
       </div>
       </div>
     </div>
-    <script th:inline="javascript">
-      function uploadImage() {
-        var file = $('#fileNotice')[0].files[0];
-        var formData = new FormData();
-        formData.append('file', file);
-
-        $.ajax({
-          type: 'POST',
-          url: '/upload',
-          data: formData,
-          processData: false,
-          contentType: false
-        })
-      }
-    </script>
     <script>
       const job_program_select = document.querySelector('#job_program_select')
       const job_program = document.querySelector('#job_program')
@@ -143,19 +101,44 @@
       })
     </script>
     <script th:inline="javascript">
-      function uploadImage() {
-        var file = $('#fileNotice')[0].files[0];
-        var formData = new FormData();
-        formData.append('file', file);
 
-        $.ajax({
-          type: 'POST',
-          url: '/upload',
-          data: formData,
-          processData: false,
-          contentType: false
-        })
-      }
+      var fileInput = document.getElementById('fileNotice1');
+
+
+      var maxFiles = 5;
+      fileInput.addEventListener('change', function(event) {
+        if (this.files.length > maxFiles) {
+          alert('최대 ' + maxFiles + '개의 파일을 선택할 수 있습니다.');
+          this.value = '';
+        }
+      });
+    </script>
+
+    <script th:inline="javascript">
+
+      var fileInput = document.getElementById('fileNotice2');
+
+
+      var maxFiles = 5;
+      fileInput.addEventListener('change', function(event) {
+        if (this.files.length > maxFiles) {
+          alert('최대 ' + maxFiles + '개의 파일을 선택할 수 있습니다.');
+          this.value = '';
+        }
+      });
+    </script>
+    <script th:inline="javascript">
+
+      var fileInput = document.getElementById('fileNotice3');
+
+
+      var maxFiles = 5;
+      fileInput.addEventListener('change', function(event) {
+        if (this.files.length > maxFiles) {
+          alert('최대 ' + maxFiles + '개의 파일을 선택할 수 있습니다.');
+          this.value = '';
+        }
+      });
     </script>
 
     <!--  tagify  -->

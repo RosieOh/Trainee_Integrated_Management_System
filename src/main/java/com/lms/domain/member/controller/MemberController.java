@@ -245,4 +245,13 @@ public class MemberController {
         model.addAttribute("message", "글 작성이 완료되었습니다.");
         return "redirect:/member/mypage2";
     }
+
+    @PostMapping("/fileList")
+    @ResponseBody
+    public List<Long> getFileList(@RequestBody Map<String, Long> requestBody) {
+
+        Long boardId = requestBody.get("boardId");
+        List<Long> fileIds = fileService.getFileIdsByBoardId(boardId);
+        return fileIds;
+    }
 }
