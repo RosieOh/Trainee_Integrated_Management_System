@@ -16,4 +16,6 @@ public interface CourseService {
     public List<CourseDTO> course_subject_list(Subject subject);
     public void delete_type(CourseDTO courseDTO);
     public List<CourseDTO> ingSubject(Subject subject);
+    //기수 체크
+    public boolean flag_check(CourseDTO courseDTO);
 }

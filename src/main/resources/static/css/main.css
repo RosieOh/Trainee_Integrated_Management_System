@@ -141,6 +141,7 @@
     width: 150px;
     background-color: var(--c-main);
     padding-top: 78px;
+    z-index: 1;
 }
 
 .adminBar_box {

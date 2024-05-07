@@ -519,4 +519,74 @@ public class NoticeController {
         return "redirect:/notice/class/list";
     }
 
+
+    @GetMapping("/class/modifyAdmin")
+    public String noticeClassEditAdminForm(Model model, Long id) {
+        List<CourseDTO> course_big_List = courseService.ingSubject(Subject.BIGDATA);
+        List<CourseDTO> course_full_List = courseService.ingSubject(Subject.FULLSTACK);
+        List<CourseDTO> course_pm_List = courseService.ingSubject(Subject.PM);
+        model.addAttribute("course_big_List",course_big_List);
+        model.addAttribute("course_full_List",course_full_List);
+        model.addAttribute("course_pm_List",course_pm_List);
+
+        BoardDTO boardDTO = boardService.getBoard(id);
+        List<FileDTO> fileList = fileService.findByBoardId(id);
+
+        model.addAttribute("boardDTO", boardDTO);
+        model.addAttribute("fileList", fileList);
+        return "user/class/notice/editAdmin";
+    }
+
+    @PostMapping("/class/modifyAdmin/{id}")
+    public String noticeClassEditAdmin(@PathVariable("id") Long id, @Valid BoardDTO boardDTO, @RequestParam("files") MultipartFile[] files) {
+
+        fileService.deleteFilesByBoardId(id);
+
+        try {
+            BoardDTO boardDTO1 = boardService.getBoard(id);
+            boardDTO1.setTitle(boardDTO.getTitle());
+            boardDTO1.setContent(boardDTO.getContent());
+            boardDTO1.setPinned(boardDTO.isPinned());
+            boardDTO1.setPrivated(boardDTO.isPrivated());
+            boardDTO1.setWriter(boardDTO.getWriter());
+            boardDTO1.setBoardType(boardDTO.getBoardType());
+            boardDTO1.setCno(boardDTO.getCno());
+            boardService.modify(boardDTO1);
+
+            List<FileDTO> uploadFiles = new ArrayList<>();
+            for (MultipartFile file : files) {
+                if (!file.isEmpty()) {
+                    String originFilename = file.getOriginalFilename();
+                    String filename = new MD5Generator(originFilename).toString();
+                    String savePath = System.getProperty("user.dir") + "/files/";
+
+                    if (!new File(savePath).exists()) {
+                        try {
+                            new File(savePath).mkdirs();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    String filePath = savePath + filename;
+
+                    file.transferTo(new File(filePath));
+
+                    FileDTO fileDTO = new FileDTO();
+                    fileDTO.setOriginFileName(originFilename);
+                    fileDTO.setFileName(filename);
+                    fileDTO.setFilePath(filePath);
+                    fileDTO.setBoardId(id);
+
+                    uploadFiles.add(fileDTO);
+                }
+            }
+
+            List<Long> fileIds = fileService.saveFiles(uploadFiles);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/notice/class/read?id=" + id;
+    }
+
 }
