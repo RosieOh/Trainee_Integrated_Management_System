@@ -136,6 +136,7 @@
               var pageValue = urlParams.get('page');
               var cnoValue = urlParams.get('cno');
               var keywordValue = urlParams.get('keyword');
+              console.log(keywordValue);
 
               function setSelectedOption(selectId, optionValue) {
                   var selectElement = document.getElementById(selectId);
@@ -218,6 +219,7 @@
                   addActiveClass(0);
               }
               if(keywordValue) {
+                  console.log("키워드 확인"+keywordValue);
                   document.getElementById('keywordTitle2').setAttribute('value', keywordValue);
               }
           };
