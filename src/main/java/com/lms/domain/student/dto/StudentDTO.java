@@ -3,6 +3,8 @@ package com.lms.domain.student.dto;
 import jakarta.persistence.Column;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @ToString
@@ -19,13 +21,13 @@ public class StudentDTO{
     private String cert;            //자격증
 
 
-    private String univ;            //대학교
+    private String univ;            //최종학력
 
     
     private String major;            //학과
 
     
-    private String job_program;      //국취참여여부
+    private String job_program;      //국취취업제도 참여 여부
 
     
     private String fund;            //지원센터
@@ -49,8 +51,17 @@ public class StudentDTO{
     
     private String exp;             //경력
 
-    
-    private String OA;              // Word/PPT/Excel
+
+    private String excel;              // /Excel
+
+
+    private String ppt;              // PPT
+
+
+    private String word;              // Word
+
+
+    private String hwp;              // 한글
 
     
     private String satis;           // 전반적 만족도
@@ -77,16 +88,10 @@ public class StudentDTO{
     private String personal;        // 성격 및 태도
 
     
-    private String score;        // 벌점
+    private List<String> score;        // 벌점
 
-    
-    private String score_date;        // 벌점 날짜
 
-    
-    private String accident;         // 사고
-
-    
-    private String reason;         // 사유
+    private List<String> accident;        // 사고
 
     
     private String education;         // 교육 수료
