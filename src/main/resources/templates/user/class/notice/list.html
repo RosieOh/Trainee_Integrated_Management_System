@@ -37,10 +37,10 @@
 
                     <!-- privated가 1이면 비밀글 아니면 공개글-->
                     <td th:if="${notice.privated == true}">
-                        <th:block th:if="${#authorization.expression('hasAuthority(''ADMIN'')')} or ${memberDTO.id == notice.writer}">
+                        <th:block th:if="${not #authorization.expression('hasAuthority(''STUDENT'')')} or ${memberDTO.id == notice.writer}">
                             <a th:href="|@{/notice/class/read(id=${notice.id})}|" class="text-decoration-none"><i class="fas fa-lock">   </i>  [[${notice.title}]]</a>
                         </th:block>
-                        <th:block th:if="${ not #authorization.expression('hasAuthority(''ADMIN'')')} and ${memberDTO.id != notice.writer}">
+                        <th:block th:if="${#authorization.expression('hasAuthority(''STUDENT'')')} and ${memberDTO.id != notice.writer}">
                             <i class="fas fa-lock">   </i>  비밀글입니다
                         </th:block>
                     </td>
@@ -125,13 +125,6 @@
                             }
                         }
 
-
-                        if (pageValue !== null && !isNaN(pageValue)) {
-                            var page = parseInt(pageValue);
-                            addActiveClass(page);
-                        } else {
-                            addActiveClass(0);
-                        }
                         if (cnoValue) {
                             setSelectedOption('cno', cnoValue);
                         }

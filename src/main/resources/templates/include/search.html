@@ -257,9 +257,9 @@
     <form action="" id="search-form3" role="search" method="get">
         <span class="searchTotal">전체 <strong>[[${searchTotal}]]</strong>건의 결과</span>
         <div class="search-select">
-            <input type="text" name="keyword" placeholder="제목 입력">
+            <input type="text" name="keyword" placeholder="제목 입력" value="" id="keywordTitle2">
             <input type="hidden" name="cno" th:value="${cno}"/>
-            <button type="submit" class="search_btn select_btn">검색</button>
+            <button type="submit" class="search_btn select_btn" >검색</button>
         </div>
     </form>
     <script th:inline="javascript">
