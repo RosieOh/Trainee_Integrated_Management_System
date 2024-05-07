@@ -144,94 +144,12 @@ public class MemberController {
         memberService.member_edit(memberDTO);
         return "redirect:/member/mypage";
     }
-
-//    @PostMapping("student_add")
-//    public String student_add(StudentDTO studentDTO, Model model, Principal principal,
-//                          @RequestParam("file1") MultipartFile file1,
-//                          @RequestParam("file2") MultipartFile file2,
-//                          @RequestParam("file3") MultipartFile file3){
-//        log.info("student_add 시작 ");
-//        log.info("picture: " + file1);
-//        log.info("portfolio: " + file2);
-//        log.info("resume: " + file3);
-//        try {
-//
-//            if(file1 != null) {
-//                log.info("file1 시작: " + file1);
-//                String picture_origin = file1.getOriginalFilename();
-//                String picture_savePath = System.getProperty("user.dir") + "/files/";
-//                String picture_filePath = picture_origin + picture_savePath;
-//                if(!new File(picture_savePath).exists()) {
-//                    try {
-//                        new File(picture_savePath).mkdirs();
-//                    }
-//                    catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//                file1.transferTo(new File(picture_filePath));
-//                FileDTO fileDTO = new FileDTO();
-//                fileDTO.setOriginFileName(picture_origin);
-//                fileDTO.setFileName(picture_origin);
-//                fileDTO.setFilePath(picture_savePath);
-//                Long fileId = fileService.saveFile(fileDTO);
-//                studentDTO.setPicture(fileId);
-//            }
-//            if(file2 != null) {
-//                log.info("file2 시작: " + file2);
-//                String portfolio_origin = file2.getOriginalFilename();
-//                String portfolio_filename = new MD5Generator(portfolio_origin).toString();
-//                String portfolio_savePath = System.getProperty("user.dir") + "/files/";
-//                String portfolio_filePath = portfolio_filename + portfolio_savePath;
-//                if(!new File(portfolio_savePath).exists()) {
-//                    try {
-//                        new File(portfolio_savePath).mkdirs();
-//                    }
-//                    catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//                file2.transferTo(new File(portfolio_filePath));
-//                FileDTO fileDTO2 = new FileDTO();
-//                fileDTO2.setOriginFileName(portfolio_origin);
-//                fileDTO2.setFileName(portfolio_filename);
-//                fileDTO2.setFilePath(portfolio_savePath);
-//                Long fileId2 = fileService.saveFile(fileDTO2);
-//                studentDTO.setPortfolio(fileId2);
-//            }
-//
-//            if(file3 != null) {
-//            log.info("file3 시작: " + file3);
-//                String resume_origin = file3.getOriginalFilename();
-//                String resume_filename = new MD5Generator(resume_origin).toString();
-//                String resume_savePath = System.getProperty("user.dir") + "/files/";
-//                String resume_filePath = resume_filename + resume_savePath;
-//                if(!new File(resume_savePath).exists()) {
-//                    try {
-//                        new File(resume_savePath).mkdirs();
-//                    }
-//                    catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//                file3.transferTo(new File(resume_filePath));
-//                FileDTO fileDTO3 = new FileDTO();
-//                fileDTO3.setOriginFileName(resume_origin);
-//                fileDTO3.setFileName(resume_filename);
-//                fileDTO3.setFilePath(resume_savePath);
-//                Long fileId3 = fileService.saveFile(fileDTO3);
-//                studentDTO.setResume(fileId3);
-//            }
-//
-//        studentService.student_edit(studentDTO);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        model.addAttribute("message", "글 작성이 완료되었습니다.");
-//        return "redirect:/member/mypage2";
-//    }
+    
     @PostMapping("student_add")
-    public String student_add(StudentDTO studentDTO, Model model, Principal principal){
+    public String student_add(StudentDTO studentDTO, Model model, Principal principal,
+                              @RequestParam("file1") MultipartFile file1,
+                              @RequestParam("file2") MultipartFile file2,
+                              @RequestParam("file3") MultipartFile file3){
         log.info("studentDTO ------" + studentDTO);
 
         log.info("student_add 시작 ");
@@ -242,6 +160,79 @@ public class MemberController {
             studentDTO.setPortfolio(studentDTO.getNo());
             studentDTO.setResume(studentDTO.getNo());
             studentService.student_edit(studentDTO);
+
+        try {
+            if(file1 != null) {
+                log.info("file1 시작: " + file1);
+                String picture_origin = file1.getOriginalFilename();
+                String picture_savePath = System.getProperty("user.dir") + "/files/";
+                String picture_filePath = picture_origin + picture_savePath;
+                if(!new File(picture_savePath).exists()) {
+                    try {
+                        new File(picture_savePath).mkdirs();
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                file1.transferTo(new File(picture_filePath));
+                FileDTO fileDTO = new FileDTO();
+                fileDTO.setOriginFileName(picture_origin);
+                fileDTO.setFileName(picture_origin);
+                fileDTO.setFilePath(picture_savePath);
+                Long fileId = fileService.saveFile(fileDTO);
+                studentDTO.setPicture(fileId);
+            }
+            if(file2 != null) {
+                log.info("file2 시작: " + file2);
+                String portfolio_origin = file2.getOriginalFilename();
+                String portfolio_filename = new MD5Generator(portfolio_origin).toString();
+                String portfolio_savePath = System.getProperty("user.dir") + "/files/";
+                String portfolio_filePath = portfolio_filename + portfolio_savePath;
+                if(!new File(portfolio_savePath).exists()) {
+                    try {
+                        new File(portfolio_savePath).mkdirs();
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                file2.transferTo(new File(portfolio_filePath));
+                FileDTO fileDTO2 = new FileDTO();
+                fileDTO2.setOriginFileName(portfolio_origin);
+                fileDTO2.setFileName(portfolio_filename);
+                fileDTO2.setFilePath(portfolio_savePath);
+                Long fileId2 = fileService.saveFile(fileDTO2);
+                studentDTO.setPortfolio(fileId2);
+            }
+
+            if(file3 != null) {
+            log.info("file3 시작: " + file3);
+                String resume_origin = file3.getOriginalFilename();
+                String resume_filename = new MD5Generator(resume_origin).toString();
+                String resume_savePath = System.getProperty("user.dir") + "/files/";
+                String resume_filePath = resume_filename + resume_savePath;
+                if(!new File(resume_savePath).exists()) {
+                    try {
+                        new File(resume_savePath).mkdirs();
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                file3.transferTo(new File(resume_filePath));
+                FileDTO fileDTO3 = new FileDTO();
+                fileDTO3.setOriginFileName(resume_origin);
+                fileDTO3.setFileName(resume_filename);
+                fileDTO3.setFilePath(resume_savePath);
+                Long fileId3 = fileService.saveFile(fileDTO3);
+                studentDTO.setResume(fileId3);
+            }
+
+        studentService.student_edit(studentDTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         model.addAttribute("message", "글 작성이 완료되었습니다.");
         return "redirect:/member/mypage2";
     }

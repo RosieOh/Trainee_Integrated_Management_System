@@ -494,6 +494,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 10px;
 }
 
 .search-form input{
@@ -560,14 +561,11 @@
 .searchTotal {
     left : 0;
     font-size: 18px;
+    width: 20%;
 }
 
 .searchTotal strong {
     color : var(--c-red);
-}
-
-#keywordTitle {
-    width: 45%;
 }
 
 .searchTotal2 {
@@ -594,7 +592,7 @@
 }
 
 .search-select {
-    width: 1300px;
+    width: 100%;
     display: flex;
     justify-content: end;
     align-items: center;
