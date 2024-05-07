@@ -25,6 +25,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -61,7 +62,7 @@ public class AdminController {
         model.addAttribute("subjects", subjects);
         model.addAttribute("roles", roles);
 
-        Page<Member> members = memberService.searchMembers(keyword, flag, subject, role, pageable);
+        Page<Member> members = memberService.adminSearch(keyword, flag, subject, role, pageable);
         model.addAttribute("memberList", members);
         model.addAttribute("searchTotal",members.getTotalElements());
 
@@ -96,20 +97,19 @@ public class AdminController {
         model.addAttribute("subjects", subjects);
         model.addAttribute("roles", roles);
 
-        Page<Member> members = memberService.searchMembers(keyword, flag, subject, role, pageable);
+        Page<Member> members = memberService.managerSearch(keyword, flag, subject, role, pageable);
         model.addAttribute("memberList", members);
         model.addAttribute("searchTotal", members.getTotalElements());
 
         int pageNow = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
 
-        PageDTO<Member, Member> pageDTO = new PageDTO<>();
+        PageDTO<Member, MemberDTO> pageDTO = new PageDTO<>();
         pageDTO.setPageNow(pageNow);
         pageDTO.setPostTotal(members.getTotalElements());
         pageDTO.setPageTotal(members.getTotalPages());
         pageDTO.build(members);
-        pageDTO.entity2dto(members, Member.class);
+        pageDTO.entity2dto(members, MemberDTO.class);
         model.addAttribute("pageDTO", pageDTO);
-
         return "admin/member/list";
     }
 
@@ -119,7 +119,13 @@ public class AdminController {
     public String member_read(Model model,Long no){
         MemberDTO member = memberService.member_read(no);
         StudentDTO studentDTO = studentService.student_read(no);
+
+        List<String> scores = studentDTO.getScore();
+        List<String> accident = studentDTO.getAccident();
+
         model.addAttribute("member", member);
+        model.addAttribute("scores", scores);
+        model.addAttribute("accident", accident);
         model.addAttribute("studentDTO", studentDTO);
         return "admin/member/read";
     }
@@ -143,6 +149,52 @@ public class AdminController {
         Integer cno = memberDTO.getCourse().getNo();
         return "redirect:/admin/member?cno="+ cno;
     }
+
+    // 관리자 회원 상태변경
+    @PostMapping("/admin_change_status")
+    public String admin_change_status(String id, Model model, Status status){
+        MemberDTO memberDTO = memberService.loginId(id);
+        memberDTO.setStatus(status);
+        memberService.member_edit(memberDTO);
+        return "redirect:/admin/admin_member";
+    }
+
+    // 관리자 회원 권한변경
+    @PostMapping("/admin_change_role")
+    public String admin_change_role(String id, Model model, Role role){
+        MemberDTO memberDTO = memberService.loginId(id);
+        memberDTO.setRole(role);
+        memberService.member_edit(memberDTO);
+        return "redirect:/admin/admin_member";
+    }
+
+    // 관리자 회원 클래스변경
+    @PostMapping("/admin_change_course")
+    public String admin_change_course(String id, Model model, Role role, Integer cno){
+        MemberDTO memberDTO = memberService.loginId(id);
+        CourseDTO courseDTO = new CourseDTO();
+        courseDTO.setNo(cno);
+        memberDTO.setCourse(courseDTO);
+        memberService.member_edit(memberDTO);
+        return "redirect:/admin/admin_member";
+    }
+
+    // 관리자 회원가입
+    @PostMapping("/admin_joinPro")
+    public String joinPro(MemberDTO memberDTO, @RequestParam("cno") Integer cno){
+        CourseDTO course = new CourseDTO();
+        course.setNo(cno);
+        memberDTO.setCourse(course);
+        memberDTO.setStatus(Status.ACTIVE);
+        memberDTO.setRole(Role.MANAGER);
+        memberService.member_add(memberDTO);
+        MemberDTO memberDTO1 = memberService.loginId(memberDTO.getId());
+        StudentDTO studentDTO = new StudentDTO();
+        studentDTO.setNo(memberDTO1.getNo());
+        studentService.student_add(studentDTO);
+        return "redirect:/admin/admin_member";
+    }
+
 
     // 비밀번호 초기화(진행중)
     @PostMapping("pw_reset")
