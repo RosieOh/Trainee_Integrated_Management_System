@@ -158,11 +158,23 @@
     </script>
 <script>
     function idCheck() {
+        //아이디에 영문과 숫자만 가능하도록
+        var idValue = $("#id").val();
+
+        // 정규식 패턴: 영문 대소문자와 숫자만 허용
+        var pattern = /^[a-zA-Z0-9]+$/;
+
+
         if ($("#id").val() == "") {
             alert("아이디를 입력하지 않았습니다.");
             $("#id").focus();
             return false;
+        } else if (!pattern.test(idValue)) {
+            alert("올바른 형식의 아이디를 입력하세요. (영문과 숫자만 허용)");
+            $("#id").focus();
+            return false;
         }
+
 console.log("id.val" + $("#id").val() + $("#id").val())
         var params = {"id": $("#id").val()};
         $.ajax({

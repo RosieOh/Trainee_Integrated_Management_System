@@ -3,6 +3,7 @@ import com.lms.domain.course.entity.Course;
 import com.lms.global.cosntant.Subject;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,4 +26,8 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
     //진행 중인 강의 가져오기
     @Query("select c from Course c where c.subject= :subject and c.delete_type = 'ing' order by c.flag asc")
     List<Course> ingSubject(Subject subject);
+
+    //기수 중복 체크
+    @Query("select count (c) from Course c where c.flag = :flag and c.subject = :subject")
+    int countBySubjectFlag(@Param("flag") int flag, @Param("subject") Subject subject);
 }

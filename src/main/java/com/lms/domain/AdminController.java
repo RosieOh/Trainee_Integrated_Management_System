@@ -19,6 +19,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -252,5 +254,13 @@ public class AdminController {
         return "redirect:/admin/course";
     }
 
+    //강의 추가 시 기수 중복여부
+    @PostMapping("/flagCheckPro")
+    public ResponseEntity flagCheck(@RequestBody CourseDTO courseDTO) throws Exception {
+        boolean result = courseService.flag_check(courseDTO);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+
+    }
 
 }

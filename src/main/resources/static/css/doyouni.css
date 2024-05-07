@@ -343,3 +343,8 @@
 .class-select {
     width: 400px !important;
 }
+
+.down-icon:hover {
+    color: var(--c-hover);
+    cursor: pointer;
+}

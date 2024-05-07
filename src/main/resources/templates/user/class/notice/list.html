@@ -50,7 +50,7 @@
                     <td th:text="${#temporals.format(notice.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
 
                     <td class="fileDownload" th:if="${fileCountMap[notice.id] gt 0}">
-                        <i class="fas fa-window-maximize" onclick="downloadFiles(this)" ></i>[[${fileCountMap[notice.id]}]]
+                        <i class="fas fa-window-maximize down-icon" onclick="downloadFiles(this)" ></i>[[${fileCountMap[notice.id]}]]
                         <input type="hidden" name="boardId" th:value="${notice.id}" >
                     </td>
                     <script th:inline="javascript">

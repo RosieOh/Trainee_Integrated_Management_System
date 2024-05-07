@@ -614,6 +614,14 @@
 .fileDownload {
     border-top: 1px solid rgba(0, 0, 0, .1);
 }
+
+.main_notice .fileDownload {
+    border-top: 1px solid #000;
+}
+.table_set {
+    border:1px solid rgba(0, 0, 0, .1);
+}
+
 .fileDownloadTitle {
     padding: 5px 12px;
     background-color: #dfdfdf;

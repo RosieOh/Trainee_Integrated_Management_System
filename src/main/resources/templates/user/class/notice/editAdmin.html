@@ -10,28 +10,47 @@
         <div class="admin-content">
             <div class="admin_box flex_center">
                 <div class="board_in">
-                <h2>공지사항 수정</h2>
-                <form th:action="@{/notice/modify/{id}(id=${boardDTO.id})}" method="post" enctype="multipart/form-data" >
+                <h2>클래스 게시판 수정</h2>
+                <form th:action="@{/notice/class/modifyAdmin/{id}(id=${boardDTO.id})}" method="post" enctype="multipart/form-data">
                         <div class="notice_container" >
                             <div class="notice_box">
                                 <label for="titleNotice">제목</label>
                                 <input type="text" class="form-control" id="titleNotice" th:field="*{boardDTO.title}">
                                 <input type="hidden" name="boardType" th:value="${boardDTO.boardType}">
                             </div>
-                            <div class="flex">
+                            <div class="flex register-admin">
                                 <div class="notice_box">
                                     <label for="writerNotice">작성자</label>
                                     <input type="text" name="writer" class="ro_input writer" id="writerNotice" th:value="${boardDTO.writer}" readonly>
                                 </div>
-                                <div class="board_checkbox_container">
+                                <div class="notice_box class-select">
+                                <label for="cno" class="cno-label">강의</label>
+                                <select name="cno" class="class-select" id="cno">
+                                    <th:block th:each="course_big : ${course_big_List}">
+                                        <option th:value="${course_big.getNo()}" th:text="'프로젝트 기반 빅데이터 서비스 개발자 양성' + ' ' + ${course_big.flag} + '기'"
+                                                th:selected="${course_big.getNo() eq boardDTO.cno}"></option>
+                                    </th:block>
+                                    <th:block th:each="course_full : ${course_full_List}">
+                                        <option th:value="${course_full.getNo()}" th:text="'에듀테크 풀스택 개발자 양성(Java)' + ' ' + ${course_full.flag} + '기'"
+                                                th:selected="${course_full.getNo() eq boardDTO.cno}"></option>
+                                    </th:block>
+                                    <th:block th:each="course_pm : ${course_pm_List}">
+                                        <option th:value="${course_pm.getNo()}" th:text="'에듀테크 상품서비스 PM(프로덕트매니저) 양성' + ' ' + ${course_pm.flag} + '기'"
+                                                th:selected="${course_pm.getNo() eq boardDTO.cno}"></option>
+                                    </th:block>
+                                </select>
+                                </div>
+                                <div class="board_checkbox_container none-margin">
+                                    <th:block th:if="${not #authorization.expression('hasAuthority(''STUDENT'')')}">
                                     <div>
                                         <label for="pinnedNotice">상단 고정</label>
                                         <input type="checkbox" id="pinnedNotice" class="board_checkbox" name="pinned" th:checked="${boardDTO.pinned}">
                                     </div>
-<!--                                    <div>-->
-<!--                                        <label for="privateBoard">비밀글</label>-->
-<!--                                        <input type="checkbox" id="privateBoard" class="board_checkbox" name="privated" th:checked="${boardDTO.privated}">-->
-<!--                                    </div>-->
+                                    </th:block>
+                                    <div>
+                                        <label for="privateBoard">비밀글</label>
+                                        <input type="checkbox" id="privateBoard" class="board_checkbox" name="privated" th:checked="${boardDTO.privated}">
+                                    </div>
                                 </div>
                             </div>
                             <div class="file_input">
@@ -54,8 +73,10 @@
                             <div id="editor">
                                 <textarea class="input"  style="width: 1320px; height: 500px;" id="myTextarea" type="text" th:utext="${boardDTO.content}" required th:name="content" placeholder="내용"></textarea>
                             </div>
+
+
                             <div class="btn_group_center">
-                                <a th:href="@{/notice/list}" class="board_btn cancel_btn">목록으로</a>
+                                <a th:href="@{/notice/class/list}" class="board_btn cancel_btn">목록으로</a>
                                 <button type="submit" class="board_btn select_btn">수정하기</button>
                             </div>
                         </div>
@@ -63,25 +84,25 @@
             </div>
             </div>
         </div>
-        <script th:inline="javascript">
-            const Editor = toastui.Editor;
-            const textarea = document.querySelector('#myTextarea');
+    <script th:inline="javascript">
+        const Editor = toastui.Editor;
+        const textarea = document.querySelector('#myTextarea');
 
-            const editorDiv = document.createElement('div');
-            editorDiv.id = 'editor';
-            textarea.parentNode.insertBefore(editorDiv, textarea);
-            textarea.style.display = 'none';  // 숨겨진 textarea
+        const editorDiv = document.createElement('div');
+        editorDiv.id = 'editor';
+        textarea.parentNode.insertBefore(editorDiv, textarea);
+        textarea.style.display = 'none';  // 숨겨진 textarea
 
-            const editor = new Editor({
-                el: editorDiv,
-                height: '500px',
-                initialEditType: 'markdown',
-                previewStyle: 'vertical',
-                initialValue: textarea.value  // 초기값을 textarea의 값으로 설정
-            });
+        const editor = new Editor({
+            el: editorDiv,
+            height: '500px',
+            initialEditType: 'markdown',
+            previewStyle: 'vertical',
+            initialValue: textarea.value  // 초기값을 textarea의 값으로 설정
+        });
 
-            editor.on('change', () => {
-                textarea.value = editor.getMarkdown();
-            });
-        </script>
+        editor.on('change', () => {
+            textarea.value = editor.getMarkdown();
+        });
+    </script>
     </div>

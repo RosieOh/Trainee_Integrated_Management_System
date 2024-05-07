@@ -22,36 +22,36 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <form th:action="@{/admin/course_edit}" method="post">
+                    <form th:action="@{/admin/course_edit}" method="post" id="courseForm">
                         <tr class="board_box course_input">
                             <td th:if="${#strings.equals(courseDTO.subject, 'BIGDATA')}" class="board_box ">빅데이터</td>
                             <td th:if="${#strings.equals(courseDTO.subject, 'EXCEPTION')}" class="board_box ">예외</td>
                             <td th:if="${#strings.equals(courseDTO.subject, 'FULLSTACK')}" class="board_box ">풀스택</td>
                             <td th:if="${#strings.equals(courseDTO.subject, 'PM')}" class="board_box ">PM</td>
-                            <input type="hidden" name="subject" th:value="${courseDTO.subject}" readonly/>
+                            <input type="hidden" name="subject" id="subject" th:value="${courseDTO.subject}" readonly/>
                             <input type="hidden" name="no" th:value="${courseDTO.no}" readonly/>
                             <td>
-                                <select name="flag" >
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                    <option value="13">13</option>
-                                    <option value="14">14</option>
-                                    <option value="15">15</option>
-                                    <option value="16">16</option>
-                                    <option value="17">17</option>
-                                    <option value="18">18</option>
-                                    <option value="19">19</option>
-                                    <option value="20">20</option>
+                                <select name="flag" id="flag">
+                                    <option value="1" th:selected="${courseDTO.flag == 1}">1</option>
+                                    <option value="2" th:selected="${courseDTO.flag == 2}">2</option>
+                                    <option value="3" th:selected="${courseDTO.flag == 3}">3</option>
+                                    <option value="4" th:selected="${courseDTO.flag == 4}">4</option>
+                                    <option value="5" th:selected="${courseDTO.flag == 5}">5</option>
+                                    <option value="6" th:selected="${courseDTO.flag == 6}">6</option>
+                                    <option value="7" th:selected="${courseDTO.flag == 7}">7</option>
+                                    <option value="8" th:selected="${courseDTO.flag == 8}">8</option>
+                                    <option value="9" th:selected="${courseDTO.flag == 9}">9</option>
+                                    <option value="10" th:selected="${courseDTO.flag == 10}">10</option>
+                                    <option value="11" th:selected="${courseDTO.flag == 11}">11</option>
+                                    <option value="12" th:selected="${courseDTO.flag == 12}">12</option>
+                                    <option value="13" th:selected="${courseDTO.flag == 13}">13</option>
+                                    <option value="14" th:selected="${courseDTO.flag == 14}">14</option>
+                                    <option value="15" th:selected="${courseDTO.flag == 15}">15</option>
+                                    <option value="16" th:selected="${courseDTO.flag == 16}">16</option>
+                                    <option value="17" th:selected="${courseDTO.flag == 17}">17</option>
+                                    <option value="18" th:selected="${courseDTO.flag == 18}">18</option>
+                                    <option value="19" th:selected="${courseDTO.flag == 19}">19</option>
+                                    <option value="20" th:selected="${courseDTO.flag == 20 }">20</option>
                                 </select>
                             </td>
                             <td >
@@ -77,13 +77,13 @@
                             </td>
                             <td>
                                 <select name="delete_type" id="delete_type" class="select-box">
-                                    <option value="y" th:selected="${courseDTO.delete_type} eq 'y'">공개</option>
                                     <option value="n" th:selected="${courseDTO.delete_type} eq 'n'">비공개</option>
+                                    <option value="y" th:selected="${courseDTO.delete_type} eq 'y'">회원가입 공개</option>
                                     <option value="ing" th:selected="${courseDTO.delete_type} eq 'ing'">진행 중</option>
                                 </select>
                             </td>
                             <td>
-                                <button type="submit" class="form_btn select_btn">수정하기</button>
+                                <button type="submit" class="form_btn select_btn" onclick="flagCheck()">수정하기</button>
                             </td>
                       </tr>
                     <tr class="board_box">
@@ -157,6 +157,33 @@
                 alert("시작날짜보다 전입니다.")
                 train_time.value = start_date.value
             }
+        }
+
+    </script>
+    <script>
+        //기수 중복체크
+        function flagCheck() {
+            event.preventDefault(); // 폼 제출 막기
+
+
+            console.log("flag.val" + $("#flag").val())
+            var params = {"flag": $("#flag").val(), "subject": $("#subject").val() };
+            $.ajax({
+                url: "/admin/flagCheckPro",	//아이디가 전송되어질 곳
+                type:"post",
+                data:JSON.stringify(params),
+                dataType:"json",
+                contentType:"application/json",
+                success : function(result) {
+                    var flagPass = result;
+                    if(flagPass == false){
+                        alert("이미 존재하는 기수입니다.")
+                    } else {
+                        // 기수가 중복되지 않은 경우 폼 제출
+                        document.getElementById("courseForm").submit();
+                    }
+                }
+            });
         }
     </script>
 </div>
