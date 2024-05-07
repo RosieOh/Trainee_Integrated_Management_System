@@ -121,8 +121,6 @@ public class MemberServiceImpl implements MemberService {
     public void member_add(MemberDTO memberDTO) {
         String password = passwordEncoder.encode(memberDTO.getPw());
         memberDTO.setPw(password);
-        memberDTO.setRole(Role.STUDENT);
-        memberDTO.setStatus(Status.ACTIVE);
         Member member = modelMapper.map(memberDTO, Member.class);
         memberRepository.save(member);
     }
@@ -209,9 +207,47 @@ public class MemberServiceImpl implements MemberService {
         return name;
     }
 
+    @Override
+    public Page<Member> adminSearch(String keyword, Integer flag, Subject subject, Role role, Pageable pageable) {
+        BooleanBuilder where = new BooleanBuilder();
+
+        Member member = memberRepository.findId("admin");
+
+        // 키워드가 있는 경우 이름 필터링
+        if (StringUtils.hasText(keyword)) {
+            where.and(QMember.member.name.containsIgnoreCase(keyword));
+        }
+
+        // 과정, 기수, 롤에 대한 필터링
+        if (flag != null) {
+            where.and(QMember.member.course.flag.eq(flag));
+        }
+        if (subject != null) {
+            where.and(QMember.member.course.subject.eq(subject));
+        }
+        if (role != null) {
+            where.and(QMember.member.role.eq(role));
+        }
+
+        // 페이징 처리
+        JPQLQuery<Member> query = queryFactory
+                .selectFrom(QMember.member)
+                .leftJoin(QMember.member.course).fetchJoin()
+                .where(where)
+                .where(QMember.member.no.ne(1L))
+                ;
+
+        // 페이징 처리된 결과 반환
+        QueryResults<Member> results = query
+                .offset(pageable.getOffset()) // 오프셋 설정
+                .limit(pageable.getPageSize()) // 페이지 크기 설정
+                .fetchResults(); // 결과 가져오기
+
+        return new PageImpl<>(results.getResults(), pageable, results.getTotal());
+    }
 
     @Override
-    public Page<Member> searchMembers(String keyword, Integer flag, Subject subject, Role role, Pageable pageable) {
+    public Page<Member> managerSearch(String keyword, Integer flag, Subject subject, Role role, Pageable pageable) {
         BooleanBuilder where = new BooleanBuilder();
 
         // 키워드가 있는 경우 이름 필터링
@@ -234,7 +270,9 @@ public class MemberServiceImpl implements MemberService {
         JPQLQuery<Member> query = queryFactory
                 .selectFrom(QMember.member)
                 .leftJoin(QMember.member.course).fetchJoin()
-                .where(where);
+                .where(where)
+                .where(QMember.member.course.subject.ne(Subject.EXCEPTION))
+                ;
 
         // 페이징 처리된 결과 반환
         QueryResults<Member> results = query
