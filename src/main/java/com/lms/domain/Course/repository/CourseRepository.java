@@ -21,4 +21,8 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 
     @Query("select c from Course c where c.subject= :subject")
     Integer course_one(Subject subject);
+
+    //진행 중인 강의 가져오기
+    @Query("select c from Course c where c.subject= :subject and c.delete_type = 'ing' order by c.flag asc")
+    List<Course> ingSubject(Subject subject);
 }

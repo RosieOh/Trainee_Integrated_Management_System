@@ -74,4 +74,13 @@ public class CourseServiceImpl implements CourseService {
         course2.setDelete_type(courseDTO.getDelete_type());
         courseRepository.save(course2);
     }
+
+    @Override
+    public List<CourseDTO> ingSubject(Subject subject) {
+        List<Course> courseList = courseRepository.ingSubject(subject);
+        List<CourseDTO> courseDTOList = courseList.stream().map(
+                        course -> modelMapper.map(course,CourseDTO.class))
+                .collect(Collectors.toList());
+        return courseDTOList;
+    }
 }
