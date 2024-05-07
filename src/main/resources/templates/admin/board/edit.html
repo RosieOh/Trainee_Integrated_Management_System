@@ -11,16 +11,17 @@
             <div class="admin_box flex_center">
                 <div class="board_in">
                 <h2>공지사항 수정</h2>
-                <form th:action="@{/notice/modify/{id}(id=${boardDTO.id})}" method="post" enctype="multipart/form-data">
+                <form th:action="@{/notice/modify/{id}(id=${boardDTO.id})}" method="post" enctype="multipart/form-data" >
                         <div class="notice_container" >
                             <div class="notice_box">
                                 <label for="titleNotice">제목</label>
                                 <input type="text" class="form-control" id="titleNotice" th:field="*{boardDTO.title}">
+                                <input type="hidden" name="boardType" th:value="${boardDTO.boardType}">
                             </div>
                             <div class="flex">
                                 <div class="notice_box">
                                     <label for="writerNotice">작성자</label>
-                                    <input type="text" class="ro_input writer" id="writerNotice" th:value="${boardDTO.writer}" readonly>
+                                    <input type="text" name="writer" class="ro_input writer" id="writerNotice" th:value="${boardDTO.writer}" readonly>
                                 </div>
                                 <div class="board_checkbox_container">
                                     <div>
@@ -33,24 +34,26 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="file_box">
-                                <div class="file_input">
-                                    <label for="fileNotice"><i class="fas fa-file"></i> 첨부파일</label>
-                                    <th:block th:if="${fileList.originFileName == ''}">
-                                        <input type="file" class="form-control" name="file" id="fileNotice" onchange="uploadImage()">
-                                    </th:block>
-                                    <th:block th:if="${fileList.originFileName != '' }">
-                                        <input type="text" class="form-control" name="file" th:value="${fileList.originFileName}" readonly>
-                                    </th:block>
-                                </div>
+                            <div class="file_input">
+                                <label for="writerNotice"> 파일 업로드</label>
+                                <div class="myinfo_line"><label for="fileNotice" class="uploadbtn">upload</label><input type="file" class="form-control" name="files" id="fileNotice" multiple></div>
                             </div>
+                            <script th:inline="javascript">
+
+                                var fileInput = document.getElementById('fileNotice');
 
 
+                                var maxFiles = 5;
+                                fileInput.addEventListener('change', function(event) {
+                                    if (this.files.length > maxFiles) {
+                                        alert('최대 ' + maxFiles + '개의 파일을 선택할 수 있습니다.');
+                                        this.value = '';
+                                    }
+                                });
+                            </script>
                             <div id="editor">
                                 <textarea class="input"  style="width: 1320px; height: 500px;" id="myTextarea" type="text" th:utext="${boardDTO.content}" required th:name="content" placeholder="내용"></textarea>
                             </div>
-
-
                             <div class="btn_group_center">
                                 <a th:href="@{/notice/list}" class="board_btn cancel_btn">목록으로</a>
                                 <button type="submit" class="board_btn select_btn">수정하기</button>
@@ -60,25 +63,25 @@
             </div>
             </div>
         </div>
-    <script th:inline="javascript">
-        const Editor = toastui.Editor;
-        const textarea = document.querySelector('#myTextarea');
+        <script th:inline="javascript">
+            const Editor = toastui.Editor;
+            const textarea = document.querySelector('#myTextarea');
 
-        const editorDiv = document.createElement('div');
-        editorDiv.id = 'editor';
-        textarea.parentNode.insertBefore(editorDiv, textarea);
-        textarea.style.display = 'none';  // 숨겨진 textarea
+            const editorDiv = document.createElement('div');
+            editorDiv.id = 'editor';
+            textarea.parentNode.insertBefore(editorDiv, textarea);
+            textarea.style.display = 'none';  // 숨겨진 textarea
 
-        const editor = new Editor({
-            el: editorDiv,
-            height: '500px',
-            initialEditType: 'markdown',
-            previewStyle: 'vertical',
-            initialValue: textarea.value  // 초기값을 textarea의 값으로 설정
-        });
+            const editor = new Editor({
+                el: editorDiv,
+                height: '500px',
+                initialEditType: 'markdown',
+                previewStyle: 'vertical',
+                initialValue: textarea.value  // 초기값을 textarea의 값으로 설정
+            });
 
-        editor.on('change', () => {
-            textarea.value = editor.getMarkdown();
-        });
-    </script>
+            editor.on('change', () => {
+                textarea.value = editor.getMarkdown();
+            });
+        </script>
     </div>

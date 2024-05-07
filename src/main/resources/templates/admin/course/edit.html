@@ -17,7 +17,7 @@
                     <th style="width: 15%">80% 경과일자</th>
                     <th style="width: auto">대표강사</th>
                     <th style="width: auto">담당 매니저</th>
-                    <th style="width: 18%">공개여부</th>
+                    <th style="width: 10%">공개여부</th>
                     <th style="width: 8%"></th>
                 </tr>
                 </thead>
@@ -31,21 +31,42 @@
                             <input type="hidden" name="subject" th:value="${courseDTO.subject}" readonly/>
                             <input type="hidden" name="no" th:value="${courseDTO.no}" readonly/>
                             <td>
-                                <input type="number" name="flag" th:value="${courseDTO.flag}" required/>
+                                <select name="flag" >
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                </select>
                             </td>
                             <td >
                                 <div class="course_cal">
-                                    <input type="date" name="start_date" id="start_date" min="1960-01-01" max="2040-12-31" required/>
+                                    <input type="date" name="start_date" id="start_date" min="1960-01-01" max="2040-12-31" th:value="${courseDTO.start_date}" onchange="TransDate()" required/>
                                 </div>
                             </td>
                             <td >
                                 <div class="course_cal">
-                                    <input type="date" name="end_date" id="end_date" min="1960-01-01" max="2040-12-31" required/>
+                                    <input type="date" name="end_date" id="end_date" min="1960-01-01" max="2040-12-31" th:value="${courseDTO.end_date}" onchange="EndDate()" required/>
                                 </div>
                             </td>
                             <td >
                                 <div class="course_cal">
-                                    <input type="date" name="train_time" id="train_time" min="1960-01-01" max="2040-12-31" disabled/>
+                                    <input type="date" name="train_time" id="train_time" min="1960-01-01" max="2040-12-31" th:value="${courseDTO.train_time}" onchange="EndDate()" required/>
                                 </div>
                             </td>
                             <td >
@@ -58,6 +79,7 @@
                                 <select name="delete_type" id="delete_type" class="select-box">
                                     <option value="y" th:selected="${courseDTO.delete_type} eq 'y'">공개</option>
                                     <option value="n" th:selected="${courseDTO.delete_type} eq 'n'">비공개</option>
+                                    <option value="ing" th:selected="${courseDTO.delete_type} eq 'ing'">진행 중</option>
                                 </select>
                             </td>
                             <td>
@@ -65,8 +87,8 @@
                             </td>
                       </tr>
                     <tr class="board_box">
-                        <td></td>
                         <td>기존</td>
+                        <td th:text="${courseDTO.flag}"></td>
                         <td th:text="${courseDTO.start_date}"></td>
                         <td th:text="${courseDTO.end_date}">
                         <td th:text="${courseDTO.train_time}">
@@ -88,17 +110,53 @@
         course_input.style.display = "table-row";
     </script>
     <script>
-        // 시작일 변경 시 종료일 처리
-        $("#start_date").change(() => {
-            $("#end_date").prop("min", $("#start_date").val());
-            // 종료일이 변경한 시작일보다 빠른 경우
-            if($("#end_date").val() < $("#start_date").val()) {
-                $("#end_date").val($("#start_date").val());
+        let start_date = document.querySelector('#start_date')
+        let end_date = document.querySelector('#end_date')
+        let train_time = document.querySelector('#train_time')
+
+        function TransDate() {
+
+            let endNum = new Date(start_date.value)
+            let transNum = new Date(start_date.value)
+
+            endNum.setDate(endNum.getDate()+180)
+            transNum.setDate(transNum.getDate()+144)
+
+            let yy = endNum.getFullYear();
+            let mm = endNum.getMonth()+1;
+            let dd = endNum.getDate();
+            if( mm < 10){
+                mm = '0'+ mm
             }
-        });
-        // 종료일 변경 시 시작일 처리
-        $("#end_date").change(() => {
-            $("#start_date").prop("max", $("#end_date").val());
-        })
+            if(dd < 10){
+                dd = '0'+ dd
+            }
+
+            let yy2 = transNum.getFullYear();
+            let mm2 = transNum.getMonth()+1;
+            let dd2 = transNum.getDate();
+            if( mm2 < 10){
+                mm2 = '0'+ mm2
+            }
+            if(dd2 < 10){
+                dd2 = '0'+ dd2
+            }
+            end_date.value = yy +'-'+ mm +'-'+ dd;
+            train_time.value = yy2 +'-'+ mm2 +'-'+ dd2;
+        }
+
+        function EndDate() {
+            let startNum = new Date(start_date.value)
+            let endNum = new Date(end_date.value)
+            let trainNum = new Date(train_time.value)
+            if(startNum.getTime() > endNum.getTime()){
+                alert("시작날짜보다 전입니다.")
+                end_date.value = start_date.value
+            }
+            if(startNum.getTime() > trainNum.getTime()){
+                alert("시작날짜보다 전입니다.")
+                train_time.value = start_date.value
+            }
+        }
     </script>
 </div>

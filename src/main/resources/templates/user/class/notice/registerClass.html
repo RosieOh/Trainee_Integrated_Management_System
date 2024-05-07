@@ -8,65 +8,63 @@
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
     <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
     <div class="admin-content">
-
       <div class="admin_box flex_center">
         <div class="board_in">
-        <h2>공지사항 작성</h2>
-          <form th:action="@{/notice/register}" method="post"  enctype="multipart/form-data">
-              <div class="notice_container" >
+        <h2>클래스 게시판 작성</h2>
+          <form th:action="@{/notice/class/registerClass}" method="post"  enctype="multipart/form-data">
+            <div class="notice_container" >
                 <div class="notice_box">
                   <label for="titleNotice">제목</label>
                   <input type="text" class="form-control" name="title" id="titleNotice" required/>
-                  <input type="hidden" name="cno" value="0" required/>
-                  <input type="hidden" name="boardType" value="NOTICE" required/>
+                  <input type="hidden" name="cno" th:value="${memberDTO.course.no}" required/>
+                  <input type="hidden" name="boardType" value="CLASS_BOARD" required/>
                 </div>
                 <div class="flex">
                   <div class="notice_box">
                     <label for="writerNotice">작성자</label>
-                    <input type="text" class="ro_input writer" id="writerNotice" name="writer" th:value="${name}" readonly>
+                    <input type="text" class="ro_input writer" id="writerNotice" name="writer" th:value="${memberDTO.id}" readonly>
                   </div>
                   <div class="board_checkbox_container">
+                    <th:block th:if="${not #authorization.expression('hasAuthority(''STUDENT'')')}">
                     <div>
                       <label for="pinnedBoard">상단 고정</label>
                       <input type="checkbox" id="pinnedBoard" class="board_checkbox" name="pinned">
                     </div>
-                    <!--
+                    </th:block>
                     <div>
                       <label for="privateBoard">비밀글</label>
                       <input type="checkbox" id="privateBoard" class="board_checkbox" name="privated">
                     </div>
-                    -->
                   </div>
                 </div>
-                <div class="file_input">
-                  <label for="writerNotice"> 파일 업로드</label>
-                  <div class="myinfo_line"><label for="fileNotice" class="uploadbtn">upload</label><input type="file" class="form-control" name="files" id="fileNotice" multiple></div>
-                </div>
-                <script th:inline="javascript">
+              <div class="file_input">
+                <label for="writerNotice"> 파일 업로드</label>
+                <div class="myinfo_line"><label for="fileNotice" class="uploadbtn">upload</label><input type="file" class="form-control" name="files" id="fileNotice" multiple></div>
+              </div>
+              <script th:inline="javascript">
 
-              var fileInput = document.getElementById('fileNotice');
+                var fileInput = document.getElementById('fileNotice');
 
 
-              var maxFiles = 5;
-              fileInput.addEventListener('change', function(event) {
-                if (this.files.length > maxFiles) {
-                  alert('최대 ' + maxFiles + '개의 파일을 선택할 수 있습니다.');
-                  this.value = '';
-                }
-              });
-            </script>
+                var maxFiles = 5;
+                fileInput.addEventListener('change', function(event) {
+                  if (this.files.length > maxFiles) {
+                    alert('최대 ' + maxFiles + '개의 파일을 선택할 수 있습니다.');
+                    this.value = '';
+                  }
+                });
+              </script>
                 <div id="editor">
                   <textarea class="input"  style="width: 1320px; height: 500px;" id="myTextarea" type="text" name="content" required ></textarea>
                 </div>
                 <div class="btn_group_center">
-                  <a th:href="@{/notice/list}" class="board_btn cancel_btn">목록으로</a>
+                  <a th:href="@{/notice/class/list}" class="board_btn cancel_btn">목록으로</a>
                   <button type="submit" class="board_btn select_btn">등록하기</button>
                 </div>
-            </div>
+          </div>
         </form>
       </div>
-  </div>
-
+      </div>
 
   <script th:inline="javascript">
     const Editor = toastui.Editor;
@@ -90,8 +88,7 @@
     editor.on('change', () => {
       textarea.value = editor.getMarkdown();
     });
-
   </script>
 
-  </div>
+</div>
 </div>

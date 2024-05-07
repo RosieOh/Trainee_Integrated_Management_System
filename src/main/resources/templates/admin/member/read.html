@@ -7,14 +7,14 @@
   <div class="admin-content">
   <div class="admin_img_box"><img th:src="@{/images/Character.png}" alt="" class="admin_img"></div>
   <div class="admin_main">
-    <div class="admin_title">
-      <h2>회원 정보 <span th:text="'  >'+${member.name}"></span></h2>
-    </div>
 
-  <form th:action="@{/admin/student_edit}" method="post" >
+  <form th:action="@{/admin/student_edit}" method="post" onsubmit="return modify(this)">
     <div class="admin_content">
       <div class="admin_content_seperate">
         <div class="admin_info_container">
+          <div class="admin_title">
+            <h2>회원 정보</h2>
+          </div>
           <div class="admin_info_box">
             <label for="id">아이디</label>
             <input type="text" id="id" name="id" class="ro_input" th:value="${member.id }" readonly />
@@ -26,16 +26,17 @@
   <!--            <button type="button" class="btn_pwChange" id="pw_reset">비밀번호 초기화</button>-->
   <!--          </div>-->
   <!--        </div>-->
-          <div class="admin_info_box infobirth">
+          <div class="admin_info_box">
             <label for="name">이름</label>
             <div class="myinfo_line">
               <input type="text" name="name" id="name" class="ro_input" th:value="${member.name }"  readonly />
             </div>
           </div>
-          <div class="admin_info_box infobirth">
+          <div class="admin_info_box">
             <label for="birth">생일</label>
             <div class="myinfo_line">
-              <input type="date" name="birth" id="birth" min="1960-01-01" max="2040-12-31" class="ro_input" th:value="${member.birth }" readonly/>
+<!--              <div id="birth" class="ro_input" th:text="${member.birth.substring(0,10) }"/>-->
+              <input type="date" name="birth" id="birth" min="1960-01-01" max="2040-12-31" class="ro_input" th:value="${member.birth}" readonly/>
             </div>
           </div>
           <div class="admin_info_box">
@@ -44,25 +45,24 @@
               <input type="text" name="gender" id="gender" class="ro_input" th:value="${member.gender }"  readonly />
             </div>
           </div>
-          <div class="admin_info_box infoemail">
+          <div class="admin_info_box">
             <label for="email">이메일</label>
             <div class="myinfo_line">
-              <input type="text" name="email" id="email" th:value="${member.email }"  />
+              <input type="text" name="email" id="email" class="ro_input" th:value="${member.email }"  readonly/>
             </div>
           </div>
-          <div class="admin_info_box infotel">
+          <div class="admin_info_box">
             <label for="phone">연락처</label>
             <div class="myinfo_line">
-              <input type="text" name="phone" id="phone" th:value="${member.phone }"  />
+              <input type="text" name="phone" id="phone" class="ro_input" th:value="${member.phone }" readonly />
             </div>
           </div>
           <div class="admin_info_box">
             <label for="phone">주소</label>
-            <input type="text" name="addr1" id="addr1" th:value="${member.addr1 }"  />
+            <input type="text" name="addr1" id="addr1" class="ro_input" th:value="${member.addr1 }"  readonly/>
           </div>
-          <div class="admin_info_box">
-            <input type="text" name="postcode" id="postcode" th:value="${member.postcode }" class="postcodeBtn">
-            <button type="button" id="post_btn" onclick="findAddr()" class="join_btn">우편번호 검색</button>
+          <div class="admin_info_box flex">
+            <input type="text" name="postcode" id="postcode" th:value="${member.postcode }" class="postcodeBtn ro_input" readonly>
           </div>
 
           <div class="admin_info_box file_input">
@@ -78,135 +78,283 @@
             <input type="file" id="resume" name="resume" class="border_none">
           </div>
         </div>
-        <div class="admin_info_container">
 
-          <div class="admin_info_box">
-            <label for="stack" >기술스택</label>
-            <input type="text" th:value="${studentDTO.stack}" id="stack" name="stack">
-            <input type="hidden" name="no" th:value="${studentDTO.no}">
+        <!--        -->
+        <div class="admin_info_container2">
+            <div class="admin_info_container_wrap">
+              <div class="admin_title">
+                <h2>1. 상담정보</h2>
+              </div>
+              <div class="admin_info_box">
+                <label for="opinion" >종합 의견</label>
+                <textarea id="opinion" name="opinion" class="admin_textarea" cols="10" >[[${studentDTO.opinion}]]</textarea>
+              </div>
+              <div class="admin_info_box">
+                <label for="content" >상담내용</label>
+                <textarea id="content" name="content" class="admin_textarea" cols="10" > [[${studentDTO.content}]]</textarea>
+              </div>
+            </div>
+          <div class="admin_info_container_wrap">
+            <div class="admin_title">
+              <h2>2. 추가정보</h2>
+            </div>
+            <div class="flex_between">
+              <div class="admin_info_container2_in">
+                <div class="admin_info_box">
+                  <label for="instructor" >담당 강사</label>
+                  <input type="text" th:value="${studentDTO.instructor}" id="instructor" name="instructor">
+                </div>
+                <div class="admin_info_box">
+                  <label for="personal" >성격 및 태도</label>
+                  <input type="text" th:value="${studentDTO.personal}" id="personal" name="personal">
+                </div>
+
+                <div class="admin_info_box">
+                  <div class="flex_between">
+                    <div class="admin_info_box_in">
+                      <label for="smoke" >흡연</label>
+                      <select name="smoke" id="smoke" class="select-box admin_info_select">
+                        <option value="흡연" th:selected="${studentDTO.smoke} eq '흡연'">흡연</option>
+                        <option value="금연" th:selected="${studentDTO.smoke} eq '금연'">금연</option>
+                        <option value="비흡연" th:selected="${studentDTO.smoke} eq '비흡연'">비흡연</option>
+                      </select>
+                    </div>
+                    <div class="admin_info_box_in">
+                      <label for="disease" >질병</label>
+                      <input type="text" th:value="${studentDTO.disease}" id="disease" name="disease">
+                    </div>
+                  </div>
+                </div>
+                <div class="admin_info_box">
+                  <label for="job_program" >국취취업제도 참여 여부</label>
+                  <div class="job_box">
+                    <select id="job_program_select" class="job_select">
+                      <option value="" disabled selected>선택</option>
+                      <option value="참여중" >참여중</option>
+                      <option value="기참여" >기참여</option>
+                      <option value="self" >미참여</option>
+                    </select>
+                    <input type="text" name="job_program" id="job_program" placeholder="사유를 적어주세요." th:value="${studentDTO.job_program}"/>
+                  </div>
+                </div>
+                <div class="admin_info_box">
+                  <label for="fund" >지원센터</label>
+                  <input type="text" th:value="${studentDTO.fund}" id="fund" name="fund">
+                </div>
+                <div class="admin_info_box">
+                  <label for="cert" >자격증</label>
+                  <input type="text" th:value="${studentDTO.cert}" id="cert" name="cert">
+                </div>
+                <div class="admin_info_box">
+                  <label for="task" >과제 및 피드백</label>
+                  <input type="text" th:value="${studentDTO.task}" id="task" name="task">
+                </div>
+                <div class="admin_info_box">
+                  <label for="env" >학습환경 및 장비</label>
+                  <input type="text" th:value="${studentDTO.env}" id="env" name="env">
+                </div>
+                <div class="admin_info_box">
+                  <label for="exp" >경력</label>
+                  <input type="text" th:value="${studentDTO.exp}" id="exp" name="exp">
+                  <input type="hidden" name="no" th:value="${studentDTO.no}">
+                </div>
+                <div class="admin_info_box">
+                  <label for="stack" >기술스택</label>
+                  <input type="text" th:value="${studentDTO.stack}" id="stack" name="stack" placeholder="검색해주세요." >
+                  <input type="hidden" name="no" th:value="${studentDTO.no}">
+                </div>
+              </div>
+
+              <div class="admin_info_container2_in">
+                <div class="admin_info_box">
+                  <div class="flex_between">
+                    <div class="admin_info_box_in">
+                      <label for="univ" >최종학력</label>
+                      <input type="text" th:value="${studentDTO.univ}" id="univ" name="univ">
+                    </div>
+                    <div class="admin_info_box_in">
+                      <label for="major" >학과</label>
+                      <input type="text" th:value="${studentDTO.major}" id="major" name="major">
+                    </div>
+                  </div>
+                </div>
+                <div class="admin_info_box">
+                  <div class="flex_between">
+                    <div class="admin_info_box_in">
+                      <label for="satis" >전반적 만족도</label>
+                      <select name="satis" id="satis" class="select-box admin_info_select">
+                        <option value="1.매우 만족" th:selected="${studentDTO.satis} eq '1.매우 만족'">1.매우 만족</option>
+                        <option value="2.만족" th:selected="${studentDTO.satis} eq '2.만족'">2.만족</option>
+                        <option value="3.보통" th:selected="${studentDTO.satis} eq '3.보통'">3.보통</option>
+                        <option value="4.불만족" th:selected="${studentDTO.satis} eq '4.불만족'">4.불만족</option>
+                        <option value="5.매우 불만족" th:selected="${studentDTO.satis} eq '5.매우 불만족'">5.매우 불만족</option>
+                      </select>
+                    </div>
+                    <div class="admin_info_box_in">
+                      <label for="etc" >기타</label>
+                      <input type="text" th:value="${studentDTO.etc}" id="etc" name="etc">
+                    </div>
+                  </div>
+                </div>
+              <div class="admin_info_box">
+                <div class="flex_between">
+                  <div class="admin_info_box_in">
+                    <label for="complete" >수료여부</label>
+                    <select name="complete" id="complete" class="select-box admin_info_select">
+                      <option value="수료" th:selected="${studentDTO.complete} eq '수료'">수료</option>
+                      <option value="미수료" th:selected="${studentDTO.complete} eq '미수료'">미수료</option>
+                    </select>
+                  </div>
+                  <div class="admin_info_box_in">
+                    <label for="edu_cert" >수료증번호</label>
+                    <input type="text" th:value="${studentDTO.edu_cert}" id="edu_cert" name="edu_cert">
+                  </div>
+                </div>
+              </div>
+                <div class="admin_info_box">
+                  <label for="education" >교육 수료</label>
+                  <input type="text" th:value="${studentDTO.education}" id="education" name="education">
+                </div>
+                <div class="admin_info_box">
+                  <label for="goal" >최종목표</label>
+                  <input type="text" th:value="${studentDTO.goal}" id="goal" name="goal">
+                </div>
+                <div class="admin_info_box">
+                  <label for="hope" >희망 진로분야</label>
+                  <input type="text" th:value="${studentDTO.hope}" id="hope" name="hope">
+                </div>
+                <div class="admin_info_box">
+                  <label for="doc" >입사지원 서류관련 의견</label>
+                  <input type="text" th:value="${studentDTO.doc}" id="doc" name="doc">
+                </div>
+                <div class="admin_info_box">
+                  <label for="depart" >부서</label>
+                  <input type="text" th:value="${studentDTO.depart}" id="depart" name="depart">
+                </div>
+                <div class="admin_info_box">
+                  <label for="early" >조기인턴유무</label>
+                  <input type="text" th:value="${studentDTO.early}" id="early" name="early">
+                </div>
+                <div class="admin_info_box">
+                  <label for="other" >타기업 취업</label>
+                  <input type="text" th:value="${studentDTO.other}" id="other" name="other">
+                </div>
           </div>
-          <div class="admin_info_box">
-            <label for="cert" >자격증</label>
-            <input type="text" th:value="${studentDTO.cert}" id="cert" name="cert">
+            </div>
+              <div class="admin_info_box">
+                <div class="score_box">
+                  <label>워드실력</label>
+                </div>
+                <div class="admin_info_box">
+                  <div class="flex_between">
+                    <div class="admin_info_box_in2">
+                      <label for="excel" >엑셀</label>
+                      <select name="excel" id="excel" class="select-box admin_info_select">
+                        <option value="상" th:selected="${studentDTO.excel} eq '상'">상</option>
+                        <option value="중" th:selected="${studentDTO.excel} eq '중'">중</option>
+                        <option value="하" th:selected="${studentDTO.excel} eq '하'">하</option>
+                      </select>
+                    </div>
+                    <div class="admin_info_box_in2">
+                      <label for="ppt" >파워포인트</label>
+                      <select name="ppt" id="ppt" class="select-box admin_info_select">
+                        <option value="상" th:selected="${studentDTO.ppt} eq '상'">상</option>
+                        <option value="중" th:selected="${studentDTO.ppt} eq '중'">중</option>
+                        <option value="하" th:selected="${studentDTO.ppt} eq '하'">하</option>
+                      </select>
+                    </div>
+                    <div class="admin_info_box_in2">
+                      <label for="word" >MS 워드</label>
+                      <select name="word" id="word" class="select-box admin_info_select">
+                        <option value="상" th:selected="${studentDTO.word} eq '상'">상</option>
+                        <option value="중" th:selected="${studentDTO.word} eq '중'">중</option>
+                        <option value="하" th:selected="${studentDTO.word} eq '하'">하</option>
+                      </select>
+                    </div>
+                    <div class="admin_info_box_in2">
+                      <label for="hwp" >한글</label>
+                      <select name="hwp" id="hwp" class="select-box admin_info_select">
+                        <option value="상" th:selected="${studentDTO.hwp} eq '상'">상</option>
+                        <option value="중" th:selected="${studentDTO.hwp} eq '중'">중</option>
+                        <option value="하" th:selected="${studentDTO.hwp} eq '하'">하</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="em_text"><em>
+                  기본: 문서작업 / 중: 함수 및 표,수식 / 상: 피벗 및 보고서
+                </em></div>
+              </div>
           </div>
-          <div class="admin_info_box">
-            <label for="univ" >대학교</label>
-            <input type="text" th:value="${studentDTO.univ}" id="univ" name="univ">
-          </div>
-          <div class="admin_info_box">
-            <label for="major" >학과</label>
-            <input type="text" th:value="${studentDTO.major}" id="major" name="major">
-          </div>
-          <div class="admin_info_box">
-            <label for="hope" >희망 진로분야</label>
-            <input type="text" th:value="${studentDTO.hope}" id="hope" name="hope">
-          </div>
-          <div class="admin_info_box">
-            <label for="job_program" >국취참여여부</label>
-            <input type="text" th:value="${studentDTO.job_program}" id="job_program" name="job_program">
-          </div>
-          <div class="admin_info_box">
-            <label for="fund" >지원센터</label>
-            <input type="text" th:value="${studentDTO.fund}" id="fund" name="fund">
-          </div>
-          <div class="admin_info_box">
-            <label for="exp" >경력</label>
-            <input type="text" th:value="${studentDTO.exp}" id="exp" name="exp">
-            <input type="hidden" name="no" th:value="${studentDTO.no}">
-          </div>
-          <div class="admin_info_box">
-            <label for="OA" >Word/PPT/Excel</label>
-            <input type="text" th:value="${studentDTO.OA}" id="OA" name="OA">
-          </div>
-          <div class="admin_info_box">
-            <label for="satis" >전반적 만족도</label>
-            <input type="text" th:value="${studentDTO.satis}" id="satis" name="satis">
-          </div>
-          <div class="admin_info_box">
-            <label for="instructor" >담당 강사</label>
-            <input type="text" th:value="${studentDTO.instructor}" id="instructor" name="instructor">
-          </div>
-          <div class="admin_info_box">
-            <label for="task" >과제 및 피드백</label>
-            <input type="text" th:value="${studentDTO.task}" id="task" name="task">
-          </div>
-          <div class="admin_info_box">
-            <label for="env" >학습환경 및 장비</label>
-            <input type="text" th:value="${studentDTO.env}" id="env" name="env">
-          </div>
-          <div class="admin_info_box">
-            <label for="goal" >최종목표</label>
-            <input type="text" th:value="${studentDTO.goal}" id="goal" name="goal">
-          </div>
-          <div class="admin_info_box">
-            <label for="doc" >입사지원 서류관련 의견</label>
-            <input type="text" th:value="${studentDTO.doc}" id="doc" name="doc">
-          </div>
-        </div>
-        <div class="admin_info_container">
-          <div class="admin_info_box">
-            <label for="personal" >성격 및 태도</label>
-            <input type="text" th:value="${studentDTO.personal}" id="personal" name="personal">
-          </div>
-          <div class="admin_info_box">
-            <label for="score" >벌점</label>
-            <input type="text" th:value="${studentDTO.score}" id="score" name="score">
-          </div>
-          <div class="admin_info_box">
-            <label for="score_date" >벌점 날짜</label>
-            <input type="text" th:value="${studentDTO.score_date}" id="score_date" name="score_date">
-          </div>
-          <div class="admin_info_box">
-            <label for="accident" >사고</label>
-            <input type="text" th:value="${studentDTO.accident}" id="accident" name="accident">
-          </div>
-          <div class="admin_info_box">
-            <label for="reason" >사유</label>
-            <input type="text" th:value="${studentDTO.reason}" id="reason" name="reason">
-          </div>
-          <div class="admin_info_box">
-            <label for="education" >교육 수료</label>
-            <input type="text" th:value="${studentDTO.education}" id="education" name="education">
-          </div>
-          <div class="admin_info_box">
-            <label for="edu_cert" >수료증번호</label>
-            <input type="text" th:value="${studentDTO.edu_cert}" id="edu_cert" name="edu_cert">
-          </div>
-          <div class="admin_info_box">
-            <label for="complete" >수료여부</label>
-            <input type="text" th:value="${studentDTO.complete}" id="complete" name="complete">
-          </div>
-          <div class="admin_info_box">
-            <label for="depart" >부서</label>
-            <input type="text" th:value="${studentDTO.depart}" id="depart" name="depart">
-          </div>
-          <div class="admin_info_box">
-            <label for="early" >조기인턴유무</label>
-            <input type="text" th:value="${studentDTO.early}" id="early" name="early">
-          </div>
-          <div class="admin_info_box">
-            <label for="other" >타기업 취업</label>
-            <input type="text" th:value="${studentDTO.other}" id="other" name="other">
-          </div>
-          <div class="admin_info_box">
-            <label for="smoke" >흡연</label>
-            <input type="text" th:value="${studentDTO.smoke}" id="smoke" name="smoke">
-          </div>
-          <div class="admin_info_box">
-            <label for="disease" >질병</label>
-            <input type="text" th:value="${studentDTO.disease}" id="disease" name="disease">
-          </div>
-          <div class="admin_info_box">
-            <label for="opinion" >종합 의견</label>
-            <input type="text" th:value="${studentDTO.opinion}" id="opinion" name="opinion">
-          </div>
-          <div class="admin_info_box">
-            <label for="content" >상담내용</label>
-            <input type="text" th:value="${studentDTO.content}" id="content" name="content">
-          </div>
-          <div class="admin_info_box">
-            <label for="etc" >기타</label>
-            <input type="text" th:value="${studentDTO.etc}" id="etc" name="etc">
+
+          <!--        -->
+          <div class="admin_info_container_wrap">
+            <div class="admin_title">
+              <h2>3. 사고 및 벌점</h2>
+            </div>
+            <div class="flex_between">
+              <div class="admin_info_container2_in">
+                <div class="score_box">
+                  <label for="score_date" >벌점</label>
+                  <div class="score_title">
+                    <input type="date" id="score_date">
+                    <button type="button" class="inline_form_btn select_btn" onclick="Add_score()">추가<i class="fas fa-pencil-alt"></i></button>
+                  </div>
+                  <div>
+                    <textarea name="score_text" id="score_text" ></textarea>
+                  </div>
+                </div>
+                <th:block th:if="${#lists.isEmpty(scores)}">
+                  <div class="flex_center">
+                    <h1>내용 없음</h1>
+                  </div>
+                </th:block>
+                  <th:block th:each="scores, about :${scores}">
+                    <th:block th:if="${!#strings.equals(scores, '내용없음')}">
+                      <div class="score_in" th:id="'score_remove'+${about.count}">
+                        <div th:text="${about.count}"></div>
+                        <textarea name="score" id="score" readonly>[[${scores}]]</textarea>
+                        <div>
+                          <button type="button" class="inline_form_btn cancel_btn" th:com="'score_remove'+${about.count }" onclick="Remove_score(this.getAttribute('com'))">삭제<i class="fas fa-pencil-alt"></i></button>
+                        </div>
+                      </div>
+                    </th:block>
+                  </th:block>
+                  <div id="score_add"></div>
+              </div>
+
+
+              <div class="admin_info_container2_in">
+                <div class="score_box">
+                  <label for="accident_date" >사고</label>
+                  <div class="score_title">
+                    <input type="date" id="accident_date">
+                    <button type="button" class="inline_form_btn select_btn" onclick="Add_accident()">추가<i class="fas fa-pencil-alt"></i></button>
+                  </div>
+                  <div>
+                    <textarea name="accident_text" id="accident_text" >사고:
+사유: </textarea>
+                  </div>
+                </div>
+                <th:block th:if="${#lists.isEmpty(accident)}">
+                  <div class="flex_center">
+                    <h1>내용 없음</h1>
+                  </div>
+                </th:block>
+                <th:block th:each="accident, about :${accident}">
+                  <th:block th:if="${!#strings.equals(accident, '내용없음')}">
+                  <div class="score_in" th:id="'accident_remove'+${about.count}">
+                    <div th:text="${about.count}"></div>
+                    <textarea name="accident" id="accident" readonly>[[${accident}]]</textarea>
+                    <div>
+                      <button type="button" class="inline_form_btn cancel_btn" th:com="'accident_remove'+${about.count }" onclick="Remove_accident(this.getAttribute('com'))">삭제<i class="fas fa-pencil-alt"></i></button>
+                    </div>
+                  </div>
+                  </th:block>
+                </th:block>
+                <div id="accident_add"></div>
+              </div>
+            </div>
           </div>
         </div>
         </div>
@@ -217,72 +365,9 @@
   </form>
 </div>
 </div>
-
-
-
-<script>
-  const email2_select = document.querySelector('#email2_select')
-  const email2 = document.querySelector('#email2')
-  email2_select.addEventListener('change', (event) => {
-    if(event.target.value !== "self") {
-      email2.value = event.target.value
-      email2.disabled = true
-    } else {
-      email2.value = ""
-      email2.disabled = false
-    }
-  })
-</script>
 <script>
   function modify(f){
-    let phoneval =  $("#phone1").val() + $("#phone2").val() + $("#phone3").val()
-    $("#phone").val(phoneval)
-
-    let emailval =  $("#email1").val() +'@'+ $("#email2").val()
-    $("#email").val(emailval)
-
-    let birthval =  $("#birth1").val() +'년'+ $("#birth2").val() +'월'+ $("#birth3").val() +'일'
-    $("#birth").val(birthval)
-
-    if(f.pw.value!=f.pw2.value){
-      alert("비밀번호와 비밀번호 확인이 서로 다릅니다.");
-      f.pw.focus();
-      return false;
-    }
-    if(f.pw.value.length(8-16)){
-      alert("비밀번호는 최소 8자리에서 최대 16자리까지 숫자, 영문, 특수문자 각 1개 이상 포함해주세요.");
-      f.pw.focus();
-      return false;
-    }
-
-    let value = $("#pw").val();
-
-    let pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&.,])[A-Za-z\d$@$!%*#?&]{8,16}$"
-    if (!pattern.test(value)) {
-      alert("숫자, 영문, 특수문자 각 1개 이상 포함입니다.");
-      $("#pw").focus();
-      return false;
-    }
-  }
-</script>
-<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
-  function findAddr(){
-    new daum.Postcode({
-      oncomplete:function(data){
-        var roadAddr = data.roadAddress;
-        var jibunAddr = data.jibunAddress;
-        var bname = data.bname;
-        document.getElementById("postcode").value = data.zonecode;
-        if(roadAddr !== ''){
-          document.getElementById("addr1").value = roadAddr;
-        } else if(jibunAddr !== ''){
-          document.getElementById("addr1").value = jibunAddr;
-        }
-        document.getElementById("addr3").value = bname;
-        document.getElementById("addr2").focus();
-      }
-    }).open();
+    alert("정보가 변경되었습니다.")
   }
 </script>
 <script>
@@ -307,4 +392,102 @@
   })
 </script>
 
+  <!--  tagify  -->
+  <!-- 소스 다운 -->
+  <script src="https://unpkg.com/@yaireo/tagify"></script>
+  <!-- 폴리필 (구버젼 브라우저 지원) -->
+  <script src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+  <style>
+    .tagify{
+      border: 1px solid;
+    }
+  </style>
+  <script>
+    let inputElm = document.querySelector('input[name=stack]');
+
+    var whitelist = ["A# .NET", "A# (Axiom)", "A-0 System", "A+", "A++", "ABAP", "ABC", "ABC ALGOL", "ABSET", "ABSYS", "ACC", "Accent", "Ace DASL", "ACL2", "Avicsoft", "ACT-III", "Action!", "ActionScript", "Ada", "Adenine", "Agda", "Agilent VEE", "Agora", "AIMMS", "Alef", "ALF", "ALGOL 58", "ALGOL 60", "ALGOL 68", "ALGOL W", "Alice", "Alma-0", "AmbientTalk", "Amiga E", "AMOS", "AMPL", "Apex (Salesforce.com)", "APL", "AppleScript", "Arc", "ARexx", "Argus", "AspectJ", "Assembly language", "ATS", "Ateji PX", "AutoHotkey", "Autocoder", "AutoIt", "AutoLISP / Visual LISP", "Averest", "AWK", "Axum", "Active Server Pages", "ASP.NET", "B", "Babbage", "Bash", "BASIC", "bc", "BCPL", "BeanShell", "Batch (Windows/Dos)", "Bertrand", "BETA", "Bigwig", "Bistro", "BitC", "BLISS", "Blockly", "BlooP", "Blue", "Boo", "Boomerang", "Bourne shell (including bash and ksh)", "BREW", "BPEL", "B", "C--", "C++ – ISO/IEC 14882", "C# – ISO/IEC 23270", "C/AL", "Caché ObjectScript", "C Shell", "Caml", "Cayenne", "CDuce", "Cecil", "Cesil", "Céu", "Ceylon", "CFEngine", "CFML", "Cg", "Ch", "Chapel", "Charity", "Charm", "Chef", "CHILL", "CHIP-8", "chomski", "ChucK", "CICS", "Cilk", "Citrine (programming language)", "CL (IBM)", "Claire", "Clarion", "Clean", "Clipper", "CLIPS", "CLIST", "Clojure", "CLU", "CMS-2", "COBOL – ISO/IEC 1989", "CobolScript – COBOL Scripting language", "Cobra", "CODE", "CoffeeScript", "ColdFusion", "COMAL", "Combined Programming Language (CPL)", "COMIT", "Common Intermediate Language (CIL)", "Common Lisp (also known as CL)", "COMPASS", "Component Pascal", "Constraint Handling Rules (CHR)", "COMTRAN", "Converge", "Cool", "Coq", "Coral 66", "Corn", "CorVision", "COWSEL", "CPL", "CPL", "Cryptol", "csh", "Csound", "CSP", "CUDA", "Curl", "Curry", "Cybil", "Cyclone", "Cython", "Java", "Javascript", "M2001", "M4", "M#", "Machine code", "MAD (Michigan Algorithm Decoder)", "MAD/I", "Magik", "Magma", "make", "Maple", "MAPPER now part of BIS", "MARK-IV now VISION:BUILDER", "Mary", "MASM Microsoft Assembly x86", "MATH-MATIC", "Mathematica", "MATLAB", "Maxima (see also Macsyma)", "Max (Max Msp – Graphical Programming Environment)", "Maya (MEL)", "MDL", "Mercury", "Mesa", "Metafont", "Microcode", "MicroScript", "MIIS", "Milk (programming language)", "MIMIC", "Mirah", "Miranda", "MIVA Script", "ML", "Model 204", "Modelica", "Modula", "Modula-2", "Modula-3", "Mohol", "MOO", "Mortran", "Mouse", "MPD", "Mathcad", "MSIL – deprecated name for CIL", "MSL", "MUMPS", "Mystic Programming L"];
+
+    var tagify = new Tagify(inputElm, {
+      whitelist:whitelist,
+      maxTags: 10,
+      dropdown: {
+        maxItems: 20,
+        classname: "tags-look",
+        enabled: 0,
+        closeOnSelect: false
+      }
+    })
+  </script>
+  <script>
+    const job_program_select = document.querySelector('#job_program_select')
+    const job_program = document.querySelector('#job_program')
+    job_program.readOnly = true
+    job_program.style.backgroundColor = '#e4e4e4'
+    job_program_select.addEventListener('change', (event) => {
+      if(event.target.value !== "self") {
+        job_program.value = event.target.value
+        job_program.style.backgroundColor = '#e4e4e4'
+        job_program.readOnly = true
+      } else {
+        job_program.value = "";
+        job_program.style.backgroundColor = 'white'
+        job_program.readOnly = false
+        job_program.focus()
+      }
+    })
+  </script>
+  <script>
+    let score_text = document.querySelector('#score_text');
+    let score_date = document.querySelector('#score_date');
+    let score_add = document.querySelector('#score_add');
+    let score = document.querySelector('#score');
+
+    function Add_score() {
+      let score_sum = '날짜: '+ score_date.value + '\n'
+              + score_text.value;
+
+      score_add.insertAdjacentHTML('afterbegin', ' ' +
+              '<div class="score_in">\n' +
+              '<div>추가 :</div>\n' +
+              '<textarea name="score" id="score_addIn" readonly></textarea>\n' +
+              '<div>\n' +
+              '</div>\n' +
+              '</div>'
+      );
+      document.querySelector('#score_addIn').value = score_sum;
+    }
+    function Remove_score(num){
+      if(confirm("삭제 하시겠습니까?")) {
+        let score_remove = document.getElementById(num);
+        score_remove.remove();
+      }
+    }
+  </script>
+  <script>
+    let accident_text = document.querySelector('#accident_text');
+    let accident_date = document.querySelector('#accident_date');
+    let accident_add = document.querySelector('#accident_add');
+    let accident = document.querySelector('#accident');
+
+    function Add_accident() {
+      let accident_sum = '날짜: '+ accident_date.value + '\n'
+              + accident_text.value;
+
+      accident_add.insertAdjacentHTML('afterbegin', ' ' +
+              '<div class="score_in">\n' +
+              '<div>추가 :</div>\n' +
+              '<textarea name="accident" id="accident_addIn" readonly></textarea>\n' +
+              '<div>\n' +
+              '</div>\n' +
+              '</div>'
+      );
+      document.querySelector('#accident_addIn').value = accident_sum;
+    }
+    function Remove_accident(num){
+      if(confirm("삭제 하시겠습니까?")) {
+        let accident_remove = document.getElementById(num);
+        accident_remove.remove();
+      }
+    }
+  </script>
 </div>

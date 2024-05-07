@@ -117,8 +117,7 @@
     box-shadow: 5px 15px 30px rgba(173, 216, 230, 0.8);
 }
 .user_index section a.btnView {
-    background: linear-gradient(45deg, #53ecec, #38cfe5);
-    box-shadow: 5px 10px 20px rgba(71, 236, 236, 0.49);
+    background: black;
 }
 
 /* 메인 공지사항 */
@@ -210,7 +209,9 @@
 .file_box {
     display: flex;
     justify-content: start;
-    padding-bottom: 20px;
+    padding-bottom: 60px;
+    padding-top: 7px;
+    height : 225px;
 }
 .file_box .file_box_div {
     width: 80%;
@@ -254,4 +255,91 @@
 }
 .md-mode {
     width: 100% !important;
+}
+
+/* class 공지사항 */
+.notice_flag {
+    color: var(--c-red);
+}
+.register-admin {
+    justify-content: space-between;
+}
+.none-margin {
+    margin-left: 0px !important;
+}
+.class-select {
+    padding: 0px;
+}
+.cno-label {
+    width: 45px !important;
+}
+
+/* 댓글 입력 창 */
+.comment-area {
+    margin: 0px 10px;
+}
+.comment-container {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.comment-textarea {
+    flex: 1;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.comment-textarea:focus {
+    outline: none; /* 포커스된 상태에서의 외곽선 제거 */
+    border-color: #007bff; /* 포커스 시 보더 색상 변경 */
+}
+
+/* 버튼 */
+.btn-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 10px; /* 버튼 사이 간격 조절 */
+}
+
+.btn-delete {
+    background-color: #dc3545;
+}
+
+/* 댓글 목록 */
+.comment-list {
+    list-style-type: none; /* 목록 점 제거 */
+    padding: 0;
+}
+
+.comment {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0px;
+}
+
+.comment-author {
+    font-weight: bold;
+}
+
+.comment-body {
+    margin-top: 5px;
+}
+
+.class-select {
+    width: 400px !important;
 }

@@ -12,10 +12,11 @@
       <table class="table_set">
         <thead>
         <tr>
-          <th>이름</th>
-          <th>가입날짜</th>
-          <th>클래스</th>
-          <th>권한</th>
+          <th style="width: 10%">아이디</th>
+          <th style="width: 10%">이름</th>
+          <th style="width: auto">가입날짜</th>
+          <th style="width: 20%">클래스 변경</th>
+          <th style="width: 20%">권한</th>
         </tr>
         </thead>
         <tbody>
@@ -27,21 +28,24 @@
           </tr>
         </th:block>
           <tr th:each="member, about :${memberList}">
+            <td th:text="${member.id}"></td>
             <td>
               <a th:href="@{/admin/member_read(no=${member.getNo() } )}">[[${member.name }]]  <i class='fas fa-sign-in-alt'></i> </a>
             </td>
             <td th:text="${#temporals.format(member.createdTime, 'yyyy-MM-dd')}"></td>
             <td>
-              <form th:action="@{/admin/change_role(id=${member.id} )}" method="post" class="inline_form">
-                <select name="role" class="select-box">
-                  <option th:value="${member.course.no}" th:selected="${member.course.subject} != 'EXCEPTION'">[[${member.course.subject}]]</option>
-                  <option value="1" th:selected="${member.course.subject} == 'EXCEPTION'">예외</option>
+              <form th:action="@{/admin/admin_change_course(id=${member.id} )}" method="post" class="inline_form">
+                <select name="cno" class="select-box">
+                  <th:block th:if="${#strings.equals(member.course.subject, 'EXCEPTION')}"></th:block>
+
+                  <option th:value="${member.course.no}" th:selected="${member.course.subject} != 'EXCEPTION'">[[${member.course.subject } + ' '+ ${member.course.flag} +'기']]</option>
+                  <option value="1" th:selected="${member.course.subject} == 'EXCEPTION'">매니저</option>
                 </select>
                 <button type="submit" class="inline_form_btn select_btn" >권한 변경 <i class="fas fa-pencil-alt"></i></button>
               </form>
             </td>
             <td>
-              <form th:action="@{/admin/change_role(id=${member.id} )}" method="post" class="inline_form">
+              <form th:action="@{/admin/admin_change_role(id=${member.id} )}" method="post" class="inline_form">
                 <select name="role" class="select-box">
                   <option value="MANAGER" th:selected="${#strings.equals(member.role, 'MANAGER')}">매니저</option>
                   <option value="TEACHER" th:selected="${#strings.equals(member.role, 'TEACHER')}">교수자 </option>
@@ -78,7 +82,6 @@
                 }
               }
             }
-
             if (subjectValue) {
               setSelectedOption('subject', subjectValue);
             }
@@ -98,47 +101,46 @@
         <th:block th:replace="~{include/page :: pagination(pageLink=@{'/admin/admin_member'})}"></th:block>
       </th:block>
     </div>
-    <div class="layout_add">
-      <div > <i class="far fa-plus-square"></i> 매니저 추가하기</div>
+    <div class="btn_group_right">
+      <div class="layout_add"><i class="far fa-plus-square"></i> 매니저 추가하기</div>
     </div>
-
   </div>
 
     <div class="hide_layout">
       <div class="layout_box">
         <i class="fas fa-times-circle layout_close"></i>
-        <form th:action="@{/joinPro}" onsubmit="return joinCheck(this)">
+        <form th:action="@{/admin/admin_joinPro}" method="post" onsubmit="return joinCheck(this)">
           <div class="admin_join">
             <div class="form-login">
               <label>아이디<em>*</em></label>
               <div class="flex_between">
                 <input type="text" name="id" id="id" class="join_input" placeholder="아이디를 입력해주세요." required />
                 <button type="button" class="join_btn" onclick="idCheck()">아이디 중복 확인</button>
-                <input type="hidden" name="cno" value="1">
               </div>
               <input type="hidden" name="idCk" id="idCk" value="no">
               <p id="msg" class="no_check">아이디 중복 체크를 하지 않으셨습니다.</p>
             </div>
             <div class="form-login">
               <label>이름<em>*</em></label>
-              <input type="text" name="name" placeholder="한글로 공백없이 입력해주세요." maxlength="4" required/>
+              <input type="text" name="name" placeholder="한글로 공백없이 입력해주세요." minlength="2" maxlength="4" required/>
             </div>
             <div class="form-login">
               <label>비밀번호<em>*</em></label>
-              <input type="password" name="pw" placeholder="비밀번호를 입력해주세요." maxlength="16" required />
-              <p class="info mb-0">비밀번호는 최소 8자리에서 최대 16자리 <br> 숫자, 영문, 특수문자 각 1개 이상 포함</p>
+              <input type="password" name="pw" id="pw" placeholder="비밀번호를 입력해주세요." minlength="8" maxlength="16" onchange="pwCheck(this)" required />
+              <p id="pwmsg" class="no_check">비밀번호는 최소 8자리에서 최대 16자리 <br> 숫자, 영문, 특수문자 각 1개 이상 포함</p>
             </div>
             <div class="form-login">
               <label>비밀번호 확인<em>*</em></label>
-              <input type="password" name="pw2" placeholder="비밀번호를 다시 입력해주세요." maxlength="16" required />
+              <input type="password" name="pw2" placeholder="비밀번호를 다시 입력해주세요." minlength="8" maxlength="16" required />
             </div>
           </div>
-          <input type="hidden" name="email" value="-"/>
-          <input type="hidden" name="birth" value="-"/>
-          <input type="hidden" name="gender" value="-"/>
-          <input type="hidden" name="phone" value="-"/>
-          <input type="hidden" name="addr1" value="-" />
-          <input type="hidden" name="postcode" value="-">
+          <input type="hidden" name="cno" value="1" readonly />
+          <input type="hidden" name="email" value="-" readonly/>
+          <input type="hidden" name="birth" value="-" readonly/>
+          <input type="hidden" name="gender" value="-" readonly/>
+          <input type="hidden" name="phone" value="-" readonly/>
+          <input type="hidden" name="addr1" value="-"  readonly/>
+          <input type="hidden" name="postcode" value="-" readonly/>
           <div class="btn_group_center">
             <button type="submit" class="board_btn select_btn">매니저 회원가입</button>
           </div>
@@ -183,6 +185,8 @@
             $("#id").focus();
           } else if(idPass == true){
             $("#idCk").val("yes");
+            $("#id").attr('readonly', true)
+            $("#id").css('background-color', '#e4e4e4')
             if($("#msg").hasClass("no_check")) {
               $("#msg").removeClass("no_check");
             }
@@ -195,14 +199,9 @@
     }
 
     function joinCheck(f){
+
       if(f.pw.value!=f.pw2.value){
         alert("비밀번호와 비밀번호 확인이 서로 다릅니다.");
-        f.pw.focus();
-        return false;
-      }
-
-      if(f.pw.value.length(8-16)){
-        alert("비밀번호는 최소 8자리에서 최대 16자리까지 숫자, 영문, 특수문자 각 1개 이상 포함해주세요.");
         f.pw.focus();
         return false;
       }
@@ -212,14 +211,31 @@
         $("#id").focus();
         return false;
       }
+    }
 
-      let value = $("#pw").val();
+  </script>
+  <script>
 
-      let pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&.,])[A-Za-z\d$@$!%*#?&]{8,16}$"
-      if (!pattern.test(value)) {
-        alert("숫자, 영문, 특수문자 각 1개 이상 포함입니다.");
-        $("#pw").focus();
+    function pwCheck(obj){
+      let pwmsg = document.querySelector('#pwmsg')
+      pw_pattern = /^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/;
+
+      if(obj.value.length <= 7){
+        alert("비밀번호는 8자리에서 16자리 입력해주셔야 합니다.")
+        pwmsg.style.color = "red"
+        obj.value = '';
+        obj.focus();
         return false;
+      }
+      if(pw_pattern.test(obj.value) == false){
+        alert("비밀번호는 숫자, 영문, 특수문자 각 1개 이상 포함되어야 합니다.")
+        pwmsg.style.color = "red"
+        obj.value = '';
+        obj.focus();
+        return false;
+      } else {
+        pwmsg.style.color = "blue"
+        return true;
       }
     }
 

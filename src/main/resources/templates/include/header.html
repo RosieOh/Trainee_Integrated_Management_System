@@ -34,9 +34,9 @@
                                 </a>
                             </li>
                             <li class="nav-content">
-                                <a class="nav_link " th:href="@{/notice/class/list(cno=-1)}">
+                                <a class="nav_link " th:href="@{/notice/class/list}">
                                     <i class="fas fa-users"></i>
-                                    <p>클래스(미정)</p>
+                                    <p>클래스 게시판</p>
                                 </a>
                             </li>
                             <li class="nav-content">
@@ -107,6 +107,11 @@
                   <p>공지사항</p>
                 </a>
               </li>
+              <li>
+                <a class="nav_link " th:href="@{/notice/class/list}"><i class="fas fa-school"></i>
+                    <p>클래스 게시판</p>
+                </a>
+              </li>
 <!--              <li>-->
 <!--                <a class="nav_link " th:href="@{/notice/list}"><i class="fas fa-clipboard"></i>-->
 <!--                  <p>전체 공지사항</p>-->
@@ -130,6 +135,7 @@
             </ul>
           </div>
         </nav>
+      <a href="#top" class="gotop" id="gotop">▲</a>
       </th:block>
 
         <script>
@@ -149,15 +155,17 @@
                         $(this).find(".user-dropdown_wrap").slideToggle();
                     });
             });
-
-
-
-            //
-            // let dropdown = document.querySelector(".header-dropdown");
-            // dropdown.addEventListener("click", function(){
-            //     this._toggleClass('o')
-            // })
-
+        </script>
+        <script>
+            $(document).ready(function () {
+                $(window).scroll(function () {
+                    if ($(this).scrollTop() > 250) {
+                        $("#gotop").show();
+                    } else {
+                        $("#gotop").hide();
+                    }
+                });
+            });
         </script>
     </th:block>
   </body>
