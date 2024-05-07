@@ -6,6 +6,12 @@ build/
 !**/src/test/**/build/
 *.log
 application-s3-dev.properties
+email.properties
+application-dev.properties
+
+
+
+
 
 
 ### STS ###
