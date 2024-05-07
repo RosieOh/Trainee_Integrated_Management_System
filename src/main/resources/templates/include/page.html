@@ -195,14 +195,10 @@
       <script th:inline="javascript">
           function goToPage(page) {
               var keyword = /*[[${param.keyword} != null ? ${param.keyword} : '']]*/ '';
-              var cno = /*[[${param.keyword} != null ? ${param.keyword} : '']]*/ '';
               var pageLink = /*[[${pageLink}]]*/ '';
-              pageLink += '?cno=' +1 +'&page=' + page ;
+              pageLink += '?page=' + page ;
               if(keyword !== '') {
                   pageLink += '&keyword=' + encodeURIComponent(keyword);
-              }
-              if(cno !== '') {
-                  pageLink += '&cno=' + encodeURIComponent(cno);
               }
               window.location.href = pageLink;
           }
@@ -210,7 +206,6 @@
               var urlParams = new URLSearchParams(window.location.search);
               var pageValue = urlParams.get('page');
               var keywordValue = urlParams.get('keyword');
-
 
               if (pageValue !== null && !isNaN(pageValue)) {
                   var page = parseInt(pageValue);

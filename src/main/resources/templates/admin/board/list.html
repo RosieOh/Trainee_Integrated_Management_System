@@ -99,26 +99,10 @@
                 <script>
                     window.onload = function() {
                         var urlParams = new URLSearchParams(window.location.search);
-                        var cnoValue = urlParams.get('cno');
                         var keywordValue = urlParams.get('keyword');
-                        console.log(keywordValue);
 
-                        function setSelectedOption(selectId, optionValue) {
-                            var selectElement = document.getElementById(selectId);
-                            var options = selectElement.options;
-
-                            for (var i = 0; i < options.length; i++) {
-                                if (options[i].value === optionValue) {
-                                    options[i].setAttribute('selected', 'selected');
-                                    return;
-                                }
-                            }
-                        }
-                        if (cnoValue) {
-                            setSelectedOption('cno', cnoValue);
-                        }
                         if(keywordValue) {
-                            document.getElementById('keywordTitle').setAttribute('value', keywordValue);
+                            document.getElementById('keywordTitle2').setAttribute('value', keywordValue);
                         }
                     };
                 </script>
