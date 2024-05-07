@@ -1,10 +1,9 @@
 
 package com.lms.domain;
 
-import com.lms.domain.Course.dto.CourseDTO;
-import com.lms.domain.Course.service.CourseService;
+import com.lms.domain.course.dto.CourseDTO;
+import com.lms.domain.course.service.CourseService;
 import com.lms.domain.member.dto.MemberDTO;
-import com.lms.domain.member.dto.MemberVO;
 import com.lms.domain.member.entity.Member;
 import com.lms.domain.member.service.MemberService;
 import com.lms.domain.student.dto.StudentDTO;
@@ -25,7 +24,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 

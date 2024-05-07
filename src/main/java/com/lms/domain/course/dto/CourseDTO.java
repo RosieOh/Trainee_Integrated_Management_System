@@ -1,9 +1,8 @@
-package com.lms.domain.Course.dto;
+package com.lms.domain.course.dto;
 
 import com.lms.global.cosntant.Subject;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
 

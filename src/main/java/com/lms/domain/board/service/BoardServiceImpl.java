@@ -1,22 +1,17 @@
 package com.lms.domain.board.service;
 
 
-import com.lms.domain.Course.entity.Course;
-import com.lms.domain.Course.entity.QCourse;
-import com.lms.domain.Course.repository.CourseRepository;
+import com.lms.domain.course.entity.QCourse;
+import com.lms.domain.course.repository.CourseRepository;
 import com.lms.domain.board.dto.BoardDTO;
 import com.lms.domain.board.entity.Board;
 import com.lms.domain.board.entity.QBoard;
 import com.lms.domain.board.repository.BoardRepository;
 import com.lms.domain.file.entity.File;
-import com.lms.domain.member.entity.Member;
-import com.lms.domain.member.entity.QMember;
 import com.lms.domain.member.repository.MemberRepository;
 import com.lms.global.cosntant.BoardType;
-import com.lms.global.cosntant.Subject;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.QueryResults;
-import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.transaction.Transactional;

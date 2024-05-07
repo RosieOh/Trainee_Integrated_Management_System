@@ -1,7 +1,7 @@
 package com.lms.domain.member.service;
 
-import com.lms.domain.Course.entity.Course;
-import com.lms.domain.Course.repository.CourseRepository;
+import com.lms.domain.course.entity.Course;
+import com.lms.domain.course.repository.CourseRepository;
 import com.lms.domain.member.dto.MemberDTO;
 import com.lms.domain.member.entity.Member;
 import com.lms.domain.member.entity.QMember;

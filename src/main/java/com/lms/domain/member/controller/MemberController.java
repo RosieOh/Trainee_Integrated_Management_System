@@ -1,11 +1,12 @@
 package com.lms.domain.member.controller;
 
-import com.lms.domain.Course.dto.CourseDTO;
+import com.lms.domain.course.dto.CourseDTO;
 import com.lms.domain.board.dto.BoardDTO;
-import com.lms.domain.board.entity.Board;
 import com.lms.domain.board.service.BoardService;
 import com.lms.domain.file.dto.FileDTO;
 import com.lms.domain.file.service.FileService;
+import com.lms.domain.fileStudent.dto.FileStudentDTO;
+import com.lms.domain.fileStudent.service.FileStudentService;
 import com.lms.domain.member.dto.MemberDTO;
 import com.lms.domain.member.service.MemberService;
 import com.lms.domain.student.dto.StudentDTO;
@@ -16,16 +17,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Log4j2
 @Controller
@@ -36,6 +34,7 @@ public class MemberController {
     private final MemberService memberService;
     private final BoardService boardService;
     private final StudentService studentService;
+    private final FileStudentService fileStudentService;
     private final FileService fileService;
 
 
@@ -121,15 +120,15 @@ public class MemberController {
         MemberDTO memberDTO = memberService.loginId(id);
         StudentDTO studentDTO = studentService.student_read(memberDTO.getNo());
         if(studentDTO.getPicture() != null){
-            FileDTO picture_file = fileService.getFile(studentDTO.getPicture());
+            FileStudentDTO picture_file = fileStudentService.getFile(studentDTO.getNo(), studentDTO.getPicture());
             model.addAttribute("picture_file", picture_file);
         }
         if(studentDTO.getPortfolio() != null){
-            FileDTO Portfolio_file = fileService.getFile(studentDTO.getPortfolio());
+            FileStudentDTO Portfolio_file = fileStudentService.getFile(studentDTO.getNo(), studentDTO.getPortfolio());
             model.addAttribute("Portfolio_file", Portfolio_file);
         }
         if(studentDTO.getResume() != null){
-            FileDTO resume_file = fileService.getFile(studentDTO.getResume());
+            FileStudentDTO resume_file = fileStudentService.getFile(studentDTO.getNo(), studentDTO.getResume());
             model.addAttribute("resume_file", resume_file);
         }
         model.addAttribute("studentDTO", studentDTO);
@@ -144,21 +143,18 @@ public class MemberController {
         memberService.member_edit(memberDTO);
         return "redirect:/member/mypage";
     }
-    
+
     @PostMapping("student_add")
     public String student_add(StudentDTO studentDTO, Model model, Principal principal,
                               @RequestParam("file1") MultipartFile file1,
                               @RequestParam("file2") MultipartFile file2,
                               @RequestParam("file3") MultipartFile file3){
-        log.info("studentDTO ------" + studentDTO);
 
+        log.info("studentDTO ------" + studentDTO);
         log.info("student_add 시작 ");
         log.info("picture: " + studentDTO.getPicture());
         log.info("portfolio: " + studentDTO.getPortfolio());
         log.info("resume: " + studentDTO.getResume());
-            studentDTO.setPicture(studentDTO.getNo());
-            studentDTO.setPortfolio(studentDTO.getNo());
-            studentDTO.setResume(studentDTO.getNo());
             studentService.student_edit(studentDTO);
 
         try {
@@ -176,12 +172,13 @@ public class MemberController {
                     }
                 }
                 file1.transferTo(new File(picture_filePath));
-                FileDTO fileDTO = new FileDTO();
+                FileStudentDTO fileDTO = new FileStudentDTO();
                 fileDTO.setOriginFileName(picture_origin);
                 fileDTO.setFileName(picture_origin);
                 fileDTO.setFilePath(picture_savePath);
-                Long fileId = fileService.saveFile(fileDTO);
-                studentDTO.setPicture(fileId);
+                fileDTO.setMemberId(studentDTO.getNo());
+                fileStudentService.saveFile(fileDTO);
+                studentDTO.setPicture(fileDTO.getFileName());
             }
             if(file2 != null) {
                 log.info("file2 시작: " + file2);
@@ -198,12 +195,13 @@ public class MemberController {
                     }
                 }
                 file2.transferTo(new File(portfolio_filePath));
-                FileDTO fileDTO2 = new FileDTO();
-                fileDTO2.setOriginFileName(portfolio_origin);
-                fileDTO2.setFileName(portfolio_filename);
-                fileDTO2.setFilePath(portfolio_savePath);
-                Long fileId2 = fileService.saveFile(fileDTO2);
-                studentDTO.setPortfolio(fileId2);
+                FileStudentDTO fileDTO = new FileStudentDTO();
+                fileDTO.setOriginFileName(portfolio_origin);
+                fileDTO.setFileName(portfolio_origin);
+                fileDTO.setFilePath(portfolio_savePath);
+                fileDTO.setMemberId(studentDTO.getNo());
+                fileStudentService.saveFile(fileDTO);
+                studentDTO.setPortfolio(fileDTO.getFileName());
             }
 
             if(file3 != null) {
@@ -221,12 +219,13 @@ public class MemberController {
                     }
                 }
                 file3.transferTo(new File(resume_filePath));
-                FileDTO fileDTO3 = new FileDTO();
-                fileDTO3.setOriginFileName(resume_origin);
-                fileDTO3.setFileName(resume_filename);
-                fileDTO3.setFilePath(resume_savePath);
-                Long fileId3 = fileService.saveFile(fileDTO3);
-                studentDTO.setResume(fileId3);
+                FileStudentDTO fileDTO = new FileStudentDTO();
+                fileDTO.setOriginFileName(resume_origin);
+                fileDTO.setFileName(resume_origin);
+                fileDTO.setFilePath(resume_savePath);
+                fileDTO.setMemberId(studentDTO.getNo());
+                fileStudentService.saveFile(fileDTO);
+                studentDTO.setResume(fileDTO.getFileName());
             }
 
         studentService.student_edit(studentDTO);

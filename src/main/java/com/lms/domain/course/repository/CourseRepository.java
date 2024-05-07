@@ -1,5 +1,5 @@
-package com.lms.domain.Course.repository;
-import com.lms.domain.Course.entity.Course;
+package com.lms.domain.course.repository;
+import com.lms.domain.course.entity.Course;
 import com.lms.global.cosntant.Subject;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

@@ -1,8 +1,8 @@
-package com.lms.domain.Course.service;
+package com.lms.domain.course.service;
 
-import com.lms.domain.Course.dto.CourseDTO;
-import com.lms.domain.Course.entity.Course;
-import com.lms.domain.Course.repository.CourseRepository;
+import com.lms.domain.course.dto.CourseDTO;
+import com.lms.domain.course.entity.Course;
+import com.lms.domain.course.repository.CourseRepository;
 import com.lms.global.cosntant.Subject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

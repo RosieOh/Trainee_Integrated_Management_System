@@ -1,7 +1,6 @@
-package com.lms.domain.Course.service;
+package com.lms.domain.course.service;
 
-import com.lms.domain.Course.dto.CourseDTO;
-import com.lms.domain.Course.entity.Course;
+import com.lms.domain.course.dto.CourseDTO;
 import com.lms.global.cosntant.Subject;
 
 import java.util.List;

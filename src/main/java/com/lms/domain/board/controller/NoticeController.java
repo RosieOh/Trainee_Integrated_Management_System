@@ -1,7 +1,7 @@
 package com.lms.domain.board.controller;
 
-import com.lms.domain.Course.dto.CourseDTO;
-import com.lms.domain.Course.service.CourseService;
+import com.lms.domain.course.dto.CourseDTO;
+import com.lms.domain.course.service.CourseService;
 import com.lms.domain.board.dto.BoardDTO;
 import com.lms.domain.board.entity.Board;
 import com.lms.domain.board.service.BoardService;
@@ -18,28 +18,21 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.ap.shaded.freemarker.core.Comment;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
-import java.nio.file.Files;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Controller

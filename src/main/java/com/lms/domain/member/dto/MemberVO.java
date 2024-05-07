@@ -1,6 +1,6 @@
 package com.lms.domain.member.dto;
 
-import com.lms.domain.Course.dto.CourseDTO;
+import com.lms.domain.course.dto.CourseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

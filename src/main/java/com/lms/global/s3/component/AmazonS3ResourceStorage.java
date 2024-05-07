@@ -13,7 +13,7 @@
 //import org.springframework.stereotype.Component;
 //import org.springframework.web.multipart.MultipartFile;
 //
-//import java.io.File;
+//import java.io.FileStudent;
 //import java.io.IOException;
 //
 //@Component
@@ -26,7 +26,7 @@
 //    private final AmazonS3Client amazonS3Client;
 //
 //    public void store(String fullPath, MultipartFile multipartFile) {
-//        File file = new File(MultipartUtil.getLocalHomeDirectory(), fullPath);
+//        FileStudent file = new FileStudent(MultipartUtil.getLocalHomeDirectory(), fullPath);
 //        try {
 //            multipartFile.transferTo(file);
 //            amazonS3Client.putObject(new PutObjectRequest(bucket, fullPath, file)

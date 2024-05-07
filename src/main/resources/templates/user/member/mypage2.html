@@ -53,12 +53,21 @@
                       <input type="text" name="job_program" id="job_program" th:value="${studentDTO.job_program}"/>
                     </div>
                   </div>
+
                   <div class="user_info_box">
                     <label for="fund" >지원센터</label>
                     <input type="text" th:value="${studentDTO.fund}" id="fund" name="fund">
                   </div>
                   <div class="file_input">
                     <label for="picture" ><i class="fas fa-file"></i> 사진</label>
+<!--                    <td colspan="6" th:if="${studentDTO.picture.isEmpty()}">-->
+<!--                      파일 없음-->
+<!--                    </td>-->
+<!--                    <td th:if="${files != null}" th:each="file : ${files}">-->
+<!--                      <a th:href="@{'/download/' + ${file.id}}">-->
+<!--                        <i class="fas fa-window-maximize"></i>[[${file.originFileName}]]-->
+<!--                      </a><br />-->
+<!--                    </td>-->
                     <input type="file" class="form-control" name="files" id="fileNotice1">
                     <input type="hidden" id="picture" name="picture" class="" >
                   </div>

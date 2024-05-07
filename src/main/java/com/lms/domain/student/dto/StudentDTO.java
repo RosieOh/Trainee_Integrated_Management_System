@@ -36,13 +36,13 @@ public class StudentDTO{
     private String hope;            //희망 진로분야
 
 
-    private Long picture;            //사진
+    private String picture;            //사진
 
 
-    private Long resume;            //이력서
+    private String resume;            //이력서
 
 
-    private Long portfolio;           //포트폴리오
+    private String portfolio;           //포트폴리오
 
 
     //    매니저 입력

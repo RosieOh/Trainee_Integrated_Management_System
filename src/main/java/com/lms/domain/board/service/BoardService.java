@@ -1,6 +1,5 @@
 package com.lms.domain.board.service;
 
-import com.lms.domain.Course.dto.CourseDTO;
 import com.lms.domain.board.dto.BoardDTO;
 import com.lms.domain.board.entity.Board;
 import com.lms.domain.file.entity.File;

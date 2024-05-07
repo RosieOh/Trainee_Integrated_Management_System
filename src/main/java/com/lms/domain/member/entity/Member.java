@@ -1,10 +1,9 @@
 package com.lms.domain.member.entity;
 
-import com.lms.domain.Course.entity.Course;
+import com.lms.domain.course.entity.Course;
 import com.lms.global.cosntant.BaseEntity;
 import com.lms.global.cosntant.Role;
 import com.lms.global.cosntant.Status;
-import com.lms.global.cosntant.Subject;
 import jakarta.persistence.*;
 import lombok.*;
 

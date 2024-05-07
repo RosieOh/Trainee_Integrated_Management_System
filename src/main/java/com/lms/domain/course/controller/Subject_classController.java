@@ -1,4 +1,4 @@
-package com.lms.domain.Course.controller;
+package com.lms.domain.course.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

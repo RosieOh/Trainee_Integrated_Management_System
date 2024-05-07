@@ -135,7 +135,7 @@
 /* adminbar */
 
 .adminBar {
-    position: sticky;
+    position: relative;
     top: 0;
     left: 0;
     width: 150px;
@@ -218,9 +218,10 @@
 
 .admin-content {
     width: 100%;
-    min-height: calc(100vh - 310px);
+    min-height: 100vh;
     padding: 2rem 0;
     overflow-x: hidden;
+    position: relative;
     background-color: var(--c-main_back);
 }
 
@@ -491,7 +492,7 @@
 
 .hide_layout {
     position: absolute;
-    top: 78px;
+    top: 0;
     right: -600px;
     background-color: white;
     width: 600px;
