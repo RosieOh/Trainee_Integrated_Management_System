@@ -15,6 +15,7 @@ import com.lms.global.cosntant.Subject;
 import com.lms.global.util.MD5Generator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,7 @@ import java.io.File;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Log4j2
 @Controller
@@ -37,6 +39,8 @@ public class MemberController {
     private final FileStudentService fileStudentService;
     private final FileService fileService;
 
+    @Value("${spring.servlet.multipart.location}")
+    String uploadFolder;
 
     @GetMapping("/index")
     public String index(Principal principal, Model model) {
@@ -116,22 +120,31 @@ public class MemberController {
 
     @GetMapping("mypage2")
     public String mypage2(Model model, Principal principal){
+        log.info("mypage2 시작 ------");
         String id = principal.getName();
         MemberDTO memberDTO = memberService.loginId(id);
         StudentDTO studentDTO = studentService.student_read(memberDTO.getNo());
         if(studentDTO.getPicture() != null){
+            log.info("getPicture 시작 ------");
             FileStudentDTO picture_file = fileStudentService.getFile(studentDTO.getNo(), studentDTO.getPicture());
             model.addAttribute("picture_file", picture_file);
+            log.info("getPicture ------" + picture_file);
         }
         if(studentDTO.getPortfolio() != null){
+            log.info("getPortfolio 시작 ------");
             FileStudentDTO Portfolio_file = fileStudentService.getFile(studentDTO.getNo(), studentDTO.getPortfolio());
             model.addAttribute("Portfolio_file", Portfolio_file);
+            log.info("getPicture ------" + Portfolio_file);
+
         }
         if(studentDTO.getResume() != null){
+            log.info("getResume 시작 ------");
             FileStudentDTO resume_file = fileStudentService.getFile(studentDTO.getNo(), studentDTO.getResume());
             model.addAttribute("resume_file", resume_file);
+            log.info("getPicture ------" + resume_file);
         }
         model.addAttribute("studentDTO", studentDTO);
+        log.info("mypage2 끝 ------");
         return "user/member/mypage2";
     }
 
@@ -149,86 +162,76 @@ public class MemberController {
                               @RequestParam("file1") MultipartFile file1,
                               @RequestParam("file2") MultipartFile file2,
                               @RequestParam("file3") MultipartFile file3){
-
         log.info("studentDTO ------" + studentDTO);
         log.info("student_add 시작 ");
-        log.info("picture: " + studentDTO.getPicture());
-        log.info("portfolio: " + studentDTO.getPortfolio());
-        log.info("resume: " + studentDTO.getResume());
-            studentService.student_edit(studentDTO);
+        String randomTitle = UUID.randomUUID().toString();
+        String savePath = System.getProperty("user.dir") + "/files/";
 
+//        String portfolio_savePath = System.getProperty("user.dir") + "/files/";
+
+        if(!new File(savePath).exists()) {
+            try {
+                new File(savePath).mkdirs();
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         try {
-            if(file1 != null) {
+            if(!file1.isEmpty()) {
                 log.info("file1 시작: " + file1);
                 String picture_origin = file1.getOriginalFilename();
-                String picture_savePath = System.getProperty("user.dir") + "/files/";
-                String picture_filePath = picture_origin + picture_savePath;
-                if(!new File(picture_savePath).exists()) {
-                    try {
-                        new File(picture_savePath).mkdirs();
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-                file1.transferTo(new File(picture_filePath));
+//                String picture_saveFileName = new MD5Generator(picture_origin).toString();
+                String picture_saveFileName = randomTitle + picture_origin;
+
+                log.info("file1 transferTo 시작 ");
+                file1.transferTo(new File(savePath, picture_saveFileName));
                 FileStudentDTO fileDTO = new FileStudentDTO();
                 fileDTO.setOriginFileName(picture_origin);
-                fileDTO.setFileName(picture_origin);
-                fileDTO.setFilePath(picture_savePath);
+                fileDTO.setSaveFileName(picture_saveFileName);
+                fileDTO.setSavePath(savePath);
                 fileDTO.setMemberId(studentDTO.getNo());
-                fileStudentService.saveFile(fileDTO);
-                studentDTO.setPicture(fileDTO.getFileName());
+                Long no = fileStudentService.saveFile(fileDTO);
+                log.info("no -------------" + no);
+                studentDTO.setPicture(no);
+                log.info("file1 transferTo 끝 ");
             }
-            if(file2 != null) {
+            if(!file2.isEmpty()) {
                 log.info("file2 시작: " + file2);
                 String portfolio_origin = file2.getOriginalFilename();
-                String portfolio_filename = new MD5Generator(portfolio_origin).toString();
-                String portfolio_savePath = System.getProperty("user.dir") + "/files/";
-                String portfolio_filePath = portfolio_filename + portfolio_savePath;
-                if(!new File(portfolio_savePath).exists()) {
-                    try {
-                        new File(portfolio_savePath).mkdirs();
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-                file2.transferTo(new File(portfolio_filePath));
+                String portfolio_saveFileName = randomTitle + portfolio_origin;
+
+                log.info("file2 transferTo 시작 ");
+                file2.transferTo(new File(savePath, portfolio_saveFileName));
                 FileStudentDTO fileDTO = new FileStudentDTO();
                 fileDTO.setOriginFileName(portfolio_origin);
-                fileDTO.setFileName(portfolio_origin);
-                fileDTO.setFilePath(portfolio_savePath);
+                fileDTO.setSaveFileName(portfolio_saveFileName);
+                fileDTO.setSavePath(savePath);
                 fileDTO.setMemberId(studentDTO.getNo());
-                fileStudentService.saveFile(fileDTO);
-                studentDTO.setPortfolio(fileDTO.getFileName());
-            }
+                Long no = fileStudentService.saveFile(fileDTO);
+                studentDTO.setPortfolio(no);
+                log.info("file2 transferTo 끝 ");
 
-            if(file3 != null) {
-            log.info("file3 시작: " + file3);
+            }
+            if(!file3.isEmpty()) {
+                log.info("file3 시작: " + file3);
                 String resume_origin = file3.getOriginalFilename();
-                String resume_filename = new MD5Generator(resume_origin).toString();
-                String resume_savePath = System.getProperty("user.dir") + "/files/";
-                String resume_filePath = resume_filename + resume_savePath;
-                if(!new File(resume_savePath).exists()) {
-                    try {
-                        new File(resume_savePath).mkdirs();
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-                file3.transferTo(new File(resume_filePath));
+                String resume_saveFileName = randomTitle + resume_origin;
+
+                log.info("file3 transferTo 시작 ");
+                file3.transferTo(new File(savePath, resume_saveFileName));
                 FileStudentDTO fileDTO = new FileStudentDTO();
                 fileDTO.setOriginFileName(resume_origin);
-                fileDTO.setFileName(resume_origin);
-                fileDTO.setFilePath(resume_savePath);
+                fileDTO.setSaveFileName(resume_saveFileName);
+                fileDTO.setSavePath(savePath);
                 fileDTO.setMemberId(studentDTO.getNo());
-                fileStudentService.saveFile(fileDTO);
-                studentDTO.setResume(fileDTO.getFileName());
+                Long no = fileStudentService.saveFile(fileDTO);
+                studentDTO.setResume(no);
+                log.info("file3 transferTo 끝 ");
             }
 
         studentService.student_edit(studentDTO);
+
         } catch (Exception e) {
             e.printStackTrace();
         }

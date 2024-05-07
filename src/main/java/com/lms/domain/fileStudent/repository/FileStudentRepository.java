@@ -12,6 +12,9 @@ public interface FileStudentRepository extends JpaRepository<FileStudent, Long> 
     @Query("SELECT f FROM FileStudent f WHERE f.memberId = :memberId")
     Optional<FileStudent> findMemberId(Long memberId);
 
-    @Query("SELECT f FROM FileStudent f WHERE f.memberId = :memberId and f.originFileName = :originFileName")
-    Optional<FileStudent> getFile(Long memberId, String originFileName);
+    @Query("SELECT f FROM FileStudent f WHERE f.memberId = :memberId and f.no = :no")
+    Optional<FileStudent> getFile(Long memberId, Long no);
+
+    @Query("SELECT f FROM FileStudent f WHERE f.memberId = :memberId and f.saveFileName = :saveFileName")
+    Optional<FileStudent> returnFile(Long memberId, String saveFileName);
 }

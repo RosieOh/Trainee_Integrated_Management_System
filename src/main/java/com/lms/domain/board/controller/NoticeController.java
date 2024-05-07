@@ -153,6 +153,7 @@ public class NoticeController {
                     String filePath = savePath + filename;
 
                     file.transferTo(new File(filePath));
+                    log.info("filePath ------------------" + filePath);
 
                     FileDTO fileDTO = new FileDTO();
                     fileDTO.setOriginFileName(originFilename);

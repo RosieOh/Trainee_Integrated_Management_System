@@ -59,27 +59,25 @@
                     <input type="text" th:value="${studentDTO.fund}" id="fund" name="fund">
                   </div>
                   <div class="file_input">
-                    <label for="picture" ><i class="fas fa-file"></i> 사진</label>
-<!--                    <td colspan="6" th:if="${studentDTO.picture.isEmpty()}">-->
-<!--                      파일 없음-->
-<!--                    </td>-->
-<!--                    <td th:if="${files != null}" th:each="file : ${files}">-->
-<!--                      <a th:href="@{'/download/' + ${file.id}}">-->
-<!--                        <i class="fas fa-window-maximize"></i>[[${file.originFileName}]]-->
-<!--                      </a><br />-->
-<!--                    </td>-->
-                    <input type="file" class="form-control" name="files" id="fileNotice1">
-                    <input type="hidden" id="picture" name="picture" class="" >
+                    <label for="file1" ><i class="fas fa-file"></i> 사진</label>
+                    <th:block th:if="${picture_file != null}">
+<!--                      <a th:href="@{'/student/down/'+${picture_file.memberId}+'/'+${picture_file.no}}">-->
+                      <a th:href="@{${picture_file.savePath}+${picture_file.saveFileName}}" th:download="${picture_file.originFileName}">
+                        <i class="fas fa-window-maximize"></i>[[${picture_file.originFileName}]]
+                      </a>
+                      <br />
+                    </th:block>
+                    <th:block th:if="${picture_file == null}">
+                      <input type="file" class="form-control" name="file1" id="file1">
+                    </th:block>
                   </div>
                   <div class="file_input">
-                    <label for="portfolio" ><i class="fas fa-file"></i> 포트폴리오</label>
-                    <input type="file" class="form-control" name="files" id="fileNotice2">
-                    <input type="hidden" id="portfolio" name="portfolio" class="border_none">
+                    <label for="file2" ><i class="fas fa-file"></i> 포트폴리오</label>
+                    <input type="file" class="form-control" name="file2" id="file2">
                   </div>
                   <div class="file_input">
-                    <label for="resume" ><i class="fas fa-file"></i> 이력서</label>
-                    <input type="file" class="form-control" name="files" id="fileNotice3">
-                    <input type="hidden" id="resume" name="resume" class="border_none">
+                    <label for="file3" ><i class="fas fa-file"></i> 이력서</label>
+                    <input type="file" class="form-control" name="file3" id="file3">
                   </div>
                 </div>
               </div>

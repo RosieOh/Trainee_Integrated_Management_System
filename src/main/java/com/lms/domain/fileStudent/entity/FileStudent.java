@@ -14,16 +14,16 @@ public class FileStudent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long no;
 
     @Column(nullable = false)
     private String originFileName;
 
     @Column(nullable = false)
-    private String filePath;
+    private String savePath;
 
     @Column(nullable = false)
-    private String fileName;
+    private String saveFileName;
 
     @Column(nullable = false)
     private Long memberId;

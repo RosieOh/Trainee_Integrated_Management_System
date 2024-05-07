@@ -387,6 +387,7 @@
 .score_title input {
     width: 300px;
 }
+
 .score_in {
     display: flex;
     justify-content: space-between;

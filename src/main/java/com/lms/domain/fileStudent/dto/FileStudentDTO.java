@@ -7,10 +7,10 @@ import lombok.*;
 @ToString
 public class FileStudentDTO {
 
-    private Long id;
+    private Long no;
     private String originFileName;
-    private String filePath;
-    private String fileName;
+    private String savePath;
+    private String saveFileName;
     private Long memberId;
 
 }

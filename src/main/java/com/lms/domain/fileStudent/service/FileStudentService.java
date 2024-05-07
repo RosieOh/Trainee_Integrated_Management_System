@@ -19,14 +19,17 @@ public class FileStudentService {
     private final ModelMapper modelMapper;
 
     @Transactional
-    public void saveFile(FileStudentDTO fileStudentDTO) {
+    public Long saveFile(FileStudentDTO fileStudentDTO) {
         FileStudent file = modelMapper.map(fileStudentDTO, FileStudent.class);
         fileStudentRepository.save(file);
+        Optional<FileStudent> fileStudent = fileStudentRepository.returnFile(fileStudentDTO.getMemberId(), fileStudentDTO.getSaveFileName());
+        Long no = fileStudent.get().getNo();
+        return no;
     }
 
     @Transactional
-    public FileStudentDTO getFile(Long memberId, String originName) {
-        Optional<FileStudent> fileStudent = fileStudentRepository.getFile(memberId, originName);
+    public FileStudentDTO getFile(Long memberId, Long no) {
+        Optional<FileStudent> fileStudent = fileStudentRepository.getFile(memberId, no);
         FileStudentDTO fileStudentDTO = modelMapper.map(fileStudent, FileStudentDTO.class);
         return fileStudentDTO;
     }
