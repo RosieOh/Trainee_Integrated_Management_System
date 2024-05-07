@@ -127,8 +127,9 @@ public class NoticeController {
 
     @GetMapping("/register")
     public String registerForm(Model model, Principal principal) {
-        String name = principal.getName();
-        model.addAttribute("name", name);
+        String id = principal.getName();
+        MemberDTO member = memberService.loginId(id);
+        model.addAttribute("member", member);
         return "admin/board/register";
     }
 
