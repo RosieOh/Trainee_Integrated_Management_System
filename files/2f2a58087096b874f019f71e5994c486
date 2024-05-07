@@ -1,0 +1,528 @@
+3과목 - 자바 기초
+
+1. 자바 언어의 주석문의 종류가 아닌 것은 무엇인가?
+① // : 행 주석
+② /* .... */ : 범위 주석
+③ /** ......  */ : API 도큐먼트 주석
+④ <!-- ... --> : 범위 주석
+
+답안 : 4
+
+
+2. 자바 언어의 빌드 방식으로 가장 옳지 않은 것은 무엇인가?
+① person
+② maven
+③ ant 
+④ gradle
+
+답안 : 1
+
+
+3. 다음 중 키워드가 아닌 것은?
+① final
+② True
+③ if
+④ public
+
+답안 : 2
+
+
+4. 다음 중 자바 프로젝트에서 활용하는 패키징 방식이 아닌 것은?
+① war
+② jar
+③ qar
+④ ear
+
+답안 : 3
+
+
+5. 다음 중 메서드의 반환값이 없음을 의미하는 키워드는?
+① void
+② null
+③ empty
+④ false
+
+답안 : 1
+
+
+6. 다음은 static에 대한 설명이다. 틀린 것은?
+① 멤버 변수와 메서드에 static을 지정할 수 있다.
+② static 형 변수는 클래스 로딩 시에 메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.
+③ static 메서드 안에 선언되는 변수들은 모두 static 변수가 된다.
+④ static 메서드 안에서는 this 나 super 를 사용할 수 없다.
+
+답안 : 3
+
+
+7. 다음 중 클래스를 잘 못 선언한 것은 어느 것인가?
+① protected class MyClass{..}
+② public class MyClass{..}
+③ final class MyClass{..}
+④ abstrac class MyClass{..}
+
+답안 : 4
+
+
+8. 다음 소스 코드의 실행 결과로 맞는 것을 고르세요.
+public class Test {
+    public static void main(String[] args) {
+ 
+        int i=0;
+        int j=10;
+ 
+        do {
+            System.out.print(i);
+            if(i++>--j){
+                break;
+            }
+        } while(true);
+    }
+}
+① 012345
+② 12345
+③ 0123456
+④ 123456
+
+답안 : 1
+
+
+9. 자바에서 메소드 오버로딩에 대한 설명으로 틀린 것은?
+
+① 동일 클래스 내에서 발생한다.
+② 매개변수의 형이나 개수가 동일해야 한다.
+③ 다형성을 지원하기 위한 장치이다.
+④ 메소드 이름이 동일해야 한다.
+
+답안 : 2
+
+
+10. 다음 프로그램의 실행 결과로 알맞은 것은?
+public class Test {
+    public static void modify(String s) {
+        s += "Java!";
+    }
+ 
+    public static void main(String[] args) {
+ 
+        String s = new String("Hello");
+        modify(s);
+        System.out.println(s);
+    }
+}
+
+① Hello
+② Hello Java!
+③ 컴파일 에러
+④ 실행중 예외 발생
+
+답안 : 1
+
+
+11. 다음의 코드 1)과 코드 2)는 동일한 수행 결과를 나타낸다. 성능면에서 우수한 것과 그 이유는?
+
+// 코드 1)
+String a="Hello";
+String a2=a+"World";
+System.out.println(a2);
+ 
+// 코드 2)
+StringBuffer a=new StringBuffer();
+a.append("Hello");
+a.append("World");
+System.out.println(a.toString());
+① 코드 1), 소스코드가 1줄 적다
+② 코드 2), Avoiding Garbage Collection (임시 Object 생성 금지)
+③ 코드 1), 코드 2) 동일한 성능을 갖는다
+④ 코드 1), +연산을 사용하였으므로
+
+답안 : 2
+
+
+12. 다음 코드의 수행 결과는?
+public class StringTest {
+    public static void main(String[] args) {
+        System.out.println("Exception 테스트 시작");
+         
+        try {
+            String test = null;
+            System.out.println("문자열 길이 = " + test.length());
+        }
+        catch(NullPointerException ne) {
+            System.out.println("NullPointException");
+        }
+        catch(Exception e) {
+            System.out.println("Exception");
+        }
+        finally {
+            System.out.println("finally");
+        }
+         
+        System.out.println("Exception 테스트 종료");
+    }
+     
+}
+① Exception 테스트 시작
+   NullPointException
+   Exception 테스트 종료
+② Exception 테스트 시작
+   NullPointException
+   Exception
+   finally
+   Exception 테스트 종료
+③ Exception 테스트 시작
+   NullPointException
+   finally
+   Exception 테스트 종료
+④ Exception 테스트 시작
+   finally
+   Exception 테스트 종료
+
+답안 : 3
+
+
+13. 다음과 같은 코드가 주어졌을때 str을 float로 올바르게 변환한 것은?
+String str = "3.12345";
+① float fval = new Float(str);
+② float value = Float.parseFloat(str);
+③ float value = Float.floatValue(str);
+④ float value = (new Float()).parseFloat(str);
+
+답안 : 2
+
+
+14. 다음 주어진 코드의 실행결과는 무엇인가?
+int n = Integer.parseInt("1234five");
+System.out.println("n = " + n);
+① n = 1234;
+② n = 12345
+③ n = NaN
+④ 실행 중 예외 발생
+
+답안 : 4
+
+
+15. 타입 캐스팅의 widening conversion 순서가 아닌것은?
+
+① byte -> short
+② double -> float
+③ char -> int
+④ short -> int
+
+답안 : 2
+
+
+16. Java.lang 패키지는 자바 프로그램에서 ( )문을 사용하여 포함시키지 않아도 자동적으로 포함되는 패키지이다. 이 패키지는 자바 프로그램의 기본이 되는 클래스들과 인터페이스들을 제공하고 있어 자바 프로그램에서 많이 사용한다.
+
+① extends
+② package
+③ import
+④ class
+
+답안 : 3
+
+
+17. Thread 클래스를 상속받아 Thread를 만들기 위한 과정에 대한 순서가 옳은 것은?
+① Thread 클래스를 상속받은 클래스를 선언한다.
+② main() 메소드에서 Thread 를래스를 상속받은 클래스의 객체를 생성한다.
+③ Thread 클래스의 추상 메소드인 run() 메소드를 재정의 한다
+④ 생성된 객체를 사용하여 start() 메소드를 호출한다.
+① ① → ② → ③ → ④
+② ② → ① → ③ → ④
+③ ② → ① → ④ → ③
+④ ① → ③ → ② → ④
+
+답안 : 4
+
+
+18. 인터페이스에 대한 설명으로 옳지 않은 것은?
+
+① 클래스는 하나의 상위 클래스로부터만 상속을 받을 수 있지만 인터페이스는 여러 개의 인터페이스로 부터 상속을 받을 수 있다.
+② 인터페이스 선언시 필요에 따라 다른 인터페이스로부터 상속 받을 수 있다.
+③ 인터페이스의 상속은 extends 예약어를 사용한다.
+④ 인터페이스는 클래스와 달리 상속 관계에서 계층 구조를 가질 수 없다.
+
+문제 : 3
+
+
+
+19. 기본 자료형은 ( )만 표현하기 때문에 처리하는데 한계가 있다. 즉, 연산자를 이용한 단순 연산만 수행할 수 있는데, 이러한 제한을 보강하기 위해 만들어진 것이 ( ) 클래스이다.
+
+① 자료의 형(Type), Wrapper
+② 속성, Wrapper
+③ 크기, Wrapper
+④ 종류, Wrapper
+
+답안 : 2
+
+
+20. 자바에서 사용되는 관계 연산자에 대한 설명으로 옳지 않은 것은?
+
+① 관계 연산자는 연산에 참여하는 두 항의 피연산자를 비교하는 연산자를 의미한다.
+② 관계 연산자는 수식에서 자주 사용되는 등호, 부등호 기호를 이용한 6개의 연산자와 instanceof라는 연산자로 구성된다.
+③ 두 개의 문자로 구성되는 관계 연산자 기호 사이에는 공백 문자가 올 수 있다.
+④ 관계 연산자 !=, >=, <=는 연산 기호의 순서가 명확해야 한다.
+
+답안 : 3
+
+
+21. 다음은 자바의 예외 처리에 대한 설명이다. 틀린 것은?
+
+① try~catch~finally 문에 여러 개의 catch문이 올 수 있다.
+② finally문은 생략 가능하다.
+③ 모든 메소드 마다 예외의 유형을 정의하여야 한다.
+④ 프로그래머가 지정하지 않은 예외는 디폴트 예외 처리기가 처리한다.
+
+답안 : 3
+
+
+
+22. 다음 예제 프로그램에 대한 설명으로 옳은 것은?
+
+short s = 23;
+ 
+int i = (int) (s);
+ 
+float f = (float) (s);
+① 명시적으로 선언된 short 타입을 최종적으로 float 타입으로 캐스팅하고 있다.
+② 명시적으로 선언된 short 타입을 int 타입 또는 float 타입으로 캐스팅하고 있다.
+③ 묵시적으로 선언된 short 타입을 int 타입 또는 float 타입으로 캐스팅하고 있다.
+④ 묵시적으로 선언된 short 타입을 최종적으로 float 타입으로 캐스팅하고 있다.
+
+답안 : 2
+
+
+23. 다음 문항에서 예제 프로그램을 보고 올바르게 설명한 것은?
+
+//SuperClass.java
+package net.javaosf;
+public class SuperClass {
+    private String name;
+    protected String age;
+    public String address;
+    String tel;
+}
+ 
+ 
+//SubClassA.java
+package net.javaosf;
+public class SubClassA extends SuperClass {  }
+ 
+ 
+//SubClassB.java
+package org.kosta;
+public class SubClassB extends SuperClass {
+    public String address;
+}
+① SubClassB는 SuperClass와 선언 패키지 경로가 다르므로 상속받을 수 없다.
+② SubClassA는 SuperClass를 상속받았으므로 age를 직접 접근할 수 있다.
+③ SubClassA는 SuperClass를 상속받았기 때문에 tel을 직접 접근하여 사용할 수 있다.
+④ SubClassB에 address는 SuperClass에서 상속받은 멤버의 이름과 같다. 그래서 자신 데이터가 우선되고 중복되는 부모의 멤버는 접근할 수 없다. 
+
+답안 : 2
+
+
+24. 다음 예제 프로그램의 결과는 무엇인가?
+//Test.java
+ 
+public class Test {
+    public static void main(String[] args) {
+        byte b1, b2, b3;
+        b1=10;
+        b2=20;
+        b3=b1+b2;
+        System.out.println(b1+ " - " + b2+ " - " + b3);
+    }
+}
+① 컴파일 에러난다.
+② exception 발생
+③ 10 - 20 - 30 으로 출력된다.
+④ -40 으로 출력된다.
+
+답안 : 1
+
+
+25. 자바의 VM은 기본적으로 멀티 쓰레드 방식이다. 처리를 동시에 할 수 있다는 장점이 있지만 반면에 동시성을 유발할 수 있다. 이때 어떤 동작에서만 싱글 쓰레드로 동작하게 할 수 있는 키워드는 무엇인가?
+
+① synchronized
+② singleThread
+③ wait
+④ goto
+
+답안 : 1
+
+
+
+26. 다음 예제 프로그램에 대한 설명으로 올바르지 않는 것은?
+public class Test {
+    public static void main(String[] args) {
+        String data="jeonhye0"; //(a)
+        int num=Integer.parseInt(data); //(b)
+        System.out.println(num); //(c)
+    }
+}
+① 컴파일 에러난다.
+② (b)라인에서 java.lang.NumberFormatException 발생한다.
+③ NumberFormatException은 RuntimeException 하위 클래스이다.
+④ try{ int num=Integer.parseInt(data); //(b)}catch(Exception e){}와 같이 하면 실행 시 문제가 발생한다.
+
+답안 : 1, 4
+
+
+28. 다음 중 최상위 예외객체는 어느것인가?
+
+① Exception
+② IOException
+③ RemoteException
+④ RunTimeException
+
+답안 : 1
+
+
+29. 다음 중 기능이 다른 셋과 다른 제어문은?
+① for
+② do-while
+③ if
+④ while
+
+답안 : 3
+
+
+30. 다음 중 객체지향 개념의 하나인 Encapsulation의 장점이 아닌 것은 무엇인가?
+
+① 다른 클래스에 어느 정도 의존적인가를 나타내는 정도이다.
+② 인터페이스를 변경하지 않고 클래스의 구현을 변경할 수 있다.
+③ 클래스의 내부 및 구현 방법을 알 필요 없이 본인의 클래스를 개발 할 수 있다.
+④ 클래스의 어트리뷰트가 부적절하게 변경되는 것을  막을 수 있다.
+
+답안 : 1
+
+
+31. 다음은 리팩토링의 특징에 대해서 설명한 것이다. 내용이 올바르지 않은 것은 무엇인가?
+
+① 리팩토링은 새로운 기능을 추가하는 것은 아니다.
+② 패턴을 적용하게 되면 리팩토링은 할 필요가 없다.
+③ 복잡한 코드일수록 리팩토링을 해야 할 필요가 있다.
+④ 유지보수가 용이하려면 리팩토링을 해야만 한다.
+
+답안 : 2
+
+
+32. 다음 중 컴파일과 실행이 가능한 main()메서드의 형태를 고르시.
+① public static void main();
+② public static void main(String[] args[]);
+③ public static void main(String args);
+④ public static void main(String[] args);
+
+답안 : 4
+
+
+33. 다음 중 에러 없이 컴파일되며 상속되지 않는 클래스를 고르시오.
+① final abstract class Test{
+       int i;
+       void methodA(){}
+   }
+② private class Test{
+       int i;
+       abstract void methodA();
+   }
+③ abstract Test{
+       final int i = 0;
+       final void methodA(){}
+   }
+④ final class Test{
+       int i;
+       void methodA(){}
+   }
+
+답안 : 4
+
+
+
+34. 다음 프로그램의 실행결과는?
+public class Test{
+    public static void leftShift(int i, int j){
+        i<<=j;
+    }
+    public static void main(String[] args){
+        int i=4, j=2;
+        leftShift(i,j);
+        System.out.println(i);
+    }
+}
+① 2
+② 4
+③ 8
+④ 컴파일 에러
+
+답안 : 2
+
+
+35. point x 위치에 올 수 없는 문장을 고르시오.
+class Super{
+    public float getNumber(){
+        return 3.0f;
+    }
+}
+ 
+public class Sub extends Super{
+    // point x
+}
+1) public float getNumber(){return 4.f;}
+2) public void getNumber(){return 4.0f;}
+3) public void getNumber(double d);
+4) public double getNumber(float f){return 4.0f;}
+
+답안 : 2
+
+
+36. 다음 코드가 실행된 뒤 temp변수의 값은?
+
+public static void main(Stirng[] args){
+    Long temp = (int)3.9;
+    temp %= 2;
+}
+① 0
+② 1
+③ 2
+④ 4
+
+답안 : 2
+
+
+37. 다음 중 맞는 선언문을 고르시오.
+
+① String s = "This is a very\n long string";
+② String s = 'null';
+③ String s = (String)'abc';
+④ String s = "This is a string";
+
+답안 : 4
+
+
+38. ( )안에 올 수 없는 코드를 고르시오.
+( )
+public class A{}
+① package B;
+② class B{}
+③ public class B{}
+④ import java.lang.*;
+
+답안 : 3
+
+
+39. 자바에서 변수 이름에 대한 규칙으로 가장 올바르지 못한 것은 무엇인가?
+① 영문의 대소문자를 구분하지 않는다.
+② 여러 단어를 조합하는 경우 카멜 방식이나 스네이크 방식을 활용한다.
+③ 단어 중간에 공백문자나 일부를 제외한 특수문자를 활용하지 못한다.
+④ 예약어(keyword)는 변수 이름으로 활용할 수 없다.
+
+답안 : 1
+
+
+40. 조건문과 반복문을 설명한 내용 중 가장 올바르지 못한 것은 무엇인가?
+① if 문은 조건식과 결과에 따라 실행 흐름을 달리할 수 있다.
+② switch 문에서 사용할 수 있는 변수의 타입은 int, double이 될 수 있다.
+③ for 문은 카운터 변수로 지정한 횟수만큼 반복시킬 때 사용할 수 있다.
+④ break 문은 switch 문, for 문, while 문을 종료할 때 사용할 수 있다.
+
+답안 : 2
