@@ -36,6 +36,8 @@
             <td>
               <form th:action="@{/admin/admin_change_course(id=${member.id} )}" method="post" class="inline_form">
                 <select name="cno" class="select-box">
+                  <th:block th:if="${#strings.equals(member.course.subject, 'EXCEPTION')}"></th:block>
+
                   <option th:value="${member.course.no}" th:selected="${member.course.subject} != 'EXCEPTION'">[[${member.course.subject } + ' '+ ${member.course.flag} +'기']]</option>
                   <option value="1" th:selected="${member.course.subject} == 'EXCEPTION'">매니저</option>
                 </select>
@@ -212,7 +214,6 @@
     }
 
   </script>
-
   <script>
 
     function pwCheck(obj){
