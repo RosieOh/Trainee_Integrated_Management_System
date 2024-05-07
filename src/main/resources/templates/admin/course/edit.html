@@ -77,8 +77,8 @@
                             </td>
                             <td>
                                 <select name="delete_type" id="delete_type" class="select-box">
-                                    <option value="y" th:selected="${courseDTO.delete_type} eq 'y'">공개</option>
                                     <option value="n" th:selected="${courseDTO.delete_type} eq 'n'">비공개</option>
+                                    <option value="y" th:selected="${courseDTO.delete_type} eq 'y'">회원가입 공개</option>
                                     <option value="ing" th:selected="${courseDTO.delete_type} eq 'ing'">진행 중</option>
                                 </select>
                             </td>
