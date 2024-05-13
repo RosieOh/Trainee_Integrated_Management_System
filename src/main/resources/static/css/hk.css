@@ -30,29 +30,52 @@
 
 
 
+/*.file_input {*/
+/*    align-items: center;*/
+/*    height: 86px;*/
+/*    color: var(--c-font_gray);*/
+/*    margin-bottom: 35px;*/
+/*}*/
+
+/*.file_input input{*/
+/*    width: 85%;*/
+/*    border: none;*/
+/*    box-shadow: none;*/
+/*    cursor: pointer;*/
+/*    background-color: #f1f1f1;*/
+
+/*}*/
+/*.file_input label {*/
+/*    width: 120px;*/
+/*    cursor: pointer;*/
+/*    font-size: 20px;*/
+/*    margin-bottom: 13px;*/
+/*}*/
+
 .file_input {
+    display: flex;
     align-items: center;
     height: 86px;
     color: var(--c-font_gray);
-    margin-bottom: 35px;
 }
-
 .file_input input{
-    width: 85%;
+    width: 50%;
     border: none;
     box-shadow: none;
     cursor: pointer;
-    background-color: #f1f1f1;
-
 }
+
+.file_input a {
+    padding-left: 10px;
+}
+
 .file_input label {
-    width: 120px;
+    width: 20%;
     cursor: pointer;
-    font-size: 20px;
-    margin-bottom: 13px;
 }
 .file_input input:hover{
     border: none;
+    box-shadow: 0 0 0 1.5px var(--c-sub);
 }
 .file_input input:focus{
     border: none;
@@ -61,6 +84,27 @@
 .file_input input:active{
     border: none;
     box-shadow: none;
+}
+
+.file_edit {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+
+}
+
+.studentEdit_box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    margin: 50px auto;
+}
+.studentEdit_box h2{
+    font-size: 150%;
+    margin-bottom: 20px;
 }
 
 .user_tab2 .user_tab_title {
