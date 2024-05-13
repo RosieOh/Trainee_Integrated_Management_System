@@ -44,9 +44,10 @@
 }
 .user_index section article.profile .profile_img {
     width: 100%;
-    height: 200px;
+    height: 170px;
     display: flex;
     justify-content: center;
+    margin: 25px auto;
 }
 .user_index section article.profile .profile_img i {
     font-size: 150px;
@@ -113,9 +114,7 @@
 
 /* index */
 
-.user_index section article.profile img {
-    box-shadow: 5px 15px 30px rgba(173, 216, 230, 0.8);
-}
+
 .user_index section a.btnView {
     background: black;
 }

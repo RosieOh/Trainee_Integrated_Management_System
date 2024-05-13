@@ -303,6 +303,12 @@ tr:last-child td {
   flex-direction: column;
 }
 
+.hidden{
+  display: none;
+}
+.width100{
+  width: 100%;
+}
 .border_dashed {
   border-color: var(--c-back_lightgray);
   border-style: dashed;
@@ -312,6 +318,7 @@ tr:last-child td {
 .border_gray {
   border: 1px solid var(--c-back_gray);
 }
+
 
 /* 버튼 모음 */
 .login_btn {

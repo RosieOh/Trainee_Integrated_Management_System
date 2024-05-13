@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+          content="minimum-scale=1.0, width=device-width, maximum-scale=1, ser-scalable=no"
+          name="viewport"
+
+  />
+  <title>천재IT교육센터</title>
+  <th:block th:replace="~{include/head :: head}"></th:block>
+<!--  <style>-->
+<!--    body {-->
+<!--      background-color: #f5f5f5;-->
+<!--      margin: 0;-->
+<!--      padding: 0;-->
+<!--    }-->
+
+<!--    .container {-->
+<!--      width: 80%;-->
+<!--      margin: 50px auto;-->
+<!--      background-color: #dad9fb;-->
+<!--      padding: 20px;-->
+<!--      border-radius: 8px;-->
+<!--      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);-->
+<!--    }-->
+
+<!--    h2 {-->
+<!--      color: #333;-->
+<!--      text-align: center;-->
+<!--      margin-left: 0;-->
+<!--    }-->
+
+<!--    form {-->
+<!--      margin-top: 20px;-->
+<!--    }-->
+
+<!--    label {-->
+<!--      display: block;-->
+<!--      margin-bottom: 8px;-->
+<!--      font-weight: bold;-->
+<!--    }-->
+
+<!--    textarea {-->
+<!--      width: 100%;-->
+<!--      padding: 8px;-->
+<!--      box-sizing: border-box;-->
+<!--      margin-bottom: 16px;-->
+<!--      border: 1px solid #ccc;-->
+<!--      border-radius: 4px;-->
+<!--    }-->
+
+<!--  </style>-->
+</head>
+<body>
+<div class="container">
+  <div class="studentEdit_box">
+    <th:block th:if="${no == 1}">
+      <h2>프로필 사진 수정</h2>
+    </th:block>
+    <th:block th:if="${no == 2}">
+      <h2>포트폴리오 수정</h2>
+    </th:block>
+    <th:block th:if="${no == 3}">
+      <h2>이력서 수정</h2>
+    </th:block>
+    <form th:action="@{/member/file_edit}" method="post" enctype="multipart/form-data">
+      <div class=width100>
+        <label class="form-label" for="fileChange">업로드 파일</label>
+        <input type="file" name="fileChange" id="fileChange" />
+        <input type="hidden" name="no" id="no" th:value="${no}" />
+      </div>
+      <div class="btn_group_center">
+        <button type="submit" class="board_btn select_btn" >등록</button>
+        <button type="button" onclick="javascript=window.close()" class="board_btn cancel_btn">닫기</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>
