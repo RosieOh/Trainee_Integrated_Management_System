@@ -42,25 +42,30 @@
                   <label for="writerNotice"> 파일 업로드</label>
                   <div class="myinfo_line"><label for="fileNotice" class="uploadbtn">upload</label><input type="file" class="form-control" name="files" id="fileNotice" multiple></div>
                 </div>
+                <div id="fileInfo">
+
+                </div>
                 <script th:inline="javascript">
 
-              var fileInput = document.getElementById('fileNotice');
+                var fileInput = document.getElementById('fileNotice');
+
+                var maxFiles = 5;
+                fileInput.addEventListener('change', function(event) {
+                  if (this.files.length > maxFiles) {
+                    alert('최대 ' + maxFiles + '개의 파일을 선택할 수 있습니다.');
+                    this.value = '';
+                  }
 
 
-              var maxFiles = 5;
-              fileInput.addEventListener('change', function(event) {
-                if (this.files.length > maxFiles) {
-                  alert('최대 ' + maxFiles + '개의 파일을 선택할 수 있습니다.');
-                  this.value = '';
-                }
-              });
-            </script>
+                });
+
+              </script>
                 <div id="editor">
                   <textarea class="input"  style="width: 1320px; height: 500px;" id="myTextarea" type="text" name="content" required ></textarea>
                 </div>
                 <div class="btn_group_center">
                   <a th:href="@{/notice/list}" class="board_btn cancel_btn">목록으로</a>
-                  <button type="submit" class="board_btn select_btn">등록하기</button>
+                  <button type="submit" class="board_btn select_btn" id="submintBtn">등록하기</button>
                 </div>
             </div>
         </form>
