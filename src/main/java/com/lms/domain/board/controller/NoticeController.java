@@ -293,6 +293,14 @@ public class NoticeController {
             }
             fileList.addAll(fileDTOs);
         }
+
+        List<String> nameList = new ArrayList<>();
+        for (Board board : boardList) {
+            String name = memberService.getNameById(board.getWriter());
+            nameList.add(name);
+        }
+
+        model.addAttribute("nameList", nameList);
         model.addAttribute("fileList", fileList);
         model.addAttribute("fileCountMap", fileService.getFileCountMap(fileList));
 
@@ -314,6 +322,9 @@ public class NoticeController {
         model.addAttribute("boardDTO", boardDTO);
         model.addAttribute("files", files);
         model.addAttribute("memberDTO", memberDTO);
+
+        String name = memberService.getNameById(boardDTO.getWriter());
+        model.addAttribute("name", name);
 
         //댓글 리스트 불러오기
         List<CommentDTO> commentDTOList = commentService.findCommentList(boardDTO.getId());

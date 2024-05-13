@@ -20,8 +20,9 @@
                 <div class="flex register-admin">
                   <div class="notice_box">
                     <label for="writerNotice">작성자</label>
-                    <input type="text" class="ro_input writer" id="writerNotice" name="writer" th:value="${memberDTO.id}" readonly>
+                    <input type="text" class="ro_input writer" id="writerNotice" th:value="${memberDTO.name}" readonly>
                     <input type="hidden" name="boardType" value="CLASS_BOARD" required/>
+                    <input type="hidden" name="writer" th:value="${memberDTO.id}" required/>
                   </div>
                   <div class="notice_box class-select">
                     <label for="cno" class="cno-label">강의</label>

@@ -46,7 +46,8 @@
                     </td>
                     <td th:if="${notice.privated != true}"><a th:href="|@{/notice/class/read(id=${notice.id})}|" class="text-decoration-none">[[${notice.title}]]</a></td>
 
-                    <td th:text="${notice.writer}"></td>
+<!--                    <td th:text="${notice.writer}"></td>-->
+                    <td th:text="${nameList[about.index]}"></td>
                     <td th:text="${#temporals.format(notice.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
 
                     <td class="fileDownload" th:if="${fileCountMap[notice.id] gt 0}">

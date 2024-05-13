@@ -19,7 +19,7 @@
               </tr>
               <tr>
                 <th scope="row">작성자</th>
-                <td colspan="2" th:text="${boardDTO.writer}"></td>
+                <td colspan="2" th:text="${name}"></td>
                 <th scope="row">작성일</th>
                 <td colspan="2" th:text="${#temporals.format(boardDTO.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
               </tr>
