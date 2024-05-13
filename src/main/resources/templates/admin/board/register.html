@@ -48,6 +48,9 @@
                 <script th:inline="javascript">
 
                 var fileInput = document.getElementById('fileNotice');
+                // 이전 파일 목록을 저장할 배열
+                let previousFiles = [];
+
 
                 var maxFiles = 5;
                 fileInput.addEventListener('change', function(event) {
@@ -55,17 +58,50 @@
                     alert('최대 ' + maxFiles + '개의 파일을 선택할 수 있습니다.');
                     this.value = '';
                   }
+
+                  // 새로 선택한 파일들
+                  const newFiles = Array.from(fileInput.files);
+
+                  // 이전 파일 목록에 새로운 파일 추가
+                  previousFiles = previousFiles.concat(newFiles);
+
+                  console.log(previousFiles.length);
+                  console.log(previousFiles);
+
+                  document.getElementById('submintBtn').addEventListener('click', function() {
+
+                    const formData = new FormData();
+
+                    for (const file of previousFiles) {
+                      formData.append('files', file);
+                    }
+
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('POST', '/notice/register');
+
+                    xhr.onload = function() {
+                      if (xhr.status === 200) {
+                        console.log('파일 업로드 성공');
+                      } else {
+                        console.error('파일 업로드 실패');
+                      }
+                    };
+
+                    xhr.send(formData);
+
+                  });
+
                 });
 
               </script>
 
-                <div id="editor">
-                  <textarea class="input"  style="width: 1320px; height: 500px;" id="myTextarea" type="text" name="content" required ></textarea>
-                </div>
-                <div class="btn_group_center">
-                  <a th:href="@{/notice/list}" class="board_btn cancel_btn">목록으로</a>
-                  <button type="submit" class="board_btn select_btn" id="submintBtn">등록하기</button>
-                </div>
+              <div id="editor">
+                <textarea class="input"  style="width: 1320px; height: 500px;" id="myTextarea" type="text" name="content" required ></textarea>
+              </div>
+              <div class="btn_group_center">
+                <a th:href="@{/notice/list}" class="board_btn cancel_btn">목록으로</a>
+                <button type="submit" class="board_btn select_btn" id="submintBtn">등록하기</button>
+              </div>
             </div>
         </form>
       </div>
