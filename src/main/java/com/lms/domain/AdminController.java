@@ -3,6 +3,8 @@ package com.lms.domain;
 
 import com.lms.domain.course.dto.CourseDTO;
 import com.lms.domain.course.service.CourseService;
+import com.lms.domain.fileStudent.dto.FileStudentDTO;
+import com.lms.domain.fileStudent.service.FileStudentService;
 import com.lms.domain.member.dto.MemberDTO;
 import com.lms.domain.member.entity.Member;
 import com.lms.domain.member.service.MemberService;
@@ -38,6 +40,7 @@ public class AdminController {
     private final MemberService memberService;
     private final CourseService courseService;
     private final StudentService studentService;
+    private final FileStudentService fileStudentService;
 
     // 회원관리 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
@@ -123,6 +126,23 @@ public class AdminController {
 
         List<String> scores = studentDTO.getScore();
         List<String> accident = studentDTO.getAccident();
+
+        if(studentDTO.getPicture() != null){
+            FileStudentDTO picture_file = fileStudentService.getFile(studentDTO.getNo(), studentDTO.getPicture());
+            model.addAttribute("picture_file", picture_file);
+            log.info("getPicture ------" + picture_file);
+        }
+        if(studentDTO.getPortfolio() != null){
+            FileStudentDTO Portfolio_file = fileStudentService.getFile(studentDTO.getNo(), studentDTO.getPortfolio());
+            model.addAttribute("Portfolio_file", Portfolio_file);
+            log.info("getPicture ------" + Portfolio_file);
+
+        }
+        if(studentDTO.getResume() != null){
+            FileStudentDTO resume_file = fileStudentService.getFile(studentDTO.getNo(), studentDTO.getResume());
+            model.addAttribute("resume_file", resume_file);
+            log.info("getPicture ------" + resume_file);
+        }
 
         model.addAttribute("member", member);
         model.addAttribute("scores", scores);

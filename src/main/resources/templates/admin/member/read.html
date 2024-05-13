@@ -65,17 +65,41 @@
             <input type="text" name="postcode" id="postcode" th:value="${member.postcode }" class="postcodeBtn ro_input" readonly>
           </div>
 
-          <div class="admin_info_box file_input">
-            <label for="picture" ><i class="fas fa-file"></i> 사진</label>
-            <input type="file" id="picture" name="picture" class="border_none">
+          <div class="file_input">
+            <label ><i class="fas fa-file"></i> 사진</label>
+            <th:block th:if="${picture_file != null}">
+              <a th:href="@{'/student/down/'+ ${studentDTO.no}+'/'+${studentDTO.picture}}" th:download="${picture_file.originFileName}">
+                <i class="fas fa-window-maximize"></i>[[${picture_file.originFileName}]]
+              </a>
+              <br />
+            </th:block>
+            <th:block th:if="${picture_file == null}">
+              <p>없음</p>
+            </th:block>
           </div>
-          <div class="admin_info_box file_input">
-            <label for="portfolio" ><i class="fas fa-file"></i> 포트폴리오</label>
-            <input type="file" id="portfolio" name="portfolio" class="border_none">
+          <div class="file_input">
+            <label ><i class="fas fa-file"></i> 포트폴리오</label>
+            <th:block th:if="${Portfolio_file != null}">
+              <a th:href="@{'/student/down/'+ ${studentDTO.no}+'/'+${studentDTO.portfolio}}" th:download="${Portfolio_file.originFileName}">
+                <i class="fas fa-window-maximize"></i>[[${Portfolio_file.originFileName}]]
+              </a>
+              <br />
+            </th:block>
+            <th:block th:if="${Portfolio_file == null}">
+              <p>없음</p>
+            </th:block>
           </div>
-          <div class="admin_info_box file_input">
-            <label for="resume" ><i class="fas fa-file"></i> 이력서</label>
-            <input type="file" id="resume" name="resume" class="border_none">
+          <div class="file_input">
+            <label ><i class="fas fa-file"></i> 이력서</label>
+            <th:block th:if="${resume_file != null}">
+              <a th:href="@{'/student/down/'+ ${studentDTO.no}+'/'+${studentDTO.resume}}" th:download="${resume_file.originFileName}">
+                <i class="fas fa-window-maximize"></i>[[${resume_file.originFileName}]]
+              </a>
+              <br />
+            </th:block>
+            <th:block th:if="${resume_file == null}">
+             <p>없음</p>
+            </th:block>
           </div>
         </div>
 
