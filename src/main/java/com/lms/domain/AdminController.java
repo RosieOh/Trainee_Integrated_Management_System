@@ -13,6 +13,7 @@ import com.lms.domain.student.service.StudentService;
 import com.lms.global.cosntant.Role;
 import com.lms.global.cosntant.Status;
 import com.lms.global.cosntant.Subject;
+import com.lms.global.util.ExcelUtils;
 import com.lms.global.util.PageDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +42,7 @@ public class AdminController {
     private final CourseService courseService;
     private final StudentService studentService;
     private final FileStudentService fileStudentService;
-
+    private final ExcelUtils excelUtils;
     // 회원관리 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
 
@@ -114,6 +115,8 @@ public class AdminController {
         pageDTO.build(members);
         pageDTO.entity2dto(members, MemberDTO.class);
         model.addAttribute("pageDTO", pageDTO);
+
+
         return "admin/member/list";
     }
 

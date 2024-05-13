@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ExcelHeader {
+public @interface ExcelColumnName {
     //name은 헤더명이 됨
     String name() default "";
 }
