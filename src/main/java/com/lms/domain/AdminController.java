@@ -84,6 +84,7 @@ public class AdminController {
     }
 
     // 회원 리스트(매니저)
+    // 엑셀 다운로드 추가
     @GetMapping("/member")
     public String memberList(HttpServletRequest request, Model model, @PageableDefault(page=0, size=20, sort="name", direction= Sort.Direction.ASC)Pageable pageable,
                              @RequestParam(required = false) String keyword, @RequestParam(required = false) Subject subject, @RequestParam(required = false)Integer flag, @RequestParam(required = false)Role role) {
