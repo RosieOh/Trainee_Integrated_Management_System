@@ -32,23 +32,18 @@ public class FileStudentView {
         // 파일 서비스를 통해 fileId로 파일 정보를 가져옴
         FileStudentDTO fileDTO = fileStudentService.getFile(memberId, no);
 
-        log.info("fileDTO ---------" + fileDTO);
         // 파일 경로 생성
-        Path path = Paths.get(fileDTO.getSavePath());
-        log.info("path ---------" + path);
+        Path path = Paths.get(fileDTO.getSavePath()+'/'+fileDTO.getSaveFileName());
 
         // 파일 스트림에서 Resource를 생성
         Resource resource = new InputStreamResource(Files.newInputStream(path));
-        log.info("resource ---------" + resource);
 
         // 응답 헤더를 설정
         HttpHeaders headers = new HttpHeaders();
-        log.info("headers ---------" + headers);
 
         try {
             // 파일 이름을 UTF-8로 인코딩
             String encodingFileName = new String(fileDTO.getOriginFileName().getBytes("UTF-8"), "ISO-8859-1");
-            log.info("encodingFileName ---------" + encodingFileName);
 
             // Content-Disposition 헤더에 인코딩된 파일 이름을 설정.
             headers.setContentDispositionFormData("attachment", encodingFileName);

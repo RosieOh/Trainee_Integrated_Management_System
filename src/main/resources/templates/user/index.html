@@ -8,7 +8,14 @@
         <div class="main user_index">
                 <section class="user_info">
                     <article class="profile">
-                        <div class="profile_img"><i class="fas fa-user-circle"></i></div>
+                        <div class="profile_img">
+                            <th:block th:if="${student_picture != null}">
+                                <img th:src="@{'/student/down/'+ ${student_picture}}" alt="프로필 사진">
+                            </th:block>
+                            <th:block th:if="${student_picture == null}">
+                                <i class="fas fa-user-circle"></i>
+                            </th:block>
+                        </div>
                         <h1 th:text="${memberDTO.name}"></h1>
                         <h2 th:text="${courseName}"></h2>
                         <a th:href="@{/member/mypage}" class="btnView">개인정보 수정</a>

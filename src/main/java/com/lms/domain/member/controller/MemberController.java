@@ -15,7 +15,6 @@ import com.lms.global.cosntant.Subject;
 import com.lms.global.util.MD5Generator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -39,14 +38,16 @@ public class MemberController {
     private final FileStudentService fileStudentService;
     private final FileService fileService;
 
-    @Value("${spring.servlet.multipart.location}")
-    String uploadFolder;
 
     @GetMapping("/index")
     public String index(Principal principal, Model model) {
         String id = principal.getName();
         MemberDTO memberDTO = memberService.loginId(id);
-        model.addAttribute("memberDTO",memberDTO);
+        StudentDTO studentDTO = studentService.student_read(memberDTO.getNo());
+        String student_picture = null;
+        if(studentDTO.getPicture() != null) {
+            student_picture = studentDTO.getNo() + "/" + studentDTO.getPicture();
+        }
 
         log.info(memberDTO.toString());
         String courseName ="관리자";
@@ -77,6 +78,10 @@ public class MemberController {
             }
             fileList.addAll(fileDTOs);
         }
+
+
+        model.addAttribute("student_picture", student_picture);
+        model.addAttribute("memberDTO",memberDTO);
         model.addAttribute("fileList", fileList);
         model.addAttribute("fileCountMap", fileService.getFileCountMap(fileList));
 
@@ -125,20 +130,17 @@ public class MemberController {
         MemberDTO memberDTO = memberService.loginId(id);
         StudentDTO studentDTO = studentService.student_read(memberDTO.getNo());
         if(studentDTO.getPicture() != null){
-            log.info("getPicture 시작 ------");
             FileStudentDTO picture_file = fileStudentService.getFile(studentDTO.getNo(), studentDTO.getPicture());
             model.addAttribute("picture_file", picture_file);
             log.info("getPicture ------" + picture_file);
         }
         if(studentDTO.getPortfolio() != null){
-            log.info("getPortfolio 시작 ------");
             FileStudentDTO Portfolio_file = fileStudentService.getFile(studentDTO.getNo(), studentDTO.getPortfolio());
             model.addAttribute("Portfolio_file", Portfolio_file);
             log.info("getPicture ------" + Portfolio_file);
 
         }
         if(studentDTO.getResume() != null){
-            log.info("getResume 시작 ------");
             FileStudentDTO resume_file = fileStudentService.getFile(studentDTO.getNo(), studentDTO.getResume());
             model.addAttribute("resume_file", resume_file);
             log.info("getPicture ------" + resume_file);
@@ -162,13 +164,21 @@ public class MemberController {
                               @RequestParam("file1") MultipartFile file1,
                               @RequestParam("file2") MultipartFile file2,
                               @RequestParam("file3") MultipartFile file3){
-        log.info("studentDTO ------" + studentDTO);
-        log.info("student_add 시작 ");
+        log.info("student_add 시작 ------------------------------------------------------------------------------------------" + studentDTO);
+        log.info("file1 ------" + file1);
+        log.info("file2 ------" + file2);
+        log.info("file3 ------" + file3);
         String randomTitle = UUID.randomUUID().toString();
         String savePath = System.getProperty("user.dir") + "/files/";
 
-//        String portfolio_savePath = System.getProperty("user.dir") + "/files/";
-
+        StudentDTO studentDTO1 = studentService.student_read(studentDTO.getNo());
+        studentDTO1.setStack(studentDTO.getStack());
+        studentDTO1.setCert(studentDTO.getCert());
+        studentDTO1.setUniv(studentDTO.getUniv());
+        studentDTO1.setMajor(studentDTO.getMajor());
+        studentDTO1.setHope(studentDTO.getHope());
+        studentDTO1.setJob_program(studentDTO.getJob_program());
+        studentDTO1.setFund(studentDTO.getFund());
         if(!new File(savePath).exists()) {
             try {
                 new File(savePath).mkdirs();
@@ -181,8 +191,8 @@ public class MemberController {
             if(!file1.isEmpty()) {
                 log.info("file1 시작: " + file1);
                 String picture_origin = file1.getOriginalFilename();
-//                String picture_saveFileName = new MD5Generator(picture_origin).toString();
-                String picture_saveFileName = randomTitle + picture_origin;
+                String picture_saveFileName = new MD5Generator(picture_origin).toString();
+//                String picture_saveFileName = randomTitle + picture_origin;
 
                 log.info("file1 transferTo 시작 ");
                 file1.transferTo(new File(savePath, picture_saveFileName));
@@ -193,13 +203,15 @@ public class MemberController {
                 fileDTO.setMemberId(studentDTO.getNo());
                 Long no = fileStudentService.saveFile(fileDTO);
                 log.info("no -------------" + no);
-                studentDTO.setPicture(no);
+                studentDTO1.setPicture(no);
                 log.info("file1 transferTo 끝 ");
+
             }
             if(!file2.isEmpty()) {
                 log.info("file2 시작: " + file2);
                 String portfolio_origin = file2.getOriginalFilename();
-                String portfolio_saveFileName = randomTitle + portfolio_origin;
+                String portfolio_saveFileName = new MD5Generator(portfolio_origin).toString();
+//                String portfolio_saveFileName = randomTitle + portfolio_origin;
 
                 log.info("file2 transferTo 시작 ");
                 file2.transferTo(new File(savePath, portfolio_saveFileName));
@@ -209,14 +221,15 @@ public class MemberController {
                 fileDTO.setSavePath(savePath);
                 fileDTO.setMemberId(studentDTO.getNo());
                 Long no = fileStudentService.saveFile(fileDTO);
-                studentDTO.setPortfolio(no);
+                studentDTO1.setPortfolio(no);
                 log.info("file2 transferTo 끝 ");
 
             }
             if(!file3.isEmpty()) {
                 log.info("file3 시작: " + file3);
                 String resume_origin = file3.getOriginalFilename();
-                String resume_saveFileName = randomTitle + resume_origin;
+                String resume_saveFileName = new MD5Generator(resume_origin).toString();
+//                String resume_saveFileName = randomTitle + resume_origin;
 
                 log.info("file3 transferTo 시작 ");
                 file3.transferTo(new File(savePath, resume_saveFileName));
@@ -226,16 +239,72 @@ public class MemberController {
                 fileDTO.setSavePath(savePath);
                 fileDTO.setMemberId(studentDTO.getNo());
                 Long no = fileStudentService.saveFile(fileDTO);
-                studentDTO.setResume(no);
+                studentDTO1.setResume(no);
                 log.info("file3 transferTo 끝 ");
             }
-
-        studentService.student_edit(studentDTO);
+            studentService.student_edit(studentDTO1);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
         model.addAttribute("message", "글 작성이 완료되었습니다.");
         return "redirect:/member/mypage2";
+    }
+
+    @GetMapping("file_edit")
+    public String FaqEditForm(Model model, int no) {
+        log.info("FaqEditForm 시작--------------------" + no);
+        model.addAttribute("no", no);
+        return "user/member/studentEdit";
+    }
+
+    @PostMapping(value = "file_edit", consumes = { "multipart/form-data"} )
+    public String file_edit(@RequestParam("fileChange") MultipartFile files, Model model, @RequestParam("no") int no, Principal principal) throws Exception{
+        log.info("file_edit 시작--------------------" + no);
+        MemberDTO memberDTO = memberService.loginId(principal.getName());
+        StudentDTO studentDTO = studentService.student_read(memberDTO.getNo());
+
+        try {
+            String savePath = System.getProperty("user.dir") + "/files/";
+            String originName = files.getOriginalFilename();
+            String saveFileName = new MD5Generator(originName).toString();
+
+            if (no == 1) {
+                // 프로필 사진
+                FileStudentDTO fileDTO = fileStudentService.getFile(memberDTO.getNo(), studentDTO.getPicture());
+                File fileOne = new File(fileDTO.getSavePath(), fileDTO.getSaveFileName());
+                boolean deleteFile = fileOne.delete();
+                fileDTO.setOriginFileName(originName);
+                fileDTO.setSaveFileName(saveFileName);
+                files.transferTo(new File(savePath, saveFileName));
+                fileStudentService.saveFile(fileDTO);
+
+            } else if(no == 2) {
+                // 포트폴리오
+                FileStudentDTO fileDTO = fileStudentService.getFile(memberDTO.getNo(), studentDTO.getPortfolio());
+                File fileOne = new File(fileDTO.getSavePath(), fileDTO.getSaveFileName());
+                boolean deleteFile = fileOne.delete();
+                fileDTO.setOriginFileName(originName);
+                fileDTO.setSaveFileName(saveFileName);
+                files.transferTo(new File(savePath, saveFileName));
+                fileStudentService.saveFile(fileDTO);
+
+            } else if(no == 3) {
+                // 이력서
+                FileStudentDTO fileDTO = fileStudentService.getFile(memberDTO.getNo(), studentDTO.getResume());
+                File fileOne = new File(fileDTO.getSavePath(), fileDTO.getSaveFileName());
+                boolean deleteFile = fileOne.delete();
+                fileDTO.setOriginFileName(originName);
+                fileDTO.setSaveFileName(saveFileName);
+                files.transferTo(new File(savePath, saveFileName));
+                fileStudentService.saveFile(fileDTO);
+            }
+
+        } catch (Exception e) {
+            log.info("오류 시작");
+            e.printStackTrace();
+        }
+        model.addAttribute("url", 1);
+        return "user/alert";
     }
 }

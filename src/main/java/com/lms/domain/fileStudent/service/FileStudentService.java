@@ -33,4 +33,11 @@ public class FileStudentService {
         FileStudentDTO fileStudentDTO = modelMapper.map(fileStudent, FileStudentDTO.class);
         return fileStudentDTO;
     }
+
+    @Transactional
+    public FileStudentDTO fileDelete(Long memberId, Long no) {
+        Optional<FileStudent> fileStudent = fileStudentRepository.getFile(memberId, no);
+        FileStudentDTO fileStudentDTO = modelMapper.map(fileStudent, FileStudentDTO.class);
+        return fileStudentDTO;
+    }
 }
