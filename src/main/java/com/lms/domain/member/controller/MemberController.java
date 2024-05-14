@@ -1,8 +1,8 @@
 package com.lms.domain.member.controller;
 
-import com.lms.domain.course.dto.CourseDTO;
 import com.lms.domain.board.dto.BoardDTO;
 import com.lms.domain.board.service.BoardService;
+import com.lms.domain.course.dto.CourseDTO;
 import com.lms.domain.file.dto.FileDTO;
 import com.lms.domain.file.service.FileService;
 import com.lms.domain.fileStudent.dto.FileStudentDTO;
@@ -86,6 +86,8 @@ public class MemberController {
         model.addAttribute("memberDTO",memberDTO);
         model.addAttribute("fileList", fileList);
         model.addAttribute("fileCountMap", fileService.getFileCountMap(fileList));
+
+
 
         return "user/index";
     }

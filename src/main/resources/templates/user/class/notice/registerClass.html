@@ -22,7 +22,8 @@
                 <div class="flex">
                   <div class="notice_box">
                     <label for="writerNotice">작성자</label>
-                    <input type="text" class="ro_input writer" id="writerNotice" name="writer" th:value="${memberDTO.id}" readonly>
+                    <input type="text" class="ro_input writer" id="writerNotice" th:value="${memberDTO.name}" readonly>
+                    <input type="hidden" name="writer" th:value="${memberDTO.id}" required/>
                   </div>
                   <div class="board_checkbox_container">
                     <th:block th:if="${not #authorization.expression('hasAuthority(''STUDENT'')')}">

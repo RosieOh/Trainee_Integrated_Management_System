@@ -15,6 +15,7 @@ import com.lms.global.cosntant.Subject;
 import com.lms.global.util.MD5Generator;
 import com.lms.global.util.PageDTO;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -53,7 +54,9 @@ public class NoticeController {
 
     @GetMapping(value = {"/list"})
     public String noticeListAll(Model model, HttpServletRequest request, @PageableDefault(page = 0, size = 10, sort = "title", direction = Sort.Direction.DESC) Pageable pageable,
-                                @RequestParam(required = false) String keyword, @RequestParam(required = false) Integer cno, Principal principal) {
+                                @RequestParam(required = false) String keyword, @RequestParam(required = false) Integer cno, Principal principal, HttpSession session) {
+        session.setAttribute("keyword",keyword);
+        session.setAttribute("cno", cno);
 
         List<CourseDTO> course_big_List = courseService.ingSubject(Subject.BIGDATA);
         List<CourseDTO> course_full_List = courseService.ingSubject(Subject.FULLSTACK);
@@ -109,13 +112,19 @@ public class NoticeController {
     }
 
     @GetMapping("/read")
-    public String readNotice(Long id, Model model, Principal principal) {
+    public String readNotice(Long id, Model model, Principal principal, HttpSession session) {
         BoardDTO boardDTO = boardService.findById(id);
         List<FileDTO> files = fileService.findByBoardId(id);
 
         model.addAttribute("principal", principal);
         model.addAttribute("boardDTO", boardDTO);
         model.addAttribute("files", files);
+
+        String keyword = (String) session.getAttribute("keyword");
+        Integer cno = (Integer) session.getAttribute("cno");
+
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("cno", cno);
 
         return "admin/board/read";
     }
@@ -274,9 +283,14 @@ public class NoticeController {
 
 
     // --------------------- 클래스 공지사항 ---------------------------
+    //공지사항 목록
     @GetMapping(value = {"/class/list"})
     public String classNoticeAll(Model model, HttpServletRequest request, @PageableDefault(page = 0, size = 10, sort = "title", direction = Sort.Direction.DESC) Pageable pageable,
-                                @RequestParam(required = false) String keyword, @RequestParam(required = false) Integer cno, Principal principal) {
+                                 @RequestParam(required = false) String keyword, @RequestParam(required = false) Integer cno, Principal principal,
+                                 HttpSession session) {
+        //검색, 필터링 세션 저장
+        session.setAttribute("keyword", keyword);
+        session.setAttribute("cno", cno);
 
         List<CourseDTO> course_big_List = courseService.ingSubject(Subject.BIGDATA);
         List<CourseDTO> course_full_List = courseService.ingSubject(Subject.FULLSTACK);
@@ -315,6 +329,14 @@ public class NoticeController {
             }
             fileList.addAll(fileDTOs);
         }
+
+        List<String> nameList = new ArrayList<>();
+        for (Board board : boardList) {
+            String name = memberService.getNameById(board.getWriter());
+            nameList.add(name);
+        }
+
+        model.addAttribute("nameList", nameList);
         model.addAttribute("fileList", fileList);
         model.addAttribute("fileCountMap", fileService.getFileCountMap(fileList));
 
@@ -325,8 +347,15 @@ public class NoticeController {
         return "user/class/notice/list";
     }
 
+    //공지사항 글 상세보기
     @GetMapping("/class/read")
-    public String readClassNotice(Long id, Model model, Principal principal) {
+    public String readClassNotice(Long id, Model model, Principal principal, HttpSession session) {
+        String keyword = (String) session.getAttribute("keyword");
+        Integer cno = (Integer) session.getAttribute("cno");
+
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("cno", cno);
+
         BoardDTO boardDTO = boardService.findById(id);
         List<FileDTO> files = fileService.findByBoardId(id);
         String mid = principal.getName();
@@ -336,6 +365,9 @@ public class NoticeController {
         model.addAttribute("boardDTO", boardDTO);
         model.addAttribute("files", files);
         model.addAttribute("memberDTO", memberDTO);
+
+        String name = memberService.getNameById(boardDTO.getWriter());
+        model.addAttribute("name", name);
 
         //댓글 리스트 불러오기
         List<CommentDTO> commentDTOList = commentService.findCommentList(boardDTO.getId());
