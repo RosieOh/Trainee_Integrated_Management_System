@@ -1,19 +1,78 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{include/layout}">
+  <!DOCTYPE html>
+  <html xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{include/layout}">
 
-<div layout:fragment="content">
-  <div class="user_content">
-    <div class="pw_title">
-      <h2>본인확인</h2>
-      <p>비밀번호를 입력해주세요<i class="far fa-smile"></i></p>
+
+  <div layout:fragment="content">
+    <div class="admin-content">
+      <div class="user_img_box"><img th:src="@{/images/Character.png}" alt="" class="user_img"></div>
+      <div class="user_main">
+        <div class="user_group">
+        <div class="user_title">
+          <h2>나의 정보</h2>
+        </div>
+        <div class="user_tab">
+          <div class="user_tab_title"><a th:href="@{/member/mypage}"><span >기본정보</span></a></div>
+          <div class="user_tab_title"><a th:href="@{/member/mypage2}"><span >추가정보</span></a></div>
+          <div class="user_tab_title"><a th:href="@{/member/validatePw}"><span class="user_tab_border">비밀번호 변경</span></a></div>
+        </div>
+          <form th:action="@{/member/changePw}" onsubmit="return next(this)" >
+            <div class="user_content">
+              <div class="pw_title">
+                <h2>본인확인</h2>
+                <p>비밀번호를 입력해주세요<i class="far fa-smile"></i></p>
+              </div>
+              <div class="pw_modify_box">
+                <div class="user_info_box">
+                  <label for="pw">비밀번호</label>
+                  <input type="password" name="pw" id="pw" placeholder="비밀번호를 입력해주세요." onchange="validate(this)" required />
+                  <input type="hidden" name="pwCk" id="pwCk" value="no">
+                  <p id="msg" class="no_check"></p>
+                </div>
+              </div>
+              <div class="btn_group_center">
+                <button type="submit"  class="board_btn select_btn">확인</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-    <div class="pw_box">
-      <input type="password" name="pw" id="pw" required>
-    </div>
-    <div class="myinfo_btn_group">
-      <button type="submit" class="btn_myInfo">입력</button>
-    </div>
-  </div>
+    <script>
+
+      // 비밀번호 확인
+      function validate(obj){
+        let param = {pw: $("#pw").val()};
+        console.log("param ---", param)
+        $.ajax({
+          url: "/member/pwCheck",
+          type: "post",
+          data: JSON.stringify(param),
+          dataType: "json",
+          contentType: "application/json",
+          success: function(result){
+            var pass = result;
+            console.log("result ---", result)
+            if(pass == false) {
+              $("#pwCk").val("no");
+            } else if (pass == ""){
+              $("#pwCk").val("no");
+            } else if (pass ==true){
+              $("#pwCk").val("yes");
+            }
+          }
+        })
+
+      }
+
+      function next(f){
+        if(f.pwCk.value!="yes"){
+          alert("비밀번호가 맞지 않습니다.");
+          $("#msg").addClass("no_check").html("비밀번호가 맞지 않습니다. 다시 입력하시기 바랍니다.").css("color", "red");
+          $("#pw").focus();
+          return false;
+        }
+      }
+    </script>
 </div>

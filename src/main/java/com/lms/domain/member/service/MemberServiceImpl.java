@@ -288,4 +288,24 @@ public class MemberServiceImpl implements MemberService {
         Member member = memberRepository.getNameById(id);
         return member.getName();
     }
+
+    @Override
+    public boolean validatePw(String id, String pw) {
+        Member member = memberRepository.findId(id);
+        boolean pass = false;
+        if(passwordEncoder.matches(pw, member.getPw())){
+            pass = true;
+        } else {
+            pass = false;
+        }
+        return pass;
+    }
+
+    @Override
+    public void changePw(String id, String pw) {
+        Member member = memberRepository.findId(id);
+        String passwrod = passwordEncoder.encode(pw);
+        member.setPw(passwrod);
+        memberRepository.save(member);
+    }
 }
