@@ -123,7 +123,7 @@
                                 <textarea class="input"  style="width: 1320px; height: 500px;" id="myTextarea" type="text" th:utext="${boardDTO.content}" required th:name="content" placeholder="내용"></textarea>
                             </div>
                             <div class="btn_group_center">
-                                <a th:href="@{/notice/class/list}" class="board_btn cancel_btn">목록으로</a>
+                                <a th:href="@{/notice/class/list(page=${page}, keyword=${keyword}, cno=${cno})}" class="board_btn cancel_btn">목록으로</a>
                                 <button type="submit" class="board_btn select_btn">수정하기</button>
                             </div>
                         </div>

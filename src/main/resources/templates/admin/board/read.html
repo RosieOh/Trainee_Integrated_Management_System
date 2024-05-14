@@ -45,7 +45,7 @@
           </div>
           <th:block sec:authorize="hasAuthority('MANAGER') or hasAuthority('ADMIN')">
             <div class="btn_group_center">
-              <a class="board_btn select_btn" th:href="@{/notice/list(keyword=${keyword}, cno=${cno})}">목록으로</a>
+              <a class="board_btn select_btn" th:href="@{/notice/list(page=${page}, keyword=${keyword})}">목록으로</a>
               <!--              <a class="board_btn cancel_btn" th:href="@{/notice/remove(id=${boardDTO.id})}">삭제하기</a>-->
               <a class="board_btn edit_btn" th:href="@{/notice/modify(id=${boardDTO.id})}">수정하기</a>
               <form th:action="@{/notice/remove(id=${boardDTO.id})}" method="post" class="deleteForm">
@@ -61,7 +61,7 @@
           </th:block>
           <th:block sec:authorize="hasAuthority('STUDENT') or hasAuthority('TEACHER')">
             <div class="btn_group_center">
-              <a class="board_btn select_btn" th:href="@{/notice/list(keyword=${keyword}, cno=${cno})}">목록으로</a>
+              <a class="board_btn select_btn" th:href="@{/notice/list(page=${page}, keyword=${keyword})}">목록으로</a>
             </div>
           </th:block>
         </div>
