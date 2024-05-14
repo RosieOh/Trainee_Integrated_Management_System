@@ -1,0 +1,80 @@
+  <!DOCTYPE html>
+  <html xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{include/layout}">
+
+
+  <div layout:fragment="content">
+    <div class="admin-content">
+      <div class="user_img_box"><img th:src="@{/images/Character.png}" alt="" class="user_img"></div>
+      <div class="user_main">
+        <div class="user_group">
+
+        <div class="user_title">
+          <h2>나의 정보</h2>
+        </div>
+        <div class="user_tab">
+          <div class="user_tab_title"><a th:href="@{/member/mypage}"><span >기본정보</span></a></div>
+          <div class="user_tab_title"><a th:href="@{/member/mypage2}"><span >추가정보</span></a></div>
+          <div class="user_tab_title"><a th:href="@{/member/validatePw}"><span class="user_tab_border">비밀번호 변경</span></a></div>
+        </div>
+          <form th:action="@{/member/changePw}" method="post" onsubmit="return modify(this)">
+            <div class="user_content">
+              <div class="pw_title">
+                <h2>비밀번호 변경</h2>
+                <p>새로운 비밀번호를 입력해주세요 <i class="far fa-smile"></i></p>
+              </div>
+              <div class="pw_modify_box">
+                <div class="user_info_box">
+                  <label for="pw">비밀번호</label>
+                  <input type="password" name="pw" id="pw" placeholder="비밀번호를 입력해주세요." minlength="8" maxlength="16" onchange="pwCheck(this)" required />
+                  <p class="info mb-0" id="pwmsg">비밀번호는 최소 8자리에서 최대 16자리 <br> 숫자, 영문, 특수문자 각 1개 이상 포함</p>
+                </div>
+                <div class="user_info_box">
+                  <label for="pw">비밀번호 확인</label>
+                  <input type="password" name="pw2" id="pw2" placeholder="비밀번호를 다시 입력해주세요." minlength="8" maxlength="16" required />
+                </div>
+              </div>
+              <div class="btn_group_center">
+                <button type="submit" class="board_btn select_btn">변경</button>
+              </div>
+            </div>
+          </form>
+      </div>
+      </div>
+    </div>
+    <script>
+      function pwCheck(obj){
+        let pwmsg = document.querySelector('#pwmsg')
+        pw_pattern = /^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/;
+
+        if(obj.value.length <= 7){
+          alert("비밀번호는 8자리에서 16자리 입력해주셔야 합니다.")
+          pwmsg.style.color = "red"
+          obj.value = '';
+          obj.focus();
+          return false;
+        }
+        if(pw_pattern.test(obj.value) == false){
+          alert("비밀번호는 숫자, 영문, 특수문자 각 1개 이상 포함되어야 합니다.")
+          pwmsg.style.color = "red"
+          obj.value = '';
+          obj.focus();
+          return false;
+        } else {
+          pwmsg.style.color = "blue"
+          return true;
+        }
+      }
+
+
+      function modify(f) {
+
+        if (f.pw.value != f.pw2.value) {
+          alert("비밀번호와 비밀번호 확인이 서로 다릅니다.");
+          f.pw.focus();
+          return false;
+        }
+      }
+    </script>
+</div>

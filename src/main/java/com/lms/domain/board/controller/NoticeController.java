@@ -24,6 +24,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -198,7 +200,10 @@ public class NoticeController {
     @PostMapping("/modify/{id}")
     public String noticeEdit(@PathVariable("id") Long id, @Valid BoardDTO boardDTO, @RequestParam("files") MultipartFile[] files){
 
-        fileService.deleteFilesByBoardId(id);
+        List<FileDTO> existingFiles = fileService.findByBoardId(id);
+        for (FileDTO file : existingFiles) {
+            file.setBoardId(id);
+        }
 
         try {
             BoardDTO boardDTO1 = boardService.getBoard(id);
@@ -211,7 +216,6 @@ public class NoticeController {
             boardService.modify(boardDTO1);
 
             List<FileDTO> uploadFiles = new ArrayList<>();
-
             for (MultipartFile file : files) {
                 if (!file.isEmpty()) {
                     String originFilename = file.getOriginalFilename();
@@ -238,7 +242,12 @@ public class NoticeController {
                     uploadFiles.add(fileDTO);
                 }
             }
-            List<Long> fileIds = fileService.saveFiles(uploadFiles);
+
+            List<FileDTO> allFiles = new ArrayList<>();
+            allFiles.addAll(existingFiles);
+            allFiles.addAll(uploadFiles);
+
+            List<Long> fileIds = fileService.saveFiles(allFiles);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -258,7 +267,19 @@ public class NoticeController {
         return "redirect:/notice/list";
     }
 
+    @PostMapping("/deleteFile")
+    @ResponseBody
+    public ResponseEntity<String> deleteFile(@RequestBody Map<String, Long> requestBody) {
 
+        Long fileId = requestBody.get("fileId");
+
+        try {
+            fileService.deleteFile(fileId);
+            return ResponseEntity.ok().body("파일이 성공적으로 삭제되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("파일 삭제 중 오류가 발생했습니다.");
+        }
+    }
 
 
     // --------------------- 클래스 공지사항 ---------------------------
@@ -423,7 +444,10 @@ public class NoticeController {
     @PostMapping("/class/modify/{id}")
     public String noticeClassEdit(@PathVariable("id") Long id, @Valid BoardDTO boardDTO, @RequestParam("files") MultipartFile[] files) {
 
-        fileService.deleteFilesByBoardId(id);
+        List<FileDTO> existingFiles = fileService.findByBoardId(id);
+        for (FileDTO file : existingFiles) {
+            file.setBoardId(id);
+        }
 
         try {
             BoardDTO boardDTO1 = boardService.getBoard(id);
@@ -463,7 +487,11 @@ public class NoticeController {
                 }
             }
 
-            List<Long> fileIds = fileService.saveFiles(uploadFiles);
+            List<FileDTO> allFiles = new ArrayList<>();
+            allFiles.addAll(existingFiles);
+            allFiles.addAll(uploadFiles);
+
+            List<Long> fileIds = fileService.saveFiles(allFiles);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -567,7 +595,10 @@ public class NoticeController {
     @PostMapping("/class/modifyAdmin/{id}")
     public String noticeClassEditAdmin(@PathVariable("id") Long id, @Valid BoardDTO boardDTO, @RequestParam("files") MultipartFile[] files) {
 
-        fileService.deleteFilesByBoardId(id);
+        List<FileDTO> existingFiles = fileService.findByBoardId(id);
+        for (FileDTO file : existingFiles) {
+            file.setBoardId(id);
+        }
 
         try {
             BoardDTO boardDTO1 = boardService.getBoard(id);
@@ -608,7 +639,11 @@ public class NoticeController {
                 }
             }
 
-            List<Long> fileIds = fileService.saveFiles(uploadFiles);
+            List<FileDTO> allFiles = new ArrayList<>();
+            allFiles.addAll(existingFiles);
+            allFiles.addAll(uploadFiles);
+
+            List<Long> fileIds = fileService.saveFiles(allFiles);
 
         } catch (Exception e) {
             e.printStackTrace();

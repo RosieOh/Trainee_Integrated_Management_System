@@ -15,31 +15,35 @@
         <div class="user_tab">
           <div class="user_tab_title"><a th:href="@{/member/mypage}"><span >기본정보</span></a></div>
           <div class="user_tab_title"><a th:href="@{/member/mypage2}"><span class="user_tab_border">추가정보</span></a></div>
+          <div class="user_tab_title"><a th:href="@{/member/validatePw}"><span >비밀번호 변경</span></a></div>
         </div>
           <form th:action="@{/member/student_add}" method="post" onsubmit="return modify(this)" enctype="multipart/form-data">
             <div class="user_content">
               <div class="user_content_seperate">
                 <div class="user_info_container">
                   <div class="user_info_box">
-                    <label for="stack" >기술스택</label>
-                    <input type="text" th:value="${studentDTO.stack}" id="stack" name="stack" placeholder="검색해주세요.">
-                    <input type="hidden" name="no" th:value="${studentDTO.no}">
+                    <div class="flex_between">
+                      <div class="user_info_box_in">
+                        <label for="univ" >최종학력</label>
+                        <input type="text" th:value="${studentDTO.univ}" id="univ" name="univ">
+                      </div>
+                      <div class="user_info_box_in">
+                        <label for="major" >학과</label>
+                        <input type="text" th:value="${studentDTO.major}" id="major" name="major">
+                      </div>
+                    </div>
                   </div>
                   <div class="user_info_box">
                     <label for="cert" >자격증</label>
                     <input type="text" th:value="${studentDTO.cert}" id="cert" name="cert">
                   </div>
                   <div class="user_info_box">
-                    <label for="univ" >최종학력</label>
-                    <input type="text" th:value="${studentDTO.univ}" id="univ" name="univ">
-                  </div>
-                  <div class="user_info_box">
-                    <label for="major" >학과</label>
-                    <input type="text" th:value="${studentDTO.major}" id="major" name="major">
-                  </div>
-                  <div class="user_info_box">
                     <label for="hope" >희망 진로분야</label>
                     <input type="text" th:value="${studentDTO.hope}" id="hope" name="hope">
+                  </div>
+                  <div class="user_info_box">
+                    <label for="fund" >지원센터</label>
+                    <input type="text" th:value="${studentDTO.fund}" id="fund" name="fund">
                   </div>
                   <div class="user_info_box">
                     <label for="job_program" >국취취업제도 참여 여부</label>
@@ -53,10 +57,10 @@
                       <input type="text" name="job_program" id="job_program" th:value="${studentDTO.job_program}"/>
                     </div>
                   </div>
-
                   <div class="user_info_box">
-                    <label for="fund" >지원센터</label>
-                    <input type="text" th:value="${studentDTO.fund}" id="fund" name="fund">
+                    <label for="stack" >기술스택</label>
+                    <input type="text" th:value="${studentDTO.stack}" id="stack" name="stack" placeholder="검색해주세요.">
+                    <input type="hidden" name="no" th:value="${studentDTO.no}">
                   </div>
                   <div class="file_input">
                     <label><i class="fas fa-file"></i> 프로필 사진</label>
@@ -65,12 +69,12 @@
                         <a th:href="@{'/student/down/'+ ${studentDTO.no}+'/'+${studentDTO.picture}}" th:download="${picture_file.originFileName}">
                           <i class="fas fa-window-maximize"></i>[[${picture_file.originFileName}]]
                         </a>
-                        <button type="button" class="inline_form_btn select_btn" onclick="Edit(1)">수정<i class="fas fa-pencil-alt"></i></button>
+                        <button type="button" class="inline_form_btn edit_btn" onclick="Edit(1)">수정<i class="fas fa-pencil-alt"></i></button>
                       </div>
-                      <input type="file" class="hidden" name="file1" accept=".jpg,.png">
+                      <input type="file" class="hidden" name="file1" accept=".jpg,.png,.jpeg">
                     </th:block>
                     <th:block th:if="${picture_file == null}">
-                      <input type="file" class="border_none" name="file1" id="file1" accept=".jpg,.png,.jpeg">
+                      <input type="file" class="border_none" name="file1" id="file1" accept=".jpg,.png,.jpeg" onchange="imgUpload(this)">
                     </th:block>
                   </div>
                   <div class="file_input">
@@ -80,7 +84,7 @@
                           <a th:href="@{'/student/down/'+ ${studentDTO.no}+'/'+${studentDTO.portfolio}}" th:download="${Portfolio_file.originFileName}">
                               <i class="fas fa-window-maximize"></i>[[${Portfolio_file.originFileName}]]
                           </a>
-                          <button type="button" class="inline_form_btn select_btn" onclick="Edit(2)">수정<i class="fas fa-pencil-alt"></i></button>
+                          <button type="button" class="inline_form_btn edit_btn" onclick="Edit(2)">수정<i class="fas fa-pencil-alt"></i></button>
                         </div>
                         <input type="file" class="hidden" name="file2">
                       </th:block>
@@ -95,7 +99,7 @@
                       <a th:href="@{'/student/down/'+ ${studentDTO.no}+'/'+${studentDTO.resume}}" th:download="${resume_file.originFileName}">
                         <i class="fas fa-window-maximize"></i>[[${resume_file.originFileName}]]
                       </a>
-                        <button type="button" class="inline_form_btn select_btn" onclick="Edit(3)">수정<i class="fas fa-pencil-alt"></i></button>
+                        <button type="button" class="inline_form_btn edit_btn" onclick="Edit(3)">수정<i class="fas fa-pencil-alt"></i></button>
                       </div>
                       <input type="file" class="hidden" name="file3">
                     </th:block>
@@ -202,6 +206,16 @@
         let popupOption = "width=400px, height=400px, top=150px, left=300px, scrollbar=yes, resizable=no";
         let popupUrl = '/member/file_edit?no='+no;
         window.open(popupUrl, 'child', popupOption);
+      }
+    </script>
+    <script>
+      img_pattern = /^(.*?)\.(jpg|jpeg|png)$/;
+
+      function imgUpload(e){
+        if(img_pattern.test(e.value) == false){
+          alert("해당 파일은 이미지 파일이 아닙니다.");
+          e.value = "";
+        }
       }
     </script>
 </div>

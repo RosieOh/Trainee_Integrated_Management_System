@@ -219,16 +219,16 @@ public class AdminController {
 
 
     // 비밀번호 초기화(진행중)
-    @PostMapping("pw_reset")
-    public String pw_reset(@RequestBody Long no){
-        log.info("pw_reset start --------------");
-        log.info("no --------------" + no);
-        memberService.pw_reset(no);
-        return  "redirect:/admin/member_read?no="+no;
+    @PostMapping("/pwReset")
+    public ResponseEntity pwReset(@RequestBody MemberDTO memberDTO) throws Exception {
+        log.info("memberDTO ----" + memberDTO);
+        memberService.changePw(memberDTO.getId(), "1234");
+        boolean result = true;
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     // 회원 추가사항 변경
-    @PostMapping("student_edit")
+    @PostMapping("/student_edit")
     public String student_edit(StudentDTO studentDTO){
         studentService.student_edit(studentDTO);
         Long no = studentDTO.getNo();
