@@ -15,6 +15,12 @@
           <div class="admin_title">
             <h2>회원 정보</h2>
           </div>
+          <div class="user_info_title">
+            <div class="flex">
+              <label for="id">클래스: </label>
+              <h1 th:text="${member.course.subject }+''+${member.course.flag}+'기'"></h1>
+            </div>
+          </div>
           <div class="admin_info_box">
             <label for="id">아이디</label>
             <input type="text" id="id" name="id" class="ro_input" th:value="${member.id }" readonly />
@@ -61,41 +67,40 @@
             <label for="phone">주소</label>
             <input type="text" name="addr1" id="addr1" class="ro_input" th:value="${member.addr1 }"  readonly/>
           </div>
-          <div class="admin_info_box flex">
+          <div class="admin_info_box">
             <input type="text" name="postcode" id="postcode" th:value="${member.postcode }" class="postcodeBtn ro_input" readonly>
           </div>
-
-          <div class="file_input">
+          <div class="mt_15">
+            <button type="button" class="inline_form_btn cancel_btn" onclick="pwReset()">비밀번호 초기화</button>
+          </div>
+          <div class="admin_file_input">
             <label ><i class="fas fa-file"></i> 사진</label>
             <th:block th:if="${picture_file != null}">
               <a th:href="@{'/student/down/'+ ${studentDTO.no}+'/'+${studentDTO.picture}}" th:download="${picture_file.originFileName}">
                 <i class="fas fa-window-maximize"></i>[[${picture_file.originFileName}]]
               </a>
-              <br />
             </th:block>
             <th:block th:if="${picture_file == null}">
               <p>없음</p>
             </th:block>
           </div>
-          <div class="file_input">
+          <div class="admin_file_input">
             <label ><i class="fas fa-file"></i> 포트폴리오</label>
             <th:block th:if="${Portfolio_file != null}">
               <a th:href="@{'/student/down/'+ ${studentDTO.no}+'/'+${studentDTO.portfolio}}" th:download="${Portfolio_file.originFileName}">
                 <i class="fas fa-window-maximize"></i>[[${Portfolio_file.originFileName}]]
               </a>
-              <br />
             </th:block>
             <th:block th:if="${Portfolio_file == null}">
               <p>없음</p>
             </th:block>
           </div>
-          <div class="file_input">
+          <div class="admin_file_input">
             <label ><i class="fas fa-file"></i> 이력서</label>
             <th:block th:if="${resume_file != null}">
               <a th:href="@{'/student/down/'+ ${studentDTO.no}+'/'+${studentDTO.resume}}" th:download="${resume_file.originFileName}">
                 <i class="fas fa-window-maximize"></i>[[${resume_file.originFileName}]]
               </a>
-              <br />
             </th:block>
             <th:block th:if="${resume_file == null}">
              <p>없음</p>
@@ -511,6 +516,30 @@
       if(confirm("삭제 하시겠습니까?")) {
         let accident_remove = document.getElementById(num);
         accident_remove.remove();
+      }
+    }
+  </script>
+  <script>
+    function pwReset(){
+      if(confirm("해당 아이디의 비밀번호를 초기화하시겠습니까?")){
+      let param = {id: $("#id").val()};
+      console.log("param ---", param)
+      $.ajax({
+        url: "/admin/pwReset",
+        type: "post",
+        data: JSON.stringify(param),
+        dataType: "json",
+        contentType: "application/json",
+        success: function(result){
+          var pass = result;
+          console.log("result ---", result)
+          if(pass == true) {
+            alert("비밀번호가 초기화되었습니다.")
+          } else {
+            alert("초기화가 실패하였습니다.")
+          }
+        }
+      })
       }
     }
   </script>

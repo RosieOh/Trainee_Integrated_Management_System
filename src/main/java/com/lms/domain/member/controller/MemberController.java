@@ -15,6 +15,8 @@ import com.lms.global.cosntant.Subject;
 import com.lms.global.util.MD5Generator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -117,8 +119,18 @@ public class MemberController {
 
     @GetMapping("mypage")
     public String mypage(Model model, Principal principal){
-        String id = principal.getName();
-        MemberDTO member = memberService.loginId(id);
+        MemberDTO member = memberService.loginId(principal.getName());
+        String courseName ="관리자";
+        if (member.getCourse().getSubject() == Subject.BIGDATA) {
+            courseName = "프로젝트 기반 빅데이터 서비스 개발자 양성 " + member.getCourse().getFlag()+"기";
+        } else if ( member.getCourse().getSubject() == Subject.FULLSTACK) {
+            courseName = "에듀테크 풀스택 개발자 양성(Java) " + member.getCourse().getFlag()+"기";
+        } else if ( member.getCourse().getSubject() == Subject.PM) {
+            courseName = "에듀테크 상품서비스 PM(프로덕트매니저) 양성 " + member.getCourse().getFlag()+"기";
+        } else {
+            courseName = "매니저";
+        }
+        model.addAttribute("courseName",courseName);
         model.addAttribute("member", member);
         return "user/member/mypage";
     }
@@ -151,10 +163,11 @@ public class MemberController {
     }
 
     @PostMapping("member_edit")
-    public String member_edit(MemberDTO memberDTO, Integer cno){
-        CourseDTO course = new CourseDTO();
-        course.setNo(cno);
-        memberDTO.setCourse(course);
+    public String member_edit(MemberDTO memberDTO, Principal principal){
+        MemberDTO member = memberService.loginId(principal.getName());
+        member.setEmail(memberDTO.getEmail());
+        member.setAddr1(memberDTO.getAddr1());
+        member.setPostcode(memberDTO.getPostcode());
         memberService.member_edit(memberDTO);
         return "redirect:/member/mypage";
     }
@@ -307,4 +320,32 @@ public class MemberController {
         model.addAttribute("url", 1);
         return "user/alert";
     }
+
+
+    @GetMapping("validatePw")
+    public String validatePwForm(){
+        return "user/member/pw_validate";
+    }
+
+    @PostMapping("pwCheck")
+    public ResponseEntity pwCheck(@RequestBody MemberDTO memberDTO, Principal principal) throws Exception {
+        log.info("memberDTO ----" + memberDTO);
+        log.info("pw ----" + memberDTO.getPw());
+        boolean result = memberService.validatePw(principal.getName(), memberDTO.getPw());
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("changePw")
+    public String changePwForm(){
+        return "user/member/pw_change";
+    }
+
+    @PostMapping("changePw")
+    public String changePw(Model model, Principal principal, @RequestParam("pw") String pw){
+        memberService.changePw(principal.getName(), pw);
+        model.addAttribute("msg", "비밀번호가 변경되었습니다.");
+        model.addAttribute("url", "/member/mypage");
+        return "user/alert";
+    }
+
 }

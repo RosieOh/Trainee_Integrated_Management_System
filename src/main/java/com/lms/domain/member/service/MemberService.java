@@ -28,6 +28,8 @@ public interface MemberService {
     public void pw_reset(Long no);
     Member auth(String id);
     public int loginPro(String id);
+    public boolean validatePw(String id, String pw);
+    public void changePw(String id, String pw);
 
     // 고정 아이디 생성
     void createAdminMember();

@@ -30,28 +30,19 @@
 
 
 
-/*.file_input {*/
-/*    align-items: center;*/
-/*    height: 86px;*/
-/*    color: var(--c-font_gray);*/
-/*    margin-bottom: 35px;*/
-/*}*/
-
-/*.file_input input{*/
-/*    width: 85%;*/
-/*    border: none;*/
-/*    box-shadow: none;*/
-/*    cursor: pointer;*/
-/*    background-color: #f1f1f1;*/
-
-/*}*/
-/*.file_input label {*/
-/*    width: 120px;*/
-/*    cursor: pointer;*/
-/*    font-size: 20px;*/
-/*    margin-bottom: 13px;*/
-/*}*/
-
+.admin_file_input {
+    display: flex;
+    flex-direction: column;
+    color: var(--c-font_gray);
+    margin-top: 40px;
+}
+.admin_file_input label {
+    font-size: 110%;
+    margin-bottom: 10px;
+}
+.admin_file_input a {
+    margin-left: 20px;
+}
 .file_input {
     display: flex;
     align-items: center;
@@ -70,6 +61,7 @@
 }
 
 .file_input label {
+    font-size: 110%;
     width: 20%;
     cursor: pointer;
 }
@@ -188,9 +180,6 @@
     padding: 8px;
     margin-right: 7px;
 }
-.user_info_box.infopw input{
-    width: 60%;
-}
 
 .email_a {
     line-height: 45px;
@@ -200,7 +189,17 @@
     background-color: var(--c-disable);
 }
 
-
+.user_info_title {
+    display: flex;
+    align-items: center;
+    margin: 10px auto;
+}
+.user_info_title label {
+    margin-right: 20px;
+}
+.user_info_title h1 {
+    color: var(--c-sub);
+}
 .pw_title {
     margin : 0 auto;
     width: fit-content;
@@ -212,7 +211,7 @@
 }
 
 .pw_modify_box {
-    width: inherit;
+    width: 40%;
     margin: 0 auto;
 }
 
@@ -260,9 +259,18 @@
     margin-bottom: 5px;
 }
 
+.user_info_box_in {
+    width: 49%;
+}
+.change_pw {
+    text-align: center;
+    border-radius: 5px;
+    border: none;
+    padding: 15px 10px;
+}
+
+
 /* 회원 마이페이지 */
-
-
 .admin_main {
     min-height: 100vh;
     width: 100%;
@@ -406,9 +414,7 @@
     text-align: left;
 }
 
-.admin_info_box.infopw input{
-    width: 60%;
-}
+
 .admin_info_box button{
     height: 45px;
     margin-bottom: 5px;
@@ -468,30 +474,6 @@
 
 .ro_input {
     background-color: var(--c-disable);
-}
-
-.pw_title {
-    margin : 0 auto;
-    width: fit-content;
-    padding: 30px;
-}
-
-.pw_title h2 {
-    text-align: center;
-}
-
-.pw_modify_box {
-    width: inherit;
-    margin: 0 auto;
-}
-
-.pw_box {
-    display: flex;
-    justify-content: space-evenly;
-}
-
-.pw_box input {
-    width: 25%;
 }
 
 .admin_info_box.pw {

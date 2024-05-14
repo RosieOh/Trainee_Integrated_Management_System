@@ -204,7 +204,7 @@
 
 .admin_title {
     margin-bottom: 3rem;
-    border-bottom: 1px solid var(--c-font_gray);
+    border-bottom: 3px solid var(--c-main);
 }
 
 .admin_title span {

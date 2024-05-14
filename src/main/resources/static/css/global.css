@@ -309,6 +309,10 @@ tr:last-child td {
 .width100{
   width: 100%;
 }
+
+.mt_15 {
+  margin-top: 15px;
+}
 .border_dashed {
   border-color: var(--c-back_lightgray);
   border-style: dashed;

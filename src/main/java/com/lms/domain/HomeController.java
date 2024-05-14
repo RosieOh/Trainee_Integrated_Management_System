@@ -69,7 +69,6 @@ public class HomeController {
         String id = memberDTO.getId();
         boolean result = memberService.id_check(id);
         return new ResponseEntity<>(result, HttpStatus.OK);
-
     }
 
     // 본인확인

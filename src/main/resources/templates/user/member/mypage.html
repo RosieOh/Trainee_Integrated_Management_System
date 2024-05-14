@@ -14,27 +14,22 @@
         <div class="user_tab">
           <div class="user_tab_title"><a th:href="@{/member/mypage}"><span class="user_tab_border">기본정보</span></a></div>
           <div class="user_tab_title"><a th:href="@{/member/mypage2}"><span >추가정보</span></a></div>
+          <div class="user_tab_title"><a th:href="@{/member/validatePw}"><span >비밀번호 변경</span></a></div>
         </div>
           <form th:action="@{/member/member_edit}" method="post" onsubmit="return modify(this)">
         <div class="user_content">
           <div class="user_content_seperate">
             <div class="user_info_container">
+              <div class="user_info_title">
+                <div class="flex">
+                  <label for="id">클래스: </label>
+                  <h1 th:text="${courseName }"></h1>
+                </div>
+              </div>
               <div class="user_info_box">
                 <label for="id">아이디</label>
                 <input type="text" id="id" name="id" class="ro_input" th:value="${member.id }" readonly />
-                <input type="hidden"  name="no" class="ro_input" th:value="${member.no }" readonly />
-                <input type="hidden"  name="cno" class="ro_input" th:value="${member.course.no }" readonly />
-                <input type="hidden"  name="status" class="ro_input" th:value="${member.status }" readonly />
-                <input type="hidden"  name="role" class="ro_input" th:value="${member.role }" readonly />
-                <input type="hidden"  name="loginAt" class="ro_input" th:value="${member.loginAt }" readonly />
-                <input type="hidden"  name="pw" class="ro_input" th:value="${member.pw }" readonly />
               </div>
-<!--              <div class="user_info_box infopw">-->
-<!--                <label>비밀번호</label>-->
-<!--                <div class="myinfo_line">-->
-<!--                  <a th:href="@{/pw}" class="btn_pwChange">비밀번호 변경</a>-->
-<!--                </div>-->
-<!--              </div>-->
               <div class="user_info_box infobirth">
                 <label for="name">이름</label>
                 <div class="myinfo_line">
@@ -50,7 +45,7 @@
               <div class="user_info_box infotel">
                 <label for="phone">연락처</label>
                 <div class="myinfo_line">
-                  <input type="text" name="phone" id="phone" class="ro_input" th:value="${member.phone }"  />
+                  <input type="text" name="phone" id="phone" class="ro_input" th:value="${member.phone }" readonly/>
                 </div>
               </div>
               <div class="user_info_box">
