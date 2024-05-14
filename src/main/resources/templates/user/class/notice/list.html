@@ -49,7 +49,7 @@
 <!--                    <td th:text="${notice.writer}"></td>-->
                     <td th:text="${nameList[about.index]}"></td>
                     <td th:text="${#temporals.format(notice.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
-
+                    <th:block th:if="${not #authorization.expression('hasAuthority(''STUDENT'')')} or ${memberDTO.id == notice.writer}">
                     <td class="fileDownload" th:if="${fileCountMap[notice.id] gt 0}">
                         <i class="fas fa-window-maximize down-icon" onclick="downloadFiles(this)" ></i>[[${fileCountMap[notice.id]}]]
                         <input type="hidden" name="boardId" th:value="${notice.id}" >
@@ -102,6 +102,12 @@
                             });
                         }
                     </script>
+                    </th:block>
+                    <th:block th:if="${#authorization.expression('hasAuthority(''STUDENT'')')} and ${memberDTO.id != notice.writer}">
+                        <td class="fileDownload" >
+                        <i class="fas fa-window-maximize down-icon"></i>
+                        </td>
+                    </th:block>
                 </tr>
                 </tbody>
             </table>

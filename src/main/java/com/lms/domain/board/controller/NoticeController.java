@@ -129,6 +129,7 @@ public class NoticeController {
 
     @PostMapping("/register")
     public String noticeRegister(@Valid BoardDTO boardDTO, Model model, @RequestParam("files") MultipartFile[] files) {
+
         try {
             boardDTO.setWriter(boardDTO.getWriter());
             boardDTO.setBoardType("NOTICE");
