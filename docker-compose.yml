@@ -5,7 +5,7 @@ services:
   database:
 
     container_name: database
-
+    restart: unless-stopped
     image: mariadb:latest
 
     volumes:
