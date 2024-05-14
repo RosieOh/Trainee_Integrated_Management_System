@@ -9,6 +9,7 @@ application-s3-dev.properties
 email.properties
 application-dev.properties
 application.properties
+docker-compose.yml
 
 
 
