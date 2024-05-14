@@ -87,7 +87,6 @@ public class CourseServiceImpl implements CourseService {
     //기수 체크
     @Override
     public boolean flag_check(CourseDTO courseDTO) {
-
         // CourseDTO에서 subject와 flag 정보를 가져와서 Course 객체 생성
         Course course = new Course();
         course.setSubject(courseDTO.getSubject());

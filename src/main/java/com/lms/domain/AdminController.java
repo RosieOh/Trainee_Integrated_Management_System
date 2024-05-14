@@ -280,7 +280,6 @@ public class AdminController {
     @PostMapping("/flagCheckPro")
     public ResponseEntity flagCheck(@RequestBody CourseDTO courseDTO) throws Exception {
         boolean result = courseService.flag_check(courseDTO);
-
         return new ResponseEntity<>(result, HttpStatus.OK);
 
     }
