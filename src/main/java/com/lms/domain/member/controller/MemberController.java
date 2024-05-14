@@ -170,7 +170,7 @@ public class MemberController {
         member.setEmail(memberDTO.getEmail());
         member.setAddr1(memberDTO.getAddr1());
         member.setPostcode(memberDTO.getPostcode());
-        memberService.member_edit(memberDTO);
+        memberService.member_edit(member);
         return "redirect:/member/mypage";
     }
 
