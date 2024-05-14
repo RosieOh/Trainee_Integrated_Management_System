@@ -57,6 +57,7 @@ public class NoticeController {
                                 @RequestParam(required = false) String keyword, @RequestParam(required = false) Integer cno, Principal principal, HttpSession session) {
         session.setAttribute("keyword",keyword);
         session.setAttribute("cno", cno);
+        session.setAttribute("page", pageable.getPageNumber());
 
         List<CourseDTO> course_big_List = courseService.ingSubject(Subject.BIGDATA);
         List<CourseDTO> course_full_List = courseService.ingSubject(Subject.FULLSTACK);
@@ -122,9 +123,11 @@ public class NoticeController {
 
         String keyword = (String) session.getAttribute("keyword");
         Integer cno = (Integer) session.getAttribute("cno");
+        int page = (int) session.getAttribute("page");
 
         model.addAttribute("keyword", keyword);
         model.addAttribute("cno", cno);
+        model.addAttribute("page", page);
 
         return "admin/board/read";
     }
@@ -188,12 +191,21 @@ public class NoticeController {
 
 
     @GetMapping("/modify")
-    public String noticeEditForm(Model model, Long id) {
+    public String noticeEditForm(Model model, Long id, HttpSession session) {
         BoardDTO boardDTO = boardService.getBoard(id);
         List<FileDTO> fileList = fileService.findByBoardId(id);
 
         model.addAttribute("boardDTO", boardDTO);
         model.addAttribute("fileList", fileList);
+
+        String keyword = (String) session.getAttribute("keyword");
+        Integer cno = (Integer) session.getAttribute("cno");
+        int page = (int) session.getAttribute("page");
+
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("cno", cno);
+        model.addAttribute("page", page);
+
         return "admin/board/edit";
     }
 
@@ -291,6 +303,8 @@ public class NoticeController {
         //검색, 필터링 세션 저장
         session.setAttribute("keyword", keyword);
         session.setAttribute("cno", cno);
+        session.setAttribute("page", pageable.getPageNumber());
+        log.info(String.valueOf(pageable.getPageNumber()));
 
         List<CourseDTO> course_big_List = courseService.ingSubject(Subject.BIGDATA);
         List<CourseDTO> course_full_List = courseService.ingSubject(Subject.FULLSTACK);
@@ -303,6 +317,19 @@ public class NoticeController {
         MemberDTO memberDTO = memberService.loginId(id);
         //멤버의 cno
         Integer mcno = memberDTO.getCourse().getNo();
+
+        String courseName;
+        log.info(String.valueOf(memberDTO.getCourse().getSubject()));
+        if (memberDTO.getCourse().getSubject() == Subject.BIGDATA) {
+            courseName = "프로젝트 기반 빅데이터 서비스 개발자 양성 ";
+        } else if ( memberDTO.getCourse().getSubject() == Subject.FULLSTACK) {
+            courseName = "에듀테크 풀스택 개발자 양성(Java) ";
+        } else {
+            courseName = "에듀테크 상품서비스 PM(프로덕트매니저) 양성 ";
+        }
+        model.addAttribute("courseName",courseName);
+        model.addAttribute("flag",memberDTO.getCourse().getFlag());
+
 
         Page<Board> boardList = boardService.classNoticeAll(keyword, cno, pageable, mcno);
         int pinnedCount = boardService.countPinnedPaging(boardList);
@@ -352,9 +379,11 @@ public class NoticeController {
     public String readClassNotice(Long id, Model model, Principal principal, HttpSession session) {
         String keyword = (String) session.getAttribute("keyword");
         Integer cno = (Integer) session.getAttribute("cno");
+        int page = (int) session.getAttribute("page");
 
         model.addAttribute("keyword", keyword);
         model.addAttribute("cno", cno);
+        model.addAttribute("page", page);
 
         BoardDTO boardDTO = boardService.findById(id);
         List<FileDTO> files = fileService.findByBoardId(id);
@@ -432,12 +461,20 @@ public class NoticeController {
 
 
     @GetMapping("/class/modify")
-    public String noticeClassEditForm(Model model, Long id) {
+    public String noticeClassEditForm(Model model, Long id, HttpSession session) {
         BoardDTO boardDTO = boardService.getBoard(id);
         List<FileDTO> fileList = fileService.findByBoardId(id);
 
         model.addAttribute("boardDTO", boardDTO);
         model.addAttribute("fileList", fileList);
+
+        String keyword = (String) session.getAttribute("keyword");
+        Integer cno = (Integer) session.getAttribute("cno");
+        int page = (int) session.getAttribute("page");
+
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("cno", cno);
+        model.addAttribute("page", page);
         return "user/class/notice/edit";
     }
 
@@ -576,7 +613,7 @@ public class NoticeController {
 
 
     @GetMapping("/class/modifyAdmin")
-    public String noticeClassEditAdminForm(Model model, Long id) {
+    public String noticeClassEditAdminForm(Model model, Long id, HttpSession session) {
         List<CourseDTO> course_big_List = courseService.ingSubject(Subject.BIGDATA);
         List<CourseDTO> course_full_List = courseService.ingSubject(Subject.FULLSTACK);
         List<CourseDTO> course_pm_List = courseService.ingSubject(Subject.PM);
@@ -589,6 +626,14 @@ public class NoticeController {
 
         model.addAttribute("boardDTO", boardDTO);
         model.addAttribute("fileList", fileList);
+
+        String keyword = (String) session.getAttribute("keyword");
+        Integer cno = (Integer) session.getAttribute("cno");
+        int page = (int) session.getAttribute("page");
+
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("cno", cno);
+        model.addAttribute("page", page);
         return "user/class/notice/editAdmin";
     }
 
