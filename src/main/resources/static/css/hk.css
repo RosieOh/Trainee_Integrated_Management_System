@@ -712,3 +712,67 @@
     margin-right: 8px;
     border-radius: 12px;
 }
+
+.add_btn {
+    background: #fff;
+    border: 1px solid var(--c-red);
+    border-radius: 9px;
+    padding: 3px 12px;
+    color: var(--c-red);
+}
+
+.add_btn:hover {
+    background-color: var(--c-red);
+    color:#fff;
+}
+
+.add_btn2 {
+    background: #fff;
+    border: 1px solid var(--c-blue);
+    border-radius: 9px;
+    padding: 3px 12px;
+    color: var(--c-blue);
+}
+
+.add_btn2:hover {
+    background-color: var(--c-blue);
+    color:#fff;
+}
+
+.file_insert_box {
+    border: 1px solid var(--c-back_gray);
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    height: 260px;
+}
+
+.file_insert_box div {
+    display: flex;
+    padding: 7px 5px;
+    position: relative;
+}
+
+.file_insert_box input {
+    height: 35px;
+    border: 1px solid var(--c-back_gray);
+    padding: 6px 10px 10px;
+    background-color: var(--c-main_white);
+    border-radius: 4px 0  0 4px;
+}
+
+.file_insert_box label {
+    padding: 6px 14px;
+    height: 35px;
+    text-align: center;
+    border: 1px solid var(--c-back_gray);
+    background-color: var(--c-main_white);
+    border-radius: 0 4px 4px 0;
+    border-left: none;
+}
+
+.fas.fa-times {
+    position: absolute;
+    top: 18px;
+    right: 23px;
+}

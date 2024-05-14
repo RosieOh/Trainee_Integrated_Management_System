@@ -36,28 +36,75 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="file_input">
+                            <div class="search-form">
                                 <label for="writerNotice"> 파일 업로드</label>
-                                <div class="myinfo_line"><label for="fileNotice" class="uploadbtn">upload</label><input type="file" class="form-control" name="files" id="fileNotice" multiple></div>
+                                <div>
+                                    <button type="button" class="add_btn2" id="addInput"> 파일 추가하기 </button>
+                                    <button type="button" class="add_btn" id="deleteInput"> 파일 삭제하기 </button>
+                                </div>
+                            </div>
+                            <div class="file_insert_box">
+                                <div><input type="file" class="form-control" name="files" id="fileNotice"><label for="fileNotice" class="uploadbtn">upload</label></div>
                             </div>
                             <script th:inline="javascript">
 
-                                var fileInput = document.getElementById('fileNotice');
+                                document.getElementById('addInput').addEventListener('click', function() {
+                                    var fileInsertBox = document.querySelector('.file_insert_box');
+                                    var fileInputs = fileInsertBox.querySelectorAll('input[type="file"]');
+                                    if (fileInputs.length < 5) {
+                                        var newInputDiv = document.createElement('div');
+                                        var index = fileInputs.length + 1;
+                                        newInputDiv.innerHTML = '<input type="file" class="form-control" name="files" id="fileNotice' + index + '"><label for="fileNotice' + index + '" class="uploadbtn">upload</label>';
+                                        fileInsertBox.appendChild(newInputDiv);
+                                    } else {
+                                        alert('더 이상 파일을 추가할 수 없습니다.');
+                                    }
+                                });
 
-
-                                var maxFiles = 5;
-                                fileInput.addEventListener('change', function(event) {
-                                    if (this.files.length > maxFiles) {
-                                        alert('최대 ' + maxFiles + '개의 파일을 선택할 수 있습니다.');
-                                        this.value = '';
+                                document.getElementById('deleteInput').addEventListener('click', function() {
+                                    var fileInsertBox = document.querySelector('.file_insert_box');
+                                    var fileInputs = fileInsertBox.querySelectorAll('input[type="file"]');
+                                    if (fileInputs.length > 1) {
+                                        fileInsertBox.removeChild(fileInputs[fileInputs.length - 1].parentNode);
+                                    } else {
+                                        alert('더 이상 파일을 삭제할 수 없습니다.');
                                     }
                                 });
                             </script>
+                            <div th:if="${fileList!= null}" class="file_insert_box">
+                                <div th:each="file, about :${fileList}" id="fileListInput">
+                                    <input type="text" class="form-control file" name="file" th:value="${file.originFileName}" readonly>
+                                    <input type="hidden" name="id" th:value="${file.id}" id="fileID">
+                                    <i class="fas fa-times" onclick="removeFile(this)"></i>
+                                </div>
+                                <script th:inline="javascript" >
+                                    function removeFile(element) {
+                                        var fileDiv = element.parentNode;
+                                        var fileId = document.getElementById('fileID').value;
+
+                                        console.log("파일 확인" + fileId);
+                                        let data = JSON.stringify({"fileId": fileId});
+
+                                        $.ajax({
+                                            url: "/notice/deleteFile",
+                                            type: "post",
+                                            contentType: "application/json",
+                                            data: data,
+                                            success: function(result) {
+                                                console.log("HI");
+                                                fileDiv.remove();
+                                            },
+                                            error: function(res) {
+                                                alert(" 잠시 후 다시 시도해주세요.");
+                                                console.log(res.responseText);
+                                            }
+                                        })
+                                    }
+                                </script>
+                            </div>
                             <div id="editor">
                                 <textarea class="input"  style="width: 1320px; height: 500px;" id="myTextarea" type="text" th:utext="${boardDTO.content}" required th:name="content" placeholder="내용"></textarea>
                             </div>
-
-
                             <div class="btn_group_center">
                                 <a th:href="@{/notice/class/list}" class="board_btn cancel_btn">목록으로</a>
                                 <button type="submit" class="board_btn select_btn">수정하기</button>
