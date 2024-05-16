@@ -122,5 +122,21 @@
                     </table>
                 </section>
         </div>
+        <div class="main user_index">
+            <section class="user_calendar">
+                <div id='calendar'></div>
+                <script th:inline="javascript">
+
+                    document.addEventListener('DOMContentLoaded', function() {
+                        var calendarEl = document.getElementById('calendar');
+                        var calendar = new FullCalendar.Calendar(calendarEl, {
+                            initialView: 'dayGridMonth'
+                        });
+                        calendar.render();
+                    });
+
+                </script>
+            </section>
+        </div>
     </div>
 </div>

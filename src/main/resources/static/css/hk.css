@@ -758,3 +758,12 @@
     top: 18px;
     right: 23px;
 }
+
+/* index 달력 (출석체크)*/
+
+.user_calendar {
+    padding: 30px;
+    background-color: #fff;
+    margin: 50px auto;
+    width: 30%;
+}
