@@ -38,7 +38,7 @@
                         </div>
                         <div class="form-login">
                             <label>이름<em>*</em></label>
-                            <input type="text" name="name" placeholder="한글로 공백없이 입력해주세요." minlength="2" maxlength="4" required/>
+                            <input type="text" name="name" placeholder="한글로 공백없이 입력해주세요." minlength="2" maxlength="4" onchange="nameCheck(this)" required/>
                         </div>
                         <div class="form-login">
                             <label>비밀번호<em>*</em></label>
@@ -154,17 +154,13 @@
             e.value = e.value.slice(0, e.maxLength);
         }
     }
-       
     </script>
 <script>
     function idCheck() {
         //아이디에 영문과 숫자만 가능하도록
         var idValue = $("#id").val();
-
         // 정규식 패턴: 영문 대소문자와 숫자만 허용
         var pattern = /^[a-zA-Z0-9]+$/;
-
-
         if ($("#id").val() == "") {
             alert("아이디를 입력하지 않았습니다.");
             $("#id").focus();
@@ -259,8 +255,20 @@ console.log("id.val" + $("#id").val() + $("#id").val())
         }
     }
 </script>
-
+`
 <script>
+    function nameCheck(obj){
+        name_pattern = /^[ㄱ-ㅎ|가-힣]*$/;
+        if(name_pattern.test(obj.value) == false){
+            alert("이름은 한글만 가능합니다.")
+            obj.value = '';
+            obj.focus();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     function emailCheck(obj){
         email_pattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])+(\.com)$/;
         email_pattern2 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])+(\.co\.kr)$/;
