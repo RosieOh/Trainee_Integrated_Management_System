@@ -1,7 +1,8 @@
 # 📝 ChunjaeIT LMS
 ## 수강생들의 효율적인 학습 관리를 위한 LMS 서비스, ChunjaeIT LMS
-## COPYRIGHT 2023 Chunjae EDUCATION INC. ALL RIGHTS RESERVED.
-## 위 웹사이트는 (주)천재교육의 저작물이므로 상업적 이용을 금합니다.
+''' COPYRIGHT 2023 Chunjae EDUCATION INC. ALL RIGHTS RESERVED.
+위 웹사이트는 (주)천재교육의 저작물이므로 상업적 이용을 금합니다.
+'''
 
 ### 📚 Tech Stack
 #### 💻 Development
