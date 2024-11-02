@@ -58,7 +58,7 @@ public class EmailSendConfig {
         properties.put("mail.smtp.auth", auth);
         properties.put("mail.smtp.starttls.enable", starttls);
         properties.put("mail.smtp.starttls.required", isStarttls);
-        properties.put("mail.smpt.soketFactory.fallback", fallback);
+        properties.put("mail.smtp.soketFactory.fallback", fallback);
         properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         return properties;
     }
