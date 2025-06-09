@@ -1,327 +1,144 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <th:block th:replace="~{include/head :: head}"></th:block>
-    <title>회원가입</title>
-</head>
-<body>
-    <div class="main">
-        <section class="container">
-            <div class="join_loca">
-                <div class="login_box">
-                    <a th:href="@{/}"><h1>천재IT교육센터</h1></a>
-                    <form th:action="@{/joinPro}" method="post" onsubmit="return joinCheck(this)">
-                        <div class="form-login">
-                            <select name="cno" >
-                                <th:block th:each="course_big : ${course_big_List}">
-                                    <option th:value="${course_big.getNo()}" th:text="'프로젝트 기반 빅데이터 서비스 개발자 양성'+' '+ ${course_big.flag} + '기'"></option>
-                                </th:block>
-                                <th:block th:each="course_full : ${course_full_List}">
-                                    <option th:value="${course_full.getNo()}" th:text="'에듀테크 풀스택 개발자 양성(Java)'+' '+ ${course_full.flag} + '기'"></option>
-                                </th:block>
-                                <th:block th:each="course_pm : ${course_pm_List}">
-                                    <option th:value="${course_pm.getNo()}" th:text="'에듀테크 상품서비스 PM(프로덕트매니저) 양성'+' '+ ${course_pm.flag} + '기'"></option>
-                                </th:block>
-                            </select>
-                        </div>
-                        <div class="form-login">
-                            <label>아이디<em>*</em></label>
-                            <div class="flex_between">
-                            <input type="text" name="id" id="id" class="join_input" placeholder="아이디를 입력해주세요." minlength="4" maxlength="16" required />
-                            <button type="button" class="join_btn" onclick="idCheck()">아이디 중복 확인</button>
-                            </div>
-                            <input type="hidden" name="idCk" id="idCk" value="no">
-                            <p id="msg" class="no_check">아이디 중복 체크를 하지 않으셨습니다.</p>
-                        </div>
-                        <div class="form-login">
-                            <label>이름<em>*</em></label>
-                            <input type="text" name="name" placeholder="한글로 공백없이 입력해주세요." minlength="2" maxlength="4" onchange="nameCheck(this)" required/>
-                        </div>
-                        <div class="form-login">
-                            <label>비밀번호<em>*</em></label>
-                            <input type="password" name="pw" id="pw" placeholder="비밀번호를 입력해주세요." minlength="8" maxlength="16" onchange="pwCheck(this)" required />
-                            <p class="info mb-0" id="pwmsg">비밀번호는 최소 8자리에서 최대 16자리 <br> 숫자, 영문, 특수문자 각 1개 이상 포함</p>
-                        </div>
-                        <div class="form-login">
-                            <label>비밀번호 확인<em>*</em></label>
-                            <input type="password" name="pw2" id="pw2" placeholder="비밀번호를 다시 입력해주세요." minlength="8" maxlength="16" required />
-                        </div>
-                        <div class="form-login">
-                            <label>이메일<em>*</em></label>
-                            <div class="join_email">
-                                <input type="text" name="email1" id="email1" placeholder="이메일 입력" minlength="4" maxlength="10" required />
-                                <p>@</p>
-                                <input type="text" name="email2" id="email2"  minlength="5" maxlength="16" onchange="emailCheck(this)" required />
-                                <select id="email2_select">
-                                    <option value="self">직접입력</option>
-                                    <option value="naver.com">naver.com</option>
-                                    <option value="google.com">google.com</option>
-                                    <option value="kakao.com">kakao.com</option>
-                                    <option value="daum.net">daum.net</option>
-                                    <option value="hanmail.net">hanmail.net</option>
-                                </select>
-                                <input type="hidden" id="email" name="email"/>
-                            </div>
-                        </div>
-                        <div class="form-login">
-                            <label>생일<em>*</em></label>
-                            <div class="join_tel">
-                                <input type="number" class="number" name="birth1" id="birth1" placeholder="YYYY" maxlength="4" min="1940" max="2040" oninput="lengthChk(this)" required />
-                                <p></p>
-                                <select name="birth2" id="birth2" >
-                                    <option value="" disabled selected>MM</option>
-                                    <option value="01">1월</option>
-                                    <option value="02">2월</option>
-                                    <option value="03">3월</option>
-                                    <option value="04">4월</option>
-                                    <option value="05">5월</option>
-                                    <option value="06">6월</option>
-                                    <option value="07">7월</option>
-                                    <option value="08">8월</option>
-                                    <option value="09">9월</option>
-                                    <option value="10">10월</option>
-                                    <option value="11">11월</option>
-                                    <option value="12">12월</option>
-                                </select>
-                                <p></p>
-                                <input type="number" class="number" name="birth3" id="birth3" placeholder="DD" maxlength="2" min="1" max="31" oninput="lengthChk(this)" required />
-                                <input type="hidden" name="birth" id="birth"/>
-                            </div>
-                        </div>
-                        <div class="form-login">
-                            <label>성별<em>*</em></label>
-                            <div class="join_gender">
-                                <label><input type="radio" name="gender" value="남자"/>남자</label>
-                                <label><input type="radio" name="gender" value="여자"/>여자</label>
-                            </div>
-                        </div>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{include/layout}">
 
-                        <div class="form-login">
-                            <label>연락처<em>*</em></label>
-                            <div class="join_tel">
-                                <input type="number" class="number" id="phone1" name="phone1" placeholder="000" minlength="2" maxlength="4" required oninput="lengthChk(this)"/>
-                                <p>-</p>
-                                <input type="number" class="number" id="phone2" placeholder="0000" minlength="3" maxlength="4" required oninput="lengthChk(this)"/>
-                                <p>-</p>
-                                <input type="number" class="number" id="phone3" placeholder="0000" minlength="3" maxlength="4" required oninput="lengthChk(this)"/>
-                                <input type="hidden" name="phone" id="phone"/>
-                            </div>
-                        </div>
-                        <div class="form-login ">
-                            <label>주소<em>*</em></label>
-                            <input type="text" name="addr1" id="addr1" placeholder="기본 주소" class="" required />
-                            <div class="flex_between">
-                                <input type="text" name="postcode" id="postcode" placeholder="우편번호" class="join_input" required>
-                                <button type="button" id="post_btn" onclick="findAddr()" class="join_btn">우편번호 검색</button>
-                            </div>
-                        </div>
-                        <button type="submit" class="login_btn select_btn">회원가입</button>
-                    </form>
-                </div>
+<div layout:fragment="content">
+  <div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-2xl mx-auto">
+      <div class="bg-white shadow-sm rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-gray-900 mb-8 text-center">회원가입</h2>
+        
+        <form th:action="@{/member/join}" method="post" class="space-y-6">
+          <!-- 아이디 -->
+          <div class="space-y-2">
+            <label for="id" class="block text-sm font-medium text-gray-700">아이디</label>
+            <div class="flex space-x-2">
+              <input type="text" id="id" name="id" required
+                     class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+              <button type="button" onclick="checkId()"
+                      class="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                중복확인
+              </button>
             </div>
-        </section>
+          </div>
+
+          <!-- 비밀번호 -->
+          <div class="space-y-2">
+            <label for="pw" class="block text-sm font-medium text-gray-700">비밀번호</label>
+            <input type="password" id="pw" name="pw" required
+                   class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+          </div>
+
+          <!-- 비밀번호 확인 -->
+          <div class="space-y-2">
+            <label for="pw2" class="block text-sm font-medium text-gray-700">비밀번호 확인</label>
+            <input type="password" id="pw2" name="pw2" required
+                   class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+          </div>
+
+          <!-- 이름 -->
+          <div class="space-y-2">
+            <label for="name" class="block text-sm font-medium text-gray-700">이름</label>
+            <input type="text" id="name" name="name" required
+                   class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+          </div>
+
+          <!-- 이메일 -->
+          <div class="space-y-2">
+            <label for="email" class="block text-sm font-medium text-gray-700">이메일</label>
+            <div class="flex space-x-2">
+              <input type="email" id="email" name="email" required
+                     class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+              <button type="button" onclick="sendEmail()"
+                      class="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                인증번호 발송
+              </button>
+            </div>
+          </div>
+
+          <!-- 인증번호 -->
+          <div class="space-y-2">
+            <label for="authCode" class="block text-sm font-medium text-gray-700">인증번호</label>
+            <div class="flex space-x-2">
+              <input type="text" id="authCode" name="authCode" required
+                     class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+              <button type="button" onclick="verifyEmail()"
+                      class="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                인증확인
+              </button>
+            </div>
+          </div>
+
+          <!-- 전화번호 -->
+          <div class="space-y-2">
+            <label for="phone" class="block text-sm font-medium text-gray-700">전화번호</label>
+            <input type="tel" id="phone" name="phone" required
+                   class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+          </div>
+
+          <!-- 주소 -->
+          <div class="space-y-2">
+            <label for="address" class="block text-sm font-medium text-gray-700">주소</label>
+            <div class="flex space-x-2">
+              <input type="text" id="address" name="address" required
+                     class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+              <button type="button" onclick="searchAddress()"
+                      class="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                주소검색
+              </button>
+            </div>
+          </div>
+
+          <!-- 상세주소 -->
+          <div class="space-y-2">
+            <label for="addressDetail" class="block text-sm font-medium text-gray-700">상세주소</label>
+            <input type="text" id="addressDetail" name="addressDetail"
+                   class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+          </div>
+
+          <!-- 약관 동의 -->
+          <div class="space-y-4">
+            <div class="flex items-start">
+              <div class="flex items-center h-5">
+                <input id="terms" name="terms" type="checkbox" required
+                       class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+              </div>
+              <div class="ml-3 text-sm">
+                <label for="terms" class="font-medium text-gray-700">이용약관 동의</label>
+                <p class="text-gray-500">회원가입을 위해 이용약관에 동의해주세요.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 제출 버튼 -->
+          <div class="flex justify-center">
+            <button type="submit"
+                    class="w-full px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              회원가입
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
-</body>
+  </div>
+
+  <script>
+    function checkId() {
+      // 아이디 중복 확인 로직
+    }
+
+    function sendEmail() {
+      // 이메일 인증번호 발송 로직
+    }
+
+    function verifyEmail() {
+      // 이메일 인증번호 확인 로직
+    }
+
+    function searchAddress() {
+      // 주소 검색 로직
+    }
+  </script>
+</div>
 </html>
-<script>
-    const email2_select = document.querySelector('#email2_select')
-    const email2 = document.querySelector('#email2')
-    email2_select.addEventListener('change', (event) => {
-        if(event.target.value !== "self") {
-            email2.value = event.target.value
-            email2.disabled = true
-        } else {
-            email2.value = ""
-            email2.disabled = false
-        }
-    })
-</script>
-    <script>
-        let number = document.querySelector('.number');
-        number.onkeydown = function(e) {
-            if(!((e.keyCode > 95 && e.keyCode < 106)
-                || (e.keyCode > 47 && e.keyCode < 58)
-                || e.keyCode == 8
-                || e.keyCode == 9)) {
-                return false;
-            }
-        }
-    function lengthChk(e) {
-        if (e.value.length > e.maxLength){
-            e.value = e.value.slice(0, e.maxLength);
-        }
-    }
-    </script>
-<script>
-    function idCheck() {
-        //아이디에 영문과 숫자만 가능하도록
-        var idValue = $("#id").val();
-        // 정규식 패턴: 영문 대소문자와 숫자만 허용
-        var pattern = /^[a-zA-Z0-9]+$/;
-        if ($("#id").val() == "") {
-            alert("아이디를 입력하지 않았습니다.");
-            $("#id").focus();
-            return false;
-        } else if (!pattern.test(idValue)) {
-            alert("올바른 형식의 아이디를 입력하세요. (영문과 숫자만 허용)");
-            $("#id").focus();
-            return false;
-        }
-
-console.log("id.val" + $("#id").val() + $("#id").val())
-        var params = {"id": $("#id").val()};
-        $.ajax({
-            url: "/idCheckPro",	//아이디가 전송되어질 곳
-            type:"post",
-            data:JSON.stringify(params),
-            dataType:"json",
-            contentType:"application/json",
-            success : function(result) {
-                var idPass = result;
-                if(idPass == false){
-                    $("#idCk").val("no");
-                    $("#msg").addClass("no_check").html("사용할 수 없는 아이디입니다. 다시 입력하시기 바랍니다.").css("color", "red");
-                    $("#id").focus();
-                } else if(idPass == true){
-                    $("#idCk").val("yes");
-                    $("#id").attr('readonly', true)
-                    $("#id").css('background-color', '#e4e4e4')
-                    if($("#msg").hasClass("no_check")) {
-                        $("#msg").removeClass("no_check");
-                    }
-                    $("#msg").html("사용 가능한 아이디입니다.").css("color", "blue");
-                } else if(idPass==""){
-                    $("#msg").addClass("no_check").text("아이디가 확인되지 않았습니다. 다시 시도하시기 바랍니다.").css("color", "red");
-                }
-            }
-        });
-    }
-
-    function joinCheck(f){
-
-        if($("#phone1").val() == "" || $("#phone2").val() == "" || $("#phone3").val() == "") {
-            f.phone1.focus();
-            alert("연락처를 적어주세요.")
-            return false
-        }
-        let phoneval =  $("#phone1").val() +'-'+ $("#phone2").val() +'-'+ $("#phone3").val()
-        $("#phone").val(phoneval)
-
-        if($("#birth1").val() == "" || $("#birth2").val() == "" || $("#birth3").val() == "") {
-            f.birth1.focus();
-            alert("생일을 적어주세요.")
-            return false
-        }
-
-        if($("#birth2").val() == '04'||'06'||'09'||'11'){
-            if($("#birth3").val() >= 31){
-                alert("생일 일자가 맞지않습니다.")
-                f.birth3.focus();
-                return false
-            }
-        }
-
-        if($("#birth2").val() == '02'){
-            if($("#birth3").val() >= 29){
-                alert("생일 일자가 맞지않습니다.")
-                f.birth3.focus();
-                return false
-            }
-        }
-
-        let brithval = $("#birth1").val() +'-'+ $("#birth2").val() +'-'+ $("#birth3").val();
-        $("#birth").val(brithval)
-
-        if($("#email2").val() == "" || $("#email1").val() == "") {
-            alert("이메일을 적어주세요.")
-            return false
-        }
-
-        let emailval = $("#email1").val() + '@' + $("#email2").val()
-        $("#email").val(emailval)
-
-        if(f.pw.value!=f.pw2.value){
-            alert("비밀번호와 비밀번호 확인이 서로 다릅니다.");
-            f.pw.focus();
-            return false;
-        }
-        if(f.idCk.value!="yes"){
-            alert("아이디 중복 체크를 하지 않으셨습니다.");
-            $("#id").focus();
-            return false;
-        }
-    }
-</script>
-`
-<script>
-    function nameCheck(obj){
-        name_pattern = /^[ㄱ-ㅎ|가-힣]*$/;
-        if(name_pattern.test(obj.value) == false){
-            alert("이름은 한글만 가능합니다.")
-            obj.value = '';
-            obj.focus();
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    function emailCheck(obj){
-        email_pattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])+(\.com)$/;
-        email_pattern2 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])+(\.co\.kr)$/;
-        if(email_pattern.test(obj.value) == false && email_pattern2.test(obj.value) == false){
-            alert("이메일 주소가 맞지않습니다.")
-            obj.value = '';
-            obj.focus();
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    function pwCheck(obj){
-        let pwmsg = document.querySelector('#pwmsg')
-        pw_pattern = /^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/;
-
-        if(obj.value.length <= 7){
-            alert("비밀번호는 8자리에서 16자리 입력해주셔야 합니다.")
-            pwmsg.style.color = "red"
-            obj.value = '';
-            obj.focus();
-            return false;
-        }
-        if(pw_pattern.test(obj.value) == false){
-            alert("비밀번호는 숫자, 영문, 특수문자 각 1개 이상 포함되어야 합니다.")
-            pwmsg.style.color = "red"
-            obj.value = '';
-            obj.focus();
-            return false;
-        } else {
-            pwmsg.style.color = "blue"
-            return true;
-        }
-    }
-
-</script>
-<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
-    function findAddr(){
-        new daum.Postcode({
-            oncomplete:function(data){
-                var roadAddr = data.roadAddress;
-                var jibunAddr = data.jibunAddress;
-                var bname = data.bname;
-                document.getElementById("postcode").value = data.zonecode;
-                if(roadAddr !== ''){
-                    document.getElementById("addr1").value = roadAddr;
-                // } else if(jibunAddr !== ''){
-                //     document.getElementById("addr1").value = jibunAddr;
-                }
-                // document.getElementById("addr3").value = bname;
-            }
-        }).open();
-    }
-</script>

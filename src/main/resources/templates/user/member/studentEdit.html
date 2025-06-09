@@ -1,53 +1,124 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head>
-  <meta charset="UTF-8" />
-  <meta
-          content="minimum-scale=1.0, width=device-width, maximum-scale=1, ser-scalable=no"
-          name="viewport"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{include/layout}">
 
-  />
-  <title>천재IT교육센터</title>
-  <th:block th:replace="~{include/head :: head}"></th:block>
-</head>
-<body>
-<div class="container">
-  <div class="studentEdit_box">
-    <th:block th:if="${no == 1}">
-      <h2>프로필 사진 수정</h2>
-    </th:block>
-    <th:block th:if="${no == 2}">
-      <h2>포트폴리오 수정</h2>
-    </th:block>
-    <th:block th:if="${no == 3}">
-      <h2>이력서 수정</h2>
-    </th:block>
-    <form th:action="@{/member/file_edit}" method="post" enctype="multipart/form-data">
-      <div class=width100>
-        <label class="form-label" for="fileChange">업로드 파일</label>
-        <input type="file" name="fileChange" id="fileChange" onchange="imgUpload(this)"/>
-        <input type="hidden" name="no" id="no" th:value="${no}" />
+<div layout:fragment="content">
+  <div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-2xl mx-auto">
+      <div class="bg-white shadow-sm rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-gray-900 mb-8 text-center">학생 정보 수정</h2>
+        
+        <form th:action="@{/member/student-edit}" method="post" class="space-y-6">
+          <!-- 프로필 이미지 -->
+          <div class="flex justify-center mb-8">
+            <div class="relative">
+              <img th:src="${student.profileImage != null ? student.profileImage : '/images/default-profile.png'}"
+                   alt="프로필 이미지"
+                   class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg">
+              <button type="button" onclick="document.getElementById('profileImage').click()"
+                      class="absolute bottom-0 right-0 bg-indigo-600 text-white rounded-full p-2 shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+              </button>
+              <input type="file" id="profileImage" name="profileImage" accept="image/*" class="hidden"
+                     onchange="previewImage(this)">
+            </div>
+          </div>
+
+          <!-- 기본 정보 -->
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <!-- 이름 -->
+            <div class="space-y-2">
+              <label for="name" class="block text-sm font-medium text-gray-700">이름</label>
+              <input type="text" id="name" name="name" th:value="${student.name}" required
+                     class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+
+            <!-- 이메일 -->
+            <div class="space-y-2">
+              <label for="email" class="block text-sm font-medium text-gray-700">이메일</label>
+              <input type="email" id="email" name="email" th:value="${student.email}" required
+                     class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+
+            <!-- 전화번호 -->
+            <div class="space-y-2">
+              <label for="phone" class="block text-sm font-medium text-gray-700">전화번호</label>
+              <input type="tel" id="phone" name="phone" th:value="${student.phone}" required
+                     class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+
+            <!-- 생년월일 -->
+            <div class="space-y-2">
+              <label for="birthDate" class="block text-sm font-medium text-gray-700">생년월일</label>
+              <input type="date" id="birthDate" name="birthDate" th:value="${student.birthDate}" required
+                     class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+          </div>
+
+          <!-- 주소 -->
+          <div class="space-y-4">
+            <div class="space-y-2">
+              <label for="address" class="block text-sm font-medium text-gray-700">주소</label>
+              <div class="flex space-x-2">
+                <input type="text" id="address" name="address" th:value="${student.address}" required
+                       class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                <button type="button" onclick="searchAddress()"
+                        class="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                  주소검색
+                </button>
+              </div>
+            </div>
+
+            <!-- 상세주소 -->
+            <div class="space-y-2">
+              <label for="addressDetail" class="block text-sm font-medium text-gray-700">상세주소</label>
+              <input type="text" id="addressDetail" name="addressDetail" th:value="${student.addressDetail}"
+                     class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+          </div>
+
+          <!-- 자기소개 -->
+          <div class="space-y-2">
+            <label for="introduction" class="block text-sm font-medium text-gray-700">자기소개</label>
+            <textarea id="introduction" name="introduction" rows="4"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                      th:text="${student.introduction}"></textarea>
+          </div>
+
+          <!-- 제출 버튼 -->
+          <div class="flex justify-center">
+            <button type="submit"
+                    class="w-full px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              정보 수정
+            </button>
+          </div>
+        </form>
       </div>
-      <div class="btn_group_center">
-        <button type="submit" class="board_btn select_btn" >등록</button>
-        <button type="button" onclick="javascript=window.close()" class="board_btn cancel_btn">닫기</button>
-      </div>
-    </form>
+    </div>
   </div>
-</div>
-<script>
-  img_pattern = /^(.*?)\.(jpg|jpeg|png)$/;
-  let no = document.getElementById("no");
-  console.log("no---------------", no)
-  function imgUpload(e){
-    if(no.value == 1) {
-      if (img_pattern.test(e.value) == false) {
-        alert("해당 파일은 이미지 파일이 아닙니다.");
-        e.value = "";
+
+  <script>
+    function previewImage(input) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.querySelector('img').src = e.target.result;
+        }
+        reader.readAsDataURL(input.files[0]);
       }
     }
-  }
-</script>
-</body>
+
+    function searchAddress() {
+      new daum.Postcode({
+        oncomplete: function(data) {
+          document.getElementById('address').value = data.roadAddress;
+        }
+      }).open();
+    }
+  </script>
+</div>
 </html>

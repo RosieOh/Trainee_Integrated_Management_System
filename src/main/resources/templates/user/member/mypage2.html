@@ -1,221 +1,210 @@
-  <!DOCTYPE html>
-  <html xmlns:th="http://www.thymeleaf.org"
-        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        layout:decorate="~{include/layout}">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{include/layout}">
 
-
-  <div layout:fragment="content">
-    <div class="admin-content">
-      <div class="user_img_box"><img th:src="@{/images/Character.png}" alt="" class="user_img"></div>
-      <div class="user_main">
-        <div class="user_group">
-        <div class="user_title">
-          <h2>나의 정보</h2>
-        </div>
-        <div class="user_tab">
-          <div class="user_tab_title"><a th:href="@{/member/mypage}"><span >기본정보</span></a></div>
-          <div class="user_tab_title"><a th:href="@{/member/mypage2}"><span class="user_tab_border">추가정보</span></a></div>
-          <div class="user_tab_title"><a th:href="@{/member/validatePw}"><span >비밀번호 변경</span></a></div>
-        </div>
-          <form th:action="@{/member/student_add}" method="post" onsubmit="return modify(this)" enctype="multipart/form-data">
-            <div class="user_content">
-              <div class="user_content_seperate">
-                <div class="user_info_container">
-                  <div class="user_info_box">
-                    <div class="flex_between">
-                      <div class="user_info_box_in">
-                        <label for="univ" >최종학력</label>
-                        <input type="text" th:value="${studentDTO.univ}" id="univ" name="univ">
-                      </div>
-                      <div class="user_info_box_in">
-                        <label for="major" >학과</label>
-                        <input type="text" th:value="${studentDTO.major}" id="major" name="major">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="user_info_box">
-                    <label for="cert" >자격증</label>
-                    <input type="text" th:value="${studentDTO.cert}" id="cert" name="cert">
-                  </div>
-                  <div class="user_info_box">
-                    <label for="hope" >희망 진로분야</label>
-                    <input type="text" th:value="${studentDTO.hope}" id="hope" name="hope">
-                  </div>
-                  <div class="user_info_box">
-                    <label for="fund" >지원센터</label>
-                    <input type="text" th:value="${studentDTO.fund}" id="fund" name="fund">
-                  </div>
-                  <div class="user_info_box">
-                    <label for="job_program" >국취취업제도 참여 여부</label>
-                    <div class="job_box">
-                      <select id="job_program_select" class="job_select">
-                        <option value="" disabled selected>선택</option>
-                        <option value="참여중" >참여중</option>
-                        <option value="기참여" >기참여</option>
-                        <option value="self" >미참여</option>
-                      </select>
-                      <input type="text" name="job_program" id="job_program" th:value="${studentDTO.job_program}"/>
-                    </div>
-                  </div>
-                  <div class="user_info_box">
-                    <label for="stack" >기술스택</label>
-                    <input type="text" th:value="${studentDTO.stack}" id="stack" name="stack" placeholder="검색해주세요.">
-                    <input type="hidden" name="no" th:value="${studentDTO.no}">
-                  </div>
-                  <div class="file_input">
-                    <label><i class="fas fa-file"></i> 프로필 사진</label>
-                    <th:block th:if="${picture_file != null}">
-                      <div class="file_edit">
-                        <a th:href="@{'/student/down/'+ ${studentDTO.no}+'/'+${studentDTO.picture}}" th:download="${picture_file.originFileName}">
-                          <i class="fas fa-window-maximize"></i>[[${picture_file.originFileName}]]
-                        </a>
-                        <button type="button" class="inline_form_btn edit_btn" onclick="Edit(1)">수정<i class="fas fa-pencil-alt"></i></button>
-                      </div>
-                      <input type="file" class="hidden" name="file1" accept=".jpg,.png,.jpeg">
-                    </th:block>
-                    <th:block th:if="${picture_file == null}">
-                      <input type="file" class="border_none" name="file1" id="file1" accept=".jpg,.png,.jpeg" onchange="imgUpload(this)">
-                    </th:block>
-                  </div>
-                  <div class="file_input">
-                    <label><i class="fas fa-file"></i> 포트폴리오</label>
-                      <th:block th:if="${Portfolio_file != null}">
-                        <div class="file_edit">
-                          <a th:href="@{'/student/down/'+ ${studentDTO.no}+'/'+${studentDTO.portfolio}}" th:download="${Portfolio_file.originFileName}">
-                              <i class="fas fa-window-maximize"></i>[[${Portfolio_file.originFileName}]]
-                          </a>
-                          <button type="button" class="inline_form_btn edit_btn" onclick="Edit(2)">수정<i class="fas fa-pencil-alt"></i></button>
-                        </div>
-                        <input type="file" class="hidden" name="file2">
-                      </th:block>
-                      <th:block th:if="${Portfolio_file == null}">
-                          <input type="file" class="border_none" name="file2" id="file2" >
-                      </th:block>
-                  </div>
-                  <div class="file_input">
-                    <label><i class="fas fa-file"></i> 이력서</label>
-                    <th:block th:if="${resume_file != null}">
-                      <div class="file_edit">
-                      <a th:href="@{'/student/down/'+ ${studentDTO.no}+'/'+${studentDTO.resume}}" th:download="${resume_file.originFileName}">
-                        <i class="fas fa-window-maximize"></i>[[${resume_file.originFileName}]]
-                      </a>
-                        <button type="button" class="inline_form_btn edit_btn" onclick="Edit(3)">수정<i class="fas fa-pencil-alt"></i></button>
-                      </div>
-                      <input type="file" class="hidden" name="file3">
-                    </th:block>
-                    <th:block th:if="${resume_file == null}">
-                      <input type="file" class="border_none" name="file3" id="file3">
-                    </th:block>
-                  </div>
-                </div>
-              </div>
-              <div class="btn_group_center">
-                <button type="submit" class="board_btn select_btn">정보 수정</button>
-              </div>
-            </div>
-          </form>
-      </div>
+<div layout:fragment="content">
+  <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-sm p-6">
+    <!-- 프로필 이미지 -->
+    <div class="flex justify-center mb-8">
+      <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-gray-200">
+        <img th:src="@{/images/Character.png}" alt="프로필 이미지" class="w-full h-full object-cover">
       </div>
     </div>
-    <script>
-      const job_program_select = document.querySelector('#job_program_select')
-      const job_program = document.querySelector('#job_program')
-      job_program.readOnly = true
-      job_program.style.backgroundColor = '#e4e4e4'
-      job_program_select.addEventListener('change', (event) => {
-        if(event.target.value !== "self") {
-          job_program.value = event.target.value
-          job_program.style.backgroundColor = '#e4e4e4'
-          job_program.readOnly = true
-        } else {
-          job_program.value = "";
-          job_program.style.backgroundColor = 'white'
-          job_program.readOnly = false
-          job_program.focus()
-        }
-      })
-    </script>
-    <script th:inline="javascript">
 
-      var fileInput = document.getElementById('fileNotice1');
+    <!-- 탭 메뉴 -->
+    <div class="flex justify-center space-x-4 mb-8">
+      <a th:href="@{/member/mypage}" class="px-4 py-2 text-gray-600 hover:text-indigo-600 hover:border-b-2 hover:border-indigo-600">
+        기본정보
+      </a>
+      <a th:href="@{/member/mypage2}" class="px-4 py-2 text-indigo-600 border-b-2 border-indigo-600">
+        추가정보
+      </a>
+      <a th:href="@{/member/validatePw}" class="px-4 py-2 text-gray-600 hover:text-indigo-600 hover:border-b-2 hover:border-indigo-600">
+        비밀번호 변경
+      </a>
+    </div>
 
+    <!-- 폼 -->
+    <form th:action="@{/member/student_add}" method="post" onsubmit="return modify(this)" enctype="multipart/form-data" class="space-y-6">
+      <!-- 최종학력 & 학과 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="space-y-2">
+          <label for="univ" class="block text-sm font-medium text-gray-700">최종학력</label>
+          <input type="text" th:value="${studentDTO.univ}" id="univ" name="univ" 
+                 class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+        </div>
+        <div class="space-y-2">
+          <label for="major" class="block text-sm font-medium text-gray-700">학과</label>
+          <input type="text" th:value="${studentDTO.major}" id="major" name="major"
+                 class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+        </div>
+      </div>
 
-      var maxFiles = 5;
-      fileInput.addEventListener('change', function(event) {
-        if (this.files.length > maxFiles) {
-          alert('최대 ' + maxFiles + '개의 파일을 선택할 수 있습니다.');
-          this.value = '';
-        }
-      });
-    </script>
+      <!-- 자격증 -->
+      <div class="space-y-2">
+        <label for="cert" class="block text-sm font-medium text-gray-700">자격증</label>
+        <input type="text" th:value="${studentDTO.cert}" id="cert" name="cert"
+               class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+      </div>
 
-    <script th:inline="javascript">
+      <!-- 희망 진로분야 -->
+      <div class="space-y-2">
+        <label for="hope" class="block text-sm font-medium text-gray-700">희망 진로분야</label>
+        <input type="text" th:value="${studentDTO.hope}" id="hope" name="hope"
+               class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+      </div>
 
-      var fileInput = document.getElementById('fileNotice2');
+      <!-- 지원센터 -->
+      <div class="space-y-2">
+        <label for="fund" class="block text-sm font-medium text-gray-700">지원센터</label>
+        <input type="text" th:value="${studentDTO.fund}" id="fund" name="fund"
+               class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+      </div>
 
+      <!-- 국취취업제도 참여 여부 -->
+      <div class="space-y-2">
+        <label for="job_program" class="block text-sm font-medium text-gray-700">국취취업제도 참여 여부</label>
+        <div class="flex space-x-2">
+          <select id="job_program_select" class="w-1/3 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            <option value="" disabled selected>선택</option>
+            <option value="참여중">참여중</option>
+            <option value="기참여">기참여</option>
+            <option value="self">미참여</option>
+          </select>
+          <input type="text" name="job_program" id="job_program" th:value="${studentDTO.job_program}"
+                 class="w-2/3 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100">
+        </div>
+      </div>
 
-      var maxFiles = 5;
-      fileInput.addEventListener('change', function(event) {
-        if (this.files.length > maxFiles) {
-          alert('최대 ' + maxFiles + '개의 파일을 선택할 수 있습니다.');
-          this.value = '';
-        }
-      });
-    </script>
-    <script th:inline="javascript">
+      <!-- 기술스택 -->
+      <div class="space-y-2">
+        <label for="stack" class="block text-sm font-medium text-gray-700">기술스택</label>
+        <input type="text" th:value="${studentDTO.stack}" id="stack" name="stack" placeholder="검색해주세요."
+               class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+        <input type="hidden" name="no" th:value="${studentDTO.no}">
+      </div>
 
-      var fileInput = document.getElementById('fileNotice3');
+      <!-- 파일 업로드 섹션 -->
+      <div class="space-y-4">
+        <!-- 프로필 사진 -->
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-gray-700">
+            <i class="fas fa-file mr-2"></i>프로필 사진
+          </label>
+          <th:block th:if="${picture_file != null}">
+            <div class="flex items-center space-x-2">
+              <a th:href="@{'/student/down/'+ ${studentDTO.no}+'/'+${studentDTO.picture}}" th:download="${picture_file.originFileName}"
+                 class="text-indigo-600 hover:text-indigo-500">
+                <i class="fas fa-window-maximize mr-1"></i>[[${picture_file.originFileName}]]
+              </a>
+              <button type="button" onclick="Edit(1)" 
+                      class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                수정<i class="fas fa-pencil-alt ml-1"></i>
+              </button>
+            </div>
+            <input type="file" class="hidden" name="file1" accept=".jpg,.png,.jpeg">
+          </th:block>
+          <th:block th:if="${picture_file == null}">
+            <input type="file" name="file1" id="file1" accept=".jpg,.png,.jpeg" onchange="imgUpload(this)"
+                   class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+          </th:block>
+        </div>
 
+        <!-- 포트폴리오 -->
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-gray-700">
+            <i class="fas fa-file mr-2"></i>포트폴리오
+          </label>
+          <th:block th:if="${Portfolio_file != null}">
+            <div class="flex items-center space-x-2">
+              <a th:href="@{'/student/down/'+ ${studentDTO.no}+'/'+${studentDTO.portfolio}}" th:download="${Portfolio_file.originFileName}"
+                 class="text-indigo-600 hover:text-indigo-500">
+                <i class="fas fa-window-maximize mr-1"></i>[[${Portfolio_file.originFileName}]]
+              </a>
+              <button type="button" onclick="Edit(2)"
+                      class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                수정<i class="fas fa-pencil-alt ml-1"></i>
+              </button>
+            </div>
+            <input type="file" class="hidden" name="file2">
+          </th:block>
+          <th:block th:if="${Portfolio_file == null}">
+            <input type="file" name="file2" id="file2"
+                   class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+          </th:block>
+        </div>
 
-      var maxFiles = 5;
-      fileInput.addEventListener('change', function(event) {
-        if (this.files.length > maxFiles) {
-          alert('최대 ' + maxFiles + '개의 파일을 선택할 수 있습니다.');
-          this.value = '';
-        }
-      });
-    </script>
+        <!-- 이력서 -->
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-gray-700">
+            <i class="fas fa-file mr-2"></i>이력서
+          </label>
+          <th:block th:if="${resume_file != null}">
+            <div class="flex items-center space-x-2">
+              <a th:href="@{'/student/down/'+ ${studentDTO.no}+'/'+${studentDTO.resume}}" th:download="${resume_file.originFileName}"
+                 class="text-indigo-600 hover:text-indigo-500">
+                <i class="fas fa-window-maximize mr-1"></i>[[${resume_file.originFileName}]]
+              </a>
+              <button type="button" onclick="Edit(3)"
+                      class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                수정<i class="fas fa-pencil-alt ml-1"></i>
+              </button>
+            </div>
+            <input type="file" class="hidden" name="file3">
+          </th:block>
+          <th:block th:if="${resume_file == null}">
+            <input type="file" name="file3" id="file3"
+                   class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+          </th:block>
+        </div>
+      </div>
 
-    <!--  tagify  -->
-    <!-- 소스 다운 -->
-    <script src="https://unpkg.com/@yaireo/tagify"></script>
-    <!-- 폴리필 (구버젼 브라우저 지원) -->
-    <script src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
-    <script>
-      let inputElm = document.querySelector('input[name=stack]');
+      <!-- 제출 버튼 -->
+      <div class="flex justify-center mt-8">
+        <button type="submit" 
+                class="px-6 py-3 bg-indigo-600 text-white font-medium rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          정보 수정
+        </button>
+      </div>
+    </form>
+  </div>
 
-      var whitelist = ["A# .NET", "A# (Axiom)", "A-0 System", "A+", "A++", "ABAP", "ABC", "ABC ALGOL", "ABSET", "ABSYS", "ACC", "Accent", "Ace DASL", "ACL2", "Avicsoft", "ACT-III", "Action!", "ActionScript", "Ada", "Adenine", "Agda", "Agilent VEE", "Agora", "AIMMS", "Alef", "ALF", "ALGOL 58", "ALGOL 60", "ALGOL 68", "ALGOL W", "Alice", "Alma-0", "AmbientTalk", "Amiga E", "AMOS", "AMPL", "Apex (Salesforce.com)", "APL", "AppleScript", "Arc", "ARexx", "Argus", "AspectJ", "Assembly language", "ATS", "Ateji PX", "AutoHotkey", "Autocoder", "AutoIt", "AutoLISP / Visual LISP", "Averest", "AWK", "Axum", "Active Server Pages", "ASP.NET", "B", "Babbage", "Bash", "BASIC", "bc", "BCPL", "BeanShell", "Batch (Windows/Dos)", "Bertrand", "BETA", "Bigwig", "Bistro", "BitC", "BLISS", "Blockly", "BlooP", "Blue", "Boo", "Boomerang", "Bourne shell (including bash and ksh)", "BREW", "BPEL", "B", "C--", "C++ – ISO/IEC 14882", "C# – ISO/IEC 23270", "C/AL", "Caché ObjectScript", "C Shell", "Caml", "Cayenne", "CDuce", "Cecil", "Cesil", "Céu", "Ceylon", "CFEngine", "CFML", "Cg", "Ch", "Chapel", "Charity", "Charm", "Chef", "CHILL", "CHIP-8", "chomski", "ChucK", "CICS", "Cilk", "Citrine (programming language)", "CL (IBM)", "Claire", "Clarion", "Clean", "Clipper", "CLIPS", "CLIST", "Clojure", "CLU", "CMS-2", "COBOL – ISO/IEC 1989", "CobolScript – COBOL Scripting language", "Cobra", "CODE", "CoffeeScript", "ColdFusion", "COMAL", "Combined Programming Language (CPL)", "COMIT", "Common Intermediate Language (CIL)", "Common Lisp (also known as CL)", "COMPASS", "Component Pascal", "Constraint Handling Rules (CHR)", "COMTRAN", "Converge", "Cool", "Coq", "Coral 66", "Corn", "CorVision", "COWSEL", "CPL", "CPL", "Cryptol", "csh", "Csound", "CSP", "CUDA", "Curl", "Curry", "Cybil", "Cyclone", "Cython", "Java", "Javascript", "M2001", "M4", "M#", "Machine code", "MAD (Michigan Algorithm Decoder)", "MAD/I", "Magik", "Magma", "make", "Maple", "MAPPER now part of BIS", "MARK-IV now VISION:BUILDER", "Mary", "MASM Microsoft Assembly x86", "MATH-MATIC", "Mathematica", "MATLAB", "Maxima (see also Macsyma)", "Max (Max Msp – Graphical Programming Environment)", "Maya (MEL)", "MDL", "Mercury", "Mesa", "Metafont", "Microcode", "MicroScript", "MIIS", "Milk (programming language)", "MIMIC", "Mirah", "Miranda", "MIVA Script", "ML", "Model 204", "Modelica", "Modula", "Modula-2", "Modula-3", "Mohol", "MOO", "Mortran", "Mouse", "MPD", "Mathcad", "MSIL – deprecated name for CIL", "MSL", "MUMPS", "Mystic Programming L"];
-
-      var tagify = new Tagify(inputElm, {
-        whitelist:whitelist,
-        maxTags: 10,
-        dropdown: {
-          maxItems: 20,
-          classname: "tags-look",
-          enabled: 0,
-          closeOnSelect: false
-        }
-      })
-    </script>
-    <script>
-      function modify(f){
-        alert("정보가 변경되었습니다.")
+  <script>
+    const job_program_select = document.querySelector('#job_program_select')
+    const job_program = document.querySelector('#job_program')
+    job_program.readOnly = true
+    job_program.style.backgroundColor = '#e4e4e4'
+    job_program_select.addEventListener('change', (event) => {
+      if(event.target.value !== "self") {
+        job_program.value = event.target.value
+        job_program.style.backgroundColor = '#e4e4e4'
+        job_program.readOnly = true
+      } else {
+        job_program.value = "";
+        job_program.style.backgroundColor = 'white'
+        job_program.readOnly = false
+        job_program.focus()
       }
+    })
+  </script>
 
-      function Edit(no) {
-        let popupOption = "width=400px, height=400px, top=150px, left=300px, scrollbar=yes, resizable=no";
-        let popupUrl = '/member/file_edit?no='+no;
-        window.open(popupUrl, 'child', popupOption);
-      }
-    </script>
-    <script>
-      img_pattern = /^(.*?)\.(jpg|jpeg|png)$/;
+  <!-- tagify -->
+  <script src="https://unpkg.com/@yaireo/tagify"></script>
+  <script src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+  <script>
+    let inputElm = document.querySelector('input[name=stack]');
+    var whitelist = ["A# .NET", "A# (Axiom)", "A-0 System", "A+", "A++", "ABAP", "ABC", "ABC ALGOL", "ABSET", "ABSYS", "ACC", "Accent", "Ace DASL", "ACL2", "Avicsoft", "ACT-III", "Action!", "ActionScript", "Ada", "Adenine", "Agda", "Agilent VEE", "Agora", "AIMMS", "Alef", "ALF", "ALGOL 58", "ALGOL 60", "ALGOL 68", "ALGOL W", "Alice", "Alma-0", "AmbientTalk", "Amiga E", "AMOS", "AMPL", "Apex (Salesforce.com)", "APL", "AppleScript", "Arc", "ARexx", "Argus", "AspectJ", "Assembly language", "ATS", "Ateji PX", "AutoHotkey", "Autocoder", "AutoIt", "AutoLISP / Visual LISP", "Averest", "AWK", "Axum", "Active Server Pages", "ASP.NET", "B", "Babbage", "Bash", "BASIC", "bc", "BCPL", "BeanShell", "Batch (Windows/Dos)", "Bertrand", "BETA", "Bigwig", "Bistro", "BitC", "BLISS", "Blockly", "BlooP", "Blue", "Boo", "Boomerang", "Bourne shell (including bash and ksh)", "BREW", "BPEL", "B", "C--", "C++ – ISO/IEC 14882", "C# – ISO/IEC 23270", "C/AL", "Caché ObjectScript", "C Shell", "Caml", "Cayenne", "CDuce", "Cecil", "Cesil", "Céu", "Ceylon", "CFEngine", "CFML", "Cg", "Ch", "Chapel", "Charity", "Charm", "Chef", "CHILL", "CHIP-8", "chomski", "ChucK", "CICS", "Cilk", "Citrine (programming language)", "CL (IBM)", "Claire", "Clarion", "Clean", "Clipper", "CLIPS", "CLIST", "Clojure", "CLU", "CMS-2", "COBOL – ISO/IEC 1989", "CobolScript – COBOL Scripting language", "Cobra", "CODE", "CoffeeScript", "ColdFusion", "COMAL", "Combined Programming Language (CPL)", "COMIT", "Common Intermediate Language (CIL)", "Common Lisp (also known as CL)", "COMPASS", "Component Pascal", "Constraint Handling Rules (CHR)", "COMTRAN", "Converge", "Cool", "Coq", "Coral 66", "Corn", "CorVision", "COWSEL", "CPL", "CPL", "Cryptol", "csh", "Csound", "CSP", "CUDA", "Curl", "Curry", "Cybil", "Cyclone", "Cython", "Java", "Javascript", "M2001", "M4", "M#", "Machine code", "MAD (Michigan Algorithm Decoder)", "MAD/I", "Magik", "Magma", "make", "Maple", "MAPPER now part of BIS", "MARK-IV now VISION:BUILDER", "Mary", "MASM Microsoft Assembly x86", "MATH-MATIC", "Mathematica", "MATLAB", "Maxima (see also Macsyma)", "Max (Max Msp – Graphical Programming Environment)", "Maya (MEL)", "MDL", "Mercury", "Mesa", "Metafont", "Microcode", "MicroScript", "MIIS", "Milk (programming language)", "MIMIC", "Mirah", "Miranda", "MIVA Script", "ML", "Model 204", "Modelica", "Modula", "Modula-2", "Modula-3", "Mohol", "MOO", "Mortran", "Mouse", "MPD", "Mathcad", "MSIL – deprecated name for CIL", "MSL", "MUMPS", "Mystic Programming L"];
 
-      function imgUpload(e){
-        if(img_pattern.test(e.value) == false){
-          alert("해당 파일은 이미지 파일이 아닙니다.");
-          e.value = "";
-        }
+    var tagify = new Tagify(inputElm, {
+      whitelist: whitelist,
+      maxTags: 10,
+      dropdown: {
+        maxItems: 20,
+        classname: "tags-look",
+        enabled: 0,
+        closeOnSelect: false
       }
-    </script>
+    })
+  </script>
 </div>

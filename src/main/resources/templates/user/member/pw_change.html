@@ -1,80 +1,71 @@
-  <!DOCTYPE html>
-  <html xmlns:th="http://www.thymeleaf.org"
-        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        layout:decorate="~{include/layout}">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{include/layout}">
 
+<div layout:fragment="content">
+  <div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md mx-auto">
+      <div class="bg-white shadow-sm rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-gray-900 mb-8 text-center">비밀번호 변경</h2>
+        
+        <form th:action="@{/member/pw-change}" method="post" class="space-y-6">
+          <!-- 현재 비밀번호 -->
+          <div class="space-y-2">
+            <label for="currentPassword" class="block text-sm font-medium text-gray-700">현재 비밀번호</label>
+            <input type="password" id="currentPassword" name="currentPassword" required
+                   class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+          </div>
 
-  <div layout:fragment="content">
-    <div class="admin-content">
-      <div class="user_img_box"><img th:src="@{/images/Character.png}" alt="" class="user_img"></div>
-      <div class="user_main">
-        <div class="user_group">
+          <!-- 새 비밀번호 -->
+          <div class="space-y-2">
+            <label for="newPassword" class="block text-sm font-medium text-gray-700">새 비밀번호</label>
+            <input type="password" id="newPassword" name="newPassword" required
+                   class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            <p class="text-sm text-gray-500">8~16자리의 영문, 숫자, 특수문자를 포함해주세요.</p>
+          </div>
 
-        <div class="user_title">
-          <h2>나의 정보</h2>
-        </div>
-        <div class="user_tab">
-          <div class="user_tab_title"><a th:href="@{/member/mypage}"><span >기본정보</span></a></div>
-          <div class="user_tab_title"><a th:href="@{/member/mypage2}"><span >추가정보</span></a></div>
-          <div class="user_tab_title"><a th:href="@{/member/validatePw}"><span class="user_tab_border">비밀번호 변경</span></a></div>
-        </div>
-          <form th:action="@{/member/changePw}" method="post" onsubmit="return modify(this)">
-            <div class="user_content">
-              <div class="pw_title">
-                <h2>비밀번호 변경</h2>
-                <p>새로운 비밀번호를 입력해주세요 <i class="far fa-smile"></i></p>
-              </div>
-              <div class="pw_modify_box">
-                <div class="user_info_box">
-                  <label for="pw">비밀번호</label>
-                  <input type="password" name="pw" id="pw" placeholder="비밀번호를 입력해주세요." minlength="8" maxlength="16" onchange="pwCheck(this)" required />
-                  <p class="info mb-0" id="pwmsg">비밀번호는 최소 8자리에서 최대 16자리 <br> 숫자, 영문, 특수문자 각 1개 이상 포함</p>
-                </div>
-                <div class="user_info_box">
-                  <label for="pw">비밀번호 확인</label>
-                  <input type="password" name="pw2" id="pw2" placeholder="비밀번호를 다시 입력해주세요." minlength="8" maxlength="16" required />
-                </div>
-              </div>
-              <div class="btn_group_center">
-                <button type="submit" class="board_btn select_btn">변경</button>
-              </div>
-            </div>
-          </form>
-      </div>
+          <!-- 새 비밀번호 확인 -->
+          <div class="space-y-2">
+            <label for="confirmPassword" class="block text-sm font-medium text-gray-700">새 비밀번호 확인</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required
+                   class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+          </div>
+
+          <!-- 제출 버튼 -->
+          <div class="flex justify-center">
+            <button type="submit"
+                    class="w-full px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              비밀번호 변경
+            </button>
+          </div>
+        </form>
       </div>
     </div>
-    <script>
-      function pwCheck(obj){
-        let pwmsg = document.querySelector('#pwmsg')
-        pw_pattern = /^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/;
+  </div>
 
-        if(obj.value.length <= 7){
-          alert("비밀번호는 8자리에서 16자리 입력해주셔야 합니다.")
-          pwmsg.style.color = "red"
-          obj.value = '';
-          obj.focus();
-          return false;
-        }
-        if(pw_pattern.test(obj.value) == false){
-          alert("비밀번호는 숫자, 영문, 특수문자 각 1개 이상 포함되어야 합니다.")
-          pwmsg.style.color = "red"
-          obj.value = '';
-          obj.focus();
-          return false;
-        } else {
-          pwmsg.style.color = "blue"
-          return true;
-        }
+  <script>
+    document.querySelector('form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const newPassword = document.getElementById('newPassword').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      
+      // 비밀번호 유효성 검사
+      const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/;
+      
+      if (!passwordPattern.test(newPassword)) {
+        alert('비밀번호는 8~16자리의 영문, 숫자, 특수문자를 포함해야 합니다.');
+        return;
       }
-
-
-      function modify(f) {
-
-        if (f.pw.value != f.pw2.value) {
-          alert("비밀번호와 비밀번호 확인이 서로 다릅니다.");
-          f.pw.focus();
-          return false;
-        }
+      
+      if (newPassword !== confirmPassword) {
+        alert('새 비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+        return;
       }
-    </script>
+      
+      this.submit();
+    });
+  </script>
 </div>
+</html>
