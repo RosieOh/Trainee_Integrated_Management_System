@@ -73,11 +73,13 @@ public class HomeController {
 
     // 본인확인
     @GetMapping("/pw")
-    public String pw_confirm (Model model) { return "user/pw_validate"; }
+    public String pw_confirm (Model model) {
+        return "user/pw_validate";
+    }
 
     //비밀번호변경
     @GetMapping("/pw2")
-    public String pw_modify (Model model) { return "user/pw_modify"; }
-
-
+    public String pw_modify (Model model) {
+        return "user/pw_modify";
+    }
 }

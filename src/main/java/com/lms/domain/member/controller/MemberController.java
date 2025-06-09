@@ -81,13 +81,10 @@ public class MemberController {
             fileList.addAll(fileDTOs);
         }
 
-
         model.addAttribute("student_picture", student_picture);
         model.addAttribute("memberDTO",memberDTO);
         model.addAttribute("fileList", fileList);
         model.addAttribute("fileCountMap", fileService.getFileCountMap(fileList));
-
-
 
         return "user/index";
     }
@@ -139,28 +136,26 @@ public class MemberController {
 
     @GetMapping("mypage2")
     public String mypage2(Model model, Principal principal){
-        log.info("mypage2 시작 ------");
         String id = principal.getName();
         MemberDTO memberDTO = memberService.loginId(id);
         StudentDTO studentDTO = studentService.student_read(memberDTO.getNo());
+
         if(studentDTO.getPicture() != null){
             FileStudentDTO picture_file = fileStudentService.getFile(studentDTO.getNo(), studentDTO.getPicture());
             model.addAttribute("picture_file", picture_file);
-            log.info("getPicture ------" + picture_file);
         }
+
         if(studentDTO.getPortfolio() != null){
             FileStudentDTO Portfolio_file = fileStudentService.getFile(studentDTO.getNo(), studentDTO.getPortfolio());
             model.addAttribute("Portfolio_file", Portfolio_file);
-            log.info("getPicture ------" + Portfolio_file);
-
         }
+
         if(studentDTO.getResume() != null){
             FileStudentDTO resume_file = fileStudentService.getFile(studentDTO.getNo(), studentDTO.getResume());
             model.addAttribute("resume_file", resume_file);
-            log.info("getPicture ------" + resume_file);
         }
+
         model.addAttribute("studentDTO", studentDTO);
-        log.info("mypage2 끝 ------");
         return "user/member/mypage2";
     }
 
@@ -179,10 +174,6 @@ public class MemberController {
                               @RequestParam("file1") MultipartFile file1,
                               @RequestParam("file2") MultipartFile file2,
                               @RequestParam("file3") MultipartFile file3){
-        log.info("student_add 시작 ------------------------------------------------------------------------------------------" + studentDTO);
-        log.info("file1 ------" + file1);
-        log.info("file2 ------" + file2);
-        log.info("file3 ------" + file3);
         String randomTitle = UUID.randomUUID().toString();
         String savePath = System.getProperty("user.dir") + "/files/";
 
@@ -207,9 +198,7 @@ public class MemberController {
                 log.info("file1 시작: " + file1);
                 String picture_origin = file1.getOriginalFilename();
                 String picture_saveFileName = new MD5Generator(picture_origin).toString();
-//                String picture_saveFileName = randomTitle + picture_origin;
 
-                log.info("file1 transferTo 시작 ");
                 file1.transferTo(new File(savePath, picture_saveFileName));
                 FileStudentDTO fileDTO = new FileStudentDTO();
                 fileDTO.setOriginFileName(picture_origin);
@@ -217,18 +206,13 @@ public class MemberController {
                 fileDTO.setSavePath(savePath);
                 fileDTO.setMemberId(studentDTO.getNo());
                 Long no = fileStudentService.saveFile(fileDTO);
-                log.info("no -------------" + no);
                 studentDTO1.setPicture(no);
-                log.info("file1 transferTo 끝 ");
 
             }
             if(!file2.isEmpty()) {
-                log.info("file2 시작: " + file2);
                 String portfolio_origin = file2.getOriginalFilename();
                 String portfolio_saveFileName = new MD5Generator(portfolio_origin).toString();
-//                String portfolio_saveFileName = randomTitle + portfolio_origin;
 
-                log.info("file2 transferTo 시작 ");
                 file2.transferTo(new File(savePath, portfolio_saveFileName));
                 FileStudentDTO fileDTO = new FileStudentDTO();
                 fileDTO.setOriginFileName(portfolio_origin);
@@ -237,16 +221,12 @@ public class MemberController {
                 fileDTO.setMemberId(studentDTO.getNo());
                 Long no = fileStudentService.saveFile(fileDTO);
                 studentDTO1.setPortfolio(no);
-                log.info("file2 transferTo 끝 ");
 
             }
             if(!file3.isEmpty()) {
-                log.info("file3 시작: " + file3);
                 String resume_origin = file3.getOriginalFilename();
                 String resume_saveFileName = new MD5Generator(resume_origin).toString();
-//                String resume_saveFileName = randomTitle + resume_origin;
 
-                log.info("file3 transferTo 시작 ");
                 file3.transferTo(new File(savePath, resume_saveFileName));
                 FileStudentDTO fileDTO = new FileStudentDTO();
                 fileDTO.setOriginFileName(resume_origin);
@@ -255,7 +235,6 @@ public class MemberController {
                 fileDTO.setMemberId(studentDTO.getNo());
                 Long no = fileStudentService.saveFile(fileDTO);
                 studentDTO1.setResume(no);
-                log.info("file3 transferTo 끝 ");
             }
             studentService.student_edit(studentDTO1);
 
@@ -268,14 +247,12 @@ public class MemberController {
 
     @GetMapping("file_edit")
     public String FaqEditForm(Model model, int no) {
-        log.info("FaqEditForm 시작--------------------" + no);
         model.addAttribute("no", no);
         return "user/member/studentEdit";
     }
 
     @PostMapping(value = "file_edit", consumes = { "multipart/form-data"} )
     public String file_edit(@RequestParam("fileChange") MultipartFile files, Model model, @RequestParam("no") int no, Principal principal) throws Exception{
-        log.info("file_edit 시작--------------------" + no);
         MemberDTO memberDTO = memberService.loginId(principal.getName());
         StudentDTO studentDTO = studentService.student_read(memberDTO.getNo());
 
@@ -331,8 +308,6 @@ public class MemberController {
 
     @PostMapping("pwCheck")
     public ResponseEntity pwCheck(@RequestBody MemberDTO memberDTO, Principal principal) throws Exception {
-        log.info("memberDTO ----" + memberDTO);
-        log.info("pw ----" + memberDTO.getPw());
         boolean result = memberService.validatePw(principal.getName(), memberDTO.getPw());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

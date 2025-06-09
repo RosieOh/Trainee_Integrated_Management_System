@@ -41,6 +41,7 @@ public class AdminController {
     private final CourseService courseService;
     private final StudentService studentService;
     private final FileStudentService fileStudentService;
+
     // 회원관리 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
 
@@ -49,8 +50,6 @@ public class AdminController {
     public String admin_member(Model model, Principal principal,HttpServletRequest request, @PageableDefault(page=0, size=20, sort="name", direction= Sort.Direction.ASC)Pageable pageable,
                                @RequestParam(required = false) String keyword, @RequestParam(required = false)Subject subject, @RequestParam(required = false)Integer flag, @RequestParam(required = false)Role role){
 
-//        List<MemberDTO> memberList = memberService.member_list();
-//        model.addAttribute("memberList",memberList);
 
         List<CourseDTO> course_big_List = courseService.course_subject_list(Subject.BIGDATA);
         List<CourseDTO> course_full_List = courseService.course_subject_list(Subject.FULLSTACK);
@@ -131,18 +130,15 @@ public class AdminController {
         if(studentDTO.getPicture() != null){
             FileStudentDTO picture_file = fileStudentService.getFile(studentDTO.getNo(), studentDTO.getPicture());
             model.addAttribute("picture_file", picture_file);
-            log.info("getPicture ------" + picture_file);
         }
         if(studentDTO.getPortfolio() != null){
             FileStudentDTO Portfolio_file = fileStudentService.getFile(studentDTO.getNo(), studentDTO.getPortfolio());
             model.addAttribute("Portfolio_file", Portfolio_file);
-            log.info("getPicture ------" + Portfolio_file);
 
         }
         if(studentDTO.getResume() != null){
             FileStudentDTO resume_file = fileStudentService.getFile(studentDTO.getNo(), studentDTO.getResume());
             model.addAttribute("resume_file", resume_file);
-            log.info("getPicture ------" + resume_file);
         }
 
         model.addAttribute("member", member);
@@ -221,7 +217,6 @@ public class AdminController {
     // 비밀번호 초기화(진행중)
     @PostMapping("/pwReset")
     public ResponseEntity pwReset(@RequestBody MemberDTO memberDTO) throws Exception {
-        log.info("memberDTO ----" + memberDTO);
         memberService.changePw(memberDTO.getId(), "1234");
         boolean result = true;
         return new ResponseEntity<>(result, HttpStatus.OK);
@@ -234,9 +229,6 @@ public class AdminController {
         Long no = studentDTO.getNo();
         return  "redirect:/admin/member_read?no="+ no;
     }
-
-
-    // 강의 시스템 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
     // 강의 리스트
     @GetMapping("/course")
@@ -271,7 +263,6 @@ public class AdminController {
     // 강의 수정하기
     @PostMapping("/course_edit")
     public String course_editPro(Model model, CourseDTO courseDTO){
-        log.info("courseDTO -----------" + courseDTO);
         courseService.course_edit(courseDTO);
         return "redirect:/admin/course";
     }
