@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <!-- 텍스트 입력 필드 -->
+    <th:block th:fragment="input(type, id, label, placeholder, required)">
+        <div>
+            <label th:for="${id}" class="block text-sm font-medium text-gray-700" th:text="${label}"></label>
+            <div class="mt-1">
+                <input th:type="${type}" 
+                       th:id="${id}" 
+                       th:name="${id}"
+                       th:placeholder="${placeholder}"
+                       th:required="${required}"
+                       class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+            </div>
+        </div>
+    </th:block>
+
+    <!-- 텍스트 영역 -->
+    <th:block th:fragment="textarea(id, label, placeholder, rows, required)">
+        <div>
+            <label th:for="${id}" class="block text-sm font-medium text-gray-700" th:text="${label}"></label>
+            <div class="mt-1">
+                <textarea th:id="${id}"
+                         th:name="${id}"
+                         th:rows="${rows}"
+                         th:placeholder="${placeholder}"
+                         th:required="${required}"
+                         class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"></textarea>
+            </div>
+        </div>
+    </th:block>
+
+    <!-- 셀렉트 박스 -->
+    <th:block th:fragment="select(id, label, options, required)">
+        <div>
+            <label th:for="${id}" class="block text-sm font-medium text-gray-700" th:text="${label}"></label>
+            <div class="mt-1">
+                <select th:id="${id}"
+                        th:name="${id}"
+                        th:required="${required}"
+                        class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                    <option th:each="option : ${options}"
+                            th:value="${option.value}"
+                            th:text="${option.label}"></option>
+                </select>
+            </div>
+        </div>
+    </th:block>
+
+    <!-- 체크박스 -->
+    <th:block th:fragment="checkbox(id, label, checked)">
+        <div class="relative flex items-start">
+            <div class="flex items-center h-5">
+                <input th:id="${id}"
+                       th:name="${id}"
+                       th:checked="${checked}"
+                       type="checkbox"
+                       class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+            </div>
+            <div class="ml-3 text-sm">
+                <label th:for="${id}" class="font-medium text-gray-700" th:text="${label}"></label>
+            </div>
+        </div>
+    </th:block>
+
+    <!-- 라디오 버튼 -->
+    <th:block th:fragment="radio(id, label, value, checked)">
+        <div class="relative flex items-start">
+            <div class="flex items-center h-5">
+                <input th:id="${id}"
+                       th:name="${id}"
+                       th:value="${value}"
+                       th:checked="${checked}"
+                       type="radio"
+                       class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
+            </div>
+            <div class="ml-3 text-sm">
+                <label th:for="${id}" class="font-medium text-gray-700" th:text="${label}"></label>
+            </div>
+        </div>
+    </th:block>
+
+    <!-- 파일 업로드 -->
+    <th:block th:fragment="fileUpload(id, label, accept, multiple)">
+        <div>
+            <label th:for="${id}" class="block text-sm font-medium text-gray-700" th:text="${label}"></label>
+            <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                <div class="space-y-1 text-center">
+                    <i class="fas fa-cloud-upload-alt text-gray-400 text-3xl"></i>
+                    <div class="flex text-sm text-gray-600">
+                        <label th:for="${id}"
+                               class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                            <span>Upload a file</span>
+                            <input th:id="${id}"
+                                   th:name="${id}"
+                                   th:accept="${accept}"
+                                   th:multiple="${multiple}"
+                                   type="file"
+                                   class="sr-only">
+                        </label>
+                        <p class="pl-1">or drag and drop</p>
+                    </div>
+                    <p class="text-xs text-gray-500">
+                        PNG, JPG, GIF up to 10MB
+                    </p>
+                </div>
+            </div>
+        </div>
+    </th:block>
+
+    <!-- 폼 그룹 -->
+    <th:block th:fragment="formGroup">
+        <div class="space-y-6">
+            <div th:replace="${content}"></div>
+        </div>
+    </th:block>
+</body>
+</html> 

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <!-- 기본 카드 -->
+    <th:block th:fragment="card">
+        <div class="bg-white overflow-hidden shadow rounded-lg">
+            <div class="px-4 py-5 sm:p-6">
+                <div th:replace="${content}"></div>
+            </div>
+        </div>
+    </th:block>
+
+    <!-- 헤더가 있는 카드 -->
+    <th:block th:fragment="cardWithHeader(title)">
+        <div class="bg-white overflow-hidden shadow rounded-lg">
+            <div class="px-4 py-5 sm:px-6">
+                <h3 class="text-lg leading-6 font-medium text-gray-900" th:text="${title}"></h3>
+            </div>
+            <div class="border-t border-gray-200">
+                <div class="px-4 py-5 sm:p-6">
+                    <div th:replace="${content}"></div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+
+    <!-- 푸터가 있는 카드 -->
+    <th:block th:fragment="cardWithFooter">
+        <div class="bg-white overflow-hidden shadow rounded-lg">
+            <div class="px-4 py-5 sm:p-6">
+                <div th:replace="${content}"></div>
+            </div>
+            <div class="bg-gray-50 px-4 py-4 sm:px-6">
+                <div th:replace="${footer}"></div>
+            </div>
+        </div>
+    </th:block>
+
+    <!-- 이미지가 있는 카드 -->
+    <th:block th:fragment="cardWithImage(imageUrl, title)">
+        <div class="bg-white overflow-hidden shadow rounded-lg">
+            <div class="relative">
+                <img th:src="${imageUrl}" th:alt="${title}" class="w-full h-48 object-cover">
+            </div>
+            <div class="px-4 py-5 sm:p-6">
+                <h3 class="text-lg leading-6 font-medium text-gray-900" th:text="${title}"></h3>
+                <div class="mt-2">
+                    <div th:replace="${content}"></div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+
+    <!-- 통계 카드 -->
+    <th:block th:fragment="statCard(title, value, icon, change)">
+        <div class="bg-white overflow-hidden shadow rounded-lg">
+            <div class="p-5">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <i th:class="${icon + ' h-6 w-6 text-gray-400'}"></i>
+                    </div>
+                    <div class="ml-5 w-0 flex-1">
+                        <dl>
+                            <dt class="text-sm font-medium text-gray-500 truncate" th:text="${title}"></dt>
+                            <dd>
+                                <div class="text-lg font-medium text-gray-900" th:text="${value}"></div>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${change != null}" class="bg-gray-50 px-5 py-3">
+                <div class="text-sm">
+                    <span th:class="${change > 0 ? 'text-green-600' : 'text-red-600'}">
+                        <i th:class="${change > 0 ? 'fas fa-arrow-up' : 'fas fa-arrow-down'}"></i>
+                        <span th:text="${change + '%'}"></span>
+                    </span>
+                    <span class="text-gray-500">from last month</span>
+                </div>
+            </div>
+        </div>
+    </th:block>
+</body>
+</html> 

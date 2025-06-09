@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <!-- 기본 알림 -->
+    <th:block th:fragment="alert(type, message)">
+        <div th:class="${'rounded-md p-4 ' + 
+            (type == 'success' ? 'bg-green-50' : 
+             type == 'error' ? 'bg-red-50' : 
+             type == 'warning' ? 'bg-yellow-50' : 
+             type == 'info' ? 'bg-blue-50' : 
+             'bg-gray-50')}">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <i th:class="${'h-5 w-5 ' + 
+                        (type == 'success' ? 'text-green-400 fas fa-check-circle' : 
+                         type == 'error' ? 'text-red-400 fas fa-exclamation-circle' : 
+                         type == 'warning' ? 'text-yellow-400 fas fa-exclamation-triangle' : 
+                         type == 'info' ? 'text-blue-400 fas fa-info-circle' : 
+                         'text-gray-400 fas fa-info-circle')}"></i>
+                </div>
+                <div class="ml-3">
+                    <p th:class="${'text-sm font-medium ' + 
+                        (type == 'success' ? 'text-green-800' : 
+                         type == 'error' ? 'text-red-800' : 
+                         type == 'warning' ? 'text-yellow-800' : 
+                         type == 'info' ? 'text-blue-800' : 
+                         'text-gray-800')}" 
+                       th:text="${message}"></p>
+                </div>
+            </div>
+        </div>
+    </th:block>
+
+    <!-- 닫을 수 있는 알림 -->
+    <th:block th:fragment="dismissibleAlert(type, message, id)">
+        <div th:id="${id}" 
+             th:class="${'rounded-md p-4 ' + 
+                (type == 'success' ? 'bg-green-50' : 
+                 type == 'error' ? 'bg-red-50' : 
+                 type == 'warning' ? 'bg-yellow-50' : 
+                 type == 'info' ? 'bg-blue-50' : 
+                 'bg-gray-50')}">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <i th:class="${'h-5 w-5 ' + 
+                        (type == 'success' ? 'text-green-400 fas fa-check-circle' : 
+                         type == 'error' ? 'text-red-400 fas fa-exclamation-circle' : 
+                         type == 'warning' ? 'text-yellow-400 fas fa-exclamation-triangle' : 
+                         type == 'info' ? 'text-blue-400 fas fa-info-circle' : 
+                         'text-gray-400 fas fa-info-circle')}"></i>
+                </div>
+                <div class="ml-3">
+                    <p th:class="${'text-sm font-medium ' + 
+                        (type == 'success' ? 'text-green-800' : 
+                         type == 'error' ? 'text-red-800' : 
+                         type == 'warning' ? 'text-yellow-800' : 
+                         type == 'info' ? 'text-blue-800' : 
+                         'text-gray-800')}" 
+                       th:text="${message}"></p>
+                </div>
+                <div class="ml-auto pl-3">
+                    <div class="-mx-1.5 -my-1.5">
+                        <button type="button" 
+                                th:onclick="${'document.getElementById(\'' + id + '\').style.display = \'none\''}"
+                                th:class="${'inline-flex rounded-md p-1.5 ' + 
+                                    (type == 'success' ? 'bg-green-50 text-green-500 hover:bg-green-100' : 
+                                     type == 'error' ? 'bg-red-50 text-red-500 hover:bg-red-100' : 
+                                     type == 'warning' ? 'bg-yellow-50 text-yellow-500 hover:bg-yellow-100' : 
+                                     type == 'info' ? 'bg-blue-50 text-blue-500 hover:bg-blue-100' : 
+                                     'bg-gray-50 text-gray-500 hover:bg-gray-100')}">
+                            <span class="sr-only">Dismiss</span>
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+
+    <!-- 토스트 알림 -->
+    <th:block th:fragment="toast(type, message, id)">
+        <div th:id="${id}"
+             th:class="${'fixed bottom-0 right-0 m-4 rounded-md p-4 shadow-lg transform transition-all duration-500 ease-in-out ' + 
+                (type == 'success' ? 'bg-green-50' : 
+                 type == 'error' ? 'bg-red-50' : 
+                 type == 'warning' ? 'bg-yellow-50' : 
+                 type == 'info' ? 'bg-blue-50' : 
+                 'bg-gray-50')}"
+             style="display: none;">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <i th:class="${'h-5 w-5 ' + 
+                        (type == 'success' ? 'text-green-400 fas fa-check-circle' : 
+                         type == 'error' ? 'text-red-400 fas fa-exclamation-circle' : 
+                         type == 'warning' ? 'text-yellow-400 fas fa-exclamation-triangle' : 
+                         type == 'info' ? 'text-blue-400 fas fa-info-circle' : 
+                         'text-gray-400 fas fa-info-circle')}"></i>
+                </div>
+                <div class="ml-3">
+                    <p th:class="${'text-sm font-medium ' + 
+                        (type == 'success' ? 'text-green-800' : 
+                         type == 'error' ? 'text-red-800' : 
+                         type == 'warning' ? 'text-yellow-800' : 
+                         type == 'info' ? 'text-blue-800' : 
+                         'text-gray-800')}" 
+                       th:text="${message}"></p>
+                </div>
+                <div class="ml-auto pl-3">
+                    <div class="-mx-1.5 -my-1.5">
+                        <button type="button" 
+                                th:onclick="${'document.getElementById(\'' + id + '\').style.display = \'none\''}"
+                                th:class="${'inline-flex rounded-md p-1.5 ' + 
+                                    (type == 'success' ? 'bg-green-50 text-green-500 hover:bg-green-100' : 
+                                     type == 'error' ? 'bg-red-50 text-red-500 hover:bg-red-100' : 
+                                     type == 'warning' ? 'bg-yellow-50 text-yellow-500 hover:bg-yellow-100' : 
+                                     type == 'info' ? 'bg-blue-50 text-blue-500 hover:bg-blue-100' : 
+                                     'bg-gray-50 text-gray-500 hover:bg-gray-100')}">
+                            <span class="sr-only">Dismiss</span>
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script th:inline="javascript">
+            function showToast() {
+                const toast = document.getElementById([[${id}]]);
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 5000);
+            }
+            showToast();
+        </script>
+    </th:block>
+</body>
+</html> 

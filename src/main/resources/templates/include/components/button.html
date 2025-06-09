@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <!-- 기본 버튼 -->
+    <th:block th:fragment="button(type, text, variant)">
+        <button th:type="${type}" 
+                th:class="${'inline-flex items-center px-4 py-2 border text-sm font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 ' + 
+                (variant == 'primary' ? 'border-transparent text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500' : 
+                variant == 'secondary' ? 'border-gray-300 text-gray-700 bg-white hover:bg-gray-50 focus:ring-indigo-500' :
+                variant == 'danger' ? 'border-transparent text-white bg-red-600 hover:bg-red-700 focus:ring-red-500' :
+                'border-transparent text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500')}">
+            <span th:text="${text}"></span>
+        </button>
+    </th:block>
+
+    <!-- 아이콘이 있는 버튼 -->
+    <th:block th:fragment="iconButton(type, text, icon, variant)">
+        <button th:type="${type}" 
+                th:class="${'inline-flex items-center px-4 py-2 border text-sm font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 ' + 
+                (variant == 'primary' ? 'border-transparent text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500' : 
+                variant == 'secondary' ? 'border-gray-300 text-gray-700 bg-white hover:bg-gray-50 focus:ring-indigo-500' :
+                variant == 'danger' ? 'border-transparent text-white bg-red-600 hover:bg-red-700 focus:ring-red-500' :
+                'border-transparent text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500')}">
+            <i th:class="${'mr-2 ' + icon}"></i>
+            <span th:text="${text}"></span>
+        </button>
+    </th:block>
+
+    <!-- 링크 스타일 버튼 -->
+    <th:block th:fragment="linkButton(href, text, variant)">
+        <a th:href="${href}"
+           th:class="${'inline-flex items-center px-4 py-2 border text-sm font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 ' + 
+           (variant == 'primary' ? 'border-transparent text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500' : 
+           variant == 'secondary' ? 'border-gray-300 text-gray-700 bg-white hover:bg-gray-50 focus:ring-indigo-500' :
+           variant == 'danger' ? 'border-transparent text-white bg-red-600 hover:bg-red-700 focus:ring-red-500' :
+           'border-transparent text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500')}">
+            <span th:text="${text}"></span>
+        </a>
+    </th:block>
+</body>
+</html> 
