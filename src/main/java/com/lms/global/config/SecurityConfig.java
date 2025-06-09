@@ -25,7 +25,6 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        log.info("-------------------  filter Chain Start ------------------");
 
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorizeRequests) -> {authorizeRequests
@@ -51,14 +50,11 @@ public class SecurityConfig {
                 })
 
                 .headers((headers) -> headers.addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)));
-        log.info("-------------------  filter Chain End ------------------");
-
         return http.build();
     }
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer(){
-        log.info("-------------------- WebSecurity ----------------------");
         return (web) -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 
